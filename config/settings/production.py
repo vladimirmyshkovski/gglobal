@@ -22,6 +22,9 @@ import os
 
 from .base import *  # noqa
 
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
+
 # SECRET CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
