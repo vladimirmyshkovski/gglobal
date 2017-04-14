@@ -1,0 +1,46 @@
+# PostgreSQL
+#POSTGRES_PASSWORD=mysecretpass
+#POSTGRES_USER=postgresuser
+
+# General settings
+# DJANGO_READ_DOT_ENV_FILE=True
+DJANGO_ADMIN_URL="django-admin"
+DJANGO_SETTINGS_MODULE=config.settings.production
+DJANGO_SECRET_KEY="}X]AfgR&6a(9o8F_~*[.8^-}NGKXI3{7>%8=Gj$q[e][-6;p$F"
+#DJANGO_ALLOWED_HOSTS=.ремонт-пк-и-ноутбуков.бел
+
+# AWS Settings
+#DJANGO_AWS_ACCESS_KEY_ID=
+#DJANGO_AWS_SECRET_ACCESS_KEY=
+#DJANGO_AWS_STORAGE_BUCKET_NAME=
+
+# Used with email
+DJANGO_MAILGUN_API_KEY="key-dd620439de76b59928886c56a04fa57c"
+#DJANGO_SERVER_EMAIL=""
+MAILGUN_SENDER_DOMAIN="sandbox476f4c9b31dc4618af94ffb1fa3d7c58.mailgun.org"
+
+# Security! Better to use DNS for this task, but you can use redirect
+DJANGO_SECURE_SSL_REDIRECT=False
+
+# django-allauth
+DJANGO_ACCOUNT_ALLOW_REGISTRATION=True
+# Sentry
+DJANGO_SENTRY_DSN="https://56bb387ee6ef4e7bb513862157edac13:516039c011914079a7b3c4d36bd6fe2b@sentry.io/158504"
+# DJANGO_SENTRY_CLIENT="https://56bb387ee6ef4e7bb513862157edac13@sentry.io/158504"
+
+DJANGO_SENTRY_CLIENT="raven.contrib.django.raven_compat.DjangoClient"
+
+DJANGO_OPBEAT_ORGANIZATION_ID="febc334200f745f5bc2e2a997bffb7cc"
+DJANGO_OPBEAT_APP_ID="b56d477e53"
+DJANGO_OPBEAT_SECRET_TOKEN="110d38ff51fb6b3bf4cfb15a1062133038dba7b1"
+
+#COMPRESS_ENABLED=
+
+REDIS_ENDPOINT_ADDRESS="localhost"
+REDIS_PORT="6379"
+
+RDS_DB_NAME="gglobal"
+RDS_USERNAME="narnik"
+RDS_PASSWORD="iddqd3133122"
+RDS_HOSTNAME="localhost"
+RDS_PORT=""
