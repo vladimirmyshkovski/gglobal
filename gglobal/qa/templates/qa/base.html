@@ -1,0 +1,80 @@
+{% load staticfiles %}
+<div class="topbar"></div>
+<div class="container">
+<title>Simple QA</title>
+<link rel="icon" type="image/png" href="static/qa/icon.ico">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script type="text/javascript" src="/static/autocomplete_light/jquery.init.js"></script>
+<script type="text/javascript" src="/static/autocomplete_light/autocomplete.init.js"></script>
+<script type="text/javascript" src="/static/autocomplete_light/vendor/select2/dist/js/select2.full.js"></script>
+<script type="text/javascript" src="/static/autocomplete_light/forward.js"></script>
+<script type="text/javascript" src="/static/autocomplete_light/select2.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.min.js"></script>
+
+<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+
+
+<link href='http://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="{% static 'css/qa.css' %}" rel="stylesheet"/>
+<link href="/static/autocomplete_light/vendor/select2/dist/css/select2.css" type="text/css" media="all" rel="stylesheet" />
+<link href="/static/autocomplete_light/select2.css" type="text/css" media="all" rel="stylesheet" />
+
+<div class="page-header">
+  <a class="btn btn-lg btn-warning pull-right" href="#search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Найти</a><a class="btn btn-lg btn-danger pull-right" href="{% url 'qa_create_question' %}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Задать вопрос</a><h1><a href="{% url 'qa_index' %}"><img width="50px" src="http://icons.iconarchive.com/icons/seanau/flat-app/256/Questionmark-icon.png" /><orange>Вопросы и ответы</orange> </a><small>Открытая площадка</small></h1>
+</div>
+<div class="container">
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+  {% endfor %}
+{% endif %}
+{% block content %}
+
+{% endblock content %}
+ <div id="search">
+   <button type="button" class="close">×</button>
+   <form method="GET" action="{% url 'qa_search' %}">
+     <input type="search" value="" name="word" placeholder="Введите свой запрос сюда" />
+     <input class="btn btn-lg btn-warning" type="submit" value="Найти" />
+   </form>
+   
+ </div>
+</div>
+
+
+ <!-- Modal -->
+
+</div>
+
+{% block js %}
+<script>
+$(function () {
+  $('a[href="#search"]').on('click', function(event) {
+    event.preventDefault();
+    $('#search').addClass('open');
+    $('#search > form > input[type="search"]').focus();
+  });
+
+  $('#search, #search button.close').on('click keyup', function(event) {
+    if (event.target == this || event.target.className == 'close' || event.keyCode == 27) {
+      $(this).removeClass('open');
+    }
+  });
+
+});
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="{% static 'js/ucavatar.js' %}"></script>
+<script>
+  $(document).ready(function(){
+      Ucavatar('#{{ user }}', '{{ user }}', 128)
+  })
+</script>
+<script src="{% static 'turbolinks/turbolinks.js' %}"></script>
+
+{% endblock js %}
+{%block extra_js %}
+{% endblock extra_js %}

@@ -1,0 +1,177 @@
+{% extends 'qa/base.html' %}
+{% load django_markdown %}
+{% load staticfiles %}
+
+{% block content %}
+
+{% if question.closed %}
+  <div class="closed"></div>
+{% else %}
+    {% if question.reward %}
+    <div class="rewarding"></div>
+    {% else %}
+    <div class="open"></div>
+    {% endif %}
+{% endif %}
+
+
+{% if message %}
+    <div class="alert alert-danger" role="alert">{{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}
+{% comment %}
+  
+{% if question.reward %}
+    <div class="alert alert-info" role="alert">Этот вопрос набрал <b>{{ question.reward }}<b> баллов!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}
+{% endcomment %}
+
+<div class="jumbotron">
+  <div class="row">
+    {% if user.is_authenticated and question.user != user %}
+      <div class ="col-sm-1">
+        <big class="pull-left custom-big"><b>{{ question.total_points }}</b></big>
+      </div>
+      <div class ="col-sm-1">
+        <form action="{% url 'qa_question_vote' question.id %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.path }}">
+          <input type="hidden" name="upvote" value="on">
+          <button type="submit" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Vote Up this answer"><span class="fa fa-plus" aria-hidden="true"></span></button>
+        </form>
+          <form action="{% url 'qa_question_vote' question.id %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.path }}">
+          <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="bottom" title="Vote Down this answer"><span class="fa fa-minus" aria-hidden="true"></span></button>
+        </form>
+      </div>
+    {% endif %}
+    <div class="col-sm-10">
+      <small class="pull-right">Вопрос задан <a href="{% url 'qa_profile' question.user.id %}">{% if question.user == user %} вами {% else %}{{ question.user.username }} {% endif %}</a>, {{ question.pub_date }}</small>
+      {% if user.is_authenticated and question.user == user and not question.closed %}<a href="{% url 'qa_update_question' question.id %}"><small class="pull-right">Редактировать &nbsp;</small></a>{% endif %}
+      <h3><cool>Q: </cool>{{ question.title }}</h3>
+      <h4>{{ question.description|markdown }}</h4>
+      <p>
+      {% if question.closed %}
+          <p class="pull-right">Вопрос закрыт</p>
+      {% else %}
+          <a class="btn btn-primary btn-sm pull-right" href="{% url 'qa_create_answer' question.id %}" role="button">Ответь на вопрос!</a>
+          <a class="btn btn-primary btn-sm pull-right" href="{% url 'qa_create_question_comment' question.id %}" role="button">Прокомментируй вопрос!</a>
+      {% endif %}
+      </p>
+    </div>
+  </div>
+</div>
+{% if last_comments %}
+  <h4>Комментарии</h4>
+  {% for comment in last_comments %}
+  <div class="row">
+    <div class="col-md-9 col-md-offset-1">
+            {% if answer.user.userqaprofile.picture %}
+                <img class="pull-right" src="{{ answer.user.userqaprofile.picture }}">
+            {% else %}
+                <canvas style="width: 50px; height: 50px" id='{{ user }}'></canvas>
+                <!--img class="pull-right" width="50px" height="50px" src="{% static "qa/user.png" %}"-->
+            {% endif %}
+    <p><b>{{ comment.comment_text|markdown }}</b><small>, <a href="{% url 'qa_profile' comment.user.id %}">{% if comment.user == user %} Вы {% else %}{{ comment.user.username }}{% endif %}</a> <div class="pull-right">{{ comment.pub_date }}</div></small></p>{% if comment.user == user %}<a href="{% url 'qa_update_question_comment' comment.id %}" class="pull-right"><small>Edit &nbsp;</small></a>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+{% endif %}
+{% if answers %}
+  <h3>Ответы</h3>
+  <hr/>
+
+    {% for answer in answers %}
+    <div class="row">
+      {% if user.is_authenticated and answer.user != user %}
+      <div class ="col-md-1">
+        <div class="row">
+          <div class ="col-sm-1"><big class="pull-left custom-big"><b>{{ answer.total_points }}</b></big></div>
+          <div class ="col-sm-1">
+          <form action="{% url 'qa_answer_vote' answer.id %}" method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ request.path }}">
+              <input type="hidden" name="upvote" value="on">
+              <button type="submit" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Vote Up this answer"><span class="fa fa-plus" aria-hidden="true"></span></button>
+          </form>
+          <form action="{% url 'qa_answer_vote' answer.id %}" method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ request.path }}">
+              <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="bottom" title="Vote Down this answer"><span class="fa fa-minus" aria-hidden="true"></span></button></div>
+          </form>
+        </div>
+      </div>
+      {% endif %}
+      <div class ="col-md-9">
+        <a href="{% url 'qa_create_answer_comment' answer.id %}" class="pull-right"><small><span class="fa fa-comment" aria-hidden="true"></span> Комментировать &nbsp;</small></a>
+        {% if answer.user == user %}<a href="{% url 'qa_update_answer' answer.id %}" class="pull-right"><small>Редактировать &nbsp;</small></a>{% endif %}
+            <div id="ans" class="alert alert-primary" role="alert">{{ answer.answer_text|markdown }}</div>
+        {% if answer.answercomment_set %}
+          {% for comment in answer.answercomment_set.all %}
+            <p><b>{{ comment.comment_text|markdown }}</b><small>, <a href="{% url 'qa_profile' comment.user.id %}">{% if comment.user.id == user.id %} Вы {% else %}{{ comment.user.username }}{% endif %}</a> <div class="pull-right">{{ comment.pub_date }}</div></small></p>{% if comment.user == user %}<a href="{% url 'qa_update_answer_comment' comment.id %}" class="pull-right"><small>Редактировать &nbsp;</small></a>{% endif %}
+          <hr>
+          {% endfor %}
+        {% endif %}
+      </div>
+          <div class ="col-md-2">
+            {% if answer.user.userqaprofile.picture %}
+                <img class="pull-right" src="{{ answer.user.userqaprofile.picture }}">
+            {% else %}
+                <canvas style="width: 50px; height: 50px" id='{{ user }}'></canvas>
+                <!--img class="pull-right" width="50px" height="50px" src="{% static "qa/user.png" %}"-->
+            {% endif %}
+            <p class="pull-right">- <b><a href="{% url 'qa_profile' answer.user.id %}">{% if answer.user.id == user.id %} Вы {% else %}{{ answer.user.username }}{% endif %}</a> ({{ answer.user.userqaprofile.points }})</b></p>
+                {% if user.is_authenticated and answer.question.user == user and answer.question.closed == False %}
+                    <form action="{% url 'qa_close_question' answer.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.path }}"/>
+                        <input type="hidden" name="answer" value="{{ answer.id }}">
+                        <input type="hidden" name="question" value="{{ question.id }}">
+                        <button type="submit" class="btn btn-success btn-sm pull-right" data-toggle="tooltip" data-placement="bottom" title="Принять этот ответ"><span class="fa fa-check" aria-hidden="true"></span></button></div>
+                    </form>
+                {% else %}
+                    {% if  answer.answer == True %}
+                        <button class="btn btn-success btn-sm pull-right" title="Picked Answer"><span class="fa fa-star" aria-hidden="true"></span></button></div>
+                    {% endif %}
+                {% endif %}
+          </div>
+    </div>
+  <hr>
+    {% endfor %}
+
+
+{% else %}
+<img class="pull-right" src="{% static "qa/question.jpg" %}" alt="question"/>
+<center><h2>Этот вопрос открыт, <a href="{% url 'qa_create_answer' question.id %}" role="button">Напиши ответ!</a></h2></center>
+{% endif %}
+
+{% if similar_questions %}
+    <div class="panel panel-success">
+    <div class="panel-heading">
+      <h3 class="panel-title"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span> Похожие Вопросы</h3>
+    </div>
+    <div class="panel-body">
+      {% for question in similar_questions %}
+          <a href="{% url 'qa_detail' question.id %}"><tag>{{ question.title }}</tag></a>
+      {% endfor %}
+    </div>
+    </div>
+{% endif %}
+
+{% endblock content %}
+{% block extra_js %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+{% endblock extra_js %}

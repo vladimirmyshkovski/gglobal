@@ -52,6 +52,39 @@ THIRD_PARTY_APPS = [
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    
+    'hitcount', # qa needed
+    'django_markdown', # qa needed
+    'taggit', # qa needed
+    'annoying', # AutoOneToOneField
+
+
+    'wagtail.wagtailcore',
+    'wagtail.wagtailadmin',
+    'wagtail.wagtailforms',
+    'wagtail.wagtailredirects',
+    'wagtail.wagtailembeds',
+    'wagtail.wagtailsites',
+    'wagtail.wagtailusers',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailimages',
+    'wagtail.wagtailsearch',
+
+
+    'wagtail.contrib.wagtailstyleguide',
+    'wagtail.contrib.modeladmin',
+    'experiments',
+    'wagtailmetadata',
+    'meta',
+    'flags',
+    'wagtail.contrib.wagtailsitemaps',
+    'wagtail.contrib.settings',
+    'wagtailsurveys',
+
+    'wagtailfontawesome',
+    'wagtailmenus',
+    'wagtailblocks_cards',
 ]
 
 # Apps specific for this project go here.
@@ -59,10 +92,19 @@ LOCAL_APPS = [
     # custom users app
     'gglobal.users.apps.UsersConfig',
     # Your stuff: custom apps go here
+    'gglobal.qa.apps.QAConfig',
+    'gglobal.cms.apps.CMSConfig',
+
+]
+
+PRE_DJANGO_APPS = [
+    'dal', # autocomplete light v.3
+    'dal_select2', # autocomplete light v.3
+    'dal_queryset_sequence', # autocomplete light v.3
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = PRE_DJANGO_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -74,6 +116,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    # 'wagtailthemes.middleware.ThemeMiddleware',
 ]
 
 # MIGRATIONS CONFIGURATION
@@ -126,7 +172,7 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 TIME_ZONE = 'Europe/Minsk'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -157,6 +203,7 @@ TEMPLATES = [
             # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
             # https://docs.djangoproject.com/en/dev/ref/templates/api/#loader-types
             'loaders': [
+                # 'wagtailthemes.loaders.ThemeLoader',
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ],
@@ -171,6 +218,8 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 # Your stuff: custom template context processors go here
+                'wagtail.contrib.settings.context_processors.settings',
+                'wagtailmenus.context_processors.wagtailmenus',
             ],
         },
     },
@@ -253,7 +302,7 @@ AUTHENTICATION_BACKENDS = [
 # Some really nice defaults
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'#'mandatory'
 
 ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
 ACCOUNT_ADAPTER = 'gglobal.users.adapters.AccountAdapter'
@@ -286,3 +335,7 @@ ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+
+# django-wagtail
+# ------------------------------------------------------------------------------
+WAGTAIL_SITE_NAME = 'ремонт-пк-и-ноутбуков.бел'

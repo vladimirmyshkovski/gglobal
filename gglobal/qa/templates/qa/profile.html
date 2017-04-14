@@ -1,0 +1,21 @@
+{% extends 'qa/base.html' %}
+{% load django_markdown %}
+
+{% block content %}
+<h2 class="pull-right">Points: {{ user.points }}</h1>
+<ul>
+  <li><b>Website :</b> {{ user.website }} </li>
+   <li><b>e-mail :</b> {{ user.user.email }} </li>
+   <li><b>Date Joined :</b> {{ user.user.date_joined }} </li>
+   <li><b>Last Login :</b> {{ user.user.last_login }} </li>
+   <li><b>is Active :</b> {{ user.user.is_active }} </li>
+
+   <p>Вопросы:</p>{% for item in questions %} <li><a href="{% url 'qa_detail' item.id %}">{{ item.title }}</a></li> {% endfor %}
+   <p>Ответил на вопросы:</p>{% for item in answers %} <li><a href="{% url 'qa_detail' item.question_id %}">{{ item.question.title }}</a></li> {% endfor %}
+   <p>Тэги: {% for item in tags %} <li><a href="{% url 'qa_tag' item.slug %}">{{ item.name }}</a></li>  {% endfor %}</p>
+
+        
+
+<ul>
+
+{% endblock content %}
