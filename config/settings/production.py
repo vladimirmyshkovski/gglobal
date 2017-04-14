@@ -77,6 +77,13 @@ ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['ремонт-пк-и-
 INSTALLED_APPS += ['gunicorn', ]
 
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'collect_static')
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+'''
 # STORAGE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Uploaded Media Files
@@ -128,6 +135,7 @@ INSTALLED_APPS = ['collectfast', ] + INSTALLED_APPS
 COMPRESS_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 COMPRESS_URL = STATIC_URL
 COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
+'''
 # EMAIL
 # ------------------------------------------------------------------------------
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
