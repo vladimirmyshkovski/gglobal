@@ -18,7 +18,7 @@ from boto.s3.connection import OrdinaryCallingFormat
 from django.utils import six
 
 import logging
-
+import os
 
 from .base import *  # noqa
 
