@@ -43,6 +43,6 @@ if settings.DEBUG:
             url(r'^__debug__/', include(debug_toolbar.urls)),
         ]
     
-urlpatterns += [
-    url(r'', include('wagtail.wagtailcore.urls')),
-]
+#urlpatterns += [
+#    url(r'', include('wagtail.wagtailcore.urls')),
+#]
