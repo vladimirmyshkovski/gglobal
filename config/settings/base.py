@@ -93,7 +93,7 @@ LOCAL_APPS = [
     'gglobal.users.apps.UsersConfig',
     # Your stuff: custom apps go here
     'gglobal.qa.apps.QAConfig',
-    'gglobal.cms.apps.CMSConfig',
+    #'gglobal.cms.apps.CMSConfig',
 
 ]
 
@@ -119,7 +119,7 @@ MIDDLEWARE = [
 
     #'wagtail.wagtailcore.middleware.SiteMiddleware',
     #'wagtail.wagtailredirects.middleware.RedirectMiddleware',
-    # 'wagtailthemes.middleware.ThemeMiddleware',
+    #'wagtailthemes.middleware.ThemeMiddleware',
 ]
 
 # MIGRATIONS CONFIGURATION
