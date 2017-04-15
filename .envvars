@@ -40,7 +40,7 @@ REDIS_ENDPOINT_ADDRESS="localhost"
 REDIS_PORT="6379"
 
 RDS_DB_NAME="gglobal"
-RDS_USERNAME="narnik"
+RDS_USERNAME="gglobal"
 RDS_PASSWORD="iddqd3133122"
 RDS_HOSTNAME="localhost"
 RDS_PORT=""
