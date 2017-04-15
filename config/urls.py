@@ -21,7 +21,7 @@ urlpatterns = [
 
     # Your stuff: custom urls includes go here
 
-    url(r'^cms/', include('wagtail.wagtailadmin.urls')),
+    #url(r'^cms/', include('wagtail.wagtailadmin.urls')),
     #url(r'^qa/', include('gglobal.qa.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -59,32 +59,32 @@ THIRD_PARTY_APPS = [
     'annoying', # AutoOneToOneField
 
 
-    'wagtail.wagtailcore',
-    'wagtail.wagtailadmin',
-    'wagtail.wagtailforms',
-    'wagtail.wagtailredirects',
-    'wagtail.wagtailembeds',
-    'wagtail.wagtailsites',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsnippets',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailsearch',
+    #'wagtail.wagtailcore',
+    #'wagtail.wagtailadmin',
+    #'wagtail.wagtailforms',
+    #'wagtail.wagtailredirects',
+    #'wagtail.wagtailembeds',
+    #'wagtail.wagtailsites',
+    #'wagtail.wagtailusers',
+    #'wagtail.wagtailsnippets',
+    #'wagtail.wagtaildocs',
+    #'wagtail.wagtailimages',
+    #'wagtail.wagtailsearch',
 
 
-    'wagtail.contrib.wagtailstyleguide',
-    'wagtail.contrib.modeladmin',
-    'experiments',
-    'wagtailmetadata',
-    'meta',
-    'flags',
-    'wagtail.contrib.wagtailsitemaps',
-    'wagtail.contrib.settings',
-    'wagtailsurveys',
+    #'wagtail.contrib.wagtailstyleguide',
+    #'wagtail.contrib.modeladmin',
+    #'experiments',
+    #'wagtailmetadata',
+    #'meta',
+    #'flags',
+    #'wagtail.contrib.wagtailsitemaps',
+    #'wagtail.contrib.settings',
+    #'wagtailsurveys',
 
-    'wagtailfontawesome',
-    'wagtailmenus',
-    'wagtailblocks_cards',
+    #'wagtailfontawesome',
+    #'wagtailmenus',
+    #'wagtailblocks_cards',
 ]
 
 # Apps specific for this project go here.
@@ -117,8 +117,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'wagtail.wagtailcore.middleware.SiteMiddleware',
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    #'wagtail.wagtailcore.middleware.SiteMiddleware',
+    #'wagtail.wagtailredirects.middleware.RedirectMiddleware',
     # 'wagtailthemes.middleware.ThemeMiddleware',
 ]
 
@@ -218,8 +218,8 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 # Your stuff: custom template context processors go here
-                'wagtail.contrib.settings.context_processors.settings',
-                'wagtailmenus.context_processors.wagtailmenus',
+                #'wagtail.contrib.settings.context_processors.settings',
+                #'wagtailmenus.context_processors.wagtailmenus',
             ],
         },
     },
