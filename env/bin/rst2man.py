@@ -1,4 +1,4 @@
-#!/home/narnik/Программы/DjangoProjects/gglobal/env/bin/python
+#!/var/www/gglobal/env/bin/python3
 
 # Author: 
 # Contact: grubert@users.sf.net

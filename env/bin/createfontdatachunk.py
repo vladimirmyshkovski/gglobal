@@ -1,4 +1,4 @@
-#!/home/narnik/Программы/DjangoProjects/gglobal/env/bin/python
+#!/var/www/gglobal/env/bin/python3
 from __future__ import print_function
 import base64
 import os
