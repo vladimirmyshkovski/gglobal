@@ -4,7 +4,7 @@
 
 # General settings
 # DJANGO_READ_DOT_ENV_FILE=True
-DJANGO_ADMIN_URL="^django-admin/$"
+DJANGO_ADMIN_URL=r'^django-admin/'
 DJANGO_SETTINGS_MODULE=config.settings.production
 DJANGO_SECRET_KEY="}X]AfgR&6a(9o8F_~*[.8^-}NGKXI3{7>%8=Gj$q[e][-6;p$F"
 #DJANGO_ALLOWED_HOSTS=.ремонт-пк-и-ноутбуков.бел
