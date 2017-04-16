@@ -14,10 +14,6 @@ from wagtailmetadata.models import MetadataPageMixin
 from wagtailsurveys import models as surveys_models
 
 
-
-
-
-
 class SurveyPage(surveys_models.AbstractSurvey):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)

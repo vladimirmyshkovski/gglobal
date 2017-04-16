@@ -1,6 +1,6 @@
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from gglobal.crm.flows import ClientFlow
+#from gglobal.crm.flows import ClientFlow
 
 @csrf_exempt
 def СreateClientView(request):
@@ -11,7 +11,7 @@ def СreateClientView(request):
             name = request.POST.get('name')
             phone = request.POST.get('phone')
             data = {"name": name , "phone" : phone}
-            ClientFlow.start.run(data=data)
+            #ClientFlow.start.run(data=data)
             #Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse(data)
     #Get goes here
