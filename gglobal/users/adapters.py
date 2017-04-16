@@ -11,7 +11,8 @@ class AccountAdapter(DefaultAccountAdapter):
 		if request.user.has_perm('auth.change_permission'):
 			url = reverse('admin:index')
 		elif not request.user.is_staff:
-			url = reverse('qualification:index')
+			#url = reverse('qualification:index')
+			print('123')
 		else:
 			url = reverse('admin:index')
 		return url
