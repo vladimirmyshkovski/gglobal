@@ -119,7 +119,7 @@ MIDDLEWARE = [
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
-    'wagtailthemes.middleware.ThemeMiddleware',
+    #'wagtailthemes.middleware.ThemeMiddleware',
 ]
 
 # MIGRATIONS CONFIGURATION
