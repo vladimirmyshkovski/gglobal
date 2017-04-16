@@ -1,0 +1,33 @@
+{% load wagtailimages_tags %}
+        <!-- Features -->
+        <section class="section bg-light" id="features">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <h3 class="title">{{ self.title }}</h3>
+                        <p class="text-muted sub-title">{{ self.sub }}</p>
+                    </div>
+                </div> <!-- end row -->
+
+                <div class="row">
+
+                    {% for item in self.features_item %}
+                        <div class="col-sm-{% if self.features_item|length == 1 %}4 col-sm-offset-4{% elif self.features_item|length == 2%}4 col-sm-offset-1{% else %}4{% endif %}">
+                            <div class="features-box">
+                                <i class="pe-7s-{{ item.icon }}"></i>
+                                <h4>{{ item.title }}</h4>
+                                <p class="text-muted">{{ item.sub }}</p>
+                            </div>
+                        </div>                            
+                        {% if forloop.counter|divisibleby:3 %}
+                                </div>
+                                <div class="row">
+                            {% endif %}
+
+                    {% endfor %}
+                </div> <!-- end row -->
+            </div> <!-- end container -->
+        </section>
+        <!-- end Features -->
+

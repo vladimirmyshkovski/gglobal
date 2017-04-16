@@ -1,0 +1,52 @@
+{% load wagtailimages_tags %}
+
+        <!-- Features Alt -->
+        <section class="section">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="text-center">
+                            <div class="title-box-icon">
+                                <i class="pe-7s-{{ self.icon }}"></i>
+                                <h3 class="title">{{ self.h3 }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end row -->
+                {% image self.image width-550 as theimage %}
+                <div class="row">
+                {% if self.align == 'right' %}
+                    <div class="col-sm-5">
+                        <div class="feat-description">
+                        
+                            <h4 class="text-muted">{{ self.h4 }}</h4>
+                            <p class="text-muted">{{ self.text }}</p>
+
+                            <a href="{{ self.btnlink }}" class="btn btn-custom">{{ self.btntext }}</a>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-7">
+                        <img src="{{ theimage.url }}" alt="{{ theimage.alt }}" class="img-responsive">
+                    </div>
+                {% else %}
+                    <div class="col-sm-7">
+                        <img src="{{ theimage.url }}" alt="{{ theimage.alt }}" class="img-responsive">
+                    </div>
+
+                    <div class="col-sm-5">
+                        <div class="feat-description" style="text-align: center">
+                        
+                            <h4 class="text-muted">{{ self.h4 }}</h4>
+                            <p class="text-muted">{{ self.text }}</p>
+
+                            <a href="{{ self.btnlink }}" class="btn btn-custom">{{ self.btntext }}</a>
+                        </div>
+                    </div>
+                {% endif %}
+                </div><!-- end row -->
+
+            </div> <!-- end container -->
+        </section>
+        <!-- end features alt -->

@@ -1,0 +1,32 @@
+        <!-- Subscribe -->
+        <section class="section bg-custom">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <h3 class="title text-white">{{ self.h3 }}</h3>
+                        <p class="text-light sub-title">{{ self.text }}</p>
+                    </div>
+                </div><!-- End row -->
+
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <form class="text-center" action=""
+                              id="subscribe-form" method="get">
+                            <div class="form-group m-b-0">
+                                <input type="email" class="form-control input-subscribe" id="mce-EMAIL" name="EMAIL"
+                                       placeholder="{{ self.inputtext }}" required>
+                                <label for="mce-EMAIL"></label>
+                            </div>
+
+                            <button type="submit" class="btn btn-white-fill">{{ self.btntext }}</button>
+                            <p class="text-light">
+                                <small>{{ self.smalltext }}</small>
+                            </p>
+                        </form>
+                    </div>
+                </div><!-- End row -->
+
+            </div> <!-- end container -->
+        </section>
+        <!-- End Subscribe -->

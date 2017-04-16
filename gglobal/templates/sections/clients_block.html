@@ -1,0 +1,53 @@
+{% load wagtailimages_tags %}
+
+        <!-- Clients -->
+        <section class="section bg-light" id="clients">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <h3 class="title">{{ self.h3 }}</h3>
+                        <p class="text-muted sub-title">{{ self.text }}</p>
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="row text-center">
+                    <div class="col-sm-12">
+                        <ul class="list-inline client-list">
+                        {% for client in self.clients_list %}
+                        {% image client.image width-200 as theimage %}
+                            <li><a href="{{ client.link }}" title="{{ client.title }}"><img src="{{ theimage.url }}" alt="{{ theimage.alt }}"></a></li>
+                        {% endfor %}
+                        </ul>
+
+                        {% for block in self.blocks %}
+                        <div class="row">
+                        {% image block.image width-60 as theimage %}
+                            <div class="col-md-4">
+                                <div class="testimonial-description text-left">
+                                    <p class="text-muted">
+                                        “ {{ block.text }} ”
+                                    </p>
+                                </div>
+
+                                <div class="testimonial-user-info user-info text-left">
+                                    <div class="testimonial-user-thumb user-thumb">
+                                        <img src="{{ theimage.url }}" alt="{{ theimage.alt }}">
+                                    </div>
+                                    <div class="testimonial-user-txt user-text">
+                                        <label class="testimonial-user-name user-name">{{ block.name }}</label>
+                                        <p class="testimonial-user-position user-position text-muted">{{ block.company }} {{ block.city }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div> <!-- end Col -->
+
+                </div><!-- end row -->
+
+            </div>
+        </section>
+        <!--End  Clients -->
+
+
