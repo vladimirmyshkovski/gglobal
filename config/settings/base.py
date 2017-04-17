@@ -57,6 +57,7 @@ THIRD_PARTY_APPS = [
     'django_markdown', # qa needed
     'taggit', # qa needed
     'annoying', # AutoOneToOneField
+    'turbolinks', # Turbolinks
 
 
     'wagtail.wagtailcore',
@@ -120,6 +121,8 @@ MIDDLEWARE = [
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
     #'wagtailthemes.middleware.ThemeMiddleware',
+    'turbolinks.middleware.TurbolinksMiddleware',
+
 ]
 
 # MIGRATIONS CONFIGURATION

@@ -95,20 +95,20 @@ class PriceBlock(StructBlock):
 
 
 class HomeBlock(StructBlock):
-    h1 = blocks.CharBlock()
-    h4 = blocks.TextBlock()
-    link = blocks.URLBlock()
-    linktext = blocks.CharBlock()
-    videolink = blocks.URLBlock()
-    videotext = blocks.CharBlock()
-    formh3 = blocks.CharBlock()
-    ortext = blocks.CharBlock()
-    firstname = blocks.CharBlock()
-    phone_number = blocks.CharBlock()
-    button = blocks.CharBlock()
-    formtext = blocks.CharBlock()
-    formlink = blocks.URLBlock()
-    formlinktext = blocks.TextBlock()
+    h1 = blocks.CharBlock(required=False)
+    h4 = blocks.TextBlock(required=False)
+    link = blocks.URLBlock(required=False)
+    linktext = blocks.CharBlock(required=False)
+    videolink = blocks.URLBlock(required=False)
+    videotext = blocks.CharBlock(required=False)
+    formh3 = blocks.CharBlock(required=False)
+    ortext = blocks.CharBlock(required=False)
+    firstname = blocks.CharBlock(required=False)
+    phone_number = blocks.CharBlock(required=False)
+    button = blocks.CharBlock(required=False)
+    formtext = blocks.CharBlock(required=False)
+    formlink = blocks.URLBlock(required=False)
+    formlinktext = blocks.TextBlock(required=False)
 
 
     class Meta:
