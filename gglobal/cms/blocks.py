@@ -55,19 +55,19 @@ class FeaturesAltBlock(StructBlock):
 
 
 class ClientsBlock(StructBlock):
-    h3 = blocks.CharBlock()
-    h4 = blocks.CharBlock()
+    h3 = blocks.CharBlock(required=False)
+    text = blocks.CharBlock(required=False)
     clients_list = CardsBlock(blocks.StructBlock([
-    ('link', blocks.CharBlock()),
-    ('title', blocks.CharBlock()),
-    ('image', ImageChooserBlock())
+    ('link', blocks.CharBlock(required=False)),
+    ('title', blocks.CharBlock(required=False)),
+    ('image', ImageChooserBlock(required=False))
 ]))
     blocks = CardsBlock(blocks.StructBlock([
-    ('text', blocks.CharBlock()),
-    ('name', blocks.CharBlock()),
-    ('company', blocks.CharBlock()),
-    ('city', blocks.CharBlock()),
-    ('image', ImageChooserBlock())
+    ('text', blocks.CharBlock(required=False)),
+    ('name', blocks.CharBlock(required=False)),
+    ('company', blocks.CharBlock(required=False)),
+    ('city', blocks.CharBlock(required=False)),
+    ('image', ImageChooserBlock(required=False))
 ]))
 
     class Meta:
