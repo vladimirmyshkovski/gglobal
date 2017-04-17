@@ -80,11 +80,11 @@ ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['xn------dddfnxoenlfgh
 INSTALLED_APPS += ['gunicorn', ]
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'config/collect_static')
-STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'collect_static')
+STATIC_URL = 'static'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media'
 
 '''
 # STORAGE CONFIGURATION
