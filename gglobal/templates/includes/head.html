@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-{% load static meta %}
+{% load static meta compress %}
 
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -43,10 +43,11 @@
 
     <meta name="yandex-verification" content="086d5306efe34ab0" />
     <meta name="google-site-verification" content="LzjL2reBMlkFvshH5dlioChjyYZYUDczxJKZfU2OM3Y" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+    {% compress js %}
+    <script src="{% static 'js/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-3.3.7.min.js' %}"></script>
+    <script src="{% static 'js/cookie-2.1.4.min.js' %}"></script>
+    {% endcompress %}
     <script src="{% static 'turbolinks/turbolinks.js' %}"></script>
     <script type="text/javascript">var csrftoken = Cookies.get('csrftoken');</script>
 
