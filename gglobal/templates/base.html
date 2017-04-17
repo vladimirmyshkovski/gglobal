@@ -25,14 +25,6 @@
     {# breadcrumbs is defined in base/templatetags/navigation_tags.py #}
 {#% endblock breadcrumbs %#}
 
-  {% if messages %}
-      {% for message in messages %}
-        <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
-            <strong>{{ message }}</strong>
-        </div>
-      {% endfor %}
-  {% endif %}
-
 <content>
     {% block content %}
     {% endblock content %}
