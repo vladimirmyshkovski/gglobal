@@ -26,9 +26,6 @@ class DjangoAdminAuthenticationForm(AuthenticationForm):
 			return redirect(reverse('qa_index'))
 
 			
-
-
-
 class CustomLoginForm(LoginForm):
     def __init__(self, *args, **kwargs):
         super(CustomLoginForm, self).__init__(*args, **kwargs)
@@ -63,8 +60,6 @@ class CustomLoginForm(LoginForm):
         self.helper.form_class = 'intro-form'
         self.helper.label_class = 'hidden'
         self.helper.field_class = ''
-
-
 
 
 class CustomSignupForm(SignupForm):

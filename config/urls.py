@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
+from wagtail.contrib.wagtailsitemaps.views import sitemap
 
 urlpatterns = [
     #url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
@@ -23,6 +24,9 @@ urlpatterns = [
 
     url(r'^cms/', include('wagtail.wagtailadmin.urls')),
     #url(r'^qa/', include('gglobal.qa.urls')),
+
+    url('^sitemap\.xml$', sitemap),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

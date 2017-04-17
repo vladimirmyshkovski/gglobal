@@ -29,7 +29,6 @@ class SurveyFormField(surveys_models.AbstractFormField):
     page = ParentalKey(SurveyPage, related_name='survey_form_fields')
 
 
-
 class HomePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 
 #class HomePage(MenuPage):

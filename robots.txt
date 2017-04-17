@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: *?
+Host: https://xn------dddfnxoenlfghchl4bitc.xn--90ais
+Sitemap: https://xn------dddfnxoenlfghchl4bitc.xn--90ais/sitemap.xml
