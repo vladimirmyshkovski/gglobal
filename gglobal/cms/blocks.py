@@ -1,8 +1,9 @@
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailcore.blocks import (
-    CharBlock, ChoiceBlock, RichTextBlock, StreamBlock, StructBlock, TextBlock, ListBlock
+    PageChooserBlock, CharBlock, ChoiceBlock, RichTextBlock, StreamBlock, StructBlock, TextBlock, ListBlock
 )
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore import blocks
 
@@ -58,7 +59,7 @@ class ClientsBlock(StructBlock):
     h3 = blocks.CharBlock(required=False)
     text = blocks.CharBlock(required=False)
     clients_list = CardsBlock(blocks.StructBlock([
-    ('link', blocks.CharBlock(required=False)),
+    ('link', blocks.PageChooserBlock(required=False)),
     ('title', blocks.CharBlock(required=False)),
     ('image', ImageChooserBlock(required=False))
 ]))
