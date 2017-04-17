@@ -36,17 +36,18 @@ class FeaturesBlock(StructBlock):
 
 
 class FeaturesAltBlock(StructBlock):
-    h3 = blocks.CharBlock()
-    h4 = blocks.CharBlock()
+    h3 = blocks.CharBlock(required=False)
+    h4 = blocks.CharBlock(required=False)
+    text = blocks.CharBlock(required=False)
     icon = blocks.CharBlock(help_text="Смотри иконки тут http://webapplayers.com/luna_admin-v1.2/icons.html")
     align = ChoiceBlock(choices=[
         ('', 'Картина слева или справа?'),
         ('left', 'Слева'),
         ('right', 'Справа')
     ], blank=True, required=False)
-    image = ImageChooserBlock()
-    btnlink = blocks.CharBlock()
-    btntext = blocks.CharBlock()
+    image = ImageChooserBlock(required=False)
+    btnlink = blocks.CharBlock(required=False)
+    btntext = blocks.CharBlock(required=False)
 
     class Meta:
         icon = 'doc-empty-inverse'
