@@ -141,6 +141,8 @@ INSTALLED_APPS = ['collectfast', ] + INSTALLED_APPS
 COMPRESSOR_STORAGE = 'compressor.storage.CompressorFileStorage'
 COMPRESS_URL = STATIC_URL
 COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
+COMPRESS_OFFLINE = env.bool('COMPRESS_OFFLINE', default=True)
+COMPRESS_JS_FILTERS = ['compressor.filters.closure.ClosureCompilerFilter']
 
 # EMAIL
 # ------------------------------------------------------------------------------
