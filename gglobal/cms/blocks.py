@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailcore.blocks import (
