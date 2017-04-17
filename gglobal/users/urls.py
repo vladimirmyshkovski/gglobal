@@ -27,7 +27,7 @@ urlpatterns = [
         name='update'
     ),
     url(
-        regex=r'^createclient/$',
+        regex=r'^~createclient/$',
         view=views.СreateClientView,
         name='createclient'
         )

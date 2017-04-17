@@ -46,7 +46,7 @@ class UserListView(LoginRequiredMixin, ListView):
     slug_field = 'username'
     slug_url_kwarg = 'username'
 
-@csrf_exempt
+#@csrf_exempt
 def СreateClientView(request):
     if request.method == 'POST':
         #POST goes here . is_ajax is must to capture ajax requests. Beginner's pit.

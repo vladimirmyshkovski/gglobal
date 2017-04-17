@@ -32,7 +32,7 @@
                 </div>
             </div>
         </section>
-        <script type="text/javascript"  src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+        <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
         <script type="text/javascript">
             /* ==============================================
@@ -63,7 +63,7 @@
             jQuery.ajax({
                 type: 'POST',
                 //dataType: 'json',
-                url: {% url 'users:createclient' %},
+                url: '{% url 'users:createclient' %}',
                 data: { 'csrfmiddlewaretoken': csrftoken,
                 name: $('#name').val(),
                 phone: $('#phone').val(), 
