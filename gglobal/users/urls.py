@@ -30,5 +30,5 @@ urlpatterns = [
         regex=r'^~createclient/$',
         view=views.СreateClientView,
         name='createclient'
-        )
+        ),
 ]

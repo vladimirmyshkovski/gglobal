@@ -60,7 +60,8 @@ class ClientsBlock(StructBlock):
     h3 = blocks.CharBlock(required=False)
     text = blocks.CharBlock(required=False)
     clients_list = CardsBlock(blocks.StructBlock([
-    ('link', blocks.PageChooserBlock(required=False)),
+    #('link', blocks.PageChooserBlock(required=False)),
+    ('link', blocks.CharBlock(required=False)),
     ('title', blocks.CharBlock(required=False)),
     ('image', ImageChooserBlock(required=False))
 ]))
