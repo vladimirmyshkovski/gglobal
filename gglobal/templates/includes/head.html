@@ -47,19 +47,13 @@
     <script src="{% static 'js/jquery-2.2.4.min.js' %}"></script>
     <script src="{% static 'js/bootstrap-3.3.7.min.js' %}"></script>
     <script src="{% static 'js/cookie-2.1.4.min.js' %}"></script>
-    {% endcompress %}
-    <script src="{% static 'turbolinks/turbolinks.js' %}"></script>
-    <script type="text/javascript">var csrftoken = Cookies.get('csrftoken');</script>
 
-    {% block head-extra %}
-    {% endblock head-extra %}
-        {# JS libs #}
-    <script type="text/javascript">var csrftoken = Cookies.get('csrftoken');</script>
+    <script src="{% static 'turbolinks/turbolinks.js' %}"></script>
+    {# JS libs #}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <!--script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script-->
     <script src="{% static 'js/init.js' %}"></script>
     <script src="{% static 'js/libs/raven.min.js' %}"></script>
-    {% compress js %}
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="{% static 'turbolinks/turbolinks.js' %}"></script>
     <script src="{% static 'js/jquery.easing.1.3.min.js' %}"></script>
@@ -69,51 +63,57 @@
     <script src="{% static 'js/switcher.js' %}"></script>
     <script src="{% static 'js/parsley.min.js' %}"></script>
     <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+
+    {% endcompress %}
+    
+    {% block head-extra %}
+    {% endblock head-extra %}
+    
     {% endcompress %}
     {% block extrahead %}
     {% endblock extrahead %}
 
-    <script type="text/javascript">
-    function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
+        <script type="text/javascript">
+        function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
         }
-    });
-</script>
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+        </script>
     {% if user.is_authenticated %}<script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>{% endif %}
 
-<script type="text/javascript">
+        <script type="text/javascript">
 
-    $.ajaxSetup({ 
-     beforeSend: function(xhr, settings) {
-         function getCookie(name) {
-             var cookieValue = null;
-             if (document.cookie && document.cookie != '') {
-                 var cookies = document.cookie.split(';');
-                 for (var i = 0; i < cookies.length; i++) {
-                     var cookie = jQuery.trim(cookies[i]);
-                     // Does this cookie string begin with the name we want?
-                     if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                         break;
+            $.ajaxSetup({ 
+             beforeSend: function(xhr, settings) {
+                 function getCookie(name) {
+                     var cookieValue = null;
+                     if (document.cookie && document.cookie != '') {
+                         var cookies = document.cookie.split(';');
+                         for (var i = 0; i < cookies.length; i++) {
+                             var cookie = jQuery.trim(cookies[i]);
+                             // Does this cookie string begin with the name we want?
+                             if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                 break;
+                             }
+                         }
                      }
+                     return cookieValue;
                  }
-             }
-             return cookieValue;
-         }
-         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
-             // Only send the token to relative URLs i.e. locally.
-             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-         }
-     } 
-});
-</script>
+                 if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                     // Only send the token to relative URLs i.e. locally.
+                     xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                 }
+             } 
+        });
+        </script>
 
         <script>
         $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
@@ -135,4 +135,6 @@
           <script src="js/html5shiv.js"></script>
           <script src="js/respond.min.js"></script>
     <![endif]-->
+<script type="text/javascript">var csrftoken = Cookies.get('csrftoken');</script>
+
 </head>
