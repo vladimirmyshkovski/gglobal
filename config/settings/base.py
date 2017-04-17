@@ -59,7 +59,6 @@ THIRD_PARTY_APPS = [
     'annoying', # AutoOneToOneField
     'turbolinks', # Turbolinks
 
-
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
     'wagtail.wagtailforms',
@@ -86,6 +85,8 @@ THIRD_PARTY_APPS = [
     'wagtailfontawesome',
     'wagtailmenus',
     'wagtailblocks_cards',
+
+    'mapwidgets',
 ]
 
 # Apps specific for this project go here.
@@ -145,7 +146,7 @@ FIXTURE_DIRS = (
 
 # EMAIL CONFIGURATION
 # ------------------------------------------------------------------------------
-EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default=F'django.core.mail.backends.smtp.EmailBackend')
 
 # MANAGER CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -163,6 +164,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres:///gglobal'),
 }
+
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 
@@ -342,3 +344,5 @@ ADMIN_URL = r'^admin/'
 # django-wagtail
 # ------------------------------------------------------------------------------
 WAGTAIL_SITE_NAME = 'ремонт-пк-и-ноутбуков.бел'
+
+GOOGLE_MAP_API_KEY = 'AIzaSyAUYmoNhNMy-DMjKLIbLdjlidm1qVscuoA'

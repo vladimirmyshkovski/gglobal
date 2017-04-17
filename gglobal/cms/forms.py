@@ -91,5 +91,3 @@ class CustomSignupForm(SignupForm):
         self.helper.form_class = 'intro-form'
         self.helper.label_class = 'hidden'
         self.helper.field_class = ''
-
-
