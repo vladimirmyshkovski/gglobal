@@ -5,8 +5,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12 text-center">
+                        {% if self.h3 %}
                         <h3 class="title">{{ self.h3 }}</h3>
+                        {% endif %}
+                        {% if self.text %}
                         <p class="text-muted sub-title">{{ self.text }}</p>
+                        {% endif %}
                     </div>
                 </div>
                 <!-- end row -->
@@ -15,9 +19,11 @@
                     <div class="col-sm-12">
                         <ul class="list-inline client-list">
                         {% for client in self.clients_list %}
+                        {% if client.image %}
                         {% image client.image width-200 as theimage %}
                             <li><a href="{% if client.link %} {{ client.link }} {% else %} {{ client.page }} {% endif %}" title="{{ client.title }}"><img src="{{ theimage.url }}" alt="{{ theimage.alt }}"></a></li>
                         {% endfor %}
+                        {% endif %}
                         </ul>
 
                         {% for block in self.blocks %}

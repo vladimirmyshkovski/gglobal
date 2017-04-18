@@ -1,0 +1,15 @@
+{% extends "account/base.html" %}
+{% block content %}
+<section class="bg-custom home" id="home">
+    <div class="home-sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
+                    {% block form_content %}
+                    {% endblock form_content %}
+                </div>
+            </div>
+        </div>
+    </div>        
+</section>
+{% endblock content%}

@@ -40,7 +40,7 @@ DJANGO_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'django.contrib.gis',
     # Useful template tags:
     # 'django.contrib.humanize',
 
@@ -58,6 +58,15 @@ THIRD_PARTY_APPS = [
     'taggit', # qa needed
     'annoying', # AutoOneToOneField
     'turbolinks', # Turbolinks
+
+    'cities', # Django-cities
+
+    'ckeditor', # CKEditor
+
+    'categories', # Django-categories
+    'categories.editor', # Django-categories
+
+    "geoposition", # Django-geoposition
 
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
@@ -96,6 +105,7 @@ LOCAL_APPS = [
     # Your stuff: custom apps go here
     'gglobal.qa.apps.QAConfig',
     'gglobal.cms.apps.CMSConfig',
+    'gglobal.crm.apps.CRMConfig',
 
 ]
 
@@ -161,8 +171,19 @@ MANAGERS = ADMINS
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+#DATABASES = {
+#    'default': env.db('DATABASE_URL', default='postgres:///gglobal'),
+#}
+
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres:///gglobal'),
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'gglobal',
+        'USER': 'narnik',
+        'PASSWORD': 'iddqd3133122',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
 }
 
 DATABASES['default']['ATOMIC_REQUESTS'] = True
@@ -231,7 +252,7 @@ TEMPLATES = [
 ]
 
 # See: http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # STATIC FILE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -307,16 +328,32 @@ AUTHENTICATION_BACKENDS = [
 # Some really nice defaults
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_EMAIL_VERIFICATION = 'optional'#'mandatory'
 
 ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
 ACCOUNT_ADAPTER = 'gglobal.users.adapters.AccountAdapter'
 SOCIALACCOUNT_ADAPTER = 'gglobal.users.adapters.SocialAccountAdapter'
 
+
+
+# ALLAUTH SETTINGS #
+ACCOUNT_FORMS = {
+    "login": "gglobal.users.forms.CustomLoginForm",
+    "signup": "gglobal.users.forms.CustomSignupForm",
+    "confirm-email": "gglobal.users.forms.CustomSignupForm",
+}
+ACCOUNT_USERNAME_MIN_LENGTH = 1
+ACCOUNT_SIGNUP_FORM_CLASS = None
+ACCOUNT_CONFIRM_EMAIL_ON_GET = False
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = None
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'account_login'
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = 'users:redirect'
+#LOGIN_REDIRECT_URL = 'users:redirect'
 LOGIN_URL = 'account_login'
 
 # SLUGLIFIER
@@ -346,3 +383,45 @@ ADMIN_URL = r'^admin/'
 WAGTAIL_SITE_NAME = 'ремонт-пк-и-ноутбуков.бел'
 
 GOOGLE_MAP_API_KEY = 'AIzaSyAUYmoNhNMy-DMjKLIbLdjlidm1qVscuoA'
+
+# django-cities
+# ------------------------------------------------------------------------------
+CITIES_FILES = {
+    # ...
+    'city': {
+       'filename': "BY.zip",
+       'urls':      ['http://download.geonames.org/export/dump/'+'{filename}']
+    },
+    # ...
+}
+CITIES_POSTAL_CODES = ['BY']
+
+CITIES_LOCALES = ['rus', 'und', 'LANGUAGES']
+
+# django-geoposition
+# ------------------------------------------------------------------------------
+GEOPOSITION_GOOGLE_MAPS_API_KEY = GOOGLE_MAP_API_KEY
+
+GEOPOSITION_MAP_OPTIONS = {
+    'minZoom': 3,
+    'maxZoom': 15,
+}
+
+GEOPOSITION_MARKER_OPTIONS = {
+    'cursor': 'move'
+}
+
+
+# CKEDITOR SETTINGS
+# ------------------------------------------------------------------------------
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Basic',
+        'height': 300,
+        'width': '100%',
+    },
+}
+
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+

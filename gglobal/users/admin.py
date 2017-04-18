@@ -6,6 +6,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from .models import User
+from gglobal.users.models import MasterCRMProfile
 
 
 class MyUserChangeForm(UserChangeForm):
@@ -40,3 +41,5 @@ class MyUserAdmin(AuthUserAdmin):
     ) + AuthUserAdmin.fieldsets
     list_display = ('username', 'name', 'is_superuser')
     search_fields = ['name']
+    
+admin.site.register(MasterCRMProfile)

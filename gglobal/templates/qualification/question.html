@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_markdown %}
+{% load crispy_forms_tags %}
+{% block head-extra %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+{% endblock %}
+
+
+{% block content %}
+        <!-- Header title -->
+        <section class="bg-custom header-title-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center">
+                      <h3 class="text-white">{{ object.title }}</h3>
+                      <p class="text-muted sub-title">{{ object.description|markdown }}</p>
+                    </div>
+                </div>
+            </div> <!-- end container -->
+        </section>
+        <!-- END Header title -->
+
+        <!-- Contact Form -->
+        <section class="section">
+            <div class="container">
+                <div class="row" style="text-align: center">
+                        {% crispy form %}
+                     <!-- end col -->
+                </div> <!-- end row -->
+            </div> <!-- end container -->
+        </section>
+        <!-- End Contact Form -->
+{% endblock %}

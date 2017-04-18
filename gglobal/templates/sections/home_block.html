@@ -8,9 +8,15 @@
                             <div class="home-wrapper home-wrapper-alt p-0">
                                 <h1 class="h1 font-light text-white w-full">{{ self.h1 }}</h1>
                                 <h4 class="text-light w-full">{{ self.h4 }}</h4>
+                                {% if self.link %}
                                 <a href="{{ self.link }}" class="btn btn-white-bordered">{{ self.linktext }}</a>
+                                {% endif %}
+                                {% if self.ortext %}
                                 <span class="or-space text-light">{{ self.ortext }}</span>
+                                {% endif %}
+                                {% if self.videolink% }
                                 <a href="{{ self.videolink }}" class="video-btn btn popup-video"><i class="pe-7s-play"></i>{{ self.videotext }}</a>
+                                {% endif %}
                             </div>
                         </div> <!-- end col -->
 

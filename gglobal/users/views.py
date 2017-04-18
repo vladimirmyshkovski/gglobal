@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import User
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
 #from gglobal.crm.flows import ClientFlow
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -46,7 +47,7 @@ class UserListView(LoginRequiredMixin, ListView):
     slug_field = 'username'
     slug_url_kwarg = 'username'
 
-#@csrf_exempt
+@csrf_exempt
 def СreateClientView(request):
     if request.method == 'POST':
         #POST goes here . is_ajax is must to capture ajax requests. Beginner's pit.

@@ -11,14 +11,13 @@ class AccountAdapter(DefaultAccountAdapter):
 		if request.user.has_perm('auth.change_permission'):
 			url = reverse('admin:index')
 		elif not request.user.is_staff:
-			#url = reverse('qualification:index')
-			print('123')
+			url = reverse('qualification:index')
 		else:
 			url = reverse('admin:index')
 		return url
-    
-    def is_open_for_signup(self, request):
-        return getattr(settings, 'ACCOUNT_ALLOW_REGISTRATION', True)
+
+	def is_open_for_signup(self, request):
+		return getattr(settings, 'ACCOUNT_ALLOW_REGISTRATION', True)
 
 
 class SocialAccountAdapter(DefaultSocialAccountAdapter):

@@ -23,7 +23,8 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
 
     url(r'^cms/', include('wagtail.wagtailadmin.urls')),
-    #url(r'^qa/', include('gglobal.qa.urls')),
+    url(r'^qa/', include('gglobal.qa.urls')),
+    url(r'^qualification/', include('gglobal.qualification.urls', namespace='qualification')),
 
     url('^sitemap\.xml$', sitemap),
 
