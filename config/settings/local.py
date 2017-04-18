@@ -77,3 +77,14 @@ CELERY_ALWAYS_EAGER = True
 
 # Your local stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'gglobal',
+        'USER': 'narnik',
+        'PASSWORD': 'iddqd3133122',
+        'HOST': 'localhost',
+       'PORT': '',
+    }
+}

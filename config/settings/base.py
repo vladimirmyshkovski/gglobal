@@ -175,17 +175,6 @@ DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres:///gglobal'),
 }
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-#        'NAME': 'gglobal',
-#        'USER': 'narnik',
-#        'PASSWORD': 'iddqd3133122',
-#        'HOST': 'localhost',
-#       'PORT': '',
-#    }
-#}
-
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 
@@ -382,8 +371,8 @@ ADMIN_URL = r'^admin/'
 # ------------------------------------------------------------------------------
 WAGTAIL_SITE_NAME = 'ремонт-пк-и-ноутбуков.бел'
 
-GOOGLE_MAP_API_KEY = 'AIzaSyAUYmoNhNMy-DMjKLIbLdjlidm1qVscuoA'
-
+#GOOGLE_MAP_API_KEY = 'AIzaSyAUYmoNhNMy-DMjKLIbLdjlidm1qVscuoA'
+GOOGLE_MAP_API_KEY = 'AIzaSyBO-_WYrcSrU79tLuKPiINGkCJ1e__RWWw'
 # django-cities
 # ------------------------------------------------------------------------------
 CITIES_FILES = {
