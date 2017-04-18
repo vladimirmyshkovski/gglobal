@@ -171,20 +171,20 @@ MANAGERS = ADMINS
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-#DATABASES = {
-#    'default': env.db('DATABASE_URL', default='postgres:///gglobal'),
-#}
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'gglobal',
-        'USER': 'narnik',
-        'PASSWORD': 'iddqd3133122',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    'default': env.db('DATABASE_URL', default='postgres:///gglobal'),
 }
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#        'NAME': 'gglobal',
+#        'USER': 'narnik',
+#        'PASSWORD': 'iddqd3133122',
+#        'HOST': 'localhost',
+#       'PORT': '',
+#    }
+#}
 
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
