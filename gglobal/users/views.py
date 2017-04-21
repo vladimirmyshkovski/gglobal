@@ -3,17 +3,19 @@ from __future__ import absolute_import, unicode_literals
 from django.core.urlresolvers import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import User
+from .models import User, MasterCRMProfile
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
+from cities.models import AlternativeName
+
 #from gglobal.crm.flows import ClientFlow
 
 class UserDetailView(LoginRequiredMixin, DetailView):
-    model = User
+    model = MasterCRMProfile
     # These next two lines tell the view to index lookups by username
-    slug_field = 'username'
-    slug_url_kwarg = 'username'
+    slug_field = 'user_id'
+    slug_url_kwarg = 'user_id'
 
 
 class UserRedirectView(LoginRequiredMixin, RedirectView):
@@ -21,20 +23,20 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
     def get_redirect_url(self):
         return reverse('users:detail',
-                       kwargs={'username': self.request.user.username})
+                       kwargs={'user.username': self.request.user.username})
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
 
-    fields = ['name', ]
+    fields = ['name', 'city', 'country', 'raiting', 'avatar']
 
     # we already imported User in the view code above, remember?
-    model = User
+    model = MasterCRMProfile
 
     # send the user back to their own page after a successful update
     def get_success_url(self):
         return reverse('users:detail',
-                       kwargs={'username': self.request.user.username})
+                       kwargs={'user.username': self.request.user.username})
 
     def get_object(self):
         # Only get the User record for the user making the request
@@ -42,10 +44,14 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class UserListView(LoginRequiredMixin, ListView):
-    model = User
+    model = MasterCRMProfile
     # These next two lines tell the view to index lookups by username
-    slug_field = 'username'
-    slug_url_kwarg = 'username'
+    slug_field = 'user_id'
+    slug_url_kwarg = 'user_id'
+    def get_context_data(self, **kwargs):
+        context = super(UserListView, self).get_context_data(**kwargs)
+        return context
+
 
 @csrf_exempt
 def СreateClientView(request):

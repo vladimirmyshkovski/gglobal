@@ -42,7 +42,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,700" type="text/css">
 
     <meta name="yandex-verification" content="086d5306efe34ab0" />
-    <meta name="google-site-verification" content="LzjL2reBMlkFvshH5dlioChjyYZYUDczxJKZfU2OM3Y" />
+    <meta name="google-site-verification" content="oMWgonLOcqrDL0gN-u2f4odkQPLyEubqgbpMDfrM4_w" />
+
+    {% block head-extra %}
+    {% endblock head-extra %}
+
     {% compress js %}
     <script src="{% static 'js/jquery-2.2.4.min.js' %}"></script>
     <script src="{% static 'js/bootstrap-3.3.7.min.js' %}"></script>
@@ -64,8 +68,7 @@
     <script src="{% static 'js/libs/raven.min.js' %}"></script>
     <!-- js placed at the end of the document so the pages load faster -->
 
-    {% block head-extra %}
-    {% endblock head-extra %}
+
     
     {% block extrahead %}
     {% endblock extrahead %}

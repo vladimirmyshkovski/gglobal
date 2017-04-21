@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}User: {{ object.user }}{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-5" style="text-align: center">
+        <div class="team-member animated fadeInDown wow" data-wow-delay=".1s">
+          <img src="{{ object.avatar }}" alt="Мастер по ремонту компьютеров {{ object.name }}" class="img-responsive img-circle">
+          <h4>{{ object.name }}</h4>
+                    <div id="map" style="width: 500px; height: 500px"></div>
+
+<script>
+
+  var map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: {{object.position.latitude}}, lng: {{object.position.longitude}} },
+      zoom: 8
+    });
+  }
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBO-_WYrcSrU79tLuKPiINGkCJ1e__RWWw&callback=initMap" async defer></script>
+
+          <p class="text-muted">{{ object.raiting }}</p>
+        </div>
+    </div>
+  </div>
+
+{% if object == request.user %}
+<!-- Action buttons -->
+<div class="row">
+
+  <div class="col-sm-12">
+    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
+    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
+    <!-- Your Stuff: Custom user template urls -->
+  </div>
+
+</div>
+<!-- End Action buttons -->
+{% endif %}
+
+
+</div>
+
+{% endblock content %}
+
+

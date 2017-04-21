@@ -94,6 +94,7 @@ THIRD_PARTY_APPS = [
     'wagtailfontawesome',
     'wagtailmenus',
     'wagtailblocks_cards',
+    'wagtailgridder',
 
     'mapwidgets',
 ]

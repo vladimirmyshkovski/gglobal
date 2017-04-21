@@ -35,6 +35,7 @@ class MasterCRMProfile(models.Model):
     country = models.ForeignKey(Country)
     city = models.ForeignKey(City)
     position = GeopositionField()
+    avatar = models.ImageField(upload_to=settings.MEDIA_ROOT, blank=True, verbose_name='Аватарка')
 
     class Meta:
         verbose_name = "Мастер"

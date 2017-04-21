@@ -2,8 +2,13 @@
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailcore.blocks import (
-    PageChooserBlock, CharBlock, ChoiceBlock, RichTextBlock, StreamBlock, StructBlock, TextBlock, ListBlock
+    PageChooserBlock, CharBlock, ChoiceBlock, 
+    RichTextBlock, StreamBlock, StructBlock, 
+    TextBlock, ListBlock,
 )
+
+from wagtail.wagtailsnippets import blocks as sb
+
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.wagtailcore import blocks
@@ -22,6 +27,19 @@ class SubscribeBlock(StructBlock):
     class Meta:
         icon = 'site'
         template = "sections/subscribe_block.html"
+
+
+class MasterBlock(StructBlock):
+    h3 = blocks.CharBlock()
+    text = blocks.CharBlock()
+    snippet = sb.SnippetChooserBlock('cms.Master',required=True)
+
+    
+    class Meta:
+        icon = 'user'
+        template = "sections/subscribe_block.html"
+
+
 
 class FeaturesBlock(StructBlock):
     title = blocks.CharBlock()
@@ -127,6 +145,7 @@ class SectionsStreamBlock(StreamBlock):
     price_block = PriceBlock()
     clients_block = ClientsBlock()
     subscribe_block = SubscribeBlock()
+    master_block = MasterBlock()
 
 class PageBlock(StructBlock):
     """
