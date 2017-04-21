@@ -19,11 +19,9 @@
                     <div class="col-sm-12">
                         <ul class="list-inline client-list">
                         {% for client in self.clients_list %}
-                        {% if client.image %}
                         {% image client.image width-200 as theimage %}
                             <li><a href="{% if client.link %} {{ client.link }} {% else %} {{ client.page }} {% endif %}" title="{{ client.title }}"><img src="{{ theimage.url }}" alt="{{ theimage.alt }}"></a></li>
                         {% endfor %}
-                        {% endif %}
                         </ul>
 
                         {% for block in self.blocks %}
