@@ -45,24 +45,24 @@ class HomePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
         SectionsStreamBlock(), 
         verbose_name="Home content block", blank=True
     )
-    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
-    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, blank=True)
-    master = models.ForeignKey(
-        'cms.Master',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+    #city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
+    #country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, blank=True)
+    #master = models.ForeignKey(
+    #    'cms.Master',
+    #    null=True,
+    #    blank=True,
+    #    on_delete=models.SET_NULL,
+    #    related_name='+'
+    #)
     search_fields = [
         index.SearchField('body'),
         index.FilterField('live'),
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('city'),
-        FieldPanel('country'),
-        InlinePanel('master_placements', label="Masters"),
+        #FieldPanel('city'),
+        #FieldPanel('country'),
+        #InlinePanel('master_placements', label="Masters"),
         StreamFieldPanel('body'),
     ]
 
