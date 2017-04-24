@@ -1,5 +1,5 @@
 {% load static l10n %}
-
+{% if masters.count %}
 <div id="map" style="width: 100%; height: 400px"></div>
 {% localize off %}
 <script>
@@ -44,3 +44,4 @@
 </script>
 {% endlocalize %}
 <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyBO-_WYrcSrU79tLuKPiINGkCJ1e__RWWw&callback=initMap" async defer></script>
+{% endif %}
