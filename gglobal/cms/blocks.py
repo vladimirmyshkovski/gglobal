@@ -32,12 +32,10 @@ class SubscribeBlock(StructBlock):
 class MasterBlock(StructBlock):
     h3 = blocks.CharBlock()
     text = blocks.CharBlock()
-    snippet = sb.SnippetChooserBlock('cms.Master',required=True)
-
     
     class Meta:
         icon = 'user'
-        template = "sections/subscribe_block.html"
+        template = "sections/master_block.html"
 
 
 

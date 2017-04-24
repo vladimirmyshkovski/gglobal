@@ -1,20 +1,44 @@
-<div class="container">
-  <h2>{{ masters.text }}</h2>
+<!--div class="container">
+  <h2>{#{ masters.text }#}</h2>
 
   <div class="list-group">
-    {% for master in masters.master %}
-      <a href="{% url 'users:detail' master.user_id %}" class="list-group-item">
+    {#% for master in masters %#}
+      <a href="{#% url 'users:detail' master.user_id %#}" class="list-group-item">
       <div class="testimonial-user-info user-info text-left">
         <div class="testimonial-user-thumb user-thumb">
-            <img src="{{ master.avatar }}" alt="Частный мастер по ремонту компьютеров {{ master.user.username }}">
+            <img src="{#{ master.avatar }#}" alt="Частный мастер по ремонту компьютеров {#{ master.user.username }#}">
         </div>
         <div class="testimonial-user-txt user-text">
-            <label class="testimonial-user-name user-name">{{ master.user.username }}</label>
-            <p class="testimonial-user-position user-position text-muted">Местоположение: {{ master.country }} {{ master.city }}</p>
-            <p class="testimonial-user-position user-position text-muted">Рейтинг: {{ master.raiting }}</p>
+            <label class="testimonial-user-name user-name">{#{ master.user.username }#}</label>
+            <p class="testimonial-user-position user-position text-muted">Местоположение: {#{ master.country }#} {#{ master.city }#}</p>
+            <p class="testimonial-user-position user-position text-muted">Рейтинг: {#{ master.raiting }#}</p>
         </div>
       </div>
       </a>
-    {% endfor %}
+    {#% endfor %#}
   </div>
-</div>
+</div-->
+
+
+<!-- Master switcher -->
+  <div id="style-switcher" style="left: 0px;">
+    <div>
+      <h3 style="text-align: center">Выбери своего мастера</h3>
+      <ul class="pattern">
+        {% for master in masters %}
+        <li style="text-align: center; margin: 10px">
+          <a style="margin-bottom: 50px" href="{% url 'users:detail' master.user_id %}">
+            <img src="/media/{{ master.avatar }}" alt="Частный мастер по ремонту компьютеров {{ master.user.username }}">
+            <p style="font-size: 12px; color: #496174"> {{ master.user.username }}</p>
+            <p style="color: #496174"><i class="fa fa-line-chart"></i> {{ master.raiting }}</p>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    
+    <div class="bottom">
+      <a href="#" class="settings"><i class="pe-7s-user"></i></a>
+    </div>
+  </div>
+<!-- end Master switcher -->

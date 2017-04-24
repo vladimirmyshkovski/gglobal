@@ -11,6 +11,8 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from cities.models import City, Country
 from geoposition.fields import GeopositionField
+import googlemaps
+
 
 @python_2_unicode_compatible
 class User(AbstractUser):
@@ -35,7 +37,16 @@ class MasterCRMProfile(models.Model):
     country = models.ForeignKey(Country)
     city = models.ForeignKey(City)
     position = GeopositionField()
-    avatar = models.ImageField(upload_to=settings.MEDIA_ROOT, blank=True, verbose_name='Аватарка')
+    avatar = models.ImageField(upload_to='avatars', blank=True, verbose_name='Аватарка')
+
+    @property
+    def full_name(self):
+        return "%s-%s" % (self.user.first_name, self.user.last_name)
+
+    @property
+    def real_location(self):
+        gmaps = googlemaps.Client(key=settings.GOOGLE_MAP_API_KEY)
+        return "%s" % (gmaps.reverse_geocode((self.position.latitude, self.position.longitude), language='ru', sensor = 'true'))
 
     class Meta:
         verbose_name = "Мастер"

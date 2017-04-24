@@ -386,7 +386,7 @@ CITIES_FILES = {
 }
 CITIES_POSTAL_CODES = ['BY']
 
-CITIES_LOCALES = ['rus', 'und', 'LANGUAGES']
+CITIES_LOCALES = ['rus', 'LANGUAGES']
 
 # django-geoposition
 # ------------------------------------------------------------------------------

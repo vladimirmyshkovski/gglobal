@@ -17,17 +17,16 @@ urlpatterns = [
     url(settings.ADMIN_URL, admin.site.urls),
 
     # User management
-    url(r'^users/', include('gglobal.users.urls', namespace='users')),
-    url(r'^accounts/', include('allauth.urls')),
+    url(r'^частные-мастера/', include('gglobal.users.urls', namespace='users')),
+    url(r'^аккаунты/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
 
     url(r'^cms/', include('wagtail.wagtailadmin.urls')),
     url(r'^qa/', include('gglobal.qa.urls')),
-    url(r'^qualification/', include('gglobal.qualification.urls', namespace='qualification')),
+    url(r'^квалификационные-вопросы/', include('gglobal.qualification.urls', namespace='qualification')),
 
     url('^sitemap\.xml$', sitemap),
-    url(r'^categories/', include('categories.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

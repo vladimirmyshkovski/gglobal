@@ -36,7 +36,6 @@ class SurveyFormField(surveys_models.AbstractFormField):
 
 class HomePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 
-#class HomePage(MenuPage):
     """
     The Home Page
     """
@@ -45,24 +44,43 @@ class HomePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
         SectionsStreamBlock(), 
         verbose_name="Home content block", blank=True
     )
-    #city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
-    #country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, blank=True)
-    #master = models.ForeignKey(
-    #    'cms.Master',
-    #    null=True,
-    #    blank=True,
-    #    on_delete=models.SET_NULL,
-    #    related_name='+'
-    #)
+
     search_fields = [
         index.SearchField('body'),
         index.FilterField('live'),
     ]
 
     content_panels = Page.content_panels + [
-        #FieldPanel('city'),
-        #FieldPanel('country'),
-        #InlinePanel('master_placements', label="Masters"),
+        StreamFieldPanel('body'),
+    ]
+
+    promote_panels = Page.promote_panels + MetadataPageMixin.panels
+
+    def __str__(self):
+        return self.body
+
+
+
+class CityPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
+
+    """
+    The City Page
+    """
+
+    body = StreamField(
+        SectionsStreamBlock(), 
+        verbose_name="Home content block", blank=True
+    )
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, blank=True)
+    search_fields = [
+        index.SearchField('body'),
+        index.FilterField('live'),
+    ]
+
+    content_panels = Page.content_panels + [
+    	FieldPanel('country'),
+        FieldPanel('city'),
         StreamFieldPanel('body'),
     ]
 
@@ -94,7 +112,6 @@ from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
 from modelcluster.fields import ParentalKey
 
-...
 
 class HomePageMasterPlacement(Orderable, models.Model):
     page = ParentalKey('cms.HomePage', related_name='master_placements')
@@ -110,3 +127,4 @@ class HomePageMasterPlacement(Orderable, models.Model):
 
     def __str__(self):
         return self.page.title + " -> " + self.master.text
+

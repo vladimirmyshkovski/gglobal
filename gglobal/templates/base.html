@@ -1,10 +1,10 @@
-{% load base_tags static wagtailuserbar compress %}
+{% load base_tags static users_tags breadcrumbs_tags wagtailuserbar compress %}
 
 {% block head %}
     {% include "includes/head.html" %}
 {% endblock head %}
 
-<body class="{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}" style="margin-top: 0px">
+<body data-spy="scroll" data-target="#navbar-menu" class="{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}" style="margin-top: 0px">
 {#% wagtailuserbar %#}
 
 {% block header %}
@@ -20,16 +20,19 @@
 {#% endblock messages %#}
 
 
-{#% block breadcrumbs %#}
-    {#% breadcrumbs %#}
+{% block breadcrumbs %}
+    {% breadcrumbs %}
     {# breadcrumbs is defined in base/templatetags/navigation_tags.py #}
-{#% endblock breadcrumbs %#}
+{% endblock breadcrumbs %}
+
+{#% block masters %#}
+    {#% masters %#}
+{#% endblock masters %#}
 
 <content>
     {% block content %}
     {% endblock content %}
 </content>
-
     <!-- Footer -->
     <footer class="section bg-gray footer">
         {% include "includes/footer.html" %}
