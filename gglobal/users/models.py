@@ -32,7 +32,7 @@ class User(AbstractUser):
 class MasterCRMProfile(models.Model):
     user = AutoOneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
     # The additional attributes we wish to include.
-    sites = models.ManyToManyField(Site)
+    #sites = models.ManyToManyField(Site)
     country = models.ForeignKey(Country)
     city = models.ForeignKey(City)
     avatar = models.ImageField(upload_to='avatars', blank=True, verbose_name='Аватарка')
