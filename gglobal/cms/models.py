@@ -14,7 +14,7 @@ from wagtailmetadata.models import MetadataPageMixin
 from wagtailsurveys import models as surveys_models
 
 from django.db import models
-from cities.models import City, Country
+from cities_light.models import City, Country
 from gglobal.users.models import MasterCRMProfile
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 

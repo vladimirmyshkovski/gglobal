@@ -12,6 +12,11 @@ urlpatterns = [
         name='list'
     ),
     url(
+        regex=r'^города/$',
+        view=views.UserCityListlView.as_view(),
+        name='cities'
+    ),
+    url(
         regex=r'^~redirect/$',
         view=views.UserRedirectView.as_view(),
         name='redirect'
@@ -20,11 +25,6 @@ urlpatterns = [
         regex=r'^(?P<user_id>[\w.@+-]+)/$',
         view=views.UserDetailView.as_view(),
         name='detail'
-    ),
-    url(
-        regex=r'^~update/$',
-        view=views.UserUpdateView.as_view(),
-        name='update'
     ),
     url(
         regex=r'^~createclient/$',

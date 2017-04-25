@@ -14,10 +14,12 @@
 
     function addMarkers() {
     {% for point in points %}
-    var nonsplitpoint = '{{ point.city.location}}'
-    var lat = Number(nonsplitpoint.split(' ')[2].replace(')',''))
-    var lng = Number(nonsplitpoint.split(' ')[1].replace('(',''))
-    var point = { lat: lat, lng: lng };
+    //var nonsplitpoint = '{{ point.city.location}}'
+    //var lat = Number(nonsplitpoint.split(' ')[2].replace(')',''))
+    //var lng = Number(nonsplitpoint.split(' ')[1].replace('(',''))
+    var lat = '{{ point.city.latitude }}'
+    var lng = '{{ point.city.longitude }}'
+    var point = { lat: Number(lat.replace(',', '.')), lng: Number(lng.replace(',', '.')) };
     var marker = new google.maps.Marker({
       position: point, 
       map: map,

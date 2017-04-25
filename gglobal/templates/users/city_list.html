@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}Города{% endblock %}
+{% block content %}
+<div class="container">
+  <h2>Города</h2>
+
+  <div class="list-group">
+    {% for city in city_list %}
+    {{ city }}
+      <a href="" class="list-group-item">
+      <div class="testimonial-user-info user-info text-left">
+        <div class="testimonial-user-thumb user-thumb">
+            <img src="/media/{{ master.avatar }}" alt="Частный мастер по ремонту компьютеров {{ master.user.username }}">
+        </div>
+        <div class="testimonial-user-txt user-text">
+            <label class="testimonial-user-name user-name">{{ master.user.username }}</label>
+            <p class="testimonial-user-position user-position text-muted">Местоположение: {{ master.real_location }}</p>
+            <p class="testimonial-user-position user-position text-muted">Рейтинг: {{ master.raiting }}</p>
+        </div>
+      </div>
+      </a>
+    {% endfor %}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'users:cities' %}?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+                {% endif %}
+                <span class="page-current">
+                    страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{% url 'users:cities' %}?page={{ page_obj.next_page_number }}">Следующая</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}

@@ -60,6 +60,7 @@ THIRD_PARTY_APPS = [
     'turbolinks', # Turbolinks
 
     'cities', # Django-cities
+    'cities_light', # Django-cities-light
 
     'ckeditor', # CKEditor
 
@@ -386,7 +387,14 @@ CITIES_FILES = {
 }
 CITIES_POSTAL_CODES = ['BY']
 
-CITIES_LOCALES = ['rus', 'LANGUAGES']
+CITIES_LOCALES = ['ru', 'LANGUAGES']
+
+# django-cities-light
+# ------------------------------------------------------------------------------
+CITIES_LIGHT_TRANSLATION_LANGUAGES = ['ru']
+CITIES_LIGHT_INCLUDE_COUNTRIES = ['BY']
+CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 'PPLS', 'STLMT',]
+
 
 # django-geoposition
 # ------------------------------------------------------------------------------

@@ -23,10 +23,13 @@ def masters_map(context):
 	self = context.get('self')
 	try:
 		masters = MasterCRMProfile.objects.filter(city=self.city).all()
+		city = self.city
 	except:
 		pass
 		masters = MasterCRMProfile.objects.all()
+		city = masters[0].city
 	return {
+		'city': city,
         'masters': masters,
         'request': context['request'],
     }

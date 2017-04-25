@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from annoying.fields import AutoOneToOneField
 from django.conf import settings
 from django.contrib.sites.models import Site
-from cities.models import City, Country
+from cities_light.models import City, Country
 from geoposition.fields import GeopositionField
 import googlemaps
 
@@ -20,7 +20,7 @@ class User(AbstractUser):
     # First Name and Last Name do not cover name patterns
     # around the globe.
     name = models.CharField(_('Name of User'), blank=True, max_length=255)
-
+    
     def __str__(self):
         return self.username
 
@@ -33,11 +33,11 @@ class MasterCRMProfile(models.Model):
     user = AutoOneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
     # The additional attributes we wish to include.
     sites = models.ManyToManyField(Site)
-    raiting = models.IntegerField()
     country = models.ForeignKey(Country)
     city = models.ForeignKey(City)
-    position = GeopositionField()
     avatar = models.ImageField(upload_to='avatars', blank=True, verbose_name='Аватарка')
+    raiting = models.IntegerField(default=0)
+    position = GeopositionField()
 
     @property
     def full_name(self):
