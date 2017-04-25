@@ -33,8 +33,8 @@ class MasterCRMProfile(models.Model):
     user = AutoOneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
     # The additional attributes we wish to include.
     sites = models.ManyToManyField(Site)
-    country = models.ForeignKey('cities_light.Country')
-    city = models.ForeignKey('cities_light.City')
+    #country = models.ForeignKey('cities_light.Country')
+    #city = models.ForeignKey('cities_light.City')
     avatar = models.ImageField(upload_to='avatars', blank=True, verbose_name='Аватарка')
     raiting = models.IntegerField(default=0)
     position = GeopositionField()
