@@ -59,7 +59,7 @@ THIRD_PARTY_APPS = [
     'annoying', # AutoOneToOneField
     'turbolinks', # Turbolinks
 
-    'cities', # Django-cities
+    #'cities', # Django-cities
     'cities_light', # Django-cities-light
 
     'ckeditor', # CKEditor
