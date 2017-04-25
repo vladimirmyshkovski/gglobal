@@ -30,7 +30,8 @@ class TaggedWhatever(GenericTaggedItemBase):
 
     # Here is where you provide your custom Tag class.
     tag = models.ForeignKey(MyCustomTag,
-                            related_name="%(app_label)s_%(class)s_items")
+                            related_name="%(app_label)s_%(class)s_items", 
+                            default="")
 
 
 class UserQAProfile(models.Model):
@@ -50,7 +51,7 @@ class Question(models.Model, HitCountMixin):
     pub_date = models.DateTimeField('date published', auto_now_add=True)
     tags = TaggableManager(through=TaggedWhatever)
     reward = models.IntegerField(default=0)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, default="")
     closed = models.BooleanField(default=False)
     positive_votes = models.IntegerField(default=0)
     negative_votes = models.IntegerField(default=0)
@@ -68,11 +69,11 @@ class Question(models.Model, HitCountMixin):
 
 
 class Answer(models.Model):
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey(Question, default="")
     answer_text = MarkdownField()
     pub_date = models.DateTimeField('date published', auto_now_add=True)
     updated = models.DateTimeField('date updated', auto_now=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, default="")
     answer = models.BooleanField(default=False)
     positive_votes = models.IntegerField(default=0)
     negative_votes = models.IntegerField(default=0)
@@ -90,7 +91,7 @@ class Answer(models.Model):
 
 
 class VoteParent(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, default="")
     value = models.BooleanField(default=True)
 
     class Meta:
@@ -98,14 +99,14 @@ class VoteParent(models.Model):
 
 
 class AnswerVote(VoteParent):
-    answer = models.ForeignKey(Answer)
+    answer = models.ForeignKey(Answer, default="")
 
     class Meta:
         unique_together = (('user', 'answer'),)
 
 
 class QuestionVote(VoteParent):
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey(Question, default="")
 
     class Meta:
         unique_together = (('user', 'question'),)
@@ -113,7 +114,7 @@ class QuestionVote(VoteParent):
 
 class BaseComment(models.Model):
     pub_date = models.DateTimeField('date published', auto_now_add=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, default="")
 
     class Meta:
         abstract = True
@@ -124,9 +125,9 @@ class BaseComment(models.Model):
 
 class AnswerComment(BaseComment):
     comment_text = MarkdownField()
-    answer = models.ForeignKey(Answer)
+    answer = models.ForeignKey(Answer, default="")
 
 
 class QuestionComment(BaseComment):
     comment_text = models.CharField(max_length=250)
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey(Question, default="")
