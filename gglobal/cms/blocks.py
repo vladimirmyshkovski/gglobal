@@ -44,7 +44,10 @@ class FeaturesBlock(StructBlock):
     sub = blocks.CharBlock()
     features_item = CardsBlock(blocks.StructBlock([
     ('title', blocks.CharBlock()),
-    ('sub', blocks.CharBlock()),
+    ('sub', blocks.ListBlock(blocks.StructBlock([
+        ('title', blocks.CharBlock(required=False)),
+        ('link', blocks.PageChooserBlock(required=False)),
+    ]))),
     ('icon', blocks.CharBlock())
 ]))
 
