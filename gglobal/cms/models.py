@@ -71,8 +71,8 @@ class CityPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
         SectionsStreamBlock(), 
         verbose_name="Home content block", blank=True
     )
-    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
-    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, blank=True)
+    city = models.ForeignKey('cities_light.City', on_delete=models.SET_NULL, null=True, blank=True)
+    country = models.ForeignKey('cities_light.Country', on_delete=models.SET_NULL, null=True, blank=True)
     search_fields = [
         index.SearchField('body'),
         index.FilterField('live'),
