@@ -60,6 +60,8 @@ THIRD_PARTY_APPS = [
     'turbolinks', # Turbolinks
 
     #'cities', # Django-cities
+    'cities_light', # Django-cities-light
+
 
     'ckeditor', # CKEditor
 
@@ -111,7 +113,6 @@ LOCAL_APPS = [
 ]
 
 PRE_DJANGO_APPS = [
-    'cities_light', # Django-cities-light
     'dal', # autocomplete light v.3
     'dal_select2', # autocomplete light v.3
     'dal_queryset_sequence', # autocomplete light v.3
