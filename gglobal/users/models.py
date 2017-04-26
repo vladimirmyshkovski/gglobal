@@ -19,38 +19,20 @@ class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
-    name = models.CharField(_('Name of User'), blank=True, max_length=255)
+    #name = models.CharField(_('Name of User'), blank=True, max_length=255)
+    city = models.ForeignKey(City, null=True, blank=True)
+    phone_number = models.CharField(
+        help_text=(_('Must include international prefix - e.g. +1 555 555 55555')), null=True, max_length=25)
+    country = models.ForeignKey(Country, null=True, blank=True)
+    position = GeopositionField()
+    sites = models.ManyToManyField(Site)
+    avatar = models.ImageField(upload_to='avatars', blank=True, verbose_name='Аватарка')
+    raiting = models.IntegerField(default=0)
+
+
     
     def __str__(self):
         return self.username
 
     def get_absolute_url(self):
         return reverse('users:detail', kwargs={'username': self.username})
-
-
-
-class MasterCRMProfile(models.Model):
-    user = AutoOneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
-    # The additional attributes we wish to include.
-    sites = models.ManyToManyField(Site)
-    country = models.ForeignKey(Country)
-    city = models.ForeignKey(City)
-    avatar = models.ImageField(upload_to='avatars', blank=True, verbose_name='Аватарка')
-    raiting = models.IntegerField(default=0)
-    position = GeopositionField()
-
-    @property
-    def full_name(self):
-        return "%s-%s" % (self.user.first_name, self.user.last_name)
-
-    @property
-    def real_location(self):
-        gmaps = googlemaps.Client(key=settings.GOOGLE_MAP_API_KEY)
-        return "%s" % (gmaps.reverse_geocode((self.position.latitude, self.position.longitude), language='ru', sensor = 'true'))
-
-    class Meta:
-        verbose_name = "Мастер"
-        verbose_name_plural = "Мастера"
-
-    def __str__(self):  # pragma: no cover
-        return self.user.username

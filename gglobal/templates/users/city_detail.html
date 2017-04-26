@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}Города{% endblock %}
+{% block content %}
+<section class="bg-custom home" id="home">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <div class="home-wrapper home-wrapper-alt">
+          <h1 class="text-white">Частные мастера по ремонту компьютеров и ноутбуков в городе {{ object.alternate_names }}</h1>
+          <h4 class="text-light">Выбирайте проверенных</h4>
+          <a href="" class="btn btn-white-bordered">Приступить</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container">
+  <h2 style="text-align: center">Частные мастера</h2>
+
+  <div class="list-group">
+    {% for master in masters %}
+      <a href="{% url 'users:detail' master.user_id %}" class="list-group-item">
+      <div class="testimonial-user-info user-info text-left">
+        <div class="testimonial-user-thumb user-thumb">
+            <img src="/media/{{ master.avatar }}" alt="Частный мастер по ремонту компьютеров {{ master.user.username }}">
+        </div>
+        <div class="testimonial-user-txt user-text">
+            <label class="testimonial-user-name user-name">{{ master.user.username }}</label>
+            <p class="testimonial-user-position user-position text-muted">Местоположение: {{ master.real_location }}</p>
+            <p class="testimonial-user-position user-position text-muted">Рейтинг: {{ master.raiting }}</p>
+        </div>
+      </div>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

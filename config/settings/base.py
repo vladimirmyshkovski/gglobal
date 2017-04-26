@@ -99,6 +99,16 @@ THIRD_PARTY_APPS = [
     'wagtailgridder',
 
     'mapwidgets',
+    # django-viewflow and django-material
+    'gglobal.viewflow', # django-viewflow
+    'material.theme.blue', 
+    'material', # django-material
+    'material.frontend',
+    'gglobal.viewflow.frontend',
+    #####################################
+
+    'notifications', # django-notifications
+
 ]
 
 # Apps specific for this project go here.

@@ -8,6 +8,10 @@
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 9,
       center: latlng,
+      zoomControl: false,
+      scaleControl: false,
+      scrollwheel: false,
+      disableDoubleClickZoom: true,
     });
 
     google.maps.event.addListenerOnce(map, 'tilesloaded', addMarkers);

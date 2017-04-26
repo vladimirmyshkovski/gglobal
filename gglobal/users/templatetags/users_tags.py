@@ -1,5 +1,5 @@
 from django import template
-from gglobal.users.models import MasterCRMProfile
+from gglobal.crm.models import MasterCRMProfile
 from wagtail.wagtailcore.models import Page
 
 register = template.Library()

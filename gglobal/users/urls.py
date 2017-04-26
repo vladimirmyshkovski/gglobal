@@ -19,7 +19,7 @@ urlpatterns = [
     url(
         regex=r'^город/(?P<alternate_names>[\w.@+-]+)/$',
         view=views.UserCityDetailView.as_view(),
-        name='cities'
+        name='city'
     ),
     url(
         regex=r'^~redirect/$',
@@ -27,7 +27,7 @@ urlpatterns = [
         name='redirect'
     ),
     url(
-        regex=r'^(?P<user_id>[\w.@+-]+)/$',
+        regex=r'^мастер/(?P<user_id>[\w.@+-]+)/$',
         view=views.UserDetailView.as_view(),
         name='detail'
     ),
