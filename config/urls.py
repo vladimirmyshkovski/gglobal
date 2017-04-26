@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^cms/', include('wagtail.wagtailadmin.urls')),
     url(r'^qa/', include('gglobal.qa.urls')),
     url(r'^квалификационные-вопросы/', include('gglobal.qualification.urls', namespace='qualification')),
+    #url(r'^categories/', include('categories.urls', namespace='categories')),
 
     url('^sitemap\.xml$', sitemap),
 

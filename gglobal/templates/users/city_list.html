@@ -7,16 +7,17 @@
 
   <div class="list-group">
     {% for city in city_list %}
-    {{ city }}
+    {{ city.alternate_names }}
+    всего мастеров: {{ city.masters_count }}
       <a href="" class="list-group-item">
       <div class="testimonial-user-info user-info text-left">
         <div class="testimonial-user-thumb user-thumb">
-            <img src="/media/{{ master.avatar }}" alt="Частный мастер по ремонту компьютеров {{ master.user.username }}">
+            <img src="/media/{{ city.mastercrmprofile.avatar }}" alt="Частный мастер по ремонту компьютеров {{ city.mastercrmprofile.user.username }}">
         </div>
         <div class="testimonial-user-txt user-text">
-            <label class="testimonial-user-name user-name">{{ master.user.username }}</label>
-            <p class="testimonial-user-position user-position text-muted">Местоположение: {{ master.real_location }}</p>
-            <p class="testimonial-user-position user-position text-muted">Рейтинг: {{ master.raiting }}</p>
+            <label class="testimonial-user-name user-name">{{ city.mastercrmprofile.user.username }}</label>
+            <p class="testimonial-user-position user-position text-muted">Местоположение: {{ city.mastercrmprofile.real_location }}</p>
+            <p class="testimonial-user-position user-position text-muted">Рейтинг: {{ city.mastercrmprofile.raiting }}</p>
         </div>
       </div>
       </a>

@@ -13,7 +13,12 @@ urlpatterns = [
     ),
     url(
         regex=r'^города/$',
-        view=views.UserCityListlView.as_view(),
+        view=views.UserCityListView.as_view(),
+        name='cities'
+    ),
+    url(
+        regex=r'^город/(?P<alternate_names>[\w.@+-]+)/$',
+        view=views.UserCityDetailView.as_view(),
         name='cities'
     ),
     url(

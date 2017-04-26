@@ -59,15 +59,15 @@ THIRD_PARTY_APPS = [
     'annoying', # AutoOneToOneField
     'turbolinks', # Turbolinks
 
-    'cities', # Django-cities
+    #'cities', # Django-cities
     'cities_light', # Django-cities-light
-
 
     'ckeditor', # CKEditor
 
     'categories', # Django-categories
     'categories.editor', # Django-categories
-
+    'mptt',
+    
     "geoposition", # Django-geoposition
 
     'wagtail.wagtailcore',
@@ -229,6 +229,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.csrf',
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.i18n',
                 'django.template.context_processors.media',
@@ -424,3 +425,6 @@ CKEDITOR_CONFIGS = {
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
+CATEGORIES_SETTINGS = {
+'ALLOW_SLUG_CHANGE': True
+}

@@ -8,16 +8,18 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from cities_light.models import City
+from django.shortcuts import get_object_or_404
+from django.db.models import Count
 #from gglobal.crm.flows import ClientFlow
 
-class UserDetailView(LoginRequiredMixin, DetailView):
+class UserDetailView(DetailView):
     model = MasterCRMProfile
     # These next two lines tell the view to index lookups by user_id
     slug_field = 'user_id'
     slug_url_kwarg = 'user_id'
 
 
-class UserRedirectView(LoginRequiredMixin, RedirectView):
+class UserRedirectView(RedirectView):
     permanent = False
 
     def get_redirect_url(self):
@@ -25,7 +27,7 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
                        kwargs={'user.username': self.request.user.username})
 
 
-class UserListView(LoginRequiredMixin, ListView):
+class UserListView(ListView):
     model = MasterCRMProfile
     # These next two lines tell the view to index lookups by user_id
     slug_field = 'user_id'
@@ -35,7 +37,7 @@ class UserListView(LoginRequiredMixin, ListView):
         return context
 
 
-class UserCityListlView(LoginRequiredMixin, ListView):
+class UserCityListView(ListView):
     model = City
     template_name = 'users/city_list.html'
     slug_field = 'name'
@@ -43,13 +45,31 @@ class UserCityListlView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = City.objects.filter(mastercrmprofile__isnull=False, alt_names__language_code='ru', name=F('alt_names__name')).distinct().all()
+        queryset = City.objects.filter(mastercrmprofile__isnull=False).annotate(masters_count=Count('mastercrmprofile')).distinct().order_by('-population').all()
+        return queryset
+
+
+class UserCityDetailView(DetailView):
+    model = City
+    #template_name = 'users/city_list.html'
+    slug_field = 'alternate_names'
+    slug_url_kwarg = 'alternate_names'
+
+    '''
+    def get_queryset(self):
+        asd = get_object_or_404(City, alternate_names='Минск')#self.kwargs['alternate_names'])
+        print(asd)
+        queryset = City.objects.get(alternate_names='Минск')
+
+
         #queryset = City.objects.filter(mastercrmprofile__isnull=False).distinct().all()
         #queryset = [City.objects.get(id=city.id).alt_names.filter(language_code='ru') for city in City.objects.filter(mastercrmprofile__isnull=False).distinct().all()]
         #queryset = [city.alt_names.filter(language_code='ru') for city in City.objects.filter(mastercrmprofile__isnull=False).distinct().all()]
-        print(queryset)
         return queryset
-
+    '''
+    def get_object(self):
+        city = get_object_or_404(City, alternate_names__iexact=self.kwargs['alternate_names'])
+        return city
 
 
 @csrf_exempt

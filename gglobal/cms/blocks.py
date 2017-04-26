@@ -42,10 +42,13 @@ class MasterBlock(StructBlock):
 class FeaturesBlock(StructBlock):
     title = blocks.CharBlock()
     sub = blocks.CharBlock()
-    features_item = CardsBlock(blocks.StructBlock([
+    features_item = blocks.ListBlock(blocks.StructBlock([
     ('title', blocks.CharBlock()),
-    ('sub', blocks.CharBlock()),
-    ('icon', blocks.CharBlock())
+    ('icon', blocks.CharBlock()),
+    ('links', blocks.ListBlock(blocks.StructBlock([
+    ('link', blocks.URLBlock(required=False)),
+    ('page', blocks.PageChooserBlock(required=False))
+]))),
 ]))
 
     class Meta:
