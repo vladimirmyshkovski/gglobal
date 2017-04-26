@@ -47,7 +47,8 @@ class FeaturesBlock(StructBlock):
     ('icon', blocks.CharBlock()),
     ('links', blocks.ListBlock(blocks.StructBlock([
     ('link', blocks.URLBlock(required=False)),
-    ('page', blocks.PageChooserBlock(required=False))
+    ('page', blocks.PageChooserBlock(required=False)),
+    ('text', blocks.CharBlock()),
 ]))),
 ]))
 
