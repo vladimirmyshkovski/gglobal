@@ -1,0 +1,15 @@
+        <!-- CTA -->
+        <section class="section bg-{% if self.color == 'light' %}light{% else %}custom{% endif %}">
+            <div class="container">
+
+                <div class="row text-center">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <h5 class="text-uppercase m-t-0">{{ self.h5 }}</h5>
+                        <h2>{{ self.h2 }}</h2>
+                        <a href="{{ self.btnlink }}" class="btn btn-{% if self.color == 'light' %}custom{% else %}white-fill{% endif %} m-t-20">{{ self.btntext }}</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- END CTA -->

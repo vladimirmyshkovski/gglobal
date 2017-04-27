@@ -1,0 +1,47 @@
+{% load wagtailimages_tags %}
+        <section>
+        {% if self.align == 'left' %}
+        {% image self.image width-600 as theimage %}
+
+            <div class="row wide-img-showcase-row">
+                <div class="col-sm-6 no-padding img" style="background: url('{{ theimage.url }}') scroll center no-repeat;">        
+                </div>
+                <!-- end col -->
+                <div class="col-sm-6 col-sm-offset-6 bg-light">
+        {% else %}
+            <div class="row margin-0 wide-img-showcase-row">
+                <div class="col-sm-6 bg-light">
+        {% endif %}
+
+                    <div class="about-detail-img-box">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="text-center">
+                                    <div class="title-box-icon title-about">
+                                        <i class="{{ self.icon }}"></i>
+                                        <h3 class="title">{{ self.h3 }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <div class="feat-description text-center">
+                                    <h4 class="text-muted">{{ self.h4 }}</h4>
+                                    <p class="text-muted">{{ self.text }}</p>
+                                </div><!-- Features Description -->
+                            </div> <!-- end col -->
+                        </div> <!-- end row -->
+                    </div> <!-- end about detail -->
+                </div> <!-- end col -->
+        {% image self.image width-600 as theimage %}
+        {% if self.align == 'right' %}
+            <div class="col-sm-6 col-sm-offset-6 no-padding img-2" style="background: url('{{ theimage.url }}') scroll center no-repeat;">
+            </div>
+        {% endif %}
+    
+            </div> <!-- end row -->
+
+
+        </section>

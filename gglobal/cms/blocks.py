@@ -76,6 +76,41 @@ class FeaturesAltBlock(StructBlock):
         template = "sections/features_alt_block.html"
 
 
+class OurBlock(StructBlock):
+    h3 = blocks.CharBlock(required=False)
+    h4 = blocks.CharBlock(required=False)
+    text = blocks.CharBlock(required=False)
+    icon = blocks.CharBlock(help_text="Иконки можно брать любые. Писать целиком класс, например fa fa-user или pe-7s-rocket")
+    align = ChoiceBlock(choices=[
+        ('', 'Картина слева или справа?'),
+        ('left', 'Слева'),
+        ('right', 'Справа')
+    ], blank=True, required=False)
+    image = ImageChooserBlock(required=False)
+    #btnlink = blocks.CharBlock(required=False)
+    #btntext = blocks.CharBlock(required=False)
+
+    class Meta:
+        icon = 'doc-empty-inverse'
+        template = "sections/our_block.html"
+
+
+class SolutionsBlock(StructBlock):
+    h5 = blocks.CharBlock(required=False)
+    h2 = blocks.CharBlock(required=False)
+    color = ChoiceBlock(choices=[
+        ('', 'Блок светлый или тёмный?'),
+        ('light', 'Светлый'),
+        ('dark', 'Тёмный')
+    ], blank=True, required=False)
+    btnlink = blocks.CharBlock(required=False)
+    btntext = blocks.CharBlock(required=False)
+
+    class Meta:
+        icon = 'doc-empty-inverse'
+        template = "sections/solutions_block.html"
+
+
 class ClientsBlock(StructBlock):
     h3 = blocks.CharBlock(required=False)
     text = blocks.CharBlock(required=False)
@@ -147,7 +182,9 @@ class SectionsStreamBlock(StreamBlock):
     price_block = PriceBlock()
     clients_block = ClientsBlock()
     subscribe_block = SubscribeBlock()
-    master_block = MasterBlock()
+    our_block = OurBlock()
+    solutions_block = SolutionsBlock()
+
 
 class PageBlock(StructBlock):
     """
