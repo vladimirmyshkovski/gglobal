@@ -11,15 +11,14 @@
 
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3">
-                        <form class="text-center" action=""
-                              id="subscribe-form" method="get">
+                        <form class="text-center">
                             <div class="form-group m-b-0">
-                                <input type="email" class="form-control input-subscribe" id="mce-EMAIL" name="EMAIL"
+                                <input id="{{ self.handle }}-phone" name="phone" class="form-control input-subscribe"
                                        placeholder="{{ self.inputtext }}" required>
                                 <label for="mce-EMAIL"></label>
                             </div>
 
-                            <button type="submit" class="btn btn-white-fill">{{ self.btntext }}</button>
+                            <button id="{{ self.handle }}-submit" type="submit" class="btn btn-white-fill">{{ self.btntext }}</button>
                             <p class="text-light">
                                 <small>{{ self.smalltext }}</small>
                             </p>
@@ -30,3 +29,44 @@
             </div> <!-- end container -->
         </section>
         <!-- End Subscribe -->
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.validate({
+                    modules : 'html5',
+                    lang: 'ru',
+                    errorMessagePosition : 'top',
+                });
+                $('#{{ self.handle }}-phone').inputmask({"mask": "+375(99) 999-99-99"}); 
+                $("#{{ self.handle }}-submit").click(function(e){
+                e.preventDefault();
+                jQuery.ajax({
+                    type: 'POST',
+                    //dataType: 'json',
+                    async: true,
+                    url: '{% url 'users:createclient' %}',
+                    data: { 'csrfmiddlewaretoken': csrftoken,
+                    phone: $('#{{ self.handle }}-phone').val(),
+                    form: '{{ self.handle }}',
+                },
+                    success: setTimeout(function(data) { 
+                        $.magnificPopup.open({ 
+                            items: { 
+                                src: '#thank-you-modal', 
+                                type: 'inline' 
+                            } 
+                        });
+                        $('#{{ self.handle }}-phone').val('') 
+                    }, 1000), 
+                    error: function(xhr, textStatus) { 
+                        $.magnificPopup.open({ 
+                            items: { 
+                                src: '#error-modal', 
+                                type: 'inline' 
+                            } 
+                        });
+                    }
+                });
+                return false;
+            });
+            });
+        </script>

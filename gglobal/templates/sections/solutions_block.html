@@ -16,10 +16,10 @@
                         <div class="col-lg-10 col-lg-offset-1">
                             <form role="form" class="intro-form">
                                 <h3 class="text-center"> {{ self.formh3 }} </h3>
-                                    <input type="text" id="name" name="name" class="form-control" data-validation="length"  data-validation-length=" 3-15" data-validation-error-msg-container="#email-error-dialog" placeholder="{{ self.firstname }}" required="required">
+                                    <input type="text" id="{{ self.handle }}-name" name="name" class="form-control" data-validation="length"  data-validation-length=" 3-15" data-validation-error-msg-container="#email-error-dialog" placeholder="{{ self.firstname }}" required="required">
                                     <span id="email-error-dialog"></span>
                                 <div class="form-group">
-                                    <input type="text" id="phone" name="phone" class="form-control" placeholder="{{ self.phone_number }}" required="required">
+                                    <input type="text" id="{{ self.handle }}-phone" name="phone" class="form-control" placeholder="{{ self.phone_number }}" required="required">
                                 </div>
                                 <div class="form-group text-center">
                                     <button type="submit" class="btn btn-custom btn-sm btn-block" id="{{ self.handle }}-submit">{{ self.button }}</button>
@@ -33,7 +33,7 @@
                 $('.{{ self.handle }}').magnificPopup({
                     type: 'inline',
                     preloader: false,
-                    focus: '#name',
+                    focus: '#{{ self.handle }}-name',
                     closeBtnInside: false, 
                     removalDelay: 300,
 
@@ -55,7 +55,7 @@
                     lang: 'ru',
                     errorMessagePosition : 'top',
                 });
-                $('#phone').inputmask({"mask": "+375(99) 999-99-99"}); 
+                $('#{{ self.handle }}-phone').inputmask({"mask": "+375(99) 999-99-99"}); 
                 $("#{{ self.handle }}-submit").click(function(e){
                 e.preventDefault();
                 jQuery.ajax({
@@ -64,8 +64,8 @@
                     async: true,
                     url: '{% url 'users:createclient' %}',
                     data: { 'csrfmiddlewaretoken': csrftoken,
-                    name: $('#name').val(),
-                    phone: $('#phone').val(),
+                    name: $('#{{ self.handle }}-name').val(),
+                    phone: $('#{{ self.handle }}-phone').val(),
                     form: '{{ self.handle }}',
                 },
                     success: setTimeout(function(data) { 
@@ -75,8 +75,8 @@
                                 type: 'inline' 
                             } 
                         });
-                        $('#name').val(''), 
-                        $('#phone').val('') 
+                        $('#{{ self.handle }}-name').val(''), 
+                        $('#{{ self.handle }}-phone').val('') 
                     }, 1000), 
                     error: function(xhr, textStatus) { 
                         $.magnificPopup.open({ 

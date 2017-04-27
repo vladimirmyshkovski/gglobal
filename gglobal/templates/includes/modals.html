@@ -22,10 +22,10 @@
                         <div class="col-lg-10 col-lg-offset-1">
                             <form role="form" class="intro-form">
                                 <h3 class="text-center">Оставьте заявку! <br/> С Вами свяжутся в течении 5 минут.</h3>
-                                    <input type="text" id="name" name="name" class="form-control" data-validation="length"  data-validation-length=" 3-15" data-validation-error-msg-container="#email-error-dialog" placeholder="Имя" required="required">
+                                    <input type="text" id="nav-modal-form-name" name="name" class="form-control" data-validation="length"  data-validation-length=" 3-15" data-validation-error-msg-container="#email-error-dialog" placeholder="Имя" required="required">
                                     <span id="email-error-dialog"></span>
                                 <div class="form-group">
-                                    <input type="text" id="phone" name="phone" class="form-control" placeholder="Номер телефона" required="required">
+                                    <input type="text" id="nav-modal-form-phone" name="phone" class="form-control" placeholder="Номер телефона" required="required">
                                 </div>
                                 <div class="form-group text-center">
                                     <button type="submit" class="btn btn-custom btn-sm btn-block" id="nav-modal-form-submit">Заказать звонок!</button>
@@ -39,7 +39,7 @@
                 $('.nav-modal-form').magnificPopup({
                     type: 'inline',
                     preloader: false,
-                    focus: '#name',
+                    focus: '#nav-modal-form-name',
                     closeBtnInside: false, 
                     removalDelay: 300,
 
@@ -61,7 +61,7 @@
                     lang: 'ru',
                     errorMessagePosition : 'top',
                 });
-                $('#phone').inputmask({"mask": "+375(99) 999-99-99"}); 
+                $('#nav-modal-form-phone').inputmask({"mask": "+375(99) 999-99-99"}); 
                 $("#nav-modal-form-submit").click(function(e){
                 e.preventDefault();
                 jQuery.ajax({
@@ -70,8 +70,8 @@
                     async: true,
                     url: '{% url 'users:createclient' %}',
                     data: { 'csrfmiddlewaretoken': csrftoken,
-                    name: $('#name').val(),
-                    phone: $('#phone').val(),
+                    name: $('#nav-modal-form-name').val(),
+                    phone: $('#nav-modal-form-phone').val(),
                     form: 'nav-modal-form',
                 },
                     success: setTimeout(function(data) { 
@@ -81,8 +81,8 @@
                                 type: 'inline' 
                             } 
                         });
-                        $('#name').val(''), 
-                        $('#phone').val('') 
+                        $('#nav-modal-form-name').val(''), 
+                        $('#nav-modal-form-phone').val('') 
                     }, 1000), 
                     error: function(xhr, textStatus) { 
                         $.magnificPopup.open({ 

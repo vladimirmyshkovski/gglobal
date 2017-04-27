@@ -17,11 +17,12 @@ from wagtailblocks_cards.blocks import CardsBlock
 
 
 class SubscribeBlock(StructBlock):
-    h3 = blocks.CharBlock()
-    text = blocks.CharBlock()
-    inputtext = blocks.CharBlock()
-    btntext = blocks.CharBlock()
-    smalltext = blocks.CharBlock()
+    h3 = blocks.CharBlock(required=False)
+    text = blocks.CharBlock(required=False)
+    inputtext = blocks.CharBlock(required=False)
+    btntext = blocks.CharBlock(required=False)
+    smalltext = blocks.CharBlock(required=False)
+    handle = blocks.CharBlock(required=False)
 
     
     class Meta:
@@ -40,15 +41,15 @@ class MasterBlock(StructBlock):
 
 
 class FeaturesBlock(StructBlock):
-    title = blocks.CharBlock()
-    sub = blocks.CharBlock()
+    title = blocks.CharBlock(required=False)
+    sub = blocks.CharBlock(required=False)
     features_item = blocks.ListBlock(blocks.StructBlock([
-    ('title', blocks.CharBlock()),
-    ('icon', blocks.CharBlock()),
+    ('title', blocks.CharBlock(required=False)),
+    ('icon', blocks.CharBlock(required=False)),
     ('links', blocks.ListBlock(blocks.StructBlock([
     ('link', blocks.URLBlock(required=False)),
     ('page', blocks.PageChooserBlock(required=False)),
-    ('text', blocks.CharBlock()),
+    ('text', blocks.CharBlock(required=False)),
 ]))),
 ]))
 
@@ -80,7 +81,7 @@ class OurBlock(StructBlock):
     h3 = blocks.CharBlock(required=False)
     h4 = blocks.CharBlock(required=False)
     text = blocks.CharBlock(required=False)
-    icon = blocks.CharBlock(help_text="Иконки можно брать любые. Писать целиком класс, например fa fa-user или pe-7s-rocket")
+    icon = blocks.CharBlock(help_text="Иконки можно брать любые. Писать целиком класс, например fa fa-user или pe-7s-rocket", required=False)
     align = ChoiceBlock(choices=[
         ('', 'Картина слева или справа?'),
         ('left', 'Слева'),
@@ -146,17 +147,17 @@ class ClientsBlock(StructBlock):
         template = "sections/clients_block.html"
 
 class PriceBlock(StructBlock):
-    h3 = blocks.CharBlock()
-    title = blocks.CharBlock()
+    h3 = blocks.CharBlock(required=False)
+    title = blocks.CharBlock(required=False)
     items = blocks.ListBlock(blocks.StructBlock([
-    ('title', blocks.CharBlock()),
-    ('price', blocks.CharBlock()),
-    ('duration', blocks.CharBlock()),
-    ('btntext', blocks.CharBlock()),
-    ('btnlink', blocks.CharBlock()),
+    ('title', blocks.CharBlock(required=False)),
+    ('price', blocks.CharBlock(required=False)),
+    ('duration', blocks.CharBlock(required=False)),
+    ('btntext', blocks.CharBlock(required=False)),
+    ('btnlink', blocks.CharBlock(required=False)),
     ('fields', blocks.ListBlock(blocks.StructBlock([
-    ('icon', blocks.CharBlock(required=True)),
-    ('text', blocks.CharBlock()),
+    ('icon', blocks.CharBlock(required=False)),
+    ('text', blocks.CharBlock(required=False)),
 ])))
 
 ])) 
@@ -181,6 +182,7 @@ class HomeBlock(StructBlock):
     formtext = blocks.CharBlock(required=False)
     formlink = blocks.URLBlock(required=False)
     formlinktext = blocks.TextBlock(required=False)
+    handle = blocks.CharBlock(required=False)
 
 
     class Meta:
