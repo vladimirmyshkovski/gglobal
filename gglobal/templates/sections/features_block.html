@@ -15,7 +15,7 @@
                     {% for item in self.features_item %}
                         <div class="col-sm-{% if self.features_item|length == 1 %}4 col-sm-offset-4{% elif self.features_item|length == 2%}4 col-sm-offset-1{% else %}4{% endif %}">
                             <div class="features-box">
-                                <i class="pe-7s-{{ item.icon }}"></i>
+                                <i class="{{ item.icon }}"></i>
                                 <h4>{{ item.title }}</h4>
                                 {% for link in item.links %}
                                 <li><a href="{% if link.link %} {{ link.link }} {% else %} {{ link.page }} {% endif %}">{{ link.text }}</a></li>

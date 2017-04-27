@@ -24,7 +24,7 @@
                                     </div>
                                     <ul class="plan-stats list-unstyled">
                                     {% for i in item.fields %}
-                                        <li> <i class="pe-7s-{{ i.icon }}"></i>{{ i.text }}</li>
+                                        <li> <i class="{{ i.icon }}"></i>{{ i.text }}</li>
                                     {% endfor %}
                                     </ul>
 

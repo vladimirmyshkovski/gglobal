@@ -45,7 +45,9 @@ class FeaturesBlock(StructBlock):
     sub = blocks.CharBlock(required=False)
     features_item = blocks.ListBlock(blocks.StructBlock([
     ('title', blocks.CharBlock(required=False)),
-    ('icon', blocks.CharBlock(required=False)),
+    ('icon', blocks.CharBlock(
+        help_text="Иконки можно брать любые. Писать целиком класс, например fa fa-user или pe-7s-rocket",
+        required=False)),
     ('links', blocks.ListBlock(blocks.StructBlock([
     ('link', blocks.URLBlock(required=False)),
     ('page', blocks.PageChooserBlock(required=False)),
@@ -62,7 +64,9 @@ class FeaturesAltBlock(StructBlock):
     h3 = blocks.CharBlock(required=False)
     h4 = blocks.CharBlock(required=False)
     text = blocks.CharBlock(required=False)
-    icon = blocks.CharBlock(help_text="Смотри иконки тут http://webapplayers.com/luna_admin-v1.2/icons.html")
+    icon = blocks.CharBlock(
+        help_text="Иконки можно брать любые. Писать целиком класс, например fa fa-user или pe-7s-rocket",
+        required=False)
     align = ChoiceBlock(choices=[
         ('', 'Картина слева или справа?'),
         ('left', 'Слева'),
@@ -81,7 +85,9 @@ class OurBlock(StructBlock):
     h3 = blocks.CharBlock(required=False)
     h4 = blocks.CharBlock(required=False)
     text = blocks.CharBlock(required=False)
-    icon = blocks.CharBlock(help_text="Иконки можно брать любые. Писать целиком класс, например fa fa-user или pe-7s-rocket", required=False)
+    icon = blocks.CharBlock(
+        help_text="Иконки можно брать любые. Писать целиком класс, например fa fa-user или pe-7s-rocket", 
+        required=False)
     align = ChoiceBlock(choices=[
         ('', 'Картина слева или справа?'),
         ('left', 'Слева'),
@@ -98,7 +104,9 @@ class StoryBlock(StructBlock):
     h3 = blocks.CharBlock(required=False)
     h4 = blocks.CharBlock(required=False)
     text = blocks.CharBlock(required=False)
-    icon = blocks.CharBlock(help_text="Иконки можно брать любые. Писать целиком класс, например fa fa-user или pe-7s-rocket")
+    icon = blocks.CharBlock(
+        help_text="Иконки можно брать любые. Писать целиком класс, например fa fa-user или pe-7s-rocket",
+        required=False)
 
     class Meta:
         icon = 'doc-empty-inverse'
@@ -156,7 +164,9 @@ class PriceBlock(StructBlock):
     ('btntext', blocks.CharBlock(required=False)),
     ('btnlink', blocks.CharBlock(required=False)),
     ('fields', blocks.ListBlock(blocks.StructBlock([
-    ('icon', blocks.CharBlock(required=False)),
+    ('icon', blocks.CharBlock(
+        help_text="Иконки можно брать любые. Писать целиком класс, например fa fa-user или pe-7s-rocket",
+        required=False)),
     ('text', blocks.CharBlock(required=False)),
 ])))
 
