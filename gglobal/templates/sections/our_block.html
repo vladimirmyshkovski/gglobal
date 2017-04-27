@@ -1,7 +1,7 @@
 {% load wagtailimages_tags %}
         <section>
         {% if self.align == 'left' %}
-        {% image self.image width-600 as theimage %}
+        {% image self.image width-500 as theimage %}
 
             <div class="row wide-img-showcase-row">
                 <div class="col-sm-6 no-padding img" style="background: url('{{ theimage.url }}') scroll center no-repeat;">        
@@ -35,7 +35,7 @@
                         </div> <!-- end row -->
                     </div> <!-- end about detail -->
                 </div> <!-- end col -->
-        {% image self.image width-600 as theimage %}
+        {% image self.image width-500 as theimage %}
         {% if self.align == 'right' %}
             <div class="col-sm-6 col-sm-offset-6 no-padding img-2" style="background: url('{{ theimage.url }}') scroll center no-repeat;">
             </div>

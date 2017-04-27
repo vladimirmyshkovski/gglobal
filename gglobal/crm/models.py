@@ -27,9 +27,9 @@ class MasterCRMProfile(models.Model):
     # The additional attributes we wish to include.
 
 
-    @property
-    def full_name(self):
-        return "%s-%s" % (self.user.first_name, self.user.last_name)
+    #@property
+    #def full_name(self):
+    #    return "%s-%s" % (self.user.first_name, self.user.last_name)
 
     @property
     def real_location(self):

@@ -87,12 +87,21 @@ class OurBlock(StructBlock):
         ('right', 'Справа')
     ], blank=True, required=False)
     image = ImageChooserBlock(required=False)
-    #btnlink = blocks.CharBlock(required=False)
-    #btntext = blocks.CharBlock(required=False)
 
     class Meta:
         icon = 'doc-empty-inverse'
         template = "sections/our_block.html"
+
+
+class StoryBlock(StructBlock):
+    h3 = blocks.CharBlock(required=False)
+    h4 = blocks.CharBlock(required=False)
+    text = blocks.CharBlock(required=False)
+    icon = blocks.CharBlock(help_text="Иконки можно брать любые. Писать целиком класс, например fa fa-user или pe-7s-rocket")
+
+    class Meta:
+        icon = 'doc-empty-inverse'
+        template = "sections/story_block.html"
 
 
 class SolutionsBlock(StructBlock):
@@ -103,8 +112,12 @@ class SolutionsBlock(StructBlock):
         ('light', 'Светлый'),
         ('dark', 'Тёмный')
     ], blank=True, required=False)
-    btnlink = blocks.CharBlock(required=False)
     btntext = blocks.CharBlock(required=False)
+    formh3 = blocks.CharBlock(required=False)
+    firstname = blocks.CharBlock(required=False)
+    phone_number = blocks.CharBlock(required=False)
+    button = blocks.CharBlock(required=False)
+    handle = blocks.CharBlock(required=False)
 
     class Meta:
         icon = 'doc-empty-inverse'
@@ -184,6 +197,7 @@ class SectionsStreamBlock(StreamBlock):
     subscribe_block = SubscribeBlock()
     our_block = OurBlock()
     solutions_block = SolutionsBlock()
+    story_block = StoryBlock()
 
 
 class PageBlock(StructBlock):

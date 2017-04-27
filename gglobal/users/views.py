@@ -82,7 +82,9 @@ def СreateClientView(request):
             #Always use get on request.POST. Correct way of querying a QueryDict.
             name = request.POST.get('name')
             phone = request.POST.get('phone')
-            data = {"name": name , "phone" : phone}
+            form = request.POST.get('form')
+            data = {"name": name , "phone" : phone, "form" : form}
+            print(data)
             #ClientFlow.start.run(data=data)
             #Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse(data)
