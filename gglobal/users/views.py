@@ -84,7 +84,6 @@ def СreateClientView(request):
             phone = request.POST.get('phone')
             form = request.POST.get('form')
             data = {"name": name , "phone" : phone, "form" : form}
-            print(data)
             #ClientFlow.start.run(data=data)
             #Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse(data)
