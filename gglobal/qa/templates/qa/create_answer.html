@@ -1,5 +1,4 @@
 {% extends 'qa/base.html' %}
-{% load django_markdown %}
 
 {% block content %}
 
@@ -12,12 +11,10 @@
       {{ form.as_p }}
       <input class="btn pull-right btn-success" type="submit" value="Submit Answer" />
   </form>
+{{ form.media }}
 
 </div>
 
 {% endblock content %}
 
-{% block extra_js %}
-  {% markdown_editor "#id_answer_text" %}
-  {% markdown_media %}
-{% endblock %}
+
