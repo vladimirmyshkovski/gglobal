@@ -29,14 +29,17 @@
                             <a href="{{ self.btnlink }}" class="btn btn-custom">{{ self.btntext }}</a>
                         </div>
                     </div>
-
+                    {% if theimage %}
                     <div class="col-sm-6 col-sm-offset-1">
                         <img src="{{ theimage.url }}" alt="{{ theimage.alt }}" class="img-responsive">
                     </div>
+                    {% endif %}
                 {% else %}
+                    {% if theimage %}
                     <div class="col-sm-7">
                         <img src="{{ theimage.url }}" alt="{{ theimage.alt }}" class="img-responsive">
                     </div>
+                    {% endif %}
 
                     <div class="col-sm-5">
                         <div class="feat-description" style="text-align: center">
