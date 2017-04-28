@@ -4,9 +4,15 @@
 
                 <div class="row text-center">
                     <div class="col-sm-10 col-sm-offset-1">
+                        {% if self.h5 %}
                         <h5 class="text-uppercase m-t-0">{{ self.h5 }}</h5>
+                        {% endif %}
+                        {% if self.h2 %}
                         <h2>{{ self.h2 }}</h2>
+                        {% endif %}
+                        {% if self.handle %}
                         <a href="#{{ self.handle }}" class="btn btn-{% if self.color == 'light' %}custom{% else %}white-fill{% endif %} m-t-20 {{ self.handle }}">{{ self.btntext }}</a>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -15,7 +21,10 @@
                         <div style="text-align: center !important" class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 mfp-hide" id="{{ self.handle }}">
                         <div class="col-lg-10 col-lg-offset-1">
                             <form class="intro-form">
+                                {% if self.h3 %}
                                 <h3 class="text-center"> {{ self.formh3 }} </h3>
+                                {% endif %}
+                                {% if self.handle %}
                                     <input type="text" id="{{ self.handle }}-name" name="name" class="form-control" data-validation="length"  data-validation-length=" 3-15" data-validation-error-msg-container="#{{ self.handle }}-email-error-dialog" placeholder="{{ self.firstname }}" required="required">
                                     <span id="{{ self.handle }}-email-error-dialog"></span>
                                 <div class="form-group">
@@ -24,10 +33,12 @@
                                 <div class="form-group text-center">
                                     <button type="submit" class="btn btn-custom btn-sm btn-block" id="{{ self.handle }}-submit">{{ self.button }}</button>
                                 </div>
+                                {% endif %}
                             </form>
                         </div>
                         </div>
         <!-- END CTA -->
+        {% if self.handle %}
         <script type="text/javascript">
             $(document).ready(function() {
                 $('.{{ self.handle }}').magnificPopup({
@@ -91,3 +102,4 @@
             });
             });
         </script>
+        {% endif %}

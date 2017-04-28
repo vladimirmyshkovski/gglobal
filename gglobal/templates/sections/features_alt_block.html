@@ -19,9 +19,12 @@
                 {% if self.align == 'right' %}
                     <div class="col-sm-5">
                         <div class="feat-description">
-                        
+                            {% if self.h4 %}
                             <h4 class="text-muted">{{ self.h4 }}</h4>
+                            {% endif %}
+                            {% if self.text %}
                             <p class="text-muted">{{ self.text }}</p>
+                            {% endif %}
 
                             <a href="{{ self.btnlink }}" class="btn btn-custom">{{ self.btntext }}</a>
                         </div>
@@ -37,9 +40,12 @@
 
                     <div class="col-sm-5">
                         <div class="feat-description" style="text-align: center">
-                        
+                            {% if self.h4 %}
                             <h4 class="text-muted">{{ self.h4 }}</h4>
+                            {% endif %}
+                            {% if self.text %}
                             <p class="text-muted">{{ self.text }}</p>
+                            {% endif %}
 
                             <a href="{{ self.btnlink }}" class="btn btn-custom">{{ self.btntext }}</a>
                         </div>

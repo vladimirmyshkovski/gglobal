@@ -4,7 +4,7 @@
         {% image self.image width-500 as theimage %}
 
             <div class="row wide-img-showcase-row">
-                <div class="col-sm-6 no-padding img" style="background: url('{{ theimage.url }}') scroll center no-repeat;">        
+                <div class="col-sm-6 no-padding img" style="background: url('{{ theimage.url }}')">        
                 </div>
                 <!-- end col -->
                 <div class="col-sm-6 col-sm-offset-6 bg-light">
@@ -18,8 +18,12 @@
                             <div class="col-sm-12">
                                 <div class="text-center">
                                     <div class="title-box-icon title-about">
+                                        {% if self.icon %}
                                         <i class="{{ self.icon }}"></i>
+                                        {% endif %}
+                                        {% if self.h3 %}
                                         <h3 class="title">{{ self.h3 }}</h3>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -28,8 +32,12 @@
                         <div class="row">
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="feat-description text-center">
+                                    {% if self.h4 %}
                                     <h4 class="text-muted">{{ self.h4 }}</h4>
+                                    {% endif %}
+                                    {% if self.text %}
                                     <p class="text-muted">{{ self.text }}</p>
+                                    {% endif %}
                                 </div><!-- Features Description -->
                             </div> <!-- end col -->
                         </div> <!-- end row -->
@@ -37,7 +45,7 @@
                 </div> <!-- end col -->
         {% image self.image width-500 as theimage %}
         {% if self.align == 'right' %}
-            <div class="col-sm-6 col-sm-offset-6 no-padding img-2" style="background: url('{{ theimage.url }}') scroll center no-repeat;">
+            <div class="col-sm-6 col-sm-offset-6 no-padding img-2" style="background: url('{{ theimage.url }}')">
             </div>
         {% endif %}
     

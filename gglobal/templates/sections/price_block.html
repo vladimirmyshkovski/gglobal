@@ -4,8 +4,12 @@
 
                 <div class="row">
                     <div class="col-sm-12 text-center">
+                        {% if self.h3 %}
                         <h3 class="title">{{ self.h3 }}</h3>
+                        {% endif %}
+                        {% if self.titiel %}
                         <p class="text-muted sub-title">{{ self.title }}</p>
+                        {% endif %}
                     </div>
                 </div> <!-- end row -->
 
@@ -18,9 +22,15 @@
                             <article class="pricing-column col-lg-4 col-md-4">
                                 <div class="inner-box">
                                     <div class="plan-header text-center">
+                                        {% if item.title %}
                                         <h3 class="plan-title">{{ item.title }}</h3>
+                                        {% endif %}
+                                        {% if item.price %}
                                         <h2 class="plan-price">$ {{ item.price }}</h2>
+                                        {% endif %}
+                                        {% if item.duration %}
                                         <div class="plan-duration">{{ item.duration }}</div>
+                                        {% endif %}
                                     </div>
                                     <ul class="plan-stats list-unstyled">
                                     {% for i in item.fields %}
