@@ -16,6 +16,10 @@ framework.
 import os
 import sys
 
+# Fix django closing connection to MemCachier after every request (#11331)
+from django.core.cache.backends.memcached import BaseMemcachedCache
+BaseMemcachedCache.close = lambda self, **kwargs: None
+
 from django.core.wsgi import get_wsgi_application
 
 # This allows easy placement of apps within the interior
@@ -41,3 +45,4 @@ if os.environ.get('DJANGO_SETTINGS_MODULE') == 'config.settings.production':
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
+
