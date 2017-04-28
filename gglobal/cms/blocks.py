@@ -21,7 +21,7 @@ class SubscribeBlock(StructBlock):
     text = blocks.CharBlock(required=False)
     btntext = blocks.CharBlock(required=False)
     smalltext = blocks.CharBlock(required=False)
-    handle = blocks.CharBlock(required=False)
+    handle = blocks.CharBlock()
 
     
     class Meta:
@@ -53,6 +53,7 @@ class FeaturesBlock(StructBlock):
     ('text', blocks.CharBlock(required=False)),
 ]))),
 ]))
+    handle = blocks.CharBlock()
 
     class Meta:
         icon = 'doc-empty'
@@ -123,7 +124,7 @@ class SolutionsBlock(StructBlock):
     btntext = blocks.CharBlock(required=False)
     formh3 = blocks.CharBlock(required=False)
     button = blocks.CharBlock(required=False)
-    handle = blocks.CharBlock(required=False)
+    handle = blocks.CharBlock()
 
     class Meta:
         icon = 'doc-empty-inverse'
@@ -187,7 +188,7 @@ class HomeBlock(StructBlock):
     formtext = blocks.CharBlock(required=False)
     formlink = blocks.URLBlock(required=False)
     formlinktext = blocks.TextBlock(required=False)
-    handle = blocks.CharBlock(required=False)
+    handle = blocks.CharBlock()
 
 
     class Meta:
