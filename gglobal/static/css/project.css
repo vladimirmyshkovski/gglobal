@@ -116,3 +116,4 @@
         display:inline-block;
     }
 }
+.has-success .form-control {border-color: #01bf86 ;}, .valid .form-control {border-color: #01bf86 ;}
