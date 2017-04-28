@@ -137,14 +137,12 @@ AWS_PRELOAD_METADATA = True
 INSTALLED_APPS = ['collectfast', ] + INSTALLED_APPS
 # COMPRESSOR
 # ------------------------------------------------------------------------------
-#COMPRESS_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 COMPRESSOR_STORAGE = 'compressor.storage.CompressorFileStorage'
 COMPRESS_URL = STATIC_URL
 COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
 COMPRESS_OFFLINE = env.bool('COMPRESS_OFFLINE', default=True)
-COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.SlimItFilter'] 
-#COMPRESS_JS_FILTERS = ['compressor.filters.closure.ClosureCompilerFilter']
-#COMPRESS_CLOSURE_COMPILER_BINARY = '/usr/share/java/closure-compiler.jar'
+COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.SlimItFilter']
+COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSCompressorFilter']
 # EMAIL
 # ------------------------------------------------------------------------------
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
