@@ -1,3 +1,4 @@
+{% load compress %}
         <!-- Subscribe -->
         <section class="section bg-custom">
             <div class="container">
@@ -31,7 +32,8 @@
         </section>
         <!-- End Subscribe -->
         {% if self.handle %}
-        <script type="text/javascript">
+        {% compress js %}
+        <script type="text/javascript" charset="utf-8">
             $(document).ready(function() {
                 $.validate({
                     modules : 'html5',
@@ -72,4 +74,5 @@
             });
             });
         </script>
+        {% endcompress %}
         {% endif %}

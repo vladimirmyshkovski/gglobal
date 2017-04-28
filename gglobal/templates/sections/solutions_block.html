@@ -1,3 +1,4 @@
+{% load compress %}
         <!-- CTA -->
         <section class="section bg-{% if self.color == 'light' %}light{% else %}custom{% endif %}">
             <div class="container">
@@ -40,7 +41,8 @@
 
         <!-- END CTA -->
         {% if self.handle %}
-        <script type="text/javascript">
+        {% compress js %}
+        <script type="text/javascript" charset="utf-8">
             $(document).ready(function() {
                 $('.{{ self.handle }}').magnificPopup({
                     type: 'inline',
@@ -103,4 +105,5 @@
             });
             });
         </script>
+        {% endcompress %}
         {% endif %}

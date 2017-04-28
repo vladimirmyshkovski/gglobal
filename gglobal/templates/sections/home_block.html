@@ -1,3 +1,4 @@
+{% load compress %}
         <!-- HOME -->
         <section class="bg-custom home" id="home">
             <div class="home-sm">
@@ -37,7 +38,9 @@
                 </div>
             </div>
         </section>
-        <script type="text/javascript">
+
+        {% compress js %}
+        <script type="text/javascript" charset="utf-8">
             /* ==============================================
             Magnific Popup
             =============================================== */
@@ -96,6 +99,7 @@
             });
         });
         </script>
+        {% endcompress %}
         <!-- END HOME -->
 
 
