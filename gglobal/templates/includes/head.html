@@ -21,11 +21,11 @@
     <link type="text/css" rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
     <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}">
     <link type="text/css" rel="stylesheet" href="{% static 'css/colors/default.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pe-icon-7-stroke.css' %}">
     <!--link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"-->
     {% endcompress %}
     {# CSS fonts #}
     <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">    
-    <link rel="stylesheet" href="{% static 'css/pe-icon-7-stroke.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico"  type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,700" type="text/css">
 
@@ -66,8 +66,8 @@
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
         <!--[if lt IE 9]>
-          <script src="js/html5shiv.js"></script>
-          <script src="js/respond.min.js"></script>
+          <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>
+          <script src="{% static 'js/respond-1.4.2.min.js' %}"></script>
     <![endif]-->
 <script type="text/javascript">var csrftoken = Cookies.get('csrftoken');</script>
 
