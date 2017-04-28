@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.utils.text import slugify
-from django_markdown.models import MarkdownField
+from markdownx.models import MarkdownxField as MarkdownField
 
 from hitcount.models import HitCountMixin
 from taggit.managers import TaggableManager

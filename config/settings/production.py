@@ -68,7 +68,7 @@ SESSION_COOKIE_HTTPONLY = True
 SECURE_SSL_REDIRECT = env.bool('DJANGO_SECURE_SSL_REDIRECT', default=True)
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
-X_FRAME_OPTIONS = 'ALLOWALL'
+X_FRAME_OPTIONS = 'ALLOWALL' # <---------- CHANGE THIS !!!!!!!
 
 # SITE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['xn------dddfnxoenlfgh
 INSTALLED_APPS += ['gunicorn', ]
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'collect_static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -54,7 +54,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',  # registration
     
     'hitcount', # qa needed
-    'django_markdown', # qa needed
+    'markdownx', # qa needed
     'taggit', # qa needed
     'annoying', # AutoOneToOneField
     'turbolinks', # Turbolinks

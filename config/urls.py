@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^квалификационные-вопросы/', include('gglobal.qualification.urls', namespace='qualification')),
     url(r'^кабинет/', include('gglobal.crm.urls')),
     #url(r'^categories/', include('categories.urls', namespace='categories')),
+    url(r'^markdownx/', include('markdownx.urls')),
 
     url('^sitemap\.xml$', sitemap),
 

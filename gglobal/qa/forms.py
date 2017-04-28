@@ -2,7 +2,6 @@ from gglobal.qa.models import UserQAProfile, Question
 from django.conf import settings
 from django import forms
 from gglobal.qa.models import MyCustomTag
-
 from dal import autocomplete
 
 class QuestionForm(autocomplete.FutureModelForm):
@@ -13,6 +12,7 @@ class QuestionForm(autocomplete.FutureModelForm):
             attrs={'data-html': 'true'}
             )
         )
+    
     class Meta:
         model = Question
         fields = ['title', 'description', 'tags']
