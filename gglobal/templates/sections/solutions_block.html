@@ -41,6 +41,7 @@
 
         <!-- END CTA -->
         {% if self.handle %}
+        {% block extrahead %}
         {% compress js %}
         <script type="text/javascript" charset="utf-8">
             $(document).ready(function() {
@@ -106,4 +107,5 @@
             });
         </script>
         {% endcompress %}
+        {% endblock extrahead %}
         {% endif %}
