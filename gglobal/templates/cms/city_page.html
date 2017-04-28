@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags users_tags %}
+{% load cache  wagtailcore_tags users_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
@@ -8,8 +8,10 @@
 
 {{ page.body }}
 
+{% cache 60 * 30 masters_map %}
 {% block map %}
     {% masters_map %}
 {% endblock map %}
+{% endcache %}
 
 {% endblock %}

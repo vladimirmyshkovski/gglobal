@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags cms_tags %}
+{% load cache wagtailcore_tags cms_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
@@ -8,8 +8,10 @@
 
 {{ page.body }}
 
+{% cache 60 * 30 citypages_map %}
 {% block map %}
     {% citypages_map %}
 {% endblock map %}
+{% endcache %}
 
 {% endblock %}
