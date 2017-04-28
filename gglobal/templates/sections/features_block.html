@@ -17,9 +17,11 @@
                             <div class="features-box">
                                 <i class="{{ item.icon }}"></i>
                                 <h4>{{ item.title }}</h4>
+                                <ul>
                                 {% for link in item.links %}
                                 <li><a href="{% if link.link %} {{ link.link }} {% else %} {{ link.page }} {% endif %}">{{ link.text }}</a></li>
                                 {% endfor %}
+                                </ul>
 
                             </div>
                         </div>                            
