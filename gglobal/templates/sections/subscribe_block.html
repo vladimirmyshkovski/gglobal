@@ -12,15 +12,17 @@
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3">
                         <form class="text-center">
+                            {% if self.handle %}
                             <div class="form-group m-b-0">
                                 <input id="{{ self.handle }}-phone" name="phone" class="form-control input-subscribe"
                                        placeholder="{{ self.inputtext }}" required>
                             </div>
-
+                            
                             <button id="{{ self.handle }}-submit" type="submit" class="btn btn-white-fill">{{ self.btntext }}</button>
                             <p class="text-light">
                                 <small>{{ self.smalltext }}</small>
                             </p>
+                            {% endif %}
                         </form>
                     </div>
                 </div><!-- End row -->
@@ -28,6 +30,7 @@
             </div> <!-- end container -->
         </section>
         <!-- End Subscribe -->
+        {% if self.handle %}
         <script type="text/javascript">
             $(document).ready(function() {
                 $.validate({
@@ -69,3 +72,4 @@
             });
             });
         </script>
+        {% endif %}
