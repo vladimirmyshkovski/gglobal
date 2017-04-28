@@ -19,7 +19,6 @@ from wagtailblocks_cards.blocks import CardsBlock
 class SubscribeBlock(StructBlock):
     h3 = blocks.CharBlock(required=False)
     text = blocks.CharBlock(required=False)
-    inputtext = blocks.CharBlock(required=False)
     btntext = blocks.CharBlock(required=False)
     smalltext = blocks.CharBlock(required=False)
     handle = blocks.CharBlock(required=False)
@@ -123,8 +122,6 @@ class SolutionsBlock(StructBlock):
     ], blank=True, required=False)
     btntext = blocks.CharBlock(required=False)
     formh3 = blocks.CharBlock(required=False)
-    firstname = blocks.CharBlock(required=False)
-    phone_number = blocks.CharBlock(required=False)
     button = blocks.CharBlock(required=False)
     handle = blocks.CharBlock(required=False)
 
@@ -186,8 +183,6 @@ class HomeBlock(StructBlock):
     videotext = blocks.CharBlock(required=False)
     formh3 = blocks.CharBlock(required=False)
     ortext = blocks.CharBlock(required=False)
-    firstname = blocks.CharBlock(required=False)
-    phone_number = blocks.CharBlock(required=False)
     button = blocks.CharBlock(required=False)
     formtext = blocks.CharBlock(required=False)
     formlink = blocks.URLBlock(required=False)
