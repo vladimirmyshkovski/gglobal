@@ -31,8 +31,8 @@
             </div> <!-- end container -->
         </section>
         <!-- End Subscribe -->
+        {% compress js inline %}
         {% if self.handle %}
-        {#% compress js inline %#}
         <script type="text/javascript">
             window.onload = function () {
                 $.validate({
@@ -74,5 +74,5 @@
             });
             };
         </script>
-        {#% endcompress %#}
         {% endif %}
+        {% endcompress %}
