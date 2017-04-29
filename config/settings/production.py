@@ -146,7 +146,7 @@ COMPRESS_CLOSURE_COMPILER_BINARY = '/usr/share/java/closure-compiler.jar'
 #COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.SlimItFilter']
 #COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
 COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSCompressorFilter']
-COMPRESS_PARSER = 'compressor.parser.Html5LibParser'
+COMPRESS_PARSER = 'compressor.parser.LxmlParser'
 # EMAIL
 # ------------------------------------------------------------------------------
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
