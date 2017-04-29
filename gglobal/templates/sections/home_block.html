@@ -43,7 +43,7 @@
             /* ==============================================
             Magnific Popup
             =============================================== */
-            $(document).ready(function() {
+            window.onload = function () {
                 $('.popup-video').magnificPopup({
                   disableOn: 700,
                   type: 'iframe',
@@ -53,10 +53,10 @@
 
                   fixedContentPos: false
                 });
-            });
+            };
         </script>
-        <script type="text/javascript" defer>
-        $(document).ready(function(){
+        <script type="text/javascript">
+            window.onload = function () {
                 $.validate({
                     modules : 'html5',
                     lang: 'ru',
@@ -96,7 +96,7 @@
                 });
                 return false;
             });
-        });
+        };
         </script>
         {#% endcompress %#}
         <!-- END HOME -->

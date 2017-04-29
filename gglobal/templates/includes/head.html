@@ -21,10 +21,10 @@
     <link type="text/css" rel="stylesheet" charset="utf-8" href="{% static 'css/magnific-popup.css' %}">
     <link type="text/css" rel="stylesheet" charset="utf-8" href="{% static 'css/style.css' %}">
     <link type="text/css" rel="stylesheet" charset="utf-8" href="{% static 'css/colors/default.css' %}">
-    <link type="text/css" rel="stylesheet" charset="utf-8" href="{% static 'css/pe-icon-7-stroke.css' %}">
     <!--link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"-->
     {% endcompress %}
     {# CSS fonts #}
+    <link type="text/css" rel="stylesheet" charset="utf-8" href="{% static 'css/pe-icon-7-stroke.css' %}">
     <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico"  type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,700" type="text/css">
@@ -70,6 +70,9 @@
           <script src="{% static 'js/respond-1.4.2.min.js' %}"></script>
     <![endif]-->
     {% compress js inline %}
-    <script type="text/javascript" charset="utf-8" defer>var csrftoken = Cookies.get('csrftoken');</script>
+    <script type="text/javascript" charset="utf-8">
+    window.onload = function () {
+        var csrftoken = Cookies.get('csrftoken');
+        };</script>
     {% endcompress %}
 </head>
