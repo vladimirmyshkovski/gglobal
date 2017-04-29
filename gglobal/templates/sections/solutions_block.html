@@ -42,7 +42,7 @@
         <!-- END CTA -->
         {% if self.handle %}
         {#% compress js inline %#}
-        <script type="text/javascript">
+        <script type="text/javascript" defer>
             $(document).ready(function() {
                 $('.{{ self.handle }}').magnificPopup({
                     type: 'inline',

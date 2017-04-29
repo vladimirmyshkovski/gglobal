@@ -69,6 +69,7 @@
           <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>
           <script src="{% static 'js/respond-1.4.2.min.js' %}"></script>
     <![endif]-->
-<script type="text/javascript">var csrftoken = Cookies.get('csrftoken');</script>
-
+    {% compress js inline %}
+    <script type="text/javascript" charset="utf-8" defer>var csrftoken = Cookies.get('csrftoken');</script>
+    {% endcompress %}
 </head>
