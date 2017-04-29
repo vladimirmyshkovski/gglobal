@@ -56,7 +56,7 @@
       <small class="pull-right">Вопрос задан <a href="{% url 'qa_profile' question.user.id %}">{% if question.user == user %} вами {% else %}{{ question.user.username }} {% endif %}</a>, {{ question.pub_date }}</small>
       {% if user.is_authenticated and question.user == user and not question.closed %}<a href="{% url 'qa_update_question' question.id %}"><small class="pull-right">Редактировать &nbsp;</small></a>{% endif %}
       <h3><cool>Q: </cool>{{ question.title }}</h3>
-      <h4>{{ question.description|markdown }}</h4>
+      <h4>{{ question.description }}</h4>
       <p>
       {% if question.closed %}
           <p class="pull-right">Вопрос закрыт</p>
@@ -79,7 +79,7 @@
                 <canvas style="width: 50px; height: 50px" id='{{ user }}'></canvas>
                 <!--img class="pull-right" width="50px" height="50px" src="{% static "qa/user.png" %}"-->
             {% endif %}
-    <p><b>{{ comment.comment_text|markdown }}</b><small>, <a href="{% url 'qa_profile' comment.user.id %}">{% if comment.user == user %} Вы {% else %}{{ comment.user.username }}{% endif %}</a> <div class="pull-right">{{ comment.pub_date }}</div></small></p>{% if comment.user == user %}<a href="{% url 'qa_update_question_comment' comment.id %}" class="pull-right"><small>Edit &nbsp;</small></a>{% endif %}
+    <p><b>{{ comment.comment_text }}</b><small>, <a href="{% url 'qa_profile' comment.user.id %}">{% if comment.user == user %} Вы {% else %}{{ comment.user.username }}{% endif %}</a> <div class="pull-right">{{ comment.pub_date }}</div></small></p>{% if comment.user == user %}<a href="{% url 'qa_update_question_comment' comment.id %}" class="pull-right"><small>Edit &nbsp;</small></a>{% endif %}
     </div>
   </div>
   {% endfor %}
@@ -112,10 +112,10 @@
       <div class ="col-md-9">
         <a href="{% url 'qa_create_answer_comment' answer.id %}" class="pull-right"><small><span class="fa fa-comment" aria-hidden="true"></span> Комментировать &nbsp;</small></a>
         {% if answer.user == user %}<a href="{% url 'qa_update_answer' answer.id %}" class="pull-right"><small>Редактировать &nbsp;</small></a>{% endif %}
-            <div id="ans" class="alert alert-primary" role="alert">{{ answer.answer_text|markdown }}</div>
+            <div id="ans" class="alert alert-primary" role="alert">{{ answer.answer_text }}</div>
         {% if answer.answercomment_set %}
           {% for comment in answer.answercomment_set.all %}
-            <p><b>{{ comment.comment_text|markdown }}</b><small>, <a href="{% url 'qa_profile' comment.user.id %}">{% if comment.user.id == user.id %} Вы {% else %}{{ comment.user.username }}{% endif %}</a> <div class="pull-right">{{ comment.pub_date }}</div></small></p>{% if comment.user == user %}<a href="{% url 'qa_update_answer_comment' comment.id %}" class="pull-right"><small>Редактировать &nbsp;</small></a>{% endif %}
+            <p><b>{{ comment.comment_text }}</b><small>, <a href="{% url 'qa_profile' comment.user.id %}">{% if comment.user.id == user.id %} Вы {% else %}{{ comment.user.username }}{% endif %}</a> <div class="pull-right">{{ comment.pub_date }}</div></small></p>{% if comment.user == user %}<a href="{% url 'qa_update_answer_comment' comment.id %}" class="pull-right"><small>Редактировать &nbsp;</small></a>{% endif %}
           <hr>
           {% endfor %}
         {% endif %}

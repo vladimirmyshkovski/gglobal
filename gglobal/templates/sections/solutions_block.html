@@ -41,7 +41,7 @@
 
         <!-- END CTA -->
         {% if self.handle %}
-        {% compress js inline %}
+        {#% compress js inline %#}
         <script type="text/javascript" charset="utf-8">
             $(document).ready(function() {
                 $('.{{ self.handle }}').magnificPopup({
@@ -105,5 +105,5 @@
             });
             });
         </script>
-        {% endcompress %}
+        {#% endcompress %#}
         {% endif %}
