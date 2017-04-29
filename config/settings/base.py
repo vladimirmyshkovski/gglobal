@@ -136,8 +136,6 @@ INSTALLED_APPS = PRE_DJANGO_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     #'django.middleware.cache.UpdateCacheMiddleware'
     'htmlmin.middleware.HtmlMinifyMiddleware',
-    #'django.middleware.cache.FetchFromCacheMiddleware',
-    'htmlmin.middleware.MarkRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -150,6 +148,9 @@ MIDDLEWARE = [
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
     #'wagtailthemes.middleware.ThemeMiddleware',
     'turbolinks.middleware.TurbolinksMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
+    #'django.middleware.cache.FetchFromCacheMiddleware',
+
 ]
 
 # MIGRATIONS CONFIGURATION
@@ -441,3 +442,8 @@ CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery
 CATEGORIES_SETTINGS = {
 'ALLOW_SLUG_CHANGE': True
 }
+
+
+#CACHE_MIDDLEWARE_ALIAS
+#CACHE_MIDDLEWARE_SECONDS
+#CACHE_MIDDLEWARE_KEY_PREFIX

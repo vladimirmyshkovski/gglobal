@@ -8,10 +8,8 @@
 
 {{ page.body }}
 
-{% cache 60 * 30 masters_map %}
 {% block map %}
     {% masters_map %}
 {% endblock map %}
-{% endcache %}
 
 {% endblock %}

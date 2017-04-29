@@ -38,8 +38,7 @@
                 </div>
             </div>
         </section>
-        {% block extrahead %}
-        {% compress js %}
+        {% compress js inline %}
         <script type="text/javascript" charset="utf-8">
             /* ==============================================
             Magnific Popup
@@ -100,7 +99,6 @@
         });
         </script>
         {% endcompress %}
-        {% endblock extrahead %}
         <!-- END HOME -->
 
 
