@@ -16,18 +16,18 @@
     <link rel="Shortcut Icon" href="{% static 'image/favicon.png' %}">
     {# CSS libs #}
     {% compress css %}
-    <link type="text/css" rel="stylesheet" charset="utf-8" href="{% static 'css/bootstrap.min.css' %}"/>
+    <link type="text/css" rel="stylesheet" charset="utf-8" media="none" onload="if(media!='all')media='all'" href="{% static 'css/bootstrap.min.css' %}"/>
     {# CSS layout #}
-    <link type="text/css" rel="stylesheet" charset="utf-8" href="{% static 'css/magnific-popup.css' %}">
-    <link type="text/css" rel="stylesheet" charset="utf-8" href="{% static 'css/style.css' %}">
-    <link type="text/css" rel="stylesheet" charset="utf-8" href="{% static 'css/colors/default.css' %}">
+    <link type="text/css" rel="stylesheet" charset="utf-8" media="none" onload="if(media!='all')media='all'" href="{% static 'css/magnific-popup.css' %}">
+    <link type="text/css" rel="stylesheet" charset="utf-8" media="none" onload="if(media!='all')media='all'" href="{% static 'css/style.css' %}">
+    <link type="text/css" rel="stylesheet" charset="utf-8" media="none" onload="if(media!='all')media='all'" href="{% static 'css/colors/default.css' %}">
     <!--link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"-->
     {% endcompress %}
     {# CSS fonts #}
-    <link type="text/css" rel="stylesheet" charset="utf-8" href="{% static 'css/pe-icon-7-stroke.css' %}">
-    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">    
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico"  type="text/css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,700" type="text/css">
+    <link type="text/css" rel="stylesheet" charset="utf-8" media="none" onload="if(media!='all')media='all'" href="{% static 'css/pe-icon-7-stroke.css' %}">
+    <link rel="stylesheet" media="none" onload="if(media!='all')media='all'" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">    
+    <link rel="stylesheet" media="none" onload="if(media!='all')media='all'" href="https://fonts.googleapis.com/css?family=Pacifico"  type="text/css">
+    <link rel="stylesheet" media="none" onload="if(media!='all')media='all'" href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,700" type="text/css">
 
     <meta name="yandex-verification" content="086d5306efe34ab0" />
     <meta name="google-site-verification" content="oMWgonLOcqrDL0gN-u2f4odkQPLyEubqgbpMDfrM4_w" />
@@ -38,11 +38,6 @@
     
     {% block extrahead %}
     {% endblock extrahead %}
-
-
-
-
-
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
         <!--[if lt IE 9]>
           <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>
