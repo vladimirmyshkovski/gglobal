@@ -31,7 +31,7 @@
             </div> <!-- end container -->
         </section>
         <!-- End Subscribe -->
-        {% compress js inline %}
+        {#% compress js inline %#}
         {% if self.handle %}
         <script type="text/javascript">
             window.onload = function () {
@@ -75,4 +75,4 @@
             };
         </script>
         {% endif %}
-        {% endcompress %}
+        {#% endcompress %#}
