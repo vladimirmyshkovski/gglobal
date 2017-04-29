@@ -141,7 +141,9 @@ COMPRESSOR_STORAGE = 'compressor.storage.CompressorFileStorage'
 COMPRESS_URL = STATIC_URL
 COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
 COMPRESS_OFFLINE = env.bool('COMPRESS_OFFLINE', default=True)
-COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.SlimItFilter']
+COMPRESS_JS_FILTERS = ['compressor.filters.closure.ClosureCompilerFilter']
+COMPRESS_CLOSURE_COMPILER_BINARY = '/usr/share/java/closure-compiler.jar'
+#COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.SlimItFilter']
 #COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
 COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSCompressorFilter']
 # EMAIL
