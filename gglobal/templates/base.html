@@ -1,10 +1,15 @@
-{% load base_tags static users_tags breadcrumbs_tags wagtailuserbar compress %}
+{% load base_tags static users_tags breadcrumbs_tags wagtailuserbar %}
 
 {% block head %}
     {% include "includes/head.html" %}
 {% endblock head %}
 
-<body data-spy="scroll" data-target="#navbar-menu" class="{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}" style="margin-top: 0px">
+{% block css_head %}
+    {% include "includes/css_head.html" %}
+{% endblock css_head %}
+
+
+<body data-spy="scroll" data-target="#navbar-menu" class="{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}">
 {#% wagtailuserbar %#}
 
 {% block header %}
@@ -40,44 +45,7 @@
         {% include "includes/footer.html" %}
     </footer>
 </body>
-    {% compress js %}
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/bootstrap-3.3.7.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/cookie-2.1.4.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.sticky.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.ajaxchimp.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.app.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/switcher.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/parsley.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'turbolinks/turbolinks.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/respond-1.4.2.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/raven.min.js' %}"></script>
-    
-    <!-- js placed at the end of the document so the pages load faster -->
-    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script-->
-    
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.easing.1.3.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.form.validator.2.3.26.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.inputmask.3.3.4.min.js' %}"></script>
-    {% endcompress %}
-
-    {% if user.is_authenticated %}<script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>{% endif %}
-    {% compress js inline %}
-    <script type="text/javascript">
-    window.onload = function () {
-        var csrftoken = Cookies.get('csrftoken');
-        };</script>
-    {% endcompress %}
-        <!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter37578360 = new Ya.Metrika({ id:37578360, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/37578360" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
-    <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-91819614-1', 'auto');
-    ga('send', 'pageview');
-
-    </script>
+{% block js_footer %}
+    {% include 'includes/js_footer.html' %}
+{% endblock js_footer %}
 </html>
