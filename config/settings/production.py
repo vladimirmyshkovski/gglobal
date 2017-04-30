@@ -205,7 +205,7 @@ CACHES = {
             #"COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
             "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor",
             "PARSER_CLASS": "redis.connection.HiredisParser",
-            "CONNECTION_POOL_KWARGS": {"max_connections": 100}
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100},
             "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
             "SOCKET_TIMEOUT": 5,  # in seconds
             'IGNORE_EXCEPTIONS': True,  # mimics memcache behavior.
