@@ -33,7 +33,7 @@
         <!-- End Subscribe -->
         {#% compress js inline %#}
         {% if self.handle %}
-        <script type="text/javascript">
+        <script type="text/javascript" defer="" src="">
             window.onload = function () {
                 $.validate({
                     modules : 'html5',
