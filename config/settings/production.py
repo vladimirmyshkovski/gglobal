@@ -199,12 +199,27 @@ CACHES = {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': REDIS_LOCATION,
         'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            #'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            "CLIENT_CLASS": "django_redis.client.HerdClient",
+            "PICKLE_VERSION": -1,
+            #"COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
+            "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor",
+            "PARSER_CLASS": "redis.connection.HiredisParser",
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100}
+            "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
+            "SOCKET_TIMEOUT": 5,  # in seconds
             'IGNORE_EXCEPTIONS': True,  # mimics memcache behavior.
                                         # http://niwinz.github.io/django-redis/latest/#_memcached_exceptions_behavior
         }
     }
 }
+
+
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+#DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
+
 
 
 # Sentry Configuration
