@@ -8,23 +8,3 @@
     <link type="text/css" rel="stylesheet" charset="utf-8" href="{% static 'css/colors/default.css' %}">
     <!--link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"-->
     {% endcompress %}
-    {# CSS fonts #}
-    <noscript id="deferred-styles">
-    <link type="text/css" rel="stylesheet" charset="utf-8" href="{% static 'css/pe-icon-7-stroke.css' %}">
-    <link type="text/css" rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">    
-    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico" >
-    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,700">
-    </noscript>
-    <script>
-      var loadDeferredStyles = function() {
-        var addStylesNode = document.getElementById("deferred-styles");
-        var replacement = document.createElement("div");
-        replacement.innerHTML = addStylesNode.textContent;
-        document.body.appendChild(replacement)
-        addStylesNode.parentElement.removeChild(addStylesNode);
-      };
-      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-          webkitRequestAnimationFrame || msRequestAnimationFrame;
-      if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
-      else window.addEventListener('load', loadDeferredStyles);
-    </script>
