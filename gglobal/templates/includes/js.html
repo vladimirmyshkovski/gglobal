@@ -1,14 +1,4 @@
 {% load static compress %} 
-    <script>
-    function defer(method) {
-        if (window.jQuery)
-            method();
-            alert('jQuery is loading');
-        else
-            setTimeout(function() { defer(method) }, 50);
-            alert('waiting 50ms to load jQuery');
-    }
-    </script>
     {% compress js %}
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/bootstrap-3.3.7.min.js' %}"></script>
@@ -34,6 +24,16 @@
     {% endcompress %}
     {% if user.is_authenticated %}<script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>{% endif %}
     <script type="text/javascript">var csrftoken = Cookies.get('csrftoken')</script>
+    <script>
+    function defer(method) {
+        if (window.jQuery)
+            method();
+            alert('jQuery is loading');
+        else
+            setTimeout(function() { defer(method) }, 50);
+            alert('waiting 50ms to load jQuery');
+    }
+    </script>
     <script>
       var loadDeferredStyles = function() {
         var addStylesNode = document.getElementById("deferred-styles");
