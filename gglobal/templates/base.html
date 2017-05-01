@@ -7,9 +7,10 @@
     function defer(method) {
         if (window.inputmask)
             method();
-            alert('inputmask was not loading ...')
         else
             setTimeout(function() { defer(method) }, 50);
+            alert('inputmask was not loading ...');
+
     };
 </script>
 <script>
