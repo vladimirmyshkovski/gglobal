@@ -31,6 +31,10 @@
 
     {% block extrahead %}
     {% endblock extrahead %}
+
+    {% block js %}
+        {% include 'includes/js.html' %}
+    {% endblock js %}
     <script>
       var loadDeferredStyles = function() {
         var addStylesNode = document.getElementById("deferred-styles");
@@ -57,7 +61,4 @@
           <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>
           <script src="{% static 'js/respond-1.4.2.min.js' %}"></script>
     <![endif]-->
-    {% block js %}
-        {% include 'includes/js.html' %}
-    {% endblock js %}
 </head>
