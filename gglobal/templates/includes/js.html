@@ -25,6 +25,6 @@
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.inputmask.3.3.4.min.js' %}"></script>
     {% endcompress %}
     {% if user.is_authenticated %}<script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>{% endif %}
-    {% comprss js inline %}
+    {% compress js inline %}
     <script type="text/javascript">var csrftoken = Cookies.get('csrftoken')</script>
     {% endcompress %}
