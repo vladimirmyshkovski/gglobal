@@ -26,70 +26,14 @@
     {% block css_head %}
         {% include "includes/css_head.html" %}
     {% endblock css_head %}
-
+    
     {% block head-extra %}
     {% endblock head-extra %}
 
     {% block extrahead %}
     {% endblock extrahead %}
 
-    {#% block js %#}
-        {#% include 'includes/js.html' %#}
-    {#% endblock js %#}
-
-    {% compress js %}
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/bootstrap-3.3.7.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/cookie-2.1.4.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.sticky.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.ajaxchimp.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.app.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/switcher.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/parsley.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'turbolinks/turbolinks.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/respond-1.4.2.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/raven.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/analytics.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/watch.js' %}"></script>
-    <!-- js placed at the end of the document so the pages load faster -->
-    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script-->
-    {% endcompress %}
-    {% compress js %}
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.easing.1.3.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.form.validator.2.3.26.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.inputmask.3.3.4.min.js' %}"></script>
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/csrf.js' %}"></script>
-    {% endcompress %}
-
-    {% if user.is_authenticated %}
-    <script type="text/javascript" data-turbolinks-eval="false" src="{% url 'admin:jsi18n' %}"></script>
-    {% endif %}
-    <script>
-      var loadDeferredStyles = function() {
-        var addStylesNode = document.getElementById("deferred-styles");
-        var replacement = document.createElement("div");
-        replacement.innerHTML = addStylesNode.textContent;
-        document.body.appendChild(replacement)
-        addStylesNode.parentElement.removeChild(addStylesNode);
-      };
-      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-          webkitRequestAnimationFrame || msRequestAnimationFrame;
-      if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
-      else window.addEventListener('load', loadDeferredStyles);
-    </script>
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
-        <!--[if lt IE 9]>
-          <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>
-          <script src="{% static 'js/respond-1.4.2.min.js' %}"></script>
-    <![endif]-->
-    <script>
-    function defer(method) {
-        if (window.inputmask)
-            method();
-        else
-            setTimeout(function() { defer(method) }, 50);
-    }
-    </script>
+    {% block js %}
+        {% include 'includes/js.html' %}
+    {% endblock js %}
 </head>
