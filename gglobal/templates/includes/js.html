@@ -1,5 +1,5 @@
 {% load static compress %} 
-    {% compress js %}
+    {#% compress js %#}
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/bootstrap-3.3.7.min.js' %}"></script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/cookie-2.1.4.min.js' %}"></script>
@@ -16,13 +16,13 @@
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/watch.js' %}"></script>
     <!-- js placed at the end of the document so the pages load faster -->
     <!--script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script-->
-    {% endcompress %}
-    {% compress js %}
+    {#% endcompress %#}
+    {#% compress js %#}
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.easing.1.3.min.js' %}"></script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.form.validator.2.3.26.min.js' %}"></script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.inputmask.3.3.4.min.js' %}"></script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/csrf.js' %}"></script>
-    {% endcompress %}
+    {#% endcompress %#}
 
     {% if user.is_authenticated %}
     <script type="text/javascript" data-turbolinks-eval="false" src="{% url 'admin:jsi18n' %}"></script>
