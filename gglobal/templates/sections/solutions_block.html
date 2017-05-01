@@ -43,7 +43,7 @@
         {#% compress js inline %#}
         {% if self.handle %}
         <script type="text/javascript">
-            $(document).ready(function(){
+            function mthod() {
                 $('.{{ self.handle }}').magnificPopup({
                     type: 'inline',
                     preloader: false,
@@ -103,7 +103,7 @@
                 });
                 return false;
             });
-            });
+            };
         </script>
         {% endif %}
         {#% endcompress %#}

@@ -34,8 +34,8 @@
         {#% compress js inline %#}
         {% if self.handle %}
         <script type="text/javascript">
-            $(document).ready(function(){
-                $.validate({
+                function method() {
+                    $.validate({
                     modules : 'html5',
                     lang: 'ru',
                     errorMessagePosition : 'top',
@@ -72,7 +72,7 @@
                 });
                 return false;
             });
-        })
+        };
 
         </script>
         {% endif %}
