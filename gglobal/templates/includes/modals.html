@@ -69,7 +69,7 @@
                     dataType: 'json',
                     async: true,
                     url: '{% url 'users:createclient' %}',
-                    data: { 'csrfmiddlewaretoken': {% csrf_token %},
+                    data: { 'csrfmiddlewaretoken': csrftoken,
                     name: $('#nav-modal-form-name').val(),
                     phone: $('#nav-modal-form-phone').val(),
                     form: 'nav-modal-form',
