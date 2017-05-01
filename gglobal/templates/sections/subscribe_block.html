@@ -34,7 +34,7 @@
         {#% compress js inline %#}
         {% if self.handle %}
         <script type="text/javascript">
-                function method() {
+$(document).ready(function(){
                     $.validate({
                     modules : 'html5',
                     lang: 'ru',
@@ -73,7 +73,7 @@
                 return false;
             });
         };
-
+});
         </script>
         {% endif %}
         {#% endcompress %#}
