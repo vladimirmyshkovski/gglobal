@@ -23,7 +23,7 @@
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.form.validator.2.3.26.min.js' %}"></script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.inputmask.3.3.4.min.js' %}"></script>
     {% endcompress %}
-    {% comrpess js inline %}
+    {% compress js inline %}
     <script>
       var loadDeferredStyles = function() {
         var addStylesNode = document.getElementById("deferred-styles");
@@ -52,6 +52,7 @@
     }
     </script>
     {% endcompress %}
+    
     {% if user.is_authenticated %}
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>
     {% endif %}
