@@ -36,7 +36,6 @@
       if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
       else window.addEventListener('load', loadDeferredStyles);
     </script>
-
     <script>
     function defer(method) {
         if (window.inputmask)
@@ -44,12 +43,6 @@
         else
             setTimeout(function() { defer(method) }, 50);
     };
-    </script>
-
-    <script type="text/javascript">
-    defer(function () {
-        var csrftoken = Cookies.get('csrftoken');
-    });
     </script>
     {% if user.is_authenticated %}
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>
