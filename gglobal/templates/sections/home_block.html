@@ -40,7 +40,7 @@
         </section>
         {#% compress js inline %#}
         <script type="text/example">
-
+                $(document).ready(function(){
                     $('.popup-video').magnificPopup({
                       disableOn: 700,
                       type: 'iframe',
@@ -49,9 +49,11 @@
                       preloader: false,
 
                       fixedContentPos: false
-                    });
+                    });                
+                    })
         </script>
         <script type="text/example">
+        $(document).ready(function(){
                         $.validate({
                             modules : 'html5',
                             lang: 'ru',
@@ -90,8 +92,8 @@
                             }
                         });
                         return false;
-                        });
-
+                        });        
+        })
         </script>
         {#% endcompress %#}
         <!-- END HOME -->
