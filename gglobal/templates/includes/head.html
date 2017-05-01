@@ -26,6 +26,15 @@
     {% block css_head %}
         {% include "includes/css_head.html" %}
     {% endblock css_head %}
+    {% block head-extra %}
+    {% endblock head-extra %}
+
+    {% block extrahead %}
+    {% endblock extrahead %}
+
+    {% block js %}
+        {% include 'includes/js.html' %}
+    {% endblock js %}
     <script>
       var loadDeferredStyles = function() {
         var addStylesNode = document.getElementById("deferred-styles");
@@ -39,16 +48,6 @@
       if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
       else window.addEventListener('load', loadDeferredStyles);
     </script>
-    {% block head-extra %}
-    {% endblock head-extra %}
-
-    {% block extrahead %}
-    {% endblock extrahead %}
-
-    {% block js_footer %}
-        {% include 'includes/js_footer.html' %}
-    {% endblock js_footer %}
-    
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
         <!--[if lt IE 9]>
           <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>
