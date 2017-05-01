@@ -15,7 +15,7 @@
 //      setTimeout(function() { defer(method) }, 50);
 //}
 function defer(method) {
-    $( "defer-scripts" ).load(function() {
+    $( "#deferred-scripts" ).load(function() {
         method();
     };
 };

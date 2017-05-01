@@ -1,5 +1,5 @@
 {% load static compress %}
-    <noscript id="deferred-styles">
+    <noscript id="deferred-scripts">
     {% compress js %}
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/bootstrap-3.3.7.min.js' %}"></script>
@@ -33,4 +33,4 @@
         var csrftoken = Cookies.get('csrftoken');
         };</script>
     {% endcompress %}
-    </noscript>>
+    </noscript>
