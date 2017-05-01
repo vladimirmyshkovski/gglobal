@@ -26,7 +26,7 @@
 
                         {% for block in self.blocks %}
                         <div class="row">
-                        {% image block.image width-60 as theimage %}
+                        {% image block.image width-60 format-jpeg jpegquality-40  as theimage %}
                             <div class="col-md-4">
                                 <div class="testimonial-description text-left">
                                     <p class="text-muted">
