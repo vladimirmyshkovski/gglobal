@@ -39,7 +39,7 @@
             </div>
         </section>
         {#% compress js inline %#}
-        <script type="text/javascript">
+        <script type="text/javascript" defer="defer">
                 $(document).ready(function(){
                     $('.popup-video').magnificPopup({
                       disableOn: 700,
@@ -52,8 +52,8 @@
                     });                
                     })
         </script>
-        <script type="text/javascript">
-        $(document).ready(function(){
+        <script type="text/javascript" defer="defer">
+                    $(document).ready(function(){
                         $.validate({
                             modules : 'html5',
                             lang: 'ru',
@@ -93,7 +93,7 @@
                         });
                         return false;
                         });        
-        })
+                    })
         </script>
         {#% endcompress %#}
         <!-- END HOME -->

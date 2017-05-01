@@ -33,8 +33,8 @@
         <!-- End Subscribe -->
         {#% compress js inline %#}
         {% if self.handle %}
-        <script type="text/javascript">
-$(document).ready(function(){
+        <script type="text/javascript" defer="defer">
+        $(document).ready(function(){
                     $.validate({
                     modules : 'html5',
                     lang: 'ru',
@@ -72,8 +72,7 @@ $(document).ready(function(){
                 });
                 return false;
             });
-        };
-});
+        });
         </script>
         {% endif %}
         {#% endcompress %#}
