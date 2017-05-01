@@ -39,10 +39,8 @@
             </div>
         </section>
         {#% compress js inline %#}
-        <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            (function($) {
-                $(document).ready(function() {
+        <script type="text/example">
+
                     $('.popup-video').magnificPopup({
                       disableOn: 700,
                       type: 'iframe',
@@ -52,14 +50,8 @@
 
                       fixedContentPos: false
                     });
-                });
-            })(jQuery);
-        });
         </script>
-        <script type="text/javascript" >
-            window.addEventListener('DOMContentLoaded', function() {
-                (function($) {
-                    $(document).ready(function() {
+        <script type="text/example">
                         $.validate({
                             modules : 'html5',
                             lang: 'ru',
@@ -99,9 +91,6 @@
                         });
                         return false;
                         });
-                    });
-                })(jQuery);
-            });
 
         </script>
         {#% endcompress %#}

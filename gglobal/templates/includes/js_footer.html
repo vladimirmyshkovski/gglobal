@@ -33,4 +33,16 @@
         var csrftoken = Cookies.get('csrftoken');
         };</script>
     {% endcompress %}
-    </noscript>>
+    </noscript>
+    <script type="text/javascript">
+    window.addEventListener("load", function() {
+
+    var arr = document.querySelectorAll("script[type='text/example']");
+    for (var x = 0; x < arr.length; x++) {
+        var cln = arr[x].cloneNode(true);
+        cln.type = "text/javascript";
+        document.querySelectorAll("body")[0].appendChild(cln);
+    }
+});        
+    </script>
+
