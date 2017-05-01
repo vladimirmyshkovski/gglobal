@@ -23,7 +23,10 @@
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.inputmask.3.3.4.min.js' %}"></script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/csrf.js' %}"></script>
     {% endcompress %}
-    {% if user.is_authenticated %}<script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>{% endif %}
+
+    {% if user.is_authenticated %}
+    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>
+    {% endif %}
     <script>
       var loadDeferredStyles = function() {
         var addStylesNode = document.getElementById("deferred-styles");
