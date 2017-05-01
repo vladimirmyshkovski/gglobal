@@ -48,7 +48,7 @@
                     //dataType: 'json',
                     async: true,
                     url: '{% url 'users:createclient' %}',
-                    data: { 'csrfmiddlewaretoken': csrftoken,
+                    data: { 'csrfmiddlewaretoken': {{ csrf }},
                     phone: $('#{{ self.handle }}-phone').val(),
                     form: '{{ self.handle }}',
                 },
