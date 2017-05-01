@@ -42,8 +42,6 @@
     function defer(method) {
         if (window.inputmask)
             method();
-            console.log('inputmask was loaded !!!');
-
         else
             setTimeout(function() { defer(method) }, 50);
             console.log('inputmask was not loading ...');
