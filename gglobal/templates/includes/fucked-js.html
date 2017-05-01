@@ -36,14 +36,6 @@
       if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
       else window.addEventListener('load', loadDeferredStyles);
     </script>
-    <script>
-    function defer(method) {
-        if (window.inputmask)
-            method();
-        else
-            setTimeout(function() { defer(method) }, 50);
-    };
-    </script>
     {% if user.is_authenticated %}
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>
     {% endif %}
@@ -52,3 +44,11 @@
           <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>
           <script src="{% static 'js/respond-1.4.2.min.js' %}"></script>
     <![endif]-->
+    <script type="text/javascript">
+    function defer(method) {
+        if (window.inputmask)
+            method();
+        else
+            setTimeout(function() { defer(method) }, 50);
+    };
+    </script>
