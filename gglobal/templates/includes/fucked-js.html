@@ -40,7 +40,7 @@
     {% endif %}
     <script>
     function defer(method) {
-        if (window.$inptumask)
+        if (window.validate)
             method();
         else
             setTimeout(function() { defer(method) }, 50);
