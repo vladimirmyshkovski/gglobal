@@ -22,7 +22,6 @@
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.form.validator.2.3.26.min.js' %}"></script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.inputmask.3.3.4.min.js' %}"></script>
     {% endcompress %}
-    {% compress js inline %}
     <script>
       var loadDeferredStyles = function() {
         var addStylesNode = document.getElementById("deferred-styles");
@@ -36,12 +35,6 @@
       if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
       else window.addEventListener('load', loadDeferredStyles);
     </script>
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
-        <!--[if lt IE 9]>
-          <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>
-          <script src="{% static 'js/respond-1.4.2.min.js' %}"></script>
-    <![endif]-->
     <script>
     function defer(method) {
         if (window.inputmask)
@@ -50,7 +43,6 @@
             setTimeout(function() { defer(method) }, 50);
     }
     </script>
-    {% endcompress %}
 
     {% if user.is_authenticated %}
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>
@@ -60,3 +52,8 @@
         var csrftoken = Cookies.get('csrftoken');
     };
     </script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+        <!--[if lt IE 9]>
+          <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>
+          <script src="{% static 'js/respond-1.4.2.min.js' %}"></script>
+    <![endif]-->
