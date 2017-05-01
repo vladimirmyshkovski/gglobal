@@ -24,7 +24,7 @@
     {% endcompress %}
     {% if user.is_authenticated %}<script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>{% endif %}
     {% compress js inline %}
-    <script type="text/javascript" defer="defer">var csrftoken = Cookies.get('csrftoken')</script>
+    <script type="text/javascript" defer>var csrftoken = Cookies.get('csrftoken')</script>
     {% endcompress %}
     <script>
       var loadDeferredStyles = function() {
@@ -41,10 +41,11 @@
     </script>
     <script>
     function defer(method) {
-        if (window.inputmask)
+        if (window.jQuery)
             method();
         else
             setTimeout(function() { defer(method) }, 50);
+            alert('waiting 50ms to load inputmask')
     }
     </script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
