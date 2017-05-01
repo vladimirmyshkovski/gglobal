@@ -28,7 +28,7 @@
 
     {% if user.is_authenticated %}<script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>{% endif %}
 
-    {% endcompress js %}
+    {% compress js %}
     <script type="text/javascript" defer="defer">var csrftoken = Cookies.get('csrftoken');</script>
     <script type="text/javascript">isScrtiptsLoad = true</script>
     {% endcompress %}
