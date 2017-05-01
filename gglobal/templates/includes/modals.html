@@ -35,7 +35,8 @@
                         </div>
         <!-- END CTA -->
         <script type="text/javascript" defer="defer">
-            $(document).ready(function(){
+            //$(document).ready(function(){
+            if (isScriptsLoad) { 
                 $('.nav-modal-form').magnificPopup({
                     type: 'inline',
                     preloader: false,
@@ -95,6 +96,7 @@
                 });
                 return false;
             });
-        })
+        };
+        //})
 
         </script>
