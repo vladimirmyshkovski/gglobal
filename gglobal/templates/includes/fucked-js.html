@@ -36,9 +36,6 @@
       else window.addEventListener('load', loadDeferredStyles);
     </script>
     {% if user.is_authenticated %}
-    <script type="text/javascript">
-        var csrftoken = Cookies.get('csrftoken');
-    </script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>
     {% endif %}
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
@@ -46,11 +43,3 @@
           <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>
           <script src="{% static 'js/respond-1.4.2.min.js' %}"></script>
     <![endif]-->
-    <script type="text/javascript">
-    function defer(method) {
-        if (window.inputmask)
-            method();
-        else
-            setTimeout(function() { defer(method) }, 50);
-    };
-    </script>
