@@ -35,6 +35,7 @@
         {% if self.handle %}
         <script type="text/javascript">
                 defer(function () {
+                    var csrftoken = Cookies.get('csrftoken');
                     $.validate({
                     modules : 'html5',
                     lang: 'ru',

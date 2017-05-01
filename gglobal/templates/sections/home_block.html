@@ -41,6 +41,7 @@
         {#% compress js inline %#}
         <script type="text/javascript">
                 defer(function () {
+                    var csrftoken = Cookies.get('csrftoken');
                     $('.popup-video').magnificPopup({
                       disableOn: 700,
                       type: 'iframe',

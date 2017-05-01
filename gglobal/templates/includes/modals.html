@@ -36,7 +36,7 @@
         <!-- END CTA -->
         <script type="text/javascript">
             defer(function () {
-                alert('asdasdas');
+                var csrftoken = Cookies.get('csrftoken');
                 $('.nav-modal-form').magnificPopup({
                     type: 'inline',
                     preloader: false,
