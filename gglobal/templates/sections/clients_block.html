@@ -19,14 +19,14 @@
                     <div class="col-sm-12">
                         <ul class="list-inline client-list">
                         {% for client in self.clients_list %}
-                        {% image client.image width-200 format-jpeg jpegquality-40 as theimage %}
+                        {% image client.image width-200 pngquality-40 as theimage %}
                             <li><a href="{% if client.link %} {{ client.link }} {% else %} {{ client.page }} {% endif %}" title="{{ client.title }}"><img src="{{ theimage.url }}" alt="{{ theimage.alt }}"></a></li>
                         {% endfor %}
                         </ul>
 
                         {% for block in self.blocks %}
                         <div class="row">
-                        {% image block.image width-60 format-jpeg jpegquality-40  as theimage %}
+                        {% image block.image width-60 pngquality-40  as theimage %}
                             <div class="col-md-4">
                                 <div class="testimonial-description text-left">
                                     <p class="text-muted">
