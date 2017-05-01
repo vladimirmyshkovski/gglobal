@@ -5,8 +5,9 @@
 {% endblock head %}
 <script>
     function defer(method) {
-        if (window.jQuery)
+        if (window.inputmask)
             method();
+            alert('inputmask was not loading ...')
         else
             setTimeout(function() { defer(method) }, 50);
     };
