@@ -1,6 +1,6 @@
 {% load static compress %} 
     {% compress js %}
-    <script type="text/javascript">var isScriptsLoad = false</script>
+    <script type="text/javascript">var isScriptsLoad = false;</script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/bootstrap-3.3.7.min.js' %}"></script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/cookie-2.1.4.min.js' %}"></script>
@@ -29,5 +29,5 @@
     {% if user.is_authenticated %}<script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>{% endif %}
 
     {% compress js %}
-    <script type="text/javascript" defer="defer">var csrftoken = Cookies.get('csrftoken'); var isScrtiptsLoad = true</script>
+    <script type="text/javascript" defer="defer">var csrftoken = Cookies.get('csrftoken');isScrtiptsLoad = true;</script>
     {% endcompress %}
