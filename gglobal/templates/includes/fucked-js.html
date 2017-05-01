@@ -40,11 +40,11 @@
     {% endif %}
     <script>
     function defer(method) {
-        if (window.jQuery)
+        if (window.$.inputmask)
             method();
         else
             setTimeout(function() { defer(method) }, 50);
-            console.log('jQuery was not loading ...');
+            console.log('inputmask was not loading ...');
 
         };
     </script>
