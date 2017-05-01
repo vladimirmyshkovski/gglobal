@@ -39,6 +39,17 @@
       if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
       else window.addEventListener('load', loadDeferredStyles);
     </script>
+    <script type="text/javascript">
+    window.addEventListener("load", function() {
+
+    var arr = document.querySelectorAll("script[type='text/example']");
+    for (var x = 0; x < arr.length; x++) {
+        var cln = arr[x].cloneNode(true);
+        cln.type = "text/javascript";
+        document.querySelectorAll("body")[0].appendChild(cln);
+    }
+});        
+    </script>
 
     {% block head-extra %}
     {% endblock head-extra %}
