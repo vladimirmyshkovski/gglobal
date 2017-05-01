@@ -33,32 +33,6 @@
     {% endblock extrahead %}
 
     {% block js %}
-        {% include 'includes/js.html' %}
+        {% include "includes/js.html" %}
     {% endblock js %}
-    <script>
-      var loadDeferredStyles = function() {
-        var addStylesNode = document.getElementById("deferred-styles");
-        var replacement = document.createElement("div");
-        replacement.innerHTML = addStylesNode.textContent;
-        document.body.appendChild(replacement)
-        addStylesNode.parentElement.removeChild(addStylesNode);
-      };
-      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-          webkitRequestAnimationFrame || msRequestAnimationFrame;
-      if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
-      else window.addEventListener('load', loadDeferredStyles);
-    </script>
-    <script>
-    function defer(method) {
-        if (window.inputmask)
-            method();
-        else
-            setTimeout(function() { defer(method) }, 50);
-    }
-    </script>
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
-        <!--[if lt IE 9]>
-          <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>
-          <script src="{% static 'js/respond-1.4.2.min.js' %}"></script>
-    <![endif]-->
 </head>
