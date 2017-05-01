@@ -40,7 +40,7 @@
         </section>
         {#% compress js inline %#}
         <script type="text/javascript" defer="" src="">
-            function method() {
+             $( "#deferred-scripts" ).load(function() {
                 $('.popup-video').magnificPopup({
                   disableOn: 700,
                   type: 'iframe',
@@ -50,7 +50,7 @@
 
                   fixedContentPos: false
                 });
-            };
+            });
         </script>
         <script type="text/javascript" >
             $( "#deferred-scripts" ).load(function() {
