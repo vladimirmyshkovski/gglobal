@@ -40,7 +40,8 @@
         </section>
         {#% compress js inline %#}
         <script type="text/javascript">
-             $( "#deferred-scripts" ).load(function() {
+        var elem = document.getElementById('deferred-scripts');
+        elem.load(function() {
                 alert(' #deferred-scripts is loaded')
                 $('.popup-video').magnificPopup({
                   disableOn: 700,
@@ -54,7 +55,8 @@
             });
         </script>
         <script type="text/javascript" >
-            $( "#deferred-scripts" ).load(function() {
+        var elem = document.getElementById('deferred-scripts');
+        elem.load(function() {
                 alert(' #deferred-scripts is loaded')
                 $.validate({
                     modules : 'html5',
