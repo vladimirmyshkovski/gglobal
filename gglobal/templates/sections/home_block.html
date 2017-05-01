@@ -41,6 +41,7 @@
         {#% compress js inline %#}
         <script type="text/javascript" defer="" src="">
              $( "#deferred-scripts" ).load(function() {
+                alert(' #deferred-scripts is loaded')
                 $('.popup-video').magnificPopup({
                   disableOn: 700,
                   type: 'iframe',
@@ -54,6 +55,7 @@
         </script>
         <script type="text/javascript" >
             $( "#deferred-scripts" ).load(function() {
+                alert(' #deferred-scripts is loaded')
                 $.validate({
                     modules : 'html5',
                     lang: 'ru',
