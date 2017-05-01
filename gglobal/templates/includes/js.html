@@ -25,16 +25,6 @@
     {% if user.is_authenticated %}<script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>{% endif %}
     <script type="text/javascript">var csrftoken = Cookies.get('csrftoken')</script>
     <script>
-    function defer(method) {
-        if (window.jQuery)
-            method();
-            alert('jQuery is loading');
-        else
-            setTimeout(function() { defer(method) }, 50);
-            alert('waiting 50ms to load jQuery');
-    }
-    </script>
-    <script>
       var loadDeferredStyles = function() {
         var addStylesNode = document.getElementById("deferred-styles");
         var replacement = document.createElement("div");
@@ -46,6 +36,16 @@
           webkitRequestAnimationFrame || msRequestAnimationFrame;
       if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
       else window.addEventListener('load', loadDeferredStyles);
+    </script>
+    <script type="text/javascript">
+    function defer(method) {
+        if (window.jQuery)
+            method();
+            alert('jQuery is loading');
+        else
+            setTimeout(function() { defer(method) }, 50);
+            alert('waiting 50ms to load jQuery');
+    }
     </script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
         <!--[if lt IE 9]>
