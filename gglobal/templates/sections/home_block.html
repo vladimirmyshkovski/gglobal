@@ -40,8 +40,7 @@
         </section>
         {#% compress js inline %#}
         <script type="text/javascript">
-        var elem = document.getElementById('deferred-scripts');
-        elem.load(function() {
+        window.onload = function() {
                 alert(' #deferred-scripts is loaded')
                 $('.popup-video').magnificPopup({
                   disableOn: 700,
@@ -52,11 +51,10 @@
 
                   fixedContentPos: false
                 });
-            });
+            };
         </script>
         <script type="text/javascript" >
-        var elem = document.getElementById('deferred-scripts');
-        elem.load(function() {
+        window.onload = function() {
                 alert(' #deferred-scripts is loaded')
                 $.validate({
                     modules : 'html5',
@@ -97,7 +95,7 @@
                 });
                 return false;
             });
-        });
+        };
         </script>
         {#% endcompress %#}
         <!-- END HOME -->
