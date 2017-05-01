@@ -3,16 +3,15 @@
 {% block head %}
     {% include "includes/head.html" %}
 {% endblock head %}
-
-<script type="text/javascript">
+<script>
     function defer(method) {
-        if (window.inputmask)
+        if (window.jQuery)
             method();
         else
             setTimeout(function() { defer(method) }, 50);
     };
 </script>
-<script type="text/javascript">
+<script>
 defer(function () {
         var csrftoken = Cookies.get('csrftoken');
     });
