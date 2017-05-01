@@ -25,9 +25,7 @@
     {% endcompress %}
 
     {% if user.is_authenticated %}
-    {% compress js %}
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>
-    {% endcompress %}
+    <script type="text/javascript" data-turbolinks-eval="false" src="{% url 'admin:jsi18n' %}"></script>
     {% endif %}
     <script>
       var loadDeferredStyles = function() {
