@@ -12,11 +12,11 @@ from django.utils.translation import ugettext_lazy as _
 class AbstractProcess(models.Model):
     """Base class for Process data object."""
 
-    flow_class = FlowReferenceField()
-    status = models.CharField(max_length=50, default=STATUS.NEW)
+    flow_class = FlowReferenceField(verbose_name=_('Класс'))
+    status = models.CharField(verbose_name=_('Статус'), max_length=50, default=STATUS.NEW)
 
-    created = models.DateTimeField(auto_now_add=True)
-    finished = models.DateTimeField(blank=True, null=True)
+    created = models.DateTimeField(verbose_name=_('Создан'), auto_now_add=True)
+    finished = models.DateTimeField(verbose_name=_('Завершён'), blank=True, null=True)
 
     objects = ProcessQuerySet.as_manager()
 
@@ -56,7 +56,7 @@ class AbstractProcess(models.Model):
     def __str__(self):
         if self.flow_class:
             return '{} #{}'.format(self.flow_class.process_title, self.pk)
-        return "<Process {}> - {}".format(self.pk, self.status)
+        return "<Процесс {}> - {}".format(self.pk, self.status)
 
     class Meta:  # noqa D101
         abstract = True
@@ -73,12 +73,12 @@ class AbstractTask(models.Model):
     """
 
     flow_task = TaskReferenceField()
-    flow_task_type = models.CharField(max_length=50)
-    status = models.CharField(max_length=50, default=STATUS.NEW, db_index=True)
+    flow_task_type = models.CharField(verbose_name=_('Тип задачи'), max_length=50)
+    status = models.CharField(verbose_name=_('Статус'), max_length=50, default=STATUS.NEW, db_index=True)
 
     created = models.DateTimeField(verbose_name=_('Создан'), auto_now_add=True)
-    started = models.DateTimeField(blank=True, null=True)
-    finished = models.DateTimeField(blank=True, null=True)
+    started = models.DateTimeField(verbose_name=_('Начат'), blank=True, null=True)
+    finished = models.DateTimeField(verbose_name=_('Завершён'), blank=True, null=True)
     previous = models.ManyToManyField('self', symmetrical=False, related_name='leading')
     token = TokenField(default='start')
 
@@ -128,7 +128,7 @@ class AbstractTask(models.Model):
                 self.flow_task,
                 self.pk,
                 self.status)
-        return "<Task {}> - {}".format(self.pk, self.status)
+        return "<Задача {}> - {}".format(self.pk, self.status)
 
     class Meta:  # noqa D101
         abstract = True
@@ -150,10 +150,10 @@ class Task(AbstractTask):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL, blank=True, null=True, db_index=True,
         on_delete=models.CASCADE)
-    external_task_id = models.CharField(max_length=50, blank=True, null=True, db_index=True)
-    owner_permission = models.CharField(max_length=255, blank=True, null=True)
+    external_task_id = models.CharField(verbose_name=_('ID задачи'), max_length=50, blank=True, null=True, db_index=True)
+    owner_permission = models.CharField(verbose_name=_('Права ответственного'), max_length=255, blank=True, null=True)
 
-    comments = models.TextField(blank=True, null=True)
+    comments = models.TextField(verbose_name=_('Комментарии'), blank=True, null=True)
 
     class Meta:  # noqa D101
         ordering = ['-created']

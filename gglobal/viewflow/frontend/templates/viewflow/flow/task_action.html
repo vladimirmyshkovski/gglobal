@@ -13,7 +13,7 @@
 <div class="right">
     <form role="form" method="POST" style="display:inline-block">
         {% csrf_token %}
-        <button type="submit" name="run_action" class="btn btn-flat">Confirm {{ view.action_name }}</button>
+        <button type="submit" name="run_action" class="btn btn-flat">Подтвердить {{ view.action_name }}</button>
     </form>
 </div>
 {% endblock %}

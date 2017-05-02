@@ -5,7 +5,7 @@
     <div class="card-content">
         <span class="card-title">{{ root }} #{{ process.pk }}</span>
         {% if root_url %}
-        <a href="{{ root_url }}" class="card-edit" target="_blank" data-turbolinks="false" style="float:right">(edit)</a>
+        <a href="{{ root_url }}" class="card-edit" target="_blank" data-turbolinks="false" style="float:right">(редактировать)</a>
         {% endif %}
         <dl class="dl-horizontal">
             {% for name, value in fields %}
@@ -20,12 +20,12 @@
 <div class="col s12">
     <div class="card detail-card">
         <div class="card-content">
-            <span class="card-title">Active tasks</span>
+            <span class="card-title">Активные задачи</span>
             <table>
                 <thead>
                     <tr>
-                        <th>Task</th>
-                        <th>Owner</th>
+                        <th>Задача</th>
+                        <th>Ответственный</th>
                     </tr>
                 </thead>
                 <tbody>

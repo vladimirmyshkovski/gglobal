@@ -26,42 +26,42 @@
                 <div class="col s12 m8 l8">
                     <table class="table">
                         <tr>
-                            <th width="200px">Description</th>
+                            <th width="200px">Описание</th>
                             <td>{{ activation.task.summary|default:activation.task.flow_task }}</td>
                         </tr>
                         <tr>
-                            <th>Status</th>
+                            <th>Статус</th>
                             <td>{{ activation.task.status }}</td>
                         </tr>
                         <tr>
-                            <th>Created</th>
+                            <th>Создано</th>
                             <td>{{ activation.task.created }}</td>
                         </tr>
                         {% if activation.task.started %}
                         <tr>
-                            <th>Started</th>
+                            <th>Начато</th>
                             <td>{{ activation.task.started|default:"" }}</td>
                         </tr>
                         {% endif %}{% if activation.task.finished %}
                         <tr>
-                            <th>Finished</th>
+                            <th>Заверешно</th>
                             <td>{{ activation.task.finished|default:"" }}</td>
                         </tr>
                         {% endif %}{% if activation.task.owner %}
                         <tr>
-                            <th>Owner</th>
+                            <th>Ответсвенный</th>
                             <td>{{ activation.task.owner|default:"" }}</td>
                         </tr>
                         {% endif %}{% if activation.task.owner_permission %}
                         <tr>
-                            <th>Permission</th>
+                            <th>Доступ ответственного</th>
                             <td>{{ activation.task.owner_permission|default:"" }}</td>
                         </tr>
                         {% endif %}
                     </table>
                 </div>
                 <div class="col s12 m4 l4">
-                    <h5>Previous tasks</h5>
+                    <h5>Предыдущие задачи</h5>
                     <ul>
                         {% for prev_task in activation.task.previous.all %}
                         <li>
@@ -70,10 +70,10 @@
                             </a> &mdash; {{ prev_task.status }}
                         </li>
                         {% empty %}
-                        <li class="grey-text">No previous tasks</li>
+                        <li class="grey-text">Нет предыдущих задач</li>
                         {% endfor %}
                     </ul>
-                    <h5>Next tasks</h5>
+                    <h5>Следующие задачи</h5>
                     <ul>
                         {% for next_task in activation.task.leading.all %}
                         <li>
@@ -82,7 +82,7 @@
                             </a> &mdash; {{ next_task.status }}
                         </li>
                         {% empty %}
-                        <li class="grey-text">No next tasks</li>
+                        <li class="grey-text">Нет следующих задач</li>
                         {% endfor %}
                     </ul>
                 </div>

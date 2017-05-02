@@ -33,11 +33,11 @@
                 <div class="row">
                     {% block task_actions %}
                     <div class="col s3">
-                        <a class="btn btn-flat black-text" href="{% flowurl activation.task 'detail' %}?{{ request|query_back }}">detail</a>
+                        <a class="btn btn-flat black-text" href="{% flowurl activation.task 'detail' %}?{{ request|query_back }}">Подробнее</a>
                     </div>
                     <div class="col s9 right-align">
-                        <button type="submit" name="_continue" class="btn btn-flat">Done and continue on this process</button>
-                        <button type="submit" name="_done" class="btn primary white-text btn-flat">Done</button>
+                        <button type="submit" name="_continue" class="btn btn-flat">Сохранить и продолжить этот процесс</button>
+                        <button type="submit" name="_done" class="btn primary white-text btn-flat">Сохранить</button>
                     </div>
                     {% endblock %}
                 </div>

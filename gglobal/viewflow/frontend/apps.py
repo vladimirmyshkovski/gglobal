@@ -16,7 +16,7 @@ class ViewflowFrontendConfig(ModuleMixin, AppConfig):
 
     name = 'viewflow.frontend'
     label = 'viewflow_frontend'
-    verbose_name = "Workflow"
+    verbose_name = "Клиенты"
     icon = '<i class="material-icons">assignment</i>'
 
     def __init__(self, app_name, app_module):  # noqa D102
@@ -46,14 +46,14 @@ class ViewflowFrontendConfig(ModuleMixin, AppConfig):
         from . import views
         from viewflow.frontend import views as frontend_views
 
-        base_url = '^workflow/'
+        base_url = '^клиенты/'
 
         module_views = [
             url('^$', frontend_views.AllTaskListView.as_view(ns_map=self.ns_map), name="index"),
-            url('^queue/$', frontend_views.AllQueueListView.as_view(ns_map=self.ns_map), name="queue"),
-            url('^archive/$', frontend_views.AllArchiveListView.as_view(ns_map=self.ns_map), name="archive"),
-            url('^action/unassign/$', views.TasksUnAssignView.as_view(ns_map=self.ns_map), name="unassign"),
-            url('^action/assign/$', views.TasksAssignView.as_view(ns_map=self.ns_map), name="assign"),
+            url('^очередь/$', frontend_views.AllQueueListView.as_view(ns_map=self.ns_map), name="queue"),
+            url('^архив/$', frontend_views.AllArchiveListView.as_view(ns_map=self.ns_map), name="archive"),
+            url('^action/неподтверждённые/$', views.TasksUnAssignView.as_view(ns_map=self.ns_map), name="unassign"),
+            url('^action/подтверждённые/$', views.TasksAssignView.as_view(ns_map=self.ns_map), name="assign"),
         ]
 
         app_flows = itertools.groupby(

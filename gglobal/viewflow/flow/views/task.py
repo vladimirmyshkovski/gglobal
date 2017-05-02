@@ -73,9 +73,9 @@ class FlowMixin(MessageUserMixin, BaseFlowMixin):
     def activation_done(self, *args, **kwargs):
         """Finish the task activation."""
         self.activation.done()
-        self.success('Task {task} has been completed.')
+        self.success('Задача {task} выполнена.')
         if self.activation.process.finished:
-            self.success('Process {process} has been completed.')
+            self.success('Процесс {process} выполнен.')
 
     def form_valid(self, *args, **kwargs):
         """If the form is valid, save the associated model and finish the task."""
@@ -171,7 +171,7 @@ class AssignTaskView(MessageUserMixin, generic.TemplateView):
         """
         if '_assign' or '_continue' in request.POST:
             self.activation.assign(self.request.user)
-            self.success('Task {task} has been assigned')
+            self.success('Задача {task} назначена')
             return HttpResponseRedirect(self.get_success_url())
         else:
             return self.get(request, *args, **kwargs)
@@ -185,7 +185,7 @@ class AssignTaskView(MessageUserMixin, generic.TemplateView):
             raise PermissionDenied
 
         if not self.activation.assign.can_proceed():
-            self.error('Task {task} cannot be assigned to you')
+            self.error('Задача {task} не может быть назначена вам')
             return redirect(self.activation.flow_task.get_task_url(
                 self.activation.task, url_type='detail', user=request.user,
                 namespace=self.request.resolver_match.namespace))
@@ -210,4 +210,4 @@ class UnassignTaskView(BaseTaskActionView):
     def perform(self):
         """Unassign the task from the current owner."""
         self.activation.unassign()
-        self.success('Task {task} has been unassigned.')
+        self.success('Задача {task} не назначена.')

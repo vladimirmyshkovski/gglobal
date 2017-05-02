@@ -5,7 +5,7 @@
 {% include 'viewflow/includes/breadcrumb_category.html' %}
 <a href="{% flowurl flow_class 'index' %}?{{ request|query_back }}">{{ flow_class.process_title }}</a>
 <a href="{% flowurl process 'detail' %}?{{ request|query_back }}">#{{ process.pk }}</a>
-<a class="active">Cancel</a>
+<a class="active">Отменить</a>
 {% endblock %}
 
 {% block content %}
@@ -16,17 +16,17 @@
             <div class="card-content">
                 <div class="card-bend primary center-align hide-on-med-and-down {% if process.finished %}disabled{% endif %}">
                     <h5>{{ flow_class.process_title }}</h5>
-                    <h6>{% if process.finished %}Finished{% else %}in-progresss{% endif %}</h6>
+                    <h6>{% if process.finished %}Finished{% else %}в ходе выполнения{% endif %}</h6>
                 </div>
-                <div class="card-title black-text">Cancel {{ flow_class.process_title }} #{{ process.pk }} and {{ active_tasks|length }} tasks</div>
+                <div class="card-title black-text">Отменить {{ flow_class.process_title }} #{{ process.pk }} и {{ active_tasks|length }} задачи</div>
                 <div class="card-title black-text"><h6>{{ process.summary }}</h6></div>
                 <table class="table bordered">
                     <thead>
                         <th>#</th>
-                        <th>Name</th>
-                        <th >Description</th>
-                        <th class="hide-on-small-only">Started</th>
-                        <th>Status</th>
+                        <th>Имя</th>
+                        <th>Описание</th>
+                        <th class="hide-on-small-only">Начато</th>
+                        <th>Статус</th>
                         <th>&nbsp;</th>
                     </thead>
                     <tbody>
@@ -48,7 +48,7 @@
                             <td> {{ task.status }} </td>
                             <td>
                                 {% if task in uncancelable_tasks %}
-                                <span class="badge red" style="width:100px">UNCANCELABLE</span>
+                                <span class="badge red" style="width:100px">НЕЛЬЗЯ ОТМЕНИТЬ</span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -58,7 +58,7 @@
             </div>
             <div class="card-action">
                 <div class="right-align">
-                    <button type="submit" name="_cancel_process" class="btn  btn-flat {% if uncancelable_tasks %}disabled{% endif %}" {% if uncancelable_tasks %}disabled{% endif %}>Cancel</button>
+                    <button type="submit" name="_cancel_process" class="btn  btn-flat {% if uncancelable_tasks %}disabled{% endif %}" {% if uncancelable_tasks %}недоступно{% endif %}>Отменить</button>
                 </div>
             </div>
         </form>
