@@ -32,7 +32,7 @@ def create_flow(activation, **kwargs):
     activation.process.phone = data['phone']
     activation.prepare()
     activation.done()
-    notify.send(user, recipient=user, verb=u'Новая заявка!', action_object=user, description=user, target=user)
+    #notify.send(user, recipient=user, verb=u'Новая заявка!', action_object=user, description=user, target=user)
     return activation
 
 @frontend.register
