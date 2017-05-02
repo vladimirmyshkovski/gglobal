@@ -4,7 +4,7 @@ from viewflow.base import this, Flow
 from viewflow.flow.views import CreateProcessView, UpdateProcessView
 import viewflow.nodes
 
-from .models import ClientProcess,CRMUserProfile
+from .models import ClientCRMProfile, ClientProcess
 from viewflow import frontend
 from django.utils.translation import ugettext_lazy as _
 
@@ -28,8 +28,11 @@ from django.contrib.auth.models import User, Group
 @flow_start_func
 def create_flow(activation, **kwargs):
     data = kwargs['data']
+    user = kwargs['user']
+    print(user)
     activation.process.form_name = data['name']
     activation.process.phone = data['phone']
+    activation.process.user = user
     activation.prepare()
     activation.done()
     #notify.send(user, recipient=user, verb=u'Новая заявка!', action_object=user, description=user, target=user)

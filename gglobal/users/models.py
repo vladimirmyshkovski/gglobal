@@ -19,7 +19,7 @@ class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
-    #name = models.CharField(_('Name of User'), blank=True, max_length=255)
+    name = models.CharField(_('Name of User'), blank=True, max_length=255)
     city = models.ForeignKey(City, null=True, blank=True)
     phone_number = models.CharField(
         help_text=(_('Must include international prefix - e.g. +1 555 555 55555')), null=True, max_length=25)
@@ -29,10 +29,9 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to='avatars', blank=True, verbose_name='Аватарка')
     raiting = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "Пользователль"
+        verbose_name_plural = "Пользователь"
 
-    
     def __str__(self):
         return self.username
-
-    def get_absolute_url(self):
-        return reverse('users:detail', kwargs={'username': self.username})
