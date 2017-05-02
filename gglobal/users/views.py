@@ -81,7 +81,10 @@ def СreateClientView(request):
             #Always use get on request.POST. Correct way of querying a QueryDict.
             data = {"name": request.POST.get('name') , "phone" : request.POST.get('phone'), "form" : request.POST.get('form')}
             print(data)
-            user, created = User.objects.get_or_create(phone_number=data['phone'])
+            user, created = User.objects.get_or_create(
+                name=data['name'],
+                phone_number=data['phone']
+                )
             print(created)
             print(user)
             ClientFlow.start.run(user=user)
