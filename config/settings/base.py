@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 from __future__ import absolute_import, unicode_literals
 
 import environ
+from django.utils.translation import ugettext_lazy as _
+
 
 ROOT_DIR = environ.Path(__file__) - 3  # (gglobal/config/settings/base.py - 3 = gglobal/)
 APPS_DIR = ROOT_DIR.path('gglobal')
@@ -205,6 +207,9 @@ TIME_ZONE = 'Europe/Minsk'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = 'ru-RU'
+LANGUAGES = [
+    ('ru', _('Russian')),
+]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1

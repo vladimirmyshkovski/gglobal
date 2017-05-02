@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 from django.core.urlresolvers import reverse
+from django.shortcuts import render
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import User
 from gglobal.crm.models import MasterCRMProfile
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
 from cities_light.models import City
 from django.shortcuts import get_object_or_404
 from django.db.models import Count
-#from gglobal.crm.flows import ClientFlow
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from gglobal.crm.flows import ClientFlow
 
 class UserDetailView(DetailView):
     model = MasterCRMProfile
@@ -73,18 +73,15 @@ class UserCityDetailView(DetailView):
     #    print(queryset)
     #    return queryset
 
-
 @csrf_exempt
 def СreateClientView(request):
     if request.method == 'POST':
         #POST goes here . is_ajax is must to capture ajax requests. Beginner's pit.
         if request.is_ajax():
             #Always use get on request.POST. Correct way of querying a QueryDict.
-            name = request.POST.get('name')
-            phone = request.POST.get('phone')
-            form = request.POST.get('form')
-            data = {"name": name , "phone" : phone, "form" : form}
-            #ClientFlow.start.run(data=data)
+            data = {"name": request.POST.get('name') , "phone" : request.POST.get('phone'), "form" : request.POST.get('form')}
+            user = get_object_or_404(User, phone_number=data['phone'])
+            ClientFlow.start.run(user=user)
             #Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse(data)
     #Get goes here

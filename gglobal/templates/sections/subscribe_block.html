@@ -45,7 +45,7 @@
                 e.preventDefault();
                 jQuery.ajax({
                     type: 'POST',
-                    //dataType: 'json',
+                    dataType: 'json',
                     async: true,
                     url: '{% url 'users:createclient' %}',
                     data: { 'csrfmiddlewaretoken': csrftoken,
