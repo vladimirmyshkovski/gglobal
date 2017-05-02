@@ -13,7 +13,7 @@ class ClientProcess(Process):
     approved = models.BooleanField(_('Подтверждение'), default=False)
     first_name = models.CharField(_('Имя'), max_length=150, null=True)
     closed = models.BooleanField(_('Блабла'), default=False)
-    user = AutoOneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
+    #user = AutoOneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
     sites = models.ManyToManyField(Site)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
 
