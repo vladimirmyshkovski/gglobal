@@ -80,7 +80,10 @@ def СreateClientView(request):
         if request.is_ajax():
             #Always use get on request.POST. Correct way of querying a QueryDict.
             data = {"name": request.POST.get('name') , "phone" : request.POST.get('phone'), "form" : request.POST.get('form')}
-            user = get_object_or_404(User, phone_number=data['phone'])
+            print(data)
+            user, created = User.objects.get_or_create(phone_number=data['phone'])
+            print(created)
+            print(user)
             ClientFlow.start.run(user=user)
             #Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse(data)
