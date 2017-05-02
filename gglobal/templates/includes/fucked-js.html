@@ -33,9 +33,6 @@
       if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
       else window.addEventListener('load', loadDeferredStyles);
     </script>
-    {% if user.is_authenticated %}
-    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>
-    {% endif %}
     <script>
     function defer(method) {
         if (window.Inputmask)
@@ -45,6 +42,9 @@
             console.log(' window.Inputmask was not loaded !')
         };
     </script>
+    {% if user.is_authenticated %}
+    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>
+    {% endif %}
     <script>
     defer(function () {
             csrftoken = Cookies.get('csrftoken');
