@@ -87,7 +87,10 @@ def СreateClientView(request):
                 )
             print(created)
             print(user)
-            ClientFlow.start.run(user=user)
+            ClientFlow.start.run(
+                user=user, 
+                data=data
+                )
             #Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse(data)
     #Get goes here

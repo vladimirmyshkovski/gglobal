@@ -32,8 +32,6 @@ def create_flow(activation, **kwargs):
     activation.process.phone = data['phone']
     activation.prepare()
     activation.done()
-    masters = Group.objects.get(pk=1)
-    user = User.objects.get(pk=1)
     notify.send(user, recipient=user, verb=u'Новая заявка!', action_object=user, description=user, target=user)
     return activation
 
