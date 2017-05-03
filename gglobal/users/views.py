@@ -14,6 +14,8 @@ from gglobal.crm.flows import ClientFlow
 from django.contrib.sites.shortcuts import get_current_site 
 from ipware.ip import get_real_ip, get_ip
 from geolite2 import geolite2
+from django.core.exceptions import ObjectDoesNotExist
+
 class UserDetailView(DetailView):
     model = MasterCRMProfile
     template_name = 'users/mastercrmprofile_detail.html'
@@ -84,13 +86,16 @@ def СreateClientView(request):
             ip = get_real_ip(request)
             reader = geolite2.reader()
             if ip is not None:
-                citybiyip = reader.get(ip)['city']
+                citybiyip = reader.get(ip)['city']['names']['en']
             else:
                 ip = get_ip(request)
                 if ip is not None:
-                    citybiyip = reader.get(ip)['city']
-            if city is not None:
-                city = City.get(nane=citybiyip)
+                    citybiyip = reader.get(ip)['city']['names']['en']
+            if citybiyip is not None:
+                try:
+                    city = City.get(nane=citybiyip)
+                except ObjectDoesNotExist:
+                    city = 0
             user, created = ClientCRMProfile.objects.get_or_create(
                 name=data['name'],
                 phone_number=data['phone'],
