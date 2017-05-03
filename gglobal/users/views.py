@@ -6,7 +6,7 @@ from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import User
 from gglobal.crm.models import MasterCRMProfile, ClientCRMProfile
-from cities_light.models import City
+from cities_light.models import City, Country
 from django.db.models import Count
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -86,21 +86,29 @@ def СreateClientView(request):
             ip = get_real_ip(request)
             reader = geolite2.reader()
             if ip is not None:
-                citybiyip = reader.get(ip)['city']['names']['en']
+                CityByIP = reader.get(ip)['city']['names']['en']
+                CountryByIP = reader.get(ip)['country']['names']['en']
             else:
                 ip = get_ip(request)
                 if ip is not None:
-                    citybiyip = reader.get(ip)['city']['names']['en']
-            if citybiyip is not None:
+                    CityByIP = reader.get(ip)['city']['names']['en']
+                    CountryByIP = reader.get(ip)['country']['names']['en']
+            if CityByIP and CountryByIP is not None:
                 try:
-                    city = City.objects.get(name=citybiyip)
+                    city = City.objects.get(name=CityByIP)
+                    country = Country.objects.get(name=CountryByIP)
                 except ObjectDoesNotExist:
-                    city = City.objects.get(pk=1)
+                    pass
+                    user, created = ClientCRMProfile.objects.get_or_create(
+                        name=data['name'],
+                        phone_number=data['phone'],
+                        )
             user, created = ClientCRMProfile.objects.get_or_create(
                 name=data['name'],
                 phone_number=data['phone'],
                 city=city,
-                )
+                country=country
+                )        
             user.sites.add(get_current_site(request))
             print('created' +  str(created))
             print('user' + str(user))
