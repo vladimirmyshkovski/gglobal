@@ -67,7 +67,7 @@ class ClientFlow(Flow):
 
 
     def send_hello_world_request(self, activation):
-        from gglobal.crm.models import MasterCRMProfile as User
+        from gglobal.users.models import User
         from django.contrib.auth.models import Group
         #masters = Group.objects.get(pk=1)
         user = User.objects.get(pk=2)
