@@ -70,10 +70,10 @@ class ClientFlow(Flow):
         from gglobal.crm.models import MasterCRMProfile as User
         from django.contrib.auth.models import Group
         masters = Group.objects.get(pk=1)
-        user = User.objects.get(pk=1)
+        user = User.objects.get(pk=2)
 
         #notify.send(user, recipient=user, verb='you reached level 10')
-        notify.send(user, recipient=masters, verb=u'replied', action_object=user,
+        notify.send(user, recipient=user, verb=u'replied', action_object=user,
             description=user, target=user)
         print('youyouyou')
 
