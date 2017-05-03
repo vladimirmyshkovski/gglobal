@@ -45,7 +45,7 @@ class MasterCRMProfile(models.Model):
         verbose_name_plural = "Мастера"
 
     def __str__(self):  # pragma: no cover
-        return self.user.fullname
+        return self.user.get_full_name()
 
 
 class ClientProcess(Process):
