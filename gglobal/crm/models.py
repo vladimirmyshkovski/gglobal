@@ -9,7 +9,7 @@ from django.conf import settings
 
 class ClientCRMProfile(models.Model):
     name = models.CharField(verbose_name=_('Имя'), null=True, max_length=25)
-    user = AutoOneToOneField(settings.AUTH_USER_MODEL,verbose_name=_('Клиент'), null=True)
+    user = AutoOneToOneField(settings.AUTH_USER_MODEL,verbose_name=_('Пользователь'), null=True)
     city = models.ForeignKey(City, verbose_name=_('Город'), null=True, blank=True)
     phone_number = models.CharField(verbose_name=_('Номер телефона'),
         help_text=(_('Must include international prefix - e.g. +1 555 555 55555')), null=True, max_length=25, unique=True)

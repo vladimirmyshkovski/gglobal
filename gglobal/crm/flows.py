@@ -23,14 +23,12 @@ from notifications.signals import notify
 
 from viewflow.decorators import flow_start_func
 from notifications.signals import notify
-from django.contrib.auth.models import User, Group
 
 @flow_start_func
 def create_flow(activation, **kwargs):
     data = kwargs['data']
     user = kwargs['user']
     site = kwargs['site']
-    print(user)
     activation.process.form_name = data['name']
     activation.process.phone = data['phone']
     activation.process.user = user
@@ -69,7 +67,8 @@ class ClientFlow(Flow):
 
 
     def send_hello_world_request(self, activation):
-        from django.contrib.auth.models import User, Group
+        from gglobal.crm.models import MasterCRMProfile as User
+        from django.contrib.auth.models import Group
         masters = Group.objects.get(pk=1)
         user = User.objects.get(pk=1)
 

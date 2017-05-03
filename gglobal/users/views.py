@@ -85,6 +85,8 @@ def СreateClientView(request):
             data = {"name": request.POST.get('name') , "phone" : request.POST.get('phone'), "form" : request.POST.get('form')}
             ip = get_real_ip(request)
             reader = geolite2.reader()
+            site = get_current_site(request)
+            '''
             if ip is not None:
                 CityByIP = reader.get(ip)['city']['names']['en']
                 CountryByIP = reader.get(ip)['country']['names']['en']
@@ -93,6 +95,9 @@ def СreateClientView(request):
                 if ip is not None:
                     CityByIP = reader.get(ip)['city']['names']['en']
                     CountryByIP = reader.get(ip)['country']['names']['en']
+            '''
+            CityByIP = 'Minsk'
+            CountryByIP = "Belarus"
             if CityByIP and CountryByIP is not None:
                 try:
                     city = City.objects.get(name=CityByIP)
@@ -109,11 +114,7 @@ def СreateClientView(request):
                         name=data['name'],
                         phone_number=data['phone'],
                         )
-            site = get_current_site(request)
             user.sites.add(site)
-            print('created' +  str(created))
-            print('user' + str(user))
-            print(user.sites)
             ClientFlow.start.run(
                 user=user, 
                 data=data,
