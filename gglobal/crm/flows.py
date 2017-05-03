@@ -29,10 +29,12 @@ from django.contrib.auth.models import User, Group
 def create_flow(activation, **kwargs):
     data = kwargs['data']
     user = kwargs['user']
+    site = kwargs['site']
     print(user)
     activation.process.form_name = data['name']
     activation.process.phone = data['phone']
     activation.process.user = user
+    activation.process.site = site
     activation.prepare()
     activation.done()
     #notify.send(user, recipient=user, verb=u'Новая заявка!', action_object=user, description=user, target=user)

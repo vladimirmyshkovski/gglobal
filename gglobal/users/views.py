@@ -108,15 +108,17 @@ def СreateClientView(request):
                     user, created = ClientCRMProfile.objects.get_or_create(
                         name=data['name'],
                         phone_number=data['phone'],
-                        )  
-            user.sites.add(get_current_site(request))
+                        )
+            site = get_current_site(request)
+            user.sites.add(site)
             print('created' +  str(created))
             print('user' + str(user))
             print(user.sites)
-            #ClientFlow.start.run(
-            #    user=user, 
-            #    data=data
-            #    )
+            ClientFlow.start.run(
+                user=user, 
+                data=data,
+                site=site,
+                )
             #Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse(data)
     #Get goes here

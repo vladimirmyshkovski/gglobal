@@ -49,7 +49,7 @@ class MasterCRMProfile(models.Model):
 
 
 class ClientProcess(Process):
-    text = models.CharField(_('Обращение'), max_length=150)
+    text = models.CharField(_('Обращение'), max_length=150, null=True)
     phone = models.CharField(
         help_text=(_('Must include international prefix - e.g. +1 555 555 55555')), null=True, max_length=25)    
     approved = models.BooleanField(_('Подтверждение'), default=False)
