@@ -12,7 +12,7 @@ class ClientCRMProfile(models.Model):
     user = AutoOneToOneField(settings.AUTH_USER_MODEL,verbose_name=_('Клиент'), null=True)
     city = models.ForeignKey(City, verbose_name=_('Город'), null=True, blank=True)
     phone_number = models.CharField(verbose_name=_('Номер телефона'),
-        help_text=(_('Must include international prefix - e.g. +1 555 555 55555')), null=True, max_length=25)
+        help_text=(_('Must include international prefix - e.g. +1 555 555 55555')), null=True, max_length=25, unique=True)
     country = models.ForeignKey(Country, verbose_name=_('Страна'), null=True, blank=True)
     sites = models.ManyToManyField(Site, verbose_name=_('Сайты'))
 
