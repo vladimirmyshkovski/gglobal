@@ -93,7 +93,7 @@ def СreateClientView(request):
                     citybiyip = reader.get(ip)['city']['names']['en']
             if citybiyip is not None:
                 try:
-                    city = City.get(nane=citybiyip)
+                    city = City.objects.get(nane=citybiyip)
                 except ObjectDoesNotExist:
                     city = 0
             user, created = ClientCRMProfile.objects.get_or_create(
