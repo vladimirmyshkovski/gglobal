@@ -97,18 +97,18 @@ def СreateClientView(request):
                 try:
                     city = City.objects.get(name=CityByIP)
                     country = Country.objects.get(name=CountryByIP)
+                    user, created = ClientCRMProfile.objects.get_or_create(
+                        name=data['name'],
+                        phone_number=data['phone'],
+                        city=city,
+                        country=country
+                        )      
                 except ObjectDoesNotExist:
                     pass
                     user, created = ClientCRMProfile.objects.get_or_create(
                         name=data['name'],
                         phone_number=data['phone'],
-                        )
-            user, created = ClientCRMProfile.objects.get_or_create(
-                name=data['name'],
-                phone_number=data['phone'],
-                city=city,
-                country=country
-                )        
+                        )  
             user.sites.add(get_current_site(request))
             print('created' +  str(created))
             print('user' + str(user))
