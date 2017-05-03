@@ -95,7 +95,7 @@ def СreateClientView(request):
                 try:
                     city = City.objects.get(name=citybiyip)
                 except ObjectDoesNotExist:
-                    city = 0
+                    city = City.objects.get(1)
             user, created = ClientCRMProfile.objects.get_or_create(
                 name=data['name'],
                 phone_number=data['phone'],
