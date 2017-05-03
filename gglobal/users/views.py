@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 from django.core.urlresolvers import reverse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import User
 from gglobal.crm.models import MasterCRMProfile, ClientCRMProfile
 from cities_light.models import City
-from django.shortcuts import get_object_or_404
 from django.db.models import Count
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from gglobal.crm.flows import ClientFlow
-
+from django.contrib.sites.shortcuts import get_current_site 
+from ipware.ip import get_real_ip, get_ip
+from geolite2 import geolite2
 class UserDetailView(DetailView):
     model = MasterCRMProfile
     template_name = 'users/mastercrmprofile_detail.html'
@@ -80,16 +81,27 @@ def СreateClientView(request):
         if request.is_ajax():
             #Always use get on request.POST. Correct way of querying a QueryDict.
             data = {"name": request.POST.get('name') , "phone" : request.POST.get('phone'), "form" : request.POST.get('form')}
+            ip = get_real_ip(request)
+            reader = geolite2.reader()
+            if ip is not None:
+                city = reader.get(ip)['city']
+            else:
+                ip = get_ip(request)
+                if ip is not None:
+                    city = reader.get(ip)['city']
             user, created = ClientCRMProfile.objects.get_or_create(
                 name=data['name'],
-                phone_number=data['phone']
+                phone_number=data['phone'],
+                city=city,
                 )
+            user.sites.add(get_current_site(request))
             print('created' +  str(created))
             print('user' + str(user))
-            ClientFlow.start.run(
-                user=user, 
-                data=data
-                )
+            print(user.sites)
+            #ClientFlow.start.run(
+            #    user=user, 
+            #    data=data
+            #    )
             #Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse(data)
     #Get goes here
