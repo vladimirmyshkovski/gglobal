@@ -84,11 +84,13 @@ def СreateClientView(request):
             ip = get_real_ip(request)
             reader = geolite2.reader()
             if ip is not None:
-                city = reader.get(ip)['city']
+                citybiyip = reader.get(ip)['city']
             else:
                 ip = get_ip(request)
                 if ip is not None:
-                    city = reader.get(ip)['city']
+                    citybiyip = reader.get(ip)['city']
+            if city is not None:
+                city = City.get(nane=citybiyip)
             user, created = ClientCRMProfile.objects.get_or_create(
                 name=data['name'],
                 phone_number=data['phone'],
