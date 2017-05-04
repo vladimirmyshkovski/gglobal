@@ -49,10 +49,10 @@ class MasterCRMProfile(models.Model):
 
 
 class Invoice(models.Model):
-
     issue_date = models.DateField()
     amount = models.IntegerField()
     paid = models.BooleanField()
+    payment_method = models.ForeignKey('crm.PaymentMethod')
 
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL)
     project_id = models.ForeignKey('crm.Project')
@@ -71,6 +71,7 @@ class Status(models.Model):
         verbose_name = "Статус"
         verbose_name_plural = "Статусы"
 
+
 class Activity(models.Model):
     subject = models.CharField(null=False, max_length=255)
     detail = models.CharField(null=False, max_length=255)
@@ -81,6 +82,7 @@ class Activity(models.Model):
     class Meta:
         verbose_name = "Пометка"
         verbose_name_plural = "Пометки"
+
 
 class Project(models.Model):
     client = models.ForeignKey(ClientCRMProfile)
@@ -116,4 +118,23 @@ class ClientProcess(Process):
         verbose_name_plural = "Обработка клиента"
 
 
+class PaymentMethod(models.Model):
+    name = models.CharField(verbose_name=_('Название'), null=True, max_length=25)
+    payment_type = models.ForeignKey('crm.PaymentType', verbose_name=_('Статус'), null=True, blank=True)
+    description = models.CharField(verbose_name=_('Описание'), null=True, max_length=255)
 
+    class Meta:
+        verbose_name = "Способ оплаты"
+        verbose_name_plural = "Способы оплаты"
+
+
+class PaymentType(models.Model):
+    name = models.CharField(verbose_name=_('Название'), null=True, max_length=25)
+    description = models.CharField(verbose_name=_('Описание'), null=True, max_length=255)
+    bill_of_payer = models.CharField(verbose_name=_('Счёт получателя'), null=True, max_length=255)
+    beneficiarys_account = models.CharField(verbose_name=_('Счёт плательщика'), null=True, max_length=255)
+    cvv = models.CharField(verbose_name=_('CVV'), null=True, max_length=3)
+
+    class Meta:
+        verbose_name = "Тип оплаты"
+        verbose_name_plural = "Способы оплаты"
