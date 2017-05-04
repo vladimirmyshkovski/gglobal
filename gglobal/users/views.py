@@ -93,8 +93,12 @@ def СreateClientView(request):
             else:
                 ip = get_ip(request)
                 if ip is not None:
-                    CityByIP = reader.get(ip)['city']['names']['en']
-                    CountryByIP = reader.get(ip)['country']['names']['en']
+                    try:
+                        CityByIP = reader.get(ip)['city']['names']['en']
+                        CountryByIP = reader.get(ip)['country']['names']['en']
+                    except:
+                        CityByIP = None
+                        CountryByIP = None
             if CityByIP and CountryByIP is not None:
                 try:
                     city = City.objects.get(name=CityByIP)
@@ -107,10 +111,10 @@ def СreateClientView(request):
                         )
                 except ObjectDoesNotExist:
                     pass
-                ClientFlow.start.run(
-                    data=data,
-                    site=site,
-                    )
+            ClientFlow.start.run(
+                data=data,
+                site=site,
+                )
             #Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse(data)
     #Get goes here

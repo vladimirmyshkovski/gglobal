@@ -7,7 +7,7 @@ import viewflow.nodes
 from .models import ClientCRMProfile, AutoCreateClientProcess
 from viewflow import frontend
 from django.utils.translation import ugettext_lazy as _
-
+from cities_light.models import City
 #from gglobal.stream.activities import notification
 from datetime import datetime
 
@@ -26,13 +26,14 @@ from notifications.signals import notify
 
 @flow_start_func
 def create_flow(activation, **kwargs):
-    city = kwargs['city']
-    country = kwargs['country']
-    data = kwargs['data']
-    site = kwargs['site']
-    activation.process.form_name = data['name']
-    activation.process.phone = data['phone']
-    activation.process.site = site
+    try:
+        activation.process.city = kwargs['city']
+        activation.process.country = kwargs['country']
+    except:
+        pass
+    activation.process.form_name = kwargs['data']['name']
+    activation.process.phone = kwargs['data']['phone']
+    activation.process.site = kwargs['site']
     activation.prepare()
     activation.done()
     #notify.send(user, recipient=user, verb=u'Новая заявка!', action_object=user, description=user, target=user)
@@ -69,13 +70,15 @@ class ClientFlow(Flow):
     def send_hello_world_request(self, activation):
         from gglobal.users.models import User
         from django.contrib.auth.models import Group
+        from gglobal.crm.tasks import send_notifications_to_masters_by_city
         #masters = Group.objects.get(pk=1)
-        user = User.objects.get(pk=2)
+        user = User.objects.get(pk=1)
+        city = City.objects.get(name='Minsk')
+        users = User.objects.filter(mastercrmprofile__isnull=False, city=city)
+        send_notifications_to_masters_by_city(users)
 
-        notify.send(user, recipient=user, verb='you reached level 10')
         #notify.send(user, recipient=user, verb=u'replied', action_object=user,
         #    description=user, target=user)
-        print('youyouyou')
 
 
 

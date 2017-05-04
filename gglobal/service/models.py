@@ -8,6 +8,11 @@ class Service(MPTTModel):
     name = models.CharField(max_length=50, unique=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
 
+    class Meta:
+    	verbose_name = "Услуга"
+    	verbose_name_plural = "Услуги"
+
+
     class MPTTMeta:
     	order_insertion_by = ['name']
 

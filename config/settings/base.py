@@ -450,3 +450,13 @@ CATEGORIES_SETTINGS = {
 'ALLOW_SLUG_CHANGE': True
 }
 
+# CELERY SETTINGS
+# ------------------------------------------------------------------------------
+#CELERY_QUEUES = (
+#   Queue('high', Exchange('high'), routing_key='high'),
+#    Queue('normal', Exchange('normal'), routing_key='normal'),
+#    Queue('low', Exchange('low'), routing_key='low'),
+#)
+CELERY_DEFAULT_QUEUE = 'normal'
+CELERY_DEFAULT_EXCHANGE = 'normal'
+CELERY_DEFAULT_ROUTING_KEY = 'normal'

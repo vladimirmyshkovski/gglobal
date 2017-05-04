@@ -18,6 +18,7 @@ class AutoCreateClientProcess(Process):
 
     first_name = models.CharField(_('Имя'), max_length=150, null=True)
     last_name = models.CharField(_('Фамилия'), max_length=150, null=True)
+    troubles = models.ManyToManyField('service.Service')
     phone_number = models.CharField(_('Телефон для связи'),
         help_text=(_('Должен быть указан в междурнародном формате, например +375(XX)XXX-XX-XX')), null=True, max_length=25)
     comment = models.CharField(_('Комментарий'), max_length=150, null=True)
