@@ -4,7 +4,7 @@ from viewflow.base import this, Flow
 from viewflow.flow.views import CreateProcessView, UpdateProcessView
 import viewflow.nodes
 
-from .models import ClientCRMProfile, ClientProcess
+from .models import ClientCRMProfile, AutoCreateClientProcess
 from viewflow import frontend
 from django.utils.translation import ugettext_lazy as _
 
@@ -26,12 +26,12 @@ from notifications.signals import notify
 
 @flow_start_func
 def create_flow(activation, **kwargs):
+    city = kwargs['city']
+    country = kwargs['country']
     data = kwargs['data']
-    user = kwargs['user']
     site = kwargs['site']
     activation.process.form_name = data['name']
     activation.process.phone = data['phone']
-    activation.process.user = user
     activation.process.site = site
     activation.prepare()
     activation.done()
@@ -40,7 +40,7 @@ def create_flow(activation, **kwargs):
 
 @frontend.register
 class ClientFlow(Flow):
-    process_class = ClientProcess
+    process_class = AutoCreateClientProcess
     start = flow.StartFunction(create_flow).Next(this.approve)
     approve = (
         flow.View(

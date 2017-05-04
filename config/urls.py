@@ -25,11 +25,14 @@ urlpatterns = [
     url(r'^cms/', include('wagtail.wagtailadmin.urls')),
     url(r'^вопрсы-ответы/', include('gglobal.qa.urls')),
     url(r'^квалификационные-вопросы/', include('gglobal.qualification.urls', namespace='qualification')),
+    url(r'^услуги/', include('gglobal.service.urls', namespace='service')),
+
     url(r'^кабинет/', include('gglobal.crm.urls')),
     #url(r'^categories/', include('categories.urls', namespace='categories')),
     url(r'^markdownx/', include('markdownx.urls')),
 
     url('^sitemap\.xml$', sitemap),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

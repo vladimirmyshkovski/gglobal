@@ -121,6 +121,8 @@ LOCAL_APPS = [
     'gglobal.qa.apps.QAConfig',
     'gglobal.cms.apps.CMSConfig',
     'gglobal.crm.apps.CRMConfig',
+    'gglobal.service.apps.ServiceConfig',
+
 
 ]
 

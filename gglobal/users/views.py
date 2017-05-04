@@ -86,7 +86,7 @@ def СreateClientView(request):
             ip = get_real_ip(request)
             reader = geolite2.reader()
             site = get_current_site(request)
-            '''
+            
             if ip is not None:
                 CityByIP = reader.get(ip)['city']['names']['en']
                 CountryByIP = reader.get(ip)['country']['names']['en']
@@ -95,31 +95,22 @@ def СreateClientView(request):
                 if ip is not None:
                     CityByIP = reader.get(ip)['city']['names']['en']
                     CountryByIP = reader.get(ip)['country']['names']['en']
-            '''
-            CityByIP = 'Minsk'
-            CountryByIP = "Belarus"
             if CityByIP and CountryByIP is not None:
                 try:
                     city = City.objects.get(name=CityByIP)
                     country = Country.objects.get(name=CountryByIP)
-                    user, created = ClientCRMProfile.objects.get_or_create(
-                        name=data['name'],
-                        phone_number=data['phone'],
+                    ClientFlow.start.run(
+                        data=data,
+                        site=site,
                         city=city,
-                        country=country
-                        )      
+                        country=country,
+                        )
                 except ObjectDoesNotExist:
                     pass
-                    user, created = ClientCRMProfile.objects.get_or_create(
-                        name=data['name'],
-                        phone_number=data['phone'],
-                        )
-            user.sites.add(site)
-            ClientFlow.start.run(
-                user=user, 
-                data=data,
-                site=site,
-                )
+                ClientFlow.start.run(
+                    data=data,
+                    site=site,
+                    )
             #Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse(data)
     #Get goes here

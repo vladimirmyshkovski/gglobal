@@ -7,6 +7,34 @@ from django.contrib.sites.models import Site
 from django.conf import settings
 from datetime import datetime
 
+
+class AutoCreateClientProcess(Process):
+    form_name = models.CharField(_('Имя из формы'), max_length=150, null=True)
+    text = models.CharField(_('Обращение из формы'), max_length=150, null=True)
+    phone = models.CharField(_('Телефон из формы'),
+        help_text=(_('Должен быть указан в междурнародном формате, например +375(XX)XXX-XX-XX')), null=True, max_length=25)
+
+    approved = models.BooleanField(_('Дозвонился?'), default=False)
+
+    first_name = models.CharField(_('Имя'), max_length=150, null=True)
+    last_name = models.CharField(_('Фамилия'), max_length=150, null=True)
+    phone_number = models.CharField(_('Телефон для связи'),
+        help_text=(_('Должен быть указан в междурнародном формате, например +375(XX)XXX-XX-XX')), null=True, max_length=25)
+    comment = models.CharField(_('Комментарий'), max_length=150, null=True)
+
+
+
+    sites = models.ManyToManyField(Site)
+    city = models.ForeignKey(City, null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Автоматическое создание клиента"
+        verbose_name_plural = "Автоматическое создание клиентов"
+
+
+
+
+
 class ClientCRMProfile(models.Model):
     name = models.CharField(verbose_name=_('Имя'), null=True, max_length=25)
     user = AutoOneToOneField(settings.AUTH_USER_MODEL,verbose_name=_('Пользователь'), null=True)
@@ -102,22 +130,6 @@ class Project(models.Model):
         verbose_name_plural = "Заказы"
 
 
-class ClientProcess(Process):
-    text = models.CharField(_('Обращение'), max_length=150, null=True)
-    phone = models.CharField(
-        help_text=(_('Must include international prefix - e.g. +1 555 555 55555')), null=True, max_length=25)    
-    approved = models.BooleanField(_('Подтверждение'), default=False)
-    first_name = models.CharField(_('Имя'), max_length=150, null=True)
-    closed = models.BooleanField(_('Блабла'), default=False)
-    user = AutoOneToOneField('crm.ClientCRMProfile', primary_key=True, on_delete=models.CASCADE)
-    sites = models.ManyToManyField(Site)
-    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
-
-    class Meta:
-        verbose_name = "Обработка клиента"
-        verbose_name_plural = "Обработка клиента"
-
-
 class PaymentMethod(models.Model):
     name = models.CharField(verbose_name=_('Название'), null=True, max_length=25)
     payment_type = models.ForeignKey('crm.PaymentType', verbose_name=_('Статус'), null=True, blank=True)
@@ -138,3 +150,21 @@ class PaymentType(models.Model):
     class Meta:
         verbose_name = "Тип оплаты"
         verbose_name_plural = "Типы оплаты"
+
+
+'''
+class AutoCreateProjectProcess(Process):
+    text = models.CharField(_('Обращение'), max_length=150, null=True)
+    phone = models.CharField(
+        help_text=(_('Must include international prefix - e.g. +1 555 555 55555')), null=True, max_length=25)    
+    approved = models.BooleanField(_('Подтверждение'), default=False)
+    first_name = models.CharField(_('Имя'), max_length=150, null=True)
+    closed = models.BooleanField(_('Блабла'), default=False)
+    user = AutoOneToOneField('crm.ClientCRMProfile', primary_key=True, on_delete=models.CASCADE)
+    sites = models.ManyToManyField(Site)
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Автоматическое создание заказа"
+        verbose_name_plural = "Автоматическое создание заказов"
+'''
