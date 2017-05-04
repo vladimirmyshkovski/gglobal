@@ -137,4 +137,4 @@ class PaymentType(models.Model):
 
     class Meta:
         verbose_name = "Тип оплаты"
-        verbose_name_plural = "Способы оплаты"
+        verbose_name_plural = "Типы оплаты"
