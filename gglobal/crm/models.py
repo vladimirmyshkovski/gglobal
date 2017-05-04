@@ -5,7 +5,7 @@ from cities_light.models import City, Country
 from annoying.fields import AutoOneToOneField
 from django.contrib.sites.models import Site
 from django.conf import settings
-
+from datetime import datetime
 
 class ClientCRMProfile(models.Model):
     name = models.CharField(verbose_name=_('Имя'), null=True, max_length=25)
@@ -48,6 +48,58 @@ class MasterCRMProfile(models.Model):
         return self.user.username # <---------- FIX THIS
 
 
+class Invoice(models.Model):
+
+    issue_date = models.DateField()
+    amount = models.IntegerField()
+    paid = models.BooleanField()
+
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL)
+    project_id = models.ForeignKey('crm.Project')
+
+    class Meta:
+        verbose_name = "Счёт"
+        verbose_name_plural = "Счеты"
+
+
+class Status(models.Model):
+    name = models.CharField(verbose_name=_('Название'), null=True, max_length=25)
+    color = models.CharField(verbose_name=_('Цвет'), null=True, max_length=25)
+    #projects = db.relationship('Project', backref='status_projects')
+    
+    class Meta:
+        verbose_name = "Статус"
+        verbose_name_plural = "Статусы"
+
+class Activity(models.Model):
+    subject = models.CharField(null=False, max_length=255)
+    detail = models.CharField(null=False, max_length=255)
+
+    project_id = models.ForeignKey('crm.Status', verbose_name=_('Статус'), null=True, blank=True)
+    created_by = AutoOneToOneField(settings.AUTH_USER_MODEL, primary_key=True, on_delete=models.CASCADE)
+    
+    class Meta:
+        verbose_name = "Пометка"
+        verbose_name_plural = "Пометки"
+
+class Project(models.Model):
+    client = models.ForeignKey(ClientCRMProfile)
+    master = models.ForeignKey(MasterCRMProfile)
+
+    start_date = models.DateTimeField(auto_now_add=True)
+    end_date = models.DateTimeField(auto_now_add=True)
+    status = models.ForeignKey('crm.Status', verbose_name=_('Статус'), null=True, blank=True)
+
+    created_by = AutoOneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
+    #org_id 
+    activities = models.ManyToManyField('crm.Activity')
+    invoices = models.ManyToManyField('crm.Invoice')
+    
+    class Meta:
+        verbose_name = "Заказ"
+        verbose_name_plural = "Заказы"
+
+
 class ClientProcess(Process):
     text = models.CharField(_('Обращение'), max_length=150, null=True)
     phone = models.CharField(
@@ -55,10 +107,13 @@ class ClientProcess(Process):
     approved = models.BooleanField(_('Подтверждение'), default=False)
     first_name = models.CharField(_('Имя'), max_length=150, null=True)
     closed = models.BooleanField(_('Блабла'), default=False)
-    user = AutoOneToOneField(ClientCRMProfile, primary_key=True, on_delete=models.CASCADE)
+    user = AutoOneToOneField('crm.ClientCRMProfile', primary_key=True, on_delete=models.CASCADE)
     sites = models.ManyToManyField(Site)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         verbose_name = "Обработка клиента"
         verbose_name_plural = "Обработка клиента"
+
+
+
