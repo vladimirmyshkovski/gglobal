@@ -17,17 +17,17 @@
     <meta name="yandex-verification" content="086d5306efe34ab0" />
     <meta name="google-site-verification" content="oMWgonLOcqrDL0gN-u2f4odkQPLyEubqgbpMDfrM4_w" />
     {# CSS fonts #}
-    <!--noscript id="deferred-styles"-->
+    <style>a { color: white }</style>
+    <noscript id="deferred-styles">
     <link type="text/css" rel="stylesheet" href="{% static 'css/pe-icon-7-stroke.css' %}">
     <link type="text/css" rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">    
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico" >
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,700">
-    <style> a {color: red;}</style>
-    <!--/noscript-->
+    
     {% block css_head %}
         {% include "includes/css_head.html" %}
     {% endblock css_head %}
-
+    </noscript>
     {% block head-extra %}
     {% endblock head-extra %}
 
