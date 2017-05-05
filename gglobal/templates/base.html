@@ -7,6 +7,10 @@
 
 {#% wagtailuserbar %#}
 
+{% block head_css %}
+    {% include 'includes/css_head.html' %}
+{% endblock head_css %}
+
 {% block header %}
     {% include "includes/header.html" with parent=site_root calling_page=self %}
     {# Header contains the main_navigation block #}
