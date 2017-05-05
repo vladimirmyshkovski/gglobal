@@ -16,9 +16,6 @@
     <link rel="Shortcut Icon" href="{% static 'image/favicon.png' %}">
     <meta name="yandex-verification" content="086d5306efe34ab0" />
     <meta name="google-site-verification" content="oMWgonLOcqrDL0gN-u2f4odkQPLyEubqgbpMDfrM4_w" />
-    {% block fucked-js %}
-        {% include 'includes/fucked-js.html' %}
-    {% endblock fucked-js %}
     {# CSS fonts #}
     <style>a { color: white }</style>
     <noscript id="deferred-styles">
@@ -31,6 +28,11 @@
         {% include "includes/css_head.html" %}
     {% endblock css_head %}
     </noscript>
+    
+    {% block fucked-js %}
+        {% include 'includes/fucked-js.html' %}
+    {% endblock fucked-js %}
+
     {% block head-extra %}
     {% endblock head-extra %}
 
