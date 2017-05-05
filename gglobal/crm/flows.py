@@ -52,11 +52,21 @@ class ClientFlow(Flow):
         ).Next(this.check_approve)
     )
 
+    #check_approve = (
+    #    flow.Switch(lambda activation: activation.process.approved)\
+    #    .Next(this.send) 
+    #    #.Next(this.end, iff=STATUS.DECLINED)
+    #)
+
     check_approve = (
         flow.If(lambda activation: activation.process.approved)
         .Then(this.send)
         .Else(this.end)
     )
+
+    #repeat = (
+    #    flow.Switch(lambda p: p.status)
+    #)
 
     send = (
         flow.Handler(

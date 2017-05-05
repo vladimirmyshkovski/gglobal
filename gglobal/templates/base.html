@@ -4,6 +4,18 @@
     {% include "includes/head.html" %}
 {% endblock head %}
 <body data-spy="scroll" data-target="#navbar-menu" class="{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}">
+
+{% block css_head %}
+    {% include "includes/css_head.html" %}
+{% endblock css_head %}
+
+<noscript id="deferred-styles">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/pe-icon-7-stroke.css' %}">
+    <link type="text/css" rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">    
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico" >
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,700">
+</noscript>
+
 {#% wagtailuserbar %#}
 
 {% block header %}
