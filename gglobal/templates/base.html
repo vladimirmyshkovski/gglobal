@@ -43,7 +43,7 @@
     {#% endblock css_head %#}
     <script>var cb = function() {
 var l = document.createElement('link'); l.rel = 'stylesheet';
-l.href = "{% static 'css/app.min.css' %}";
+l.href = '{% static 'css/app.min.css' %}';
 var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
 };
 var raf = requestAnimationFrame || mozRequestAnimationFrame ||
