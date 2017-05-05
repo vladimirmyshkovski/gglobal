@@ -289,3 +289,30 @@ ADMIN_URL = env('DJANGO_ADMIN_URL')
 # ------------------------------------------------------------------------------
 
 HTML_MINIFY = True
+
+
+
+# CELERY SETTINGS
+# ------------------------------------------------------------------------------
+#CELERY_QUEUES = (
+#   Queue('high', Exchange('high'), routing_key='high'),
+#    Queue('normal', Exchange('normal'), routing_key='normal'),
+#    Queue('low', Exchange('low'), routing_key='low'),
+#)
+import djcelery
+
+CELERY_DEFAULT_QUEUE = 'normal'
+CELERY_DEFAULT_EXCHANGE = 'normal'
+CELERY_DEFAULT_ROUTING_KEY = 'normal'
+
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+CELERY_SEND_TASK_ERROR_EMAILS = True
+BROKER_URL = REDIS_LOCATION
+CELERY_RESULT_BACKEND = REDIS_LOCATION
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Minsk'
+djcelery.setup_loader()
+
+
