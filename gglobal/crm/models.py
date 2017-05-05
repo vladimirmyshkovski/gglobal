@@ -8,7 +8,7 @@ from django.conf import settings
 from datetime import datetime
 
 
-class AutoCreateClientProcess(Process):
+class ClientProcess(Process):
     form_name = models.CharField(_('Имя из формы'), max_length=150, null=True)
     text = models.CharField(_('Обращение из формы'), max_length=150, null=True)
     phone = models.CharField(_('Телефон из формы'),
@@ -133,8 +133,11 @@ class Project(models.Model):
 
 class PaymentMethod(models.Model):
     name = models.CharField(verbose_name=_('Название'), null=True, max_length=25)
-    payment_type = models.ForeignKey('crm.PaymentType', verbose_name=_('Статус'), null=True, blank=True)
+    payment_type = models.ForeignKey('crm.PaymentType', verbose_name=_('Тип'), null=True, blank=True)
     description = models.CharField(verbose_name=_('Описание'), null=True, max_length=255)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = "Способ оплаты"
@@ -144,9 +147,12 @@ class PaymentMethod(models.Model):
 class PaymentType(models.Model):
     name = models.CharField(verbose_name=_('Название'), null=True, max_length=25)
     description = models.CharField(verbose_name=_('Описание'), null=True, max_length=255)
-    bill_of_payer = models.CharField(verbose_name=_('Счёт получателя'), null=True, max_length=255)
+    #bill_of_payer = models.CharField(verbose_name=_('Счёт получателя'), null=True, max_length=255)
     beneficiarys_account = models.CharField(verbose_name=_('Счёт плательщика'), null=True, max_length=255)
-    cvv = models.CharField(verbose_name=_('CVV'), null=True, max_length=3)
+    #cvv = models.CharField(verbose_name=_('CVV'), null=True, max_length=3)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = "Тип оплаты"
