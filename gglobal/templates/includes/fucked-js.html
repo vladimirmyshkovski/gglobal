@@ -21,6 +21,21 @@
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/jquery.inputmask.3.3.4.min.js' %}"></script>
     {% endcompress %}
     <script>
+    z = document.getElementsByTagName('link').length
+    for (i = 0; i < z; i++) {
+        function loadStyleSheet(i){
+            if (document.createStyleSheet) document.createStyleSheet(i);
+            else {
+                var stylesheet = document.createElement('link');
+                stylesheet.href = i;
+                stylesheet.rel = 'stylesheet';
+                stylesheet.type = 'text/css';
+                document.getElementsByTagName('head')[0].appendChild(stylesheet);
+            }
+        }
+    }
+    </script>
+    <script>
       //var loadDeferredStyles = function() {
       //  var addStylesNode = document.getElementById("deferred-styles");
       //  var replacement = document.createElement("div");
@@ -66,19 +81,4 @@
 
     ga('create', 'UA-91819614-1', 'auto');
     ga('send', 'pageview');
-    </script>
-    <script>
-    z = document.getElementsByTagName('link').length
-    for (i = 0; i < z; i++) {
-        function loadStyleSheet(i){
-            if (document.createStyleSheet) document.createStyleSheet(i);
-            else {
-                var stylesheet = document.createElement('link');
-                stylesheet.href = i;
-                stylesheet.rel = 'stylesheet';
-                stylesheet.type = 'text/css';
-                document.getElementsByTagName('head')[0].appendChild(stylesheet);
-            }
-        }
-    }
     </script>
