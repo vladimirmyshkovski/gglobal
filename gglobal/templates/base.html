@@ -38,23 +38,24 @@
     <footer class="section bg-gray footer">
         {% include "includes/footer.html" %}
     </footer>
-    {#% block css_head %#}
-        {#% include "includes/css_head.html" %#}
-    {#% endblock css_head %#}
-    <script>var cb = function() {
-var l = document.createElement('link'); l.rel = 'stylesheet';
-l.href = '{% static 'css/app.min.css' %}';
-var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
-};
-var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-webkitRequestAnimationFrame || msRequestAnimationFrame;
-if (raf) raf(cb);
-else window.addEventListener('load', cb);</script>
-<!--noscript id="deferred-styles">
+    {% block css_head %}
+        {#% include "includes/css_head.html" %}
+    {% endblock css_head %}
+<script>//var cb = function() {
+//var l = document.createElement('link'); l.rel = 'stylesheet';
+//l.href = '{% static 'css/app.min.css' %}';
+//var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
+//};
+//var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+//webkitRequestAnimationFrame || msRequestAnimationFrame;
+//if (raf) raf(cb);
+//else window.addEventListener('load', cb);
+</script>
+<noscript id="deferred-styles">
     <link type="text/css" rel="stylesheet" href="{% static 'css/pe-icon-7-stroke.css' %}">
     <link type="text/css" rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">    
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico" >
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,700">
-</noscript-->
+</noscript>
 </body>
 </html>
