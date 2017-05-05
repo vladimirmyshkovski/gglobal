@@ -4,7 +4,7 @@ from viewflow.base import this, Flow
 from viewflow.flow.views import CreateProcessView, UpdateProcessView
 import viewflow.nodes
 
-from .models import ClientCRMProfile, ClientProcess
+from .models import ClientCRMProfile, AutoCreateClientProcess
 from viewflow import frontend
 from django.utils.translation import ugettext_lazy as _
 from cities_light.models import City
@@ -41,7 +41,7 @@ def create_flow(activation, **kwargs):
 
 @frontend.register
 class ClientFlow(Flow):
-    process_class = ClientProcess
+    process_class = AutoCreateClientProcess
     start = flow.StartFunction(create_flow).Next(this.approve)
     approve = (
         flow.View(

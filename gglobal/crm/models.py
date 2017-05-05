@@ -8,7 +8,7 @@ from django.conf import settings
 from datetime import datetime
 
 
-class ClientProcess(Process):
+class AutoCreateClientProcess(Process):
     form_name = models.CharField(_('Имя из формы'), max_length=150, null=True)
     text = models.CharField(_('Обращение из формы'), max_length=150, null=True)
     phone = models.CharField(_('Телефон из формы'),
