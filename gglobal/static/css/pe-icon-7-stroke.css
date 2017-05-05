@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'Pe-icon-7-stroke';
-	src:url('/fonts/Pe-icon-7-stroke.eot%3Fd7yf1v');
-	src:url('/fonts/Pe-icon-7-stroke.eot%3F') format('embedded-opentype'),
-		url('/fonts/Pe-icon-7-stroke.woff%3Fd7yf1v') format('woff'),
-		url('/fonts/Pe-icon-7-stroke.ttf%3Fd7yf1v') format('truetype'),
-		url('/fonts/Pe-icon-7-stroke.svg%3Fd7yf1v') format('svg');
+	src:url('static/fonts/Pe-icon-7-stroke.eot%3Fd7yf1v');
+	src:url('static/fonts/Pe-icon-7-stroke.eot%3F') format('embedded-opentype'),
+		url('static/fonts/Pe-icon-7-stroke.woff%3Fd7yf1v') format('woff'),
+		url('static/fonts/Pe-icon-7-stroke.ttf%3Fd7yf1v') format('truetype'),
+		url('static/fonts/Pe-icon-7-stroke.svg%3Fd7yf1v') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
