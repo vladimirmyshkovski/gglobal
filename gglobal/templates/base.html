@@ -4,7 +4,6 @@
     {% include "includes/head.html" %}
 {% endblock head %}
 <body data-spy="scroll" data-target="#navbar-menu" class="{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}">
-<link type="text/css" rel="stylesheet" charset="utf-8" href="{% static 'css/app.min.css' %}"/>
 {#% wagtailuserbar %#}
 
 {% block header %}
@@ -42,6 +41,8 @@
     {#% block css_head %#}
         {#% include "includes/css_head.html" %#}
     {#% endblock css_head %#}
+<link type="text/css" rel="stylesheet" charset="utf-8" href="{% static 'css/app.min.css' %}"/>
+
     <script>//var cb = function() {
 //var l = document.createElement('link'); l.rel = 'stylesheet';
 //l.href = '{#% static 'css/app.min.css' %#}';
