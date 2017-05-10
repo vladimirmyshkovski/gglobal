@@ -102,7 +102,6 @@ THIRD_PARTY_APPS = [
 
     'mapwidgets',
     # django-viewflow and django-material
-    'gglobal.viewflow', # django-viewflow
     'material.theme.blue', 
     'material', # django-material
     'material.frontend',
@@ -110,7 +109,11 @@ THIRD_PARTY_APPS = [
     #####################################
 
     'notifications', # django-notifications
-    'djcelery'
+    
+    #'djcelery', 
+    'django_celery_results',
+    'django_celery_beat',
+    'django_celery_monitor',
 ]
 
 # Apps specific for this project go here.
@@ -122,6 +125,8 @@ LOCAL_APPS = [
     'gglobal.cms.apps.CMSConfig',
     'gglobal.crm.apps.CRMConfig',
     'gglobal.service.apps.ServiceConfig',
+    'gglobal.viewflow.apps.ViewflowConfig', # django-viewflow
+    
 
 
 ]
@@ -395,6 +400,7 @@ ADMIN_URL = r'^admin/'
 # django-wagtail
 # ------------------------------------------------------------------------------
 WAGTAIL_SITE_NAME = 'ремонт-пк-и-ноутбуков.бел'
+WAGTAIL_USAGE_COUNT_ENABLED = True
 
 #GOOGLE_MAP_API_KEY = 'AIzaSyAUYmoNhNMy-DMjKLIbLdjlidm1qVscuoA'
 GOOGLE_MAP_API_KEY = 'AIzaSyBO-_WYrcSrU79tLuKPiINGkCJ1e__RWWw'

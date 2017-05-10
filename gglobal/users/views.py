@@ -5,16 +5,18 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import User
+from gglobal.crm.models import PhoneNumber as Phone
 from gglobal.crm.models import MasterCRMProfile, ClientCRMProfile
 from cities_light.models import City, Country
 from django.db.models import Count
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from gglobal.crm.flows import ClientFlow
+from gglobal.crm.flows import AutoCreateClientFlow
 from django.contrib.sites.shortcuts import get_current_site 
 from ipware.ip import get_real_ip, get_ip
 from geolite2 import geolite2
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.sites.models import Site
 
 class UserDetailView(DetailView):
     model = MasterCRMProfile
@@ -82,11 +84,15 @@ def СreateClientView(request):
         #POST goes here . is_ajax is must to capture ajax requests. Beginner's pit.
         if request.is_ajax():
             #Always use get on request.POST. Correct way of querying a QueryDict.
-            data = {"name": request.POST.get('name') , "phone" : request.POST.get('phone'), "form" : request.POST.get('form')}
             ip = get_real_ip(request)
             reader = geolite2.reader()
+            data = {
+                "form_name"     :   request.POST.get('name'), 
+                "phone_number"  :   request.POST.get('phone'),
+                "creation_form" :   request.POST.get('form'),
+            }
+            phone, create = Phone.objects.get_or_create(phone_number=request.POST.get('phone'))
             site = get_current_site(request)
-            
             if ip is not None:
                 CityByIP = reader.get(ip)['city']['names']['en']
                 CountryByIP = reader.get(ip)['country']['names']['en']
@@ -103,7 +109,7 @@ def СreateClientView(request):
                 try:
                     city = City.objects.get(name=CityByIP)
                     country = Country.objects.get(name=CountryByIP)
-                    ClientFlow.start.run(
+                    AutoCreateClientFlow.start.run(
                         data=data,
                         site=site,
                         city=city,
@@ -111,7 +117,7 @@ def СreateClientView(request):
                         )
                 except ObjectDoesNotExist:
                     pass
-            ClientFlow.start.run(
+            AutoCreateClientFlow.start.run(
                 data=data,
                 site=site,
                 )

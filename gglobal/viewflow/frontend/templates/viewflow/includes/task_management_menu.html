@@ -3,6 +3,6 @@
     {% for action_name, action_url in actions %}
     <li><a href="{{ action_url }}?{{ request|query_back }}" class="black-text">{{ action_name }}</a></li>
     {% empty %}
-    <li><a class="black-text" style="text-transform:none">Нет доступных действий</a></li>
+    <li><a class="black-text" style="text-transform:none">No actions available</a></li>
     {% endfor %}
 </ul>

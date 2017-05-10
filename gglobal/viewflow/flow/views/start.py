@@ -60,7 +60,7 @@ class StartFlowMixin(MessageUserMixin, BaseStartFlowMixin):
     def activation_done(self, *args, **kwargs):
         """Finish task activation."""
         self.activation.done()
-        self.success('Процесс {process} запущен.')
+        self.success('Process {process} has been started.')
 
     def form_valid(self, *args, **kwargs):
         """If the form is valid, save the associated model and finish the task."""

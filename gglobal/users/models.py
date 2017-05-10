@@ -20,9 +20,8 @@ class User(AbstractUser):
     # First Name and Last Name do not cover name patterns
     # around the globe.
     name = models.CharField(_('Name of User'), blank=True, max_length=255)
-    city = models.ForeignKey(City, null=True, blank=True)
-    phone_number = models.CharField(
-        help_text=(_('Must include international prefix - e.g. +1 555 555 55555')), null=True, max_length=25)
+    cities = models.ManyToManyField(City, blank=True)
+    phone_number = models.ManyToManyField('crm.PhoneNumber', verbose_name=_('Номера телефонов'))
     country = models.ForeignKey(Country, null=True, blank=True)
     position = GeopositionField()
     sites = models.ManyToManyField(Site)

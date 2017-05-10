@@ -1,4 +1,4 @@
 {% load viewflow_frontend %}
-{% if request.GET.back|url == '/клиенты/' %}<a href="/клиенты/">Входящие</a>{% endif %}
-{% if request.GET.back|url == '/клиенты/очередь/' %}<a href="/клиенты/очередь/">Неподтверждённые</a>{% endif %}
-{% if request.GET.back|url == '/клиенты/архив/' %}<a href="/клиенты/архив/">Участвовал</a>{% endif %}
+{% if request.GET.back|url == '/workflow/' %}<a href="/workflow/">Inbox</a>{% endif %}
+{% if request.GET.back|url == '/workflow/queue/' %}<a href="/workflow/queue/">Unassigned</a>{% endif %}
+{% if request.GET.back|url == '/workflow/archive/' %}<a href="/workflow/archive/">Participated</a>{% endif %}

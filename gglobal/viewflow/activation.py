@@ -17,15 +17,15 @@ class STATUS(object):
     status codes.
     """
 
-    ASSIGNED = 'НАЗНАЧЕНА'
-    CANCELED = 'ОТМЕНЕНА'
-    DONE = 'СДЕЛАНА'
-    ERROR = 'ОШИБКА'
-    NEW = 'НОВАЯ'
-    PREPARED = 'ПОДГОТОВЛЕНА'
-    SCHEDULED = 'ЗАПЛАНИРОВАНА'
-    STARTED = 'НАЧАТА'
-    UNRIPE = 'НЕСПЕЛАЯ'
+    ASSIGNED = 'ASSIGNED'
+    CANCELED = 'CANCELED'
+    DONE = 'DONE'
+    ERROR = 'ERROR'
+    NEW = 'NEW'
+    PREPARED = 'PREPARED'
+    SCHEDULED = 'SCHEDULED'
+    STARTED = 'STARTED'
+    UNRIPE = 'UNRIPE'
 
 
 _context_stack = threading.local()

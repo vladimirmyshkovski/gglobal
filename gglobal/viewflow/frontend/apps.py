@@ -16,7 +16,7 @@ class ViewflowFrontendConfig(ModuleMixin, AppConfig):
 
     name = 'viewflow.frontend'
     label = 'viewflow_frontend'
-    verbose_name = "Клиенты"
+    verbose_name = "Workflow"
     icon = '<i class="material-icons">assignment</i>'
 
     def __init__(self, app_name, app_module):  # noqa D102

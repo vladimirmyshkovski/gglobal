@@ -97,7 +97,7 @@ class BaseTaskActionView(MessageUserMixin, generic.TemplateView):
         self.flow_class = self.activation.flow_class
 
         if not self.can_proceed():
-            self.error("Задача {task} Невозможно выполнить {action}.", action=self.action_name.title)
+            self.error("Task {task} Can't execute action {action}.", action=self.action_name.title)
 
             return redirect(self.activation.flow_task.get_task_url(
                 self.activation.task, url_type='detail', user=request.user,
@@ -118,7 +118,7 @@ class UndoTaskView(FlowTaskManagePermissionMixin, BaseTaskActionView):
     def perform(self):
         """Undo the node."""
         self.activation.undo()
-        self.success('Задача {task} отменена.')
+        self.success('Task {task} has been undone.')
 
 
 class CancelTaskView(FlowTaskManagePermissionMixin, BaseTaskActionView):
@@ -133,7 +133,7 @@ class CancelTaskView(FlowTaskManagePermissionMixin, BaseTaskActionView):
     def perform(self):
         """Cancel the node."""
         self.activation.cancel()
-        self.success('Задача {task} отменена.')
+        self.success('Task {task} has been canceled.')
 
 
 class PerformTaskView(FlowTaskManagePermissionMixin, BaseTaskActionView):
@@ -148,7 +148,7 @@ class PerformTaskView(FlowTaskManagePermissionMixin, BaseTaskActionView):
     def perform(self):
         """Rerun gateway manually."""
         self.activation.perform()
-        self.error('Задача {task} выполнена.')
+        self.error('Task {task} has been executed.')
 
 
 class ActivateNextTaskView(FlowTaskManagePermissionMixin, BaseTaskActionView):
@@ -304,7 +304,7 @@ class CancelProcessView(FlowManagePermissionMixin, generic.DetailView):
             elif can_cancel:
                 activation.cancel()
             else:
-                raise FlowRuntimeError("Невозможно отменить {}".format(task))
+                raise FlowRuntimeError("Can't cancel {}".format(task))
 
     def _cancel_process(self):
         self.object.status = STATUS.CANCELED

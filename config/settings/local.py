@@ -82,10 +82,10 @@ CELERY_ALWAYS_EAGER = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'narnik',
+        'NAME': 'test',
         'USER': 'narnik',
         'PASSWORD': 'iddqd3133122',
         'HOST': 'localhost',
-       'PORT': '',
+        'PORT': '',
     }
 }
