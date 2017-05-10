@@ -299,7 +299,7 @@ HTML_MINIFY = True
 #    Queue('normal', Exchange('normal'), routing_key='normal'),
 #    Queue('low', Exchange('low'), routing_key='low'),
 #)
-import djcelery
+#import djcelery
 
 CELERY_DEFAULT_QUEUE = 'normal'
 CELERY_DEFAULT_EXCHANGE = 'normal'
@@ -313,6 +313,6 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Europe/Minsk'
-djcelery.setup_loader()
+#djcelery.setup_loader()
 
 
