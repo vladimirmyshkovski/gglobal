@@ -46,9 +46,9 @@ def auto_create_client_flow(activation, **kwargs):
         activation.process.country = kwargs['country']
     except:
         pass
-    #activation.process.form_name = kwargs['data']['form_name']
-    #activation.process.form_phone_number = kwargs['data']['phone_number']
-    #activation.process.creation_form = kwargs['data']['creation_form']
+    activation.process.form_name = kwargs['data']['form_name']
+    activation.process.form_phone_number = kwargs['data']['phone_number']
+    activation.process.creation_form = kwargs['data']['creation_form']
 
     activation.prepare()
     activation.done()
@@ -256,7 +256,7 @@ class AutoCreateClientFlow(Flow):
             contact_phone_number=activation.process.phone_number1,
             )
         project.save()
-        #AutoCreateProjectFlow.start.run()
+        AutoCreateProjectFlow.start.run()
         #masters = User.objects.filter(mastercrmprofile__isnull=False, city=data['city'])
         #send_notifications_to_masters_by_city(masters)
 
