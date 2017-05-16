@@ -24,7 +24,7 @@ urlpatterns = [
     
     url(r'^dashboard/', include(router.urls)),
     # User management
-    #url(r'^частные-мастера/', include('gglobal.users.urls', namespace='users')),
+    url(r'^частные-мастера/', include('gglobal.users.urls', namespace='users')),
     
     url(r'^accounts/', include('allauth.urls')),
 
