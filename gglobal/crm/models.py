@@ -1,5 +1,5 @@
 from django.db import models
-from viewflow.models import Process
+#from viewflow.models import Process
 from django.utils.translation import ugettext as _
 from cities_light.models import City, Country
 from annoying.fields import AutoOneToOneField
@@ -11,6 +11,7 @@ from django.core.exceptions import ObjectDoesNotExist
 import geocoder
 from djmoney.models.fields import MoneyField
 
+'''
 class AutoCreateClientProcess(Process):
 
     creation_form = models.CharField(_('Форма создания'), max_length=150, null=True)
@@ -60,7 +61,7 @@ class AutoCreateClientProcess(Process):
         verbose_name = "Автоматическое создание клиента"
         verbose_name_plural = "Автоматическое создание клиентов"
 
-
+'''
 
 class ClientCRMProfile(models.Model):
     user = AutoOneToOneField(settings.AUTH_USER_MODEL,verbose_name=_('Пользователь'), null=True)
@@ -249,7 +250,7 @@ class PhoneNumber(models.Model):
         verbose_name = "Номер телефона"
         verbose_name_plural = "Номера телефонов"
 
-
+'''
 class AutoCreateProjectProcess(Process):
     APPROVED_CHOICES=[
     ('agree','Согласовал'),
@@ -303,3 +304,4 @@ class AutoCreateProjectProcess(Process):
     class Meta:
         verbose_name = "Автоматическое создание заказа"
         verbose_name_plural = "Автоматическое создание заказов"
+'''
