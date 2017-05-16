@@ -1,10 +1,10 @@
 import os
-from viewflow import flow
-from viewflow.base import this, Flow
-from viewflow.flow.views import CreateProcessView, UpdateProcessView
+#from viewflow import flow
+#from viewflow.base import this, Flow
+#from viewflow.flow.views import CreateProcessView, UpdateProcessView
 import viewflow.nodes
 from .models import ClientCRMProfile, AutoCreateClientProcess, AutoCreateProjectProcess
-from viewflow import frontend
+#from viewflow import frontend
 from django.utils.translation import ugettext_lazy as _
 from cities_light.models import City, Country
 #from gglobal.stream.activities import notification
@@ -19,12 +19,12 @@ from gglobal.crm.models import ClientCRMProfile
 from django.contrib.auth.models import Group
 from gglobal.crm.tasks import send_notifications_to_masters_by_city
 from gglobal.crm.models import Project, PhoneNumber, CRMLeed, Complaint
-from viewflow.decorators import flow_start_func, flow_start_view
+#from viewflow.decorators import flow_start_func, flow_start_view
 from notifications.signals import notify
 import geocoder
 from transliterate import translit
 from django.contrib.sites.models import Site
-from viewflow.models import Task
+#from viewflow.models import Task
 from gglobal.service.models import Service, Trouble
 
 #// "recipient" can also be a Group, the notification will be sent to all the Users in the Group
@@ -36,7 +36,7 @@ from gglobal.service.models import Service, Trouble
 
 
 
-@flow_start_func
+#@flow_start_func
 def auto_create_client_flow(activation, **kwargs):
     try:
         activation.process.city = kwargs['city']
@@ -55,14 +55,14 @@ def auto_create_client_flow(activation, **kwargs):
     #notify.send(user, recipient=user, verb=u'Новая заявка!', action_object=user, description=user, target=user)
     return activation
 
-@flow_start_func
+#@flow_start_func
 def auto_create_project_flow(activation, **kwargs):
     activation.prepare()
     activation.done()
     #notify.send(user, recipient=user, verb=u'Новая заявка!', action_object=user, description=user, target=user)
     return activation
 
-@frontend.register
+#@frontend.register
 class AutoCreateClientFlow(Flow):
     process_title = 'Автоматическое создание клиента'
     process_description = 'Автоматическое создание клиента'
@@ -274,7 +274,7 @@ class AutoCreateClientFlow(Flow):
         
 
 
-@frontend.register
+#@frontend.register
 class AutoCreateProjectFlow(Flow):
     process_class = AutoCreateProjectProcess
 
