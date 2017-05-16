@@ -11,7 +11,7 @@ from cities_light.models import City, Country
 from django.db.models import Count
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from gglobal.crm.flows import AutoCreateClientFlow
+#from gglobal.crm.flows import AutoCreateClientFlow
 from django.contrib.sites.shortcuts import get_current_site 
 from ipware.ip import get_real_ip, get_ip
 from geolite2 import geolite2
@@ -94,19 +94,23 @@ def СreateClientView(request):
                 try:
                     city = City.objects.get(name=CityByIP)
                     country = Country.objects.get(name=CountryByIP)
+                    '''
                     AutoCreateClientFlow.start.run(
                         data=data,
                         site=site,
                         city=city,
                         country=country,
                         )
+                    '''
                     print('dsadasd')
                 except ObjectDoesNotExist:
                     pass
+            '''
             AutoCreateClientFlow.start.run(
                 data=data,
                 site=site,
                 )
+            '''
             print('asd')
             #Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse(data)
