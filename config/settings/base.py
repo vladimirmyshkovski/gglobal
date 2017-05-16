@@ -107,10 +107,10 @@ THIRD_PARTY_APPS = [
     'mapwidgets',
     # django-viewflow and django-material
     #'viewflow',
-    'material.theme.blue', 
-    'material', # django-material
-    'material.frontend',
-    'gglobal.viewflow.frontend',
+    #'material.theme.blue', 
+    #'material', # django-material
+    #'material.frontend',
+    #'gglobal.viewflow.frontend',
     #####################################
 
     'notifications', # django-notifications
@@ -122,14 +122,14 @@ THIRD_PARTY_APPS = [
 
     #'request', # django-request
     #'cacheops', # django-cacheops
-    'cachalot',
+    #'cachalot',
     #'ajax_select',
-    'django_feedparser', # django-feedparser
-    'controlcenter', # django-controllcenter
+    #'django_feedparser', # django-feedparser
+    #'controlcenter', # django-controllcenter
     'avatar', # django-avatar http://django-avatar.readthedocs.io/en/latest/
-    'dashing', # django-dashing https://github.com/talpor/django-dashing
-    'djmoney', # django-money https://github.com/django-money/django-money
-    'djmoney_rates', # django-money-rates https://github.com/evonove/django-money-rates
+    #'dashing', # django-dashing https://github.com/talpor/django-dashing
+    #'djmoney', # django-money https://github.com/django-money/django-money
+    #'djmoney_rates', # django-money-rates https://github.com/evonove/django-money-rates
 ]
 
 # Apps specific for this project go here.
