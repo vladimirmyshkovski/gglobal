@@ -5,7 +5,7 @@ register = template.Library()
 
 @register.inclusion_tag('cms/tags/map.html', takes_context=True)
 def citypages_map(context):
-	points = CitySnippetPage.objects.all()
+	points = CityPage.objects.all()
 	return {
         'points': points,
         'request': context['request'],
