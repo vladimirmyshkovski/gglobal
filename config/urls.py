@@ -8,7 +8,6 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from wagtail.contrib.wagtailsitemaps.views import sitemap
-from ajax_select import urls as ajax_select_urls
 from controlcenter.views import controlcenter
 from dashing.utils import router
 
@@ -41,7 +40,6 @@ urlpatterns = [
     url(r'^markdownx/', include('markdownx.urls')),
 
     url('^sitemap\.xml$', sitemap),
-
 
     url(r'^города-страны/', include('gglobal.city.urls', namespace='cities')),
 
