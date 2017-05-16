@@ -5,6 +5,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 
 class Service(MPTTModel):
+    slug = models.CharField(max_length=50, unique=True)
     name = models.CharField(max_length=50, unique=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
 
@@ -20,7 +21,12 @@ class Service(MPTTModel):
     def __str__(self):
     	return '%s' % self.name
 
-
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = (self.name).replace(' ', '-') 
+        if self.slug is None or self.slug == '':
+            self.slug = (self.name).replace(' ', '-') 
+        super(Service, self).save(*args, **kwargs)
 
 class Trouble(MPTTModel):
     name = models.CharField(max_length=50, unique=True)

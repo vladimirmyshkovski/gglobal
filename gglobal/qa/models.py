@@ -56,7 +56,7 @@ class Question(models.Model, HitCountMixin):
     positive_votes = models.IntegerField(default=0)
     negative_votes = models.IntegerField(default=0)
     total_points = models.IntegerField(default=0)
-    sites = models.ManyToManyField(Site)
+    sites = models.ManyToManyField(Site, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.id:

@@ -391,7 +391,6 @@ class ViewActivation(Activation):
     def activate(cls, flow_task, prev_activation, token):
         """Instantiate new task."""
         task = cls.create_task(flow_task, prev_activation, token)
-
         task.save()
         task.previous.add(prev_activation.task)
 

@@ -70,7 +70,6 @@ class AbstractTask(models.Model):
         process = models.ForeignKey(Process, on_delete=models.CASCADE)
 
     """
-
     flow_task = TaskReferenceField()
     flow_task_type = models.CharField(max_length=50)
     status = models.CharField(max_length=50, default=STATUS.NEW, db_index=True)
@@ -135,7 +134,6 @@ class AbstractTask(models.Model):
 
 class Process(AbstractProcess):
     """Default viewflow Process model."""
-    city = models.ForeignKey('cities_light.City', null=True)
 
     class Meta:  # noqa D101
         ordering = ['-created']

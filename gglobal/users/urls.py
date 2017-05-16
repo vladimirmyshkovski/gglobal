@@ -1,25 +1,25 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
-from django.conf.urls import url
+from django.conf.urls import include, url
 
 from . import views
 
 urlpatterns = [
+    url(
+        regex=r'^регистрация/$',
+        view=views.mastersignup,
+        name='signup'
+    ),
     url(
         regex=r'^$',
         view=views.UserListView.as_view(),
         name='list'
     ),
     url(
-        regex=r'^города/$',
-        view=views.UserCityListView.as_view(),
-        name='cities'
-    ),
-    url(
-        regex=r'^город/(?P<alternate_names>[\w.@+-]+)/$',
-        view=views.UserCityDetailView.as_view(),
-        name='city'
+        regex=r'^(?P<pk>[\w.@+-]+)/(?P<slug>[\w.@+-]+)$',
+        view=views.UserDetailView.as_view(),
+        name='detail'
     ),
     url(
         regex=r'^~redirect/$',
@@ -27,13 +27,12 @@ urlpatterns = [
         name='redirect'
     ),
     url(
-        regex=r'^мастер/(?P<user_id>[\w.@+-]+)/$',
-        view=views.UserDetailView.as_view(),
-        name='detail'
-    ),
-    url(
         regex=r'^~createclient/$',
         view=views.СreateClientView,
         name='createclient'
         ),
+] 
+
+urlpatterns += [
+    url(r'^avatar/', include('avatar.urls')),
 ]

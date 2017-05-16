@@ -12,7 +12,8 @@ from django.contrib.sites.models import Site
 from cities_light.models import City, Country
 from geoposition.fields import GeopositionField
 import googlemaps
-
+from django.utils.functional import cached_property
+from django.utils.text import slugify
 
 @python_2_unicode_compatible
 class User(AbstractUser):
@@ -20,17 +21,24 @@ class User(AbstractUser):
     # First Name and Last Name do not cover name patterns
     # around the globe.
     name = models.CharField(_('Name of User'), blank=True, max_length=255)
-    cities = models.ManyToManyField(City, blank=True)
     phone_number = models.ManyToManyField('crm.PhoneNumber', verbose_name=_('Номера телефонов'))
+    
     country = models.ForeignKey(Country, null=True, blank=True)
+    city = models.ForeignKey(City, null=True, blank=True)
     position = GeopositionField()
+
     sites = models.ManyToManyField(Site)
-    avatar = models.ImageField(upload_to='avatars', blank=True, verbose_name='Аватарка')
     raiting = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Пользователль"
-        verbose_name_plural = "Пользователь"
+        verbose_name_plural = "Пользователи"
+
+    def save(self, *args, **kwargs):
+        #if not self.country or self.country is None:
+        #    self.country = Country.objects.get(pk=self.city.country_id)
+        super(User, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return self.username

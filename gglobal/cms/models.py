@@ -87,12 +87,34 @@ class CityPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
     promote_panels = Page.promote_panels + MetadataPageMixin.panels
 
     def __str__(self):
-        return self.body
+        return self.city.alternate_names
 
 
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailsnippets.models import register_snippet
+
+
+@register_snippet
+class CitySnippetPage(models.Model):
+
+    body = StreamField(
+        SectionsStreamBlock(), 
+        verbose_name="Блоки для создания страницы городов", blank=True
+    )
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
+    panels = [
+        FieldPanel('city'),
+        StreamFieldPanel('body'),        
+        ]
+
+    class Meta:
+        verbose_name = "Сниппет страницы городов"
+        verbose_name_plural = "Сниппеты страниц городов"
+
+    def __str__(self):
+        return self.city.alternate_names
+
 
 
 @register_snippet

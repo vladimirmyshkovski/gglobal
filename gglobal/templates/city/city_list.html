@@ -1,16 +1,18 @@
 {% extends "base.html" %}
-{% load static i18n %}
+{% load static i18n cms_tags %}
 {% block title %}Города{% endblock %}
 {% block content %}
 <div class="container">
   <h2>Города</h2>
 
   <div class="list-group">
+      <div class="infinite-container">
     {% for city in city_list %}
+          <div class="infinite-item">
     {{ city.alternate_names }}
     всего мастеров: {{ city.masters_count }}
 
-      <a href="{% url 'users:city' city.alternate_names %}" class="list-group-item">
+      <a href="" class="list-group-item">
       <div class="testimonial-user-info user-info text-left">
         <div class="testimonial-user-thumb user-thumb">
             <img src="/media/{{ city.mastercrmprofile.avatar }}" alt="Частный мастер по ремонту компьютеров {{ city.mastercrmprofile.user.username }}">
@@ -22,22 +24,40 @@
         </div>
       </div>
       </a>
+      </div>
     {% endfor %}
-    {% if is_paginated %}
-        <div class="pagination">
-            <span class="page-links">
-                {% if page_obj.has_previous %}
-                    <a href="{% url 'users:cities' %}?page={{ page_obj.previous_page_number }}">Предыдущая</a>
-                {% endif %}
-                <span class="page-current">
-                    страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                    <a href="{% url 'users:cities' %}?page={{ page_obj.next_page_number }}">Следующая</a>
-                {% endif %}
-            </span>
-        </div>
-    {% endif %}
+      <div class="loading" style="display: none;">
+    Loading...
+      </div>
+
+        {% if page_obj.has_next %}
+    <a class="infinite-more-link" href="{% url 'cities:cities' %}?page={{ page_obj.next_page_number }}">More</a>
+        {% endif %}
+
+    </div>
   </div>
 </div>
+
+  <script>
+      defer(function () {
+
+
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      onBeforePageLoad: function () {
+        $('.loading').show();
+      },
+      onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+      }
+    });
+  });
+
+  </script>
+
+
+{% block map %}
+    {% citypages_map %}
+{% endblock map %}
+
 {% endblock content %}

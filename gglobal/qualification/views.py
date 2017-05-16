@@ -8,7 +8,7 @@ from gglobal.qa.mixins import LoginRequired
 from django.conf import settings
 from django.utils.translation import ugettext as _
 from crispy_forms.helper import FormHelper
-
+from gglobal.users.decorators import masters_required
 
 try:
     qa_messages = 'django.contrib.messages' in settings.INSTALLED_APPS and\
@@ -19,8 +19,13 @@ except AttributeError:
 if qa_messages:
     from django.contrib import messages
 
+class BaseQualificationView(generic.View):
+    
+    @masters_required
+    def dispatch(self, request, *args, **kwargs):
+        return super(PostList, self).dispatch(request, *args, **kwargs)
 
-class IndexView(generic.ListView):
+class IndexView(BaseQualificationView, generic.ListView):
     template_name = 'qualification/qualification.html'
     context_object_name = 'index'
 
@@ -29,7 +34,7 @@ class IndexView(generic.ListView):
         return Question.objects.filter(answer__isnull=True).order_by('-pub_date')[:5]
 
 
-class DetailView(generic.DetailView):
+class DetailView(BaseQualificationView, generic.DetailView):
     model = Question
     context_object_name = 'detail'
     template_name = 'qualification/question.html'
@@ -47,7 +52,7 @@ class DetailView(generic.DetailView):
         return get_object_or_404(Question, pk=self.kwargs.get("question_id"))
 
 
-class CreateAnswerView(LoginRequired, generic.CreateView):
+class CreateAnswerView(BaseQualificationView, generic.CreateView):
     """
     View to create new answers for a given question
     """

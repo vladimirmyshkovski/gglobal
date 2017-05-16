@@ -8,31 +8,42 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from wagtail.contrib.wagtailsitemaps.views import sitemap
+from ajax_select import urls as ajax_select_urls
+from controlcenter.views import controlcenter
+from dashing.utils import router
+
 
 urlpatterns = [
     #url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     #url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
-
+    url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),
 
+    url(r'^admin/controlcenter/', controlcenter.urls),
+    
+    url(r'^dashboard/', include(router.urls)),
     # User management
     url(r'^частные-мастера/', include('gglobal.users.urls', namespace='users')),
-    url(r'^аккаунты/', include('allauth.urls')),
+    
+    url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
 
     url(r'^cms/', include('wagtail.wagtailadmin.urls')),
-    url(r'^вопрсы-ответы/', include('gglobal.qa.urls')),
+    url(r'^вопросы-ответы/', include('gglobal.qa.urls')),
     url(r'^квалификационные-вопросы/', include('gglobal.qualification.urls', namespace='qualification')),
     url(r'^услуги/', include('gglobal.service.urls', namespace='service')),
 
-    url(r'^кабинет/', include('gglobal.crm.urls')),
+    #url(r'^кабинет/', include('gglobal.crm.urls')),
     #url(r'^categories/', include('categories.urls', namespace='categories')),
     url(r'^markdownx/', include('markdownx.urls')),
 
     url('^sitemap\.xml$', sitemap),
 
+
+    url(r'^города-страны/', include('gglobal.city.urls', namespace='cities')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

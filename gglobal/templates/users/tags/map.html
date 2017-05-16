@@ -16,7 +16,7 @@
 
     function addMarkers() {
     {% for master in masters %}
-    var point = { lat: {{ master.position.latitude }}, lng: {{ master.position.longitude }} };
+    var point = { lat: {{ master.user.position.latitude }}, lng: {{ master.user.position.longitude }} };
 
     var marker = new google.maps.Marker({
       position: point, 
@@ -26,7 +26,7 @@
     });
 
     marker['infowindow'] = new google.maps.InfoWindow({
-      content: '<div id="content" style="text-align: center"><h1>{{ master.user.username }}</h1><br/><h2>{{ master.raiting }}</h2><br/><h3><a href="{% url 'users:detail' master.user_id %}">Страница мастера</a></h3></div>'
+      content: '<div id="content" style="text-align: center"><h1>{{ master.user.full_name }} {{ master.user.last_name }}</h1><br/><h2>{{ master.raiting }}</h2><br/><h3><a href="{% url 'users:detail' master.user.id master.slug  %}">Страница мастера</a></h3></div>'
     });
 
     google.maps.event.addListener(marker, 'click', function() {

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}Города{% endblock %}
+{% block content %}
+<section class="bg-custom home">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 com-lg-12 text-center">
+        <div class="home-wrapper home-wrapper-alt">
+          <h1 class="text-white">{{ object.name }} в городе {{ city.alternate_names }}</h1>
+          <h4 class="text-light">Выбирайте проверенных</h4>
+          <a href="" class="btn btn-white-bordered">Приступить</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

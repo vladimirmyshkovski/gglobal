@@ -1,5 +1,7 @@
 from django import template
 from gglobal.crm.models import MasterCRMProfile
+from gglobal.users.models import User
+from cities_light.models import City, Country
 from wagtail.wagtailcore.models import Page
 
 register = template.Library()
@@ -20,13 +22,21 @@ def masters(context):
 
 @register.inclusion_tag('users/tags/map.html', takes_context=True)
 def masters_map(context):
-	self = context.get('self')
-	city = self.city
 	try:
-		masters = MasterCRMProfile.objects.filter(city=self.city).all()
+		city = context['city']
+		print(city)
+		print(city.latitude)
+		print(city.longitude)
+		masters = MasterCRMProfile.objects.filter(
+			user__position__isnull=False, 
+			user__cities__alternate_names__iexact=city.alternate_names
+			)
+		print(masters)
 	except:
 		pass
-		masters = MasterCRMProfile.objects.all()
+		city = Country.objects.get(name='Belarus')
+		masters = MasterCRMProfile.objects.filter(user__position__isnull=False)[5]
+
 	return {
 		'city': city,
         'masters': masters,

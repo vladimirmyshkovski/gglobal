@@ -1,0 +1,16 @@
+{% extends "account/base_form.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags static %}
+
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block form_content %}
+<h1 style="color: white; text-align:center"> {% trans "Sign Up" %}</h1>
+
+<p style="color: white; text-align:center">{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+
+{% crispy form %}
+{{ form.media }}
+{% endblock %}

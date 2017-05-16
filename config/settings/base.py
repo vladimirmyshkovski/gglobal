@@ -43,14 +43,18 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'django.contrib.sitemaps',
     # Useful template tags:
     # 'django.contrib.humanize',
 
     # Admin
     'django.contrib.admin',
+    #'django.contrib.admin.apps.SimpleAdminConfig',
 ]
 THIRD_PARTY_APPS = [
     'crispy_forms',  # Form layouts
+    
+    # Enable allauth.
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
@@ -102,6 +106,7 @@ THIRD_PARTY_APPS = [
 
     'mapwidgets',
     # django-viewflow and django-material
+    #'viewflow',
     'material.theme.blue', 
     'material', # django-material
     'material.frontend',
@@ -114,6 +119,17 @@ THIRD_PARTY_APPS = [
     'django_celery_results',
     'django_celery_beat',
     'django_celery_monitor',
+
+    'request', # django-request
+    #'cacheops', # django-cacheops
+    'cachalot',
+    'ajax_select',
+    'django_feedparser', # django-feedparser
+    'controlcenter', # django-controllcenter
+    'avatar', # django-avatar http://django-avatar.readthedocs.io/en/latest/
+    'dashing', # django-dashing https://github.com/talpor/django-dashing
+    'djmoney', # django-money https://github.com/django-money/django-money
+    'djmoney_rates', # django-money-rates https://github.com/evonove/django-money-rates
 ]
 
 # Apps specific for this project go here.
@@ -126,8 +142,7 @@ LOCAL_APPS = [
     'gglobal.crm.apps.CRMConfig',
     'gglobal.service.apps.ServiceConfig',
     'gglobal.viewflow.apps.ViewflowConfig', # django-viewflow
-    
-
+    'gglobal.city.apps.CityConfig',
 
 ]
 
@@ -135,6 +150,8 @@ PRE_DJANGO_APPS = [
     'dal', # autocomplete light v.3
     'dal_select2', # autocomplete light v.3
     'dal_queryset_sequence', # autocomplete light v.3
+    'jet.dashboard',
+    'jet', # Django-JET
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -143,13 +160,16 @@ INSTALLED_APPS = PRE_DJANGO_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
-    #'django.middleware.cache.UpdateCacheMiddleware'
+    'django.middleware.cache.UpdateCacheMiddleware',
     'htmlmin.middleware.HtmlMinifyMiddleware',
+    'django.middleware.http.ConditionalGetMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+
+    'request.middleware.RequestMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
@@ -158,8 +178,7 @@ MIDDLEWARE = [
     #'wagtailthemes.middleware.ThemeMiddleware',
     'turbolinks.middleware.TurbolinksMiddleware',
     'htmlmin.middleware.MarkRequestMiddleware',
-    #'django.middleware.cache.FetchFromCacheMiddleware',
-
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 # MIGRATIONS CONFIGURATION
@@ -359,7 +378,7 @@ SOCIALACCOUNT_ADAPTER = 'gglobal.users.adapters.SocialAccountAdapter'
 # ALLAUTH SETTINGS #
 ACCOUNT_FORMS = {
     "login": "gglobal.users.forms.CustomLoginForm",
-    "signup": "gglobal.users.forms.CustomSignupForm",
+    #"signup": "gglobal.users.forms.CustomSignupForm",
     "confirm-email": "gglobal.users.forms.CustomSignupForm",
 }
 ACCOUNT_USERNAME_MIN_LENGTH = 1
@@ -374,6 +393,8 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 AUTH_USER_MODEL = 'users.User'
 #LOGIN_REDIRECT_URL = 'users:redirect'
 LOGIN_URL = 'account_login'
+
+MASTER_HOME_URL = '/кабинет'
 
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
@@ -453,6 +474,128 @@ CKEDITOR_CONFIGS = {
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
 CATEGORIES_SETTINGS = {
-'ALLOW_SLUG_CHANGE': True
+    'ALLOW_SLUG_CHANGE': True
 }
 
+
+# CACHEOPS SETTINGS
+# ------------------------------------------------------------------------------
+'''
+CACHEOPS_REDIS = {
+    'host': 'localhost', # redis-server is on same machine
+    'port': 6379,        # default redis port
+    'db': 1,             # SELECT non-default redis database
+                         # using separate redis db or redis instance
+                         # is highly recommended
+
+    'socket_timeout': 3,   # connection timeout in seconds, optional
+    #'password': '...',     # optional
+    #'unix_socket_path': '' # replaces host and port
+}
+
+CACHEOPS = {
+    # Automatically cache any User.objects.get() calls for 15 minutes
+    # This includes request.user or post.author access,
+    # where Post.author is a foreign key to auth.User
+    'auth.user': {'ops': 'get', 'timeout': 60*15},
+    'users.user': {'ops': 'get', 'timeout': 60},
+    'cities_light.city': {'ops': 'get', 'timeout': 60*60*30},
+    'cities_light.country': {'ops': 'get', 'timeout': 60*60*30},
+
+    # Automatically cache all gets and queryset fetches
+    # to other django.contrib.auth models for an hour
+    'auth.*': {'ops': ('fetch', 'get'), 'timeout': 60*60},
+
+    # Cache gets, fetches, counts and exists to Permission
+    # 'all' is just an alias for ('get', 'fetch', 'count', 'exists')
+    'auth.permission': {'ops': 'all', 'timeout': 60*60},
+
+    # Enable manual caching on all other models with default timeout of an hour
+    # Use Post.objects.cache().get(...)
+    #  or Tags.objects.filter(...).order_by(...).cache()
+    # to cache particular ORM request.
+    # Invalidation is still automatic
+    '*.*': {'ops': (), 'timeout': 60*5},
+
+    # And since ops is empty by default you can rewrite last line as:
+    '*.*': {'timeout': 60*5},
+}
+
+CACHEOPS_DEGRADE_ON_FAILURE = True
+'''
+
+CACHALOT_ENABLED = True
+CACHALOT_TIMEOUT = None
+CACHALOT_CACHE_RANDOM = False
+CACHALOT_INVALIDATE_RAW = True
+#CACHALOT_ONLY_CACHABLE_TABLES = frozenset()
+
+# AJAX_LOOKUP SETTINGS
+# ------------------------------------------------------------------------------
+
+AJAX_LOOKUP_CHANNELS = {
+
+'cities_light_country': ('cities_light.lookups', 'CountryLookup'),
+'cities_light_city': ('cities_light.lookups', 'CityLookup'),
+
+}
+
+
+# CONTROLCENTER SETTINGS
+# ------------------------------------------------------------------------------
+
+CONTROLCENTER_DASHBOARDS = (
+    'gglobal.crm.admin.MyDashboard',
+)
+
+# CONTROLCENTER SETTINGS 
+# ------------------------------------------------------------------------------
+
+AVATAR_GRAVATAR_FORCEDEFAULT = True
+AVATAR_GRAVATAR_DEFAULT = 'identicon'
+
+
+
+# DJANGO_MONEY_RATES SETTINGS 
+# ------------------------------------------------------------------------------
+
+DJANGO_MONEY_RATES = {
+    'DEFAULT_BACKEND': 'djmoney_rates.backends.OpenExchangeBackend',
+    'OPENEXCHANGE_URL': 'http://openexchangerates.org/api/latest.json',
+    'OPENEXCHANGE_APP_ID': 'd7f21191cfa74010996bfc70c673e36f',
+    'OPENEXCHANGE_BASE_CURRENCY': 'USD',
+}
+
+'''
+# DOGSLOW SETTINGS
+# ------------------------------------------------------------------------------
+
+
+# Watchdog is enabled by default, to temporarily disable, set to False:
+DOGSLOW = True
+
+# By default, Watchdog will create log files with the backtraces.
+# You can also set the location of where it stores them:
+DOGSLOW_LOG_TO_FILE = True
+DOGSLOW_OUTPUT = '/tmp'
+
+# Log requests taking longer than 25 seconds:
+DOGSLOW_TIMER = 25
+
+# When both specified, emails backtraces:
+DOGSLOW_EMAIL_TO = 'errors@atlassian.com'
+DOGSLOW_EMAIL_FROM = 'no-reply@atlassian.com'
+
+# Also log to this logger (defaults to none):
+DOGSLOW_LOGGER = 'syslog_logger'
+DOGSLOW_LOG_LEVEL = 'WARNING'
+
+# Tuple of url pattern names that should not be monitored:
+# (defaults to none -- everything monitored)
+# Note: this option is not compatible with Django < 1.3
+DOGSLOW_IGNORE_URLS = ('some_view', 'other_view')
+
+# Print (potentially huge!) local stack variables (off by default, use
+# True for more detailed, but less manageable reports)
+DOGSLOW_STACK_VARS = True
+'''

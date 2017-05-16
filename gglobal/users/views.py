@@ -2,7 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView, ListView, RedirectView, UpdateView
+from django.views.generic import DetailView, ListView, RedirectView, UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import User
 from gglobal.crm.models import PhoneNumber as Phone
@@ -17,13 +17,26 @@ from ipware.ip import get_real_ip, get_ip
 from geolite2 import geolite2
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.sites.models import Site
+from gglobal.users.forms import MasterSignupForm, CustomSignupForm
+from allauth.account.views import SignupView
+from django.utils.decorators import method_decorator
+from django.views.decorators.debug import sensitive_post_parameters
+from allauth.exceptions import ImmediateHttpResponse
+from allauth.account.utils import complete_signup, get_next_redirect_url
+from allauth.account.adapter import DefaultAccountAdapter as Adapter
+from gglobal.users.utils import complete_signup
+from allauth.account import app_settings, signals
+
+sensitive_post_parameters_m = method_decorator(
+    sensitive_post_parameters('password', 'password1', 'password2'))
 
 class UserDetailView(DetailView):
     model = MasterCRMProfile
     template_name = 'users/mastercrmprofile_detail.html'
     # These next two lines tell the view to index lookups by user_id
-    slug_field = 'user_id'
-    slug_url_kwarg = 'user_id'
+    slug_field = 'slug'
+    #slug_url_kwarg = 'user_id'
+
 
 
 class UserRedirectView(RedirectView):
@@ -44,34 +57,6 @@ class UserListView(ListView):
         context = super(UserListView, self).get_context_data(**kwargs)
         return context
 
-
-class UserCityListView(ListView):
-    model = City
-    template_name = 'users/city_list.html'
-    slug_field = 'name'
-    slug_url_kwarg = 'name'
-    paginate_by = 10
-
-    def get_queryset(self):
-        queryset = City.objects.filter(mastercrmprofile__isnull=False).annotate(masters_count=Count('mastercrmprofile')).distinct().order_by('-population').all()
-        return queryset
-
-
-class UserCityDetailView(DetailView):
-    model = City
-    template_name = 'users/city_detail.html'
-    #template_name = 'users/city_list.html'
-    slug_field = 'alternate_names'
-    slug_url_kwarg = 'alternate_names'
-
-    def get_object(self):
-        city = get_object_or_404(City, alternate_names__iexact=self.kwargs['alternate_names'])
-        return city
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(UserCityDetailView, self).get_context_data(*args, **kwargs)
-        context['masters'] = MasterCRMProfile.objects.filter(city__alternate_names=self.kwargs['alternate_names']).order_by('-raiting').all()
-        return context
 
     #def get_queryset(self):
     #    queryset = MasterCRMProfile.objects.filter(city=self.kwargs['alternate_names'])
@@ -115,13 +100,61 @@ def СreateClientView(request):
                         city=city,
                         country=country,
                         )
+                    print('dsadasd')
                 except ObjectDoesNotExist:
                     pass
             AutoCreateClientFlow.start.run(
                 data=data,
                 site=site,
                 )
+            print('asd')
             #Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse(data)
     #Get goes here
     return render(request,'base.html')
+
+'''
+class SignupMasterView(SignupView):
+    form_class = MasterSignupForm
+    template_name = 'users/signup.html'
+    view_name = 'mastersignup'
+    #redirect_field_name = "next"
+    #success_url = '../квалификационные-вопросы'
+
+    def get_context_data(self, **kwargs):
+        ret = super(SignupMasterView, self).get_context_data(**kwargs)
+        ret.update(self.kwargs)
+        return ret
+
+
+mastersignup = SignupMasterView.as_view()
+'''
+
+class SignupMasterView(SignupView):
+    template_name = 'users/signup.html'
+    form_class = MasterSignupForm
+    redirect_field_name = 'next'
+    view_name = 'mastersignup'
+    #success_url = None
+
+    def form_valid(self, form):
+        # By assigning the User to a property on the view, we allow subclasses
+        # of SignupView to access the newly created User instance
+        self.user = form.save(self.request)
+        try:
+            return complete_signup(
+                self.request, self.user,
+                app_settings.EMAIL_VERIFICATION,
+                self.get_success_url())
+        except ImmediateHttpResponse as e:
+            return e.response
+
+    def get_context_data(self, **kwargs):
+        ret = super(SignupMasterView, self).get_context_data(**kwargs)
+        ret.update(self.kwargs)
+        return ret
+
+
+mastersignup = SignupMasterView.as_view()
+
+

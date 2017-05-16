@@ -1,8 +1,12 @@
 {% extends "base.html" %}
-{% load static i18n %}
+{% load static i18n users_tags %}
 {% block title %}Города{% endblock %}
 {% block content %}
-<section class="bg-custom home" id="home">
+
+{{ page.body }}
+
+
+<!--section class="bg-custom home" id="home">
   <div class="container">
     <div class="row">
       <div class="col-sm-12 text-center">
@@ -19,8 +23,8 @@
   <h2 style="text-align: center">Частные мастера</h2>
 
   <div class="list-group">
-    {% for master in masters %}
-      <a href="{% url 'users:detail' master.user_id %}" class="list-group-item">
+    {#% for master in masters %#}
+      <a href="{#% url 'users:detail' master.user.id master.slug %#}" class="list-group-item">
       <div class="testimonial-user-info user-info text-left">
         <div class="testimonial-user-thumb user-thumb">
             <img src="/media/{{ master.avatar }}" alt="Частный мастер по ремонту компьютеров {{ master.user.username }}">
@@ -32,7 +36,11 @@
         </div>
       </div>
       </a>
-    {% endfor %}
+    {#% endfor %#}
   </div>
-</div>
+</div-->
+{% block map %}
+    {% masters_map %}
+{% endblock map %}
+
 {% endblock content %}

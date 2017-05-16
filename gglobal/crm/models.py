@@ -7,7 +7,9 @@ from django.contrib.sites.models import Site
 from django.conf import settings
 from datetime import datetime
 from geoposition.fields import GeopositionField
-
+from django.core.exceptions import ObjectDoesNotExist
+import geocoder
+from djmoney.models.fields import MoneyField
 
 class AutoCreateClientProcess(Process):
 
@@ -20,8 +22,8 @@ class AutoCreateClientProcess(Process):
     ('order','Заказ'),
     ('consultation','Консультация'), 
     ('complaint', 'Жалоба')
-            ]
-    choices = models.CharField(max_length=15, choices=CHOICES)
+    ]
+    choices = models.CharField(verbose_name='Тип', max_length=15, choices=CHOICES)
     approved = models.BooleanField(_('Дозвонился?'), default=False)
 
     first_name = models.CharField(_('Имя'), max_length=150, null=True)
@@ -47,10 +49,12 @@ class AutoCreateClientProcess(Process):
     complaint_troube = models.CharField(verbose_name='Суть жалобы', max_length=150, null=True)
 
     country = models.ForeignKey(Country, null=True, blank=True)
-    sites = models.ManyToManyField(Site)
+    site = models.ForeignKey(Site, null=True)
     leed_city = models.ForeignKey(City, verbose_name='Город', null=True, blank=True)
 
-    address = GeopositionField(verbose_name=_('Адресс'), null=False)
+    address = GeopositionField(verbose_name=_('Адресс'), null=True)
+    flat = models.CharField(verbose_name=_('Квартира'), null=True, max_length=4)
+    datetime = models.DateTimeField(null=True)
 
     class Meta:
         verbose_name = "Автоматическое создание клиента"
@@ -86,21 +90,28 @@ class CRMLeed(models.Model):
 
 
 class MasterCRMProfile(models.Model):
+    slug = models.CharField(null=True, blank=True, max_length=255)
     user = AutoOneToOneField(settings.AUTH_USER_MODEL, primary_key=True)
+    work_cities = models.ManyToManyField(City)
+    work_countries = models.ManyToManyField(Country)
+    #services = models.ManyToManyField('service.Service')
+    #troubles = models.ManyToManyField('service.Trouble')
     # The additional attributes we wish to include.
 
+    def save(self, *args, **kwargs):
+        if not self.user.id or not self.slug or self.slug is None or self.slug == '':
+            self.slug = (self.user.get_full_name()).replace(' ', '-')
+        ''' 
+        if not self.work_cities and self.user.city:
+            self.work_cities.add(self.user.city)
+        if not self.work_countries and self.user.country:
+            self.work_countries.add(self.user.country)
+        '''
+        super(MasterCRMProfile, self).save(*args, **kwargs)
 
-    #@property
-    #def full_name(self):
-    #    return "%s-%s" % (self.user.first_name, self.user.last_name)
 
-    @property
-    def real_location(self):
-        gmaps = googlemaps.Client(key=settings.GOOGLE_MAP_API_KEY)
-        return "%s" % (gmaps.reverse_geocode((self.position.latitude, self.position.longitude), language='ru', sensor = 'true'))
-        
     def get_absolute_url(self):
-        return reverse('users:detail', kwargs={'username': self.username})
+        return reverse('users:detail', kwargs={'pk': self.pk, 'slug': self.slug})
 
     class Meta:
         verbose_name = "Мастер"
@@ -177,6 +188,18 @@ class Project(models.Model):
     
     address = GeopositionField(verbose_name=_('Адресс'), null=False)
     site = models.ForeignKey(Site, verbose_name=_('Сайт'))
+    city = models.ForeignKey('cities_light.City', null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.city:
+            g = geocoder.google([self.address.latitude, self.address.longitude],
+                method='reverse', key=settings.GOOGLE_MAP_API_KEY)
+            try:
+                city = City.objects.get(name=g.city)
+                self.city = city
+            except ObjectDoesNotExist:
+                pass
+        super(Project, self).save(*args, **kwargs)
 
     def __str__(self):
         return ('#{}').format(str(self.pk))
@@ -228,14 +251,54 @@ class PhoneNumber(models.Model):
 
 
 class AutoCreateProjectProcess(Process):
-    text = models.CharField(_('Обращение'), max_length=150, null=True)
-    phone = models.CharField(
-        help_text=(_('Must include international prefix - e.g. +1 555 555 55555')), null=True, max_length=25)    
+    APPROVED_CHOICES=[
+    ('agree','Согласовал'),
+    #('shift','Перенос на другую время'), 
+    ('failure', 'Отказ')
+    ]
+    AGREED_RESULTS=[
+    ('went','Выезд'),
+    ('arrival','Приедет сам'),
+    ]
+    WENT_RESULTS=[
+    ('at_work','Приступил к ремонту'),
+    ('get_device','Забрал устройство'),
+    ('non_contact','Не смог встретится'),
+    ]
+    ARRIVAL_RESULTS=[
+    ('with_presence','Сделал в присутствии'),
+    ('det_at_work','Взял в работу'),
+    ('failure','Отказ'),
+    ]
+
+    project_address = models.CharField(verbose_name='Адресс заказа', max_length=50, null=True)
+    project_comment = models.CharField(verbose_name='Комментарий от оператора', max_length=250, null=True)
+    project_service = models.ManyToManyField('service.Service', related_name='project_services')
+    project_trouble = models.ManyToManyField('service.Trouble', related_name='project_troubles')
+
+    client_first_name = models.CharField(verbose_name='Имя клиента', max_length=50, null=True)
+    client_last_name = models.CharField(verbose_name='Фамилия клиента', max_length=50, null=True)
+    client_phone_number = models.CharField(verbose_name='Номер телефона для связи', max_length=50, null=True)
+
     approved = models.BooleanField(_('Дозвонился?'), default=False)
+    approved_choices = models.CharField(verbose_name='Тип', max_length=15, choices=APPROVED_CHOICES, null=True)
+
+    agreed_results = models.CharField(verbose_name='Договорились', max_length=15, choices=AGREED_RESULTS, null=True)
+
+    went_results = models.CharField(verbose_name='Договорились', max_length=15, choices=WENT_RESULTS, null=True)
+
+    arrived = models.BooleanField(_('Приехал?'), default=False)
+
+    work_services = models.ManyToManyField('service.Service', related_name='work_services')
+    work_troubles = models.ManyToManyField('service.Service', related_name='work_troubles')
+
     first_name = models.CharField(_('Имя'), max_length=150, null=True)
     closed = models.BooleanField(_('Блабла'), default=False)
     user = AutoOneToOneField('crm.ClientCRMProfile', primary_key=True, on_delete=models.CASCADE)
     sites = models.ManyToManyField(Site)
+
+    invoice_amount = MoneyField(max_digits=10, decimal_places=2, default_currency='BYN')
+    payd = models.BooleanField(verbose_name='Оплатил?', default=False)
 
     class Meta:
         verbose_name = "Автоматическое создание заказа"
