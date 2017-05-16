@@ -135,14 +135,14 @@ THIRD_PARTY_APPS = [
 # Apps specific for this project go here.
 LOCAL_APPS = [
     # custom users app
-    'gglobal.users.apps.UsersConfig',
+    #'gglobal.users.apps.UsersConfig',
     # Your stuff: custom apps go here
-    'gglobal.qa.apps.QAConfig',
+    #'gglobal.qa.apps.QAConfig',
     'gglobal.cms.apps.CMSConfig',
     'gglobal.crm.apps.CRMConfig',
-    'gglobal.service.apps.ServiceConfig',
+    #'gglobal.service.apps.ServiceConfig',
     #'gglobal.viewflow.apps.ViewflowConfig', # django-viewflow
-    'gglobal.city.apps.CityConfig',
+    #'gglobal.city.apps.CityConfig',
 
 ]
 

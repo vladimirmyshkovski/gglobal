@@ -31,9 +31,9 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
 
     url(r'^cms/', include('wagtail.wagtailadmin.urls')),
-    url(r'^вопросы-ответы/', include('gglobal.qa.urls')),
-    url(r'^квалификационные-вопросы/', include('gglobal.qualification.urls', namespace='qualification')),
-    url(r'^услуги/', include('gglobal.service.urls', namespace='service')),
+    #url(r'^вопросы-ответы/', include('gglobal.qa.urls')),
+    #url(r'^квалификационные-вопросы/', include('gglobal.qualification.urls', namespace='qualification')),
+    #url(r'^услуги/', include('gglobal.service.urls', namespace='service')),
 
     #url(r'^кабинет/', include('gglobal.crm.urls')),
     #url(r'^categories/', include('categories.urls', namespace='categories')),
@@ -41,7 +41,7 @@ urlpatterns = [
 
     url('^sitemap\.xml$', sitemap),
 
-    url(r'^города-страны/', include('gglobal.city.urls', namespace='cities')),
+    #url(r'^города-страны/', include('gglobal.city.urls', namespace='cities')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
