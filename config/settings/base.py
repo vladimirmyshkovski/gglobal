@@ -123,7 +123,7 @@ THIRD_PARTY_APPS = [
     'request', # django-request
     #'cacheops', # django-cacheops
     'cachalot',
-    'ajax_select',
+    #'ajax_select',
     'django_feedparser', # django-feedparser
     'controlcenter', # django-controllcenter
     'avatar', # django-avatar http://django-avatar.readthedocs.io/en/latest/
@@ -530,6 +530,7 @@ CACHALOT_CACHE_RANDOM = False
 CACHALOT_INVALIDATE_RAW = True
 #CACHALOT_ONLY_CACHABLE_TABLES = frozenset()
 
+'''
 # AJAX_LOOKUP SETTINGS
 # ------------------------------------------------------------------------------
 
@@ -539,7 +540,7 @@ AJAX_LOOKUP_CHANNELS = {
 'cities_light_city': ('cities_light.lookups', 'CityLookup'),
 
 }
-
+'''
 
 # CONTROLCENTER SETTINGS
 # ------------------------------------------------------------------------------
