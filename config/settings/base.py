@@ -120,7 +120,7 @@ THIRD_PARTY_APPS = [
     'django_celery_beat',
     'django_celery_monitor',
 
-    'request', # django-request
+    #'request', # django-request
     #'cacheops', # django-cacheops
     'cachalot',
     #'ajax_select',
