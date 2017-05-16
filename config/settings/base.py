@@ -141,7 +141,7 @@ LOCAL_APPS = [
     'gglobal.cms.apps.CMSConfig',
     'gglobal.crm.apps.CRMConfig',
     'gglobal.service.apps.ServiceConfig',
-    'gglobal.viewflow.apps.ViewflowConfig', # django-viewflow
+    #'gglobal.viewflow.apps.ViewflowConfig', # django-viewflow
     'gglobal.city.apps.CityConfig',
 
 ]
