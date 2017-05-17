@@ -162,7 +162,7 @@ INSTALLED_APPS = PRE_DJANGO_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     #'django.middleware.cache.UpdateCacheMiddleware',
     #'django.middleware.gzip.GZipMiddleware',
-    #'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.HtmlMinifyMiddleware',
     #'django.middleware.http.ConditionalGetMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -177,7 +177,7 @@ MIDDLEWARE = [
     #'wagtailthemes.middleware.ThemeMiddleware',
     'turbolinks.middleware.TurbolinksMiddleware',
     #'django.middleware.cache.FetchFromCacheMiddleware',
-    #'htmlmin.middleware.MarkRequestMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
 ]
 
 # MIGRATIONS CONFIGURATION
