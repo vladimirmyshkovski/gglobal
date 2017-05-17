@@ -160,7 +160,7 @@ INSTALLED_APPS = PRE_DJANGO_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
-    'django.middleware.cache.UpdateCacheMiddleware',
+    #'django.middleware.cache.UpdateCacheMiddleware',
     #'django.middleware.gzip.GZipMiddleware',
     'htmlmin.middleware.HtmlMinifyMiddleware',
     'django.middleware.http.ConditionalGetMiddleware',
@@ -176,7 +176,7 @@ MIDDLEWARE = [
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
     #'wagtailthemes.middleware.ThemeMiddleware',
     'turbolinks.middleware.TurbolinksMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
+    #'django.middleware.cache.FetchFromCacheMiddleware',
     'htmlmin.middleware.MarkRequestMiddleware',
 ]
 
@@ -524,7 +524,7 @@ CACHEOPS = {
 CACHEOPS_DEGRADE_ON_FAILURE = True
 '''
 
-CACHALOT_ENABLED = True
+CACHALOT_ENABLED = False
 CACHALOT_TIMEOUT = None
 CACHALOT_CACHE_RANDOM = False
 CACHALOT_INVALIDATE_RAW = True
