@@ -182,8 +182,8 @@ MIDDLEWARE = [
     'turbolinks.middleware.TurbolinksMiddleware',
 
 
-    'htmlmin.middleware.MarkRequestMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
 ]
 
 # MIGRATIONS CONFIGURATION
