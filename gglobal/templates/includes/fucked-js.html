@@ -35,22 +35,22 @@
       //if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
       //else window.addEventListener('load', loadDeferredStyles);
     </script>
-    <script>
-    function defer(method) {
-        if (window.Inputmask)
-            method();
-        else
-            setTimeout(function() { defer(method) }, 50);
-            //console.log(' window.Inputmask was not loaded !')
-        };
+    <script>function defer(e){window.Inputmask?e():setTimeout(function(){defer(e)},50)}
+    //function defer(method) {
+    //    if (window.Inputmask)
+    //        method();
+    //    else
+    //        setTimeout(function() { defer(method) }, 50);
+    //        //console.log(' window.Inputmask was not loaded !')
+    //    };
     </script>
     {% if user.is_authenticated %}
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>
     {% endif %}
-    <script>
-    defer(function () {
-            csrftoken = Cookies.get('csrftoken');
-        });
+    <script>defer(function(){csrftoken=Cookies.get("csrftoken")});
+    //defer(function () {
+    //        csrftoken = Cookies.get('csrftoken');
+    //    });
     </script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
         <!--[if lt IE 9]>
