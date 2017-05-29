@@ -12,7 +12,6 @@ from djmoney.models.fields import MoneyField
 from river.models.fields.state import StateField
 #from django_comments.models import Comment
 from mptt.models import MPTTModel, TreeForeignKey
-from cuser.middleware import CuserMiddleware
 #from river.models.managers.workflow_object import WorkflowObjectManager
 from datetime import datetime
 from django.utils.functional import cached_property
