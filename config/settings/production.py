@@ -183,6 +183,7 @@ DATABASES = {
         'PASSWORD': env('RDS_PASSWORD'),
         'HOST': env('RDS_HOSTNAME'),
         'PORT': env('RDS_PORT'),
+        'CONN_MAX_AGE': 600,
     }
 }
 
@@ -215,9 +216,9 @@ CACHES = {
     }
 }
 
-
-
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 #DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
 
@@ -271,6 +272,11 @@ LOGGING = {
             'handlers': ['console', 'sentry', ],
             'propagate': False,
         },
+        'nplusone': {
+            'level': 'WARN',
+            'handlers': ['console'],
+            'propagate': False,
+        },
     },
 }
 SENTRY_CELERY_LOGLEVEL = env.int('DJANGO_SENTRY_LOG_LEVEL', logging.INFO)
@@ -285,10 +291,6 @@ ADMIN_URL = env('DJANGO_ADMIN_URL')
 # Your production stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
 
-# Django-htmlmin
-# ------------------------------------------------------------------------------
-
-HTML_MINIFY = True
 
 
 
@@ -315,4 +317,11 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Europe/Minsk'
 #djcelery.setup_loader()
 
+
+
+# NPLUSONE SETTINGS
+# ------------------------------------------------------------------------------
+
+NPLUSONE_LOGGER = logging.getLogger('nplusone')
+NPLUSONE_LOG_LEVEL = logging.WARN
 

@@ -44,7 +44,37 @@ CACHES = {
         'LOCATION': ''
     }
 }
+'''
 
+# CACHING
+# ------------------------------------------------------------------------------
+REDIS_LOCATION = 'redis://{}:{}/0'.format(
+    'localhost',
+    6379
+)
+
+# Heroku URL does not pass the DB number, so we parse it in
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': REDIS_LOCATION,
+        'OPTIONS': {
+            #'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            "CLIENT_CLASS": "django_redis.client.HerdClient",
+            "PICKLE_VERSION": -1,
+            #"COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
+            "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor",
+            "PARSER_CLASS": "redis.connection.HiredisParser",
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100},
+            "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
+            "SOCKET_TIMEOUT": 5,  # in seconds
+            'IGNORE_EXCEPTIONS': True,  # mimics memcache behavior.
+                                        # http://niwinz.github.io/django-redis/latest/#_memcached_exceptions_behavior
+        }
+    }
+}
+
+'''
 # django-debug-toolbar
 # ------------------------------------------------------------------------------
 MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
@@ -92,3 +122,4 @@ DATABASES = {
 
 
 
+USE_INOTIFY = True

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from gglobal.qa.models import Question, Answer
 from django.template import loader
 from django.http import Http404
@@ -8,7 +8,7 @@ from gglobal.qa.mixins import LoginRequired
 from django.conf import settings
 from django.utils.translation import ugettext as _
 from crispy_forms.helper import FormHelper
-from gglobal.users.decorators import masters_required
+from gglobal.users.decorators import masters_required, master_required
 
 try:
     qa_messages = 'django.contrib.messages' in settings.INSTALLED_APPS and\
@@ -19,22 +19,18 @@ except AttributeError:
 if qa_messages:
     from django.contrib import messages
 
-class BaseQualificationView(generic.View):
-    
-    @masters_required
-    def dispatch(self, request, *args, **kwargs):
-        return super(PostList, self).dispatch(request, *args, **kwargs)
 
-class IndexView(BaseQualificationView, generic.ListView):
+class IndexView(generic.ListView):
     template_name = 'qualification/qualification.html'
     context_object_name = 'index'
+
 
     def get_queryset(self):
         """Return the last five published questions."""
         return Question.objects.filter(answer__isnull=True).order_by('-pub_date')[:5]
 
 
-class DetailView(BaseQualificationView, generic.DetailView):
+class DetailView(generic.DetailView):
     model = Question
     context_object_name = 'detail'
     template_name = 'qualification/question.html'
@@ -52,7 +48,7 @@ class DetailView(BaseQualificationView, generic.DetailView):
         return get_object_or_404(Question, pk=self.kwargs.get("question_id"))
 
 
-class CreateAnswerView(BaseQualificationView, generic.CreateView):
+class CreateAnswerView(generic.CreateView):
     """
     View to create new answers for a given question
     """
@@ -81,7 +77,6 @@ class CreateAnswerView(BaseQualificationView, generic.CreateView):
             messages.success(
                 self.request, self.message)
         return reverse('qualification:detail', kwargs={'question_id': self.kwargs['question_id']})
-
 
 
 from django.shortcuts import get_object_or_404, render

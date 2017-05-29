@@ -5,13 +5,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12 text-center">
-                      <h3 class="text-white">Ответьте на любой из квалификационных вопросов, чтобы попасть в команду!</h3>
+                      <h3 class="text-white">{% if index %} Ответьте на любой из квалификационных вопросов, чтобы попасть в команду!
+                                             {% else %} К сожалению, квалификациооных вопросов не осталось, попробуйте позже {% endif %}</h3>   
                     </div>
                 </div>
             </div> <!-- end container -->
         </section>
         <!-- END Header title -->
-
+    
+    {% if index %}
         <!-- JOBS -->
         <section class="section">
             <div class="container">
@@ -22,7 +24,6 @@
                         <span class="text-muted sub-title">Они помогут нам выбрать лучших из Вас,<br> а вам, оценить свой уровень </span>
                     </div>
                 </div> <!-- end row -->
- 		{% if index %}
 			{% for question in index %}
                 <div class="row m-t-20">
 
@@ -38,11 +39,11 @@
                   </div>
                   <!--col-md-10 -->
 			{% endfor %}
-		{% endif %}
                 </div>
                 <!-- end row -->
 
             </div> <!-- end container -->
         </section>
         <!-- END JOBS -->
+    {% endif %}
 {% endblock %}

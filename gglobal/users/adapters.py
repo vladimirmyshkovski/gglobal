@@ -4,7 +4,6 @@ from allauth.account.adapter import DefaultAccountAdapter
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from django.core.urlresolvers import reverse
 from cities_light.models import City
-from django.contrib.auth.models import Group
 
 
 class AccountAdapter(DefaultAccountAdapter):
@@ -55,9 +54,6 @@ class MasterAccountAdapter(DefaultAccountAdapter):
         if commit:
             # Ability not to commit makes it easier to derive from
             # this adapter by adding
-            group = Group.objects.get(name='Mastrers')
-            gruop.user_set.add(user)
-            group.save()
             user.save()
         return user
 

@@ -10,12 +10,15 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 from __future__ import absolute_import, unicode_literals
 
+import os
 import environ
 from django.utils.translation import ugettext_lazy as _
 
 
 ROOT_DIR = environ.Path(__file__) - 3  # (gglobal/config/settings/base.py - 3 = gglobal/)
 APPS_DIR = ROOT_DIR.path('gglobal')
+
+#DATE_FORMAT = 'd E Y'
 
 # Load operating system environment variables and then prepare to use them
 env = environ.Env()
@@ -44,12 +47,12 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'django.contrib.sitemaps',
+    'django.contrib.postgres',
     # Useful template tags:
     # 'django.contrib.humanize',
 
     # Admin
     'django.contrib.admin',
-    #'django.contrib.admin.apps.SimpleAdminConfig',
 ]
 THIRD_PARTY_APPS = [
     'crispy_forms',  # Form layouts
@@ -89,12 +92,12 @@ THIRD_PARTY_APPS = [
     'wagtail.wagtailsearch',
 
 
-    'wagtail.contrib.wagtailstyleguide',
+    #'wagtail.contrib.wagtailstyleguide',
     'wagtail.contrib.modeladmin',
     'experiments',
     'wagtailmetadata',
     'meta',
-    'flags',
+    #'flags',
     'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.settings',
     'wagtailsurveys',
@@ -102,7 +105,7 @@ THIRD_PARTY_APPS = [
     'wagtailfontawesome',
     'wagtailmenus',
     'wagtailblocks_cards',
-    'wagtailgridder',
+    #'wagtailgridder',
 
     'mapwidgets',
     # django-viewflow and django-material
@@ -119,6 +122,8 @@ THIRD_PARTY_APPS = [
     'django_celery_results',
     'django_celery_beat',
     'django_celery_monitor',
+    'formtools', # django formtools https://github.com/django/django-formtools/blob/master/docs/preview.rst
+
 
     #'request', # django-request
     #'cacheops', # django-cacheops
@@ -130,6 +135,18 @@ THIRD_PARTY_APPS = [
     'dashing', # django-dashing https://github.com/talpor/django-dashing
     'djmoney', # django-money https://github.com/django-money/django-money
     'djmoney_rates', # django-money-rates https://github.com/evonove/django-money-rates
+    #'parsley', # django-parsley https://github.com/agiliq/Django-parsley
+    #'nplusone.ext.django', # nplusone https://github.com/jmcarp/nplusone
+    'guardian', # django-guardian https://github.com/django-guardian/django-guardian
+    'django_object_actions', # django-object-actions https://github.com/crccheck/django-object-actions
+    'django_admin_row_actions', # django-admin-row-actions https://github.com/DjangoAdminHackers/django-admin-row-actions
+    'inline_actions', # django-inline-actions https://github.com/escaped/django-inline-actions
+    #'betterforms', # django-betterforms https://github.com/fusionbox/django-betterforms
+    'webpush', # django-webpush https://github.com/safwanrahman/django-webpush
+    'river', # django-river https://github.com/javrasya/django-river
+    'pwa', # django-progressive-web-app https://github.com/svvitale/django-progressive-web-app
+    #'cuser', # django-cuser https://github.com/Alir3z4/django-cuser#installing
+
 ]
 
 # Apps specific for this project go here.
@@ -147,12 +164,18 @@ LOCAL_APPS = [
 ]
 
 PRE_DJANGO_APPS = [
+    'admin_view_permission',
     'dal', # autocomplete light v.3
     'dal_select2', # autocomplete light v.3
     'dal_queryset_sequence', # autocomplete light v.3
+    #'threadedcomments', # django-threadedcomments https://github.com/HonzaKral/django-threadedcomments
+    #'django_comments', # django-comments https://django-contrib-comments.readthedocs.io/en/latest/quickstart.html
     'jet.dashboard',
     'jet', # Django-JET
+
 ]
+
+
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = PRE_DJANGO_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -160,9 +183,11 @@ INSTALLED_APPS = PRE_DJANGO_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
-    'django.middleware.cache.UpdateCacheMiddleware',
+    #'django.middleware.cache.UpdateCacheMiddleware',
     #'django.middleware.gzip.GZipMiddleware',
     #'htmlmin.middleware.HtmlMinifyMiddleware',
+    #'nplusone.ext.django.NPlusOneMiddleware',
+    #'middleware.preload.ResourceHintsMiddleware',
     'django.middleware.http.ConditionalGetMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -175,8 +200,9 @@ MIDDLEWARE = [
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
     #'wagtailthemes.middleware.ThemeMiddleware',
+    #'cuser.middleware.CuserMiddleware',
     'turbolinks.middleware.TurbolinksMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
+    #'django.middleware.cache.FetchFromCacheMiddleware',
     #'htmlmin.middleware.MarkRequestMiddleware',
 ]
 
@@ -231,7 +257,7 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 TIME_ZONE = 'Europe/Minsk'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = 'ru-RU'
+LANGUAGE_CODE = 'ru_RU'
 LANGUAGES = [
     ('ru', _('Russian')),
 ]
@@ -360,6 +386,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
 ]
 
 # Some really nice defaults
@@ -400,9 +427,11 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
 ########## CELERY
 INSTALLED_APPS += ['gglobal.taskapp.celery.CeleryConfig']
-BROKER_URL = env('CELERY_BROKER_URL', default='django://')
+
+
+BROKER_URL = env('CELERY_BROKER_URL', default='redis://')
 if BROKER_URL == 'django://':
-    CELERY_RESULT_BACKEND = 'redis://'
+    CELERY_RESULT_BACKEND = 'django://'
 else:
     CELERY_RESULT_BACKEND = BROKER_URL
 ########## END CELERY
@@ -434,6 +463,7 @@ CITIES_FILES = {
     },
     # ...
 }
+
 CITIES_POSTAL_CODES = ['BY']
 
 CITIES_LOCALES = ['ru', 'LANGUAGES']
@@ -457,7 +487,6 @@ GEOPOSITION_MAP_OPTIONS = {
 GEOPOSITION_MARKER_OPTIONS = {
     'cursor': 'move'
 }
-
 
 # CKEDITOR SETTINGS
 # ------------------------------------------------------------------------------
@@ -544,11 +573,11 @@ AJAX_LOOKUP_CHANNELS = {
 
 # CONTROLCENTER SETTINGS
 # ------------------------------------------------------------------------------
-
+'''
 CONTROLCENTER_DASHBOARDS = (
     'gglobal.crm.admin.MyDashboard',
 )
-
+'''
 # CONTROLCENTER SETTINGS 
 # ------------------------------------------------------------------------------
 
@@ -600,3 +629,96 @@ DOGSLOW_IGNORE_URLS = ('some_view', 'other_view')
 # True for more detailed, but less manageable reports)
 DOGSLOW_STACK_VARS = True
 '''
+
+
+
+'''
+PRELOAD_RESOURCES = {
+# https://w3c.github.io/resource-hints/
+'//cdnjs.cloudflare.com': {'rel': 'dns-prefetch' },
+'/next.html': {'rel': 'prefetch', 'as': 'html', 'crossorigin': 'use-credentials' },
+'/ads.html': {'rel': 'prerender' },
+# https://w3c.github.io/preload/
+'/style.css': {'rel': 'preload', 'as': 'style' },
+'/font.woff': {'rel': 'preload', 'as':' font', 'crossorigin': True },
+}
+'''
+
+# DJANGO_JET SETTINGS
+# ------------------------------------------------------------------------------
+
+
+JET_SIDE_MENU_COMPACT = False
+
+
+JET_THEMES = [
+    {
+        'theme': 'default', # theme folder name
+        'color': '#47bac1', # color of the theme's button in user menu
+        'title': 'Default' # theme title
+    },
+    {
+        'theme': 'green',
+        'color': '#44b78b',
+        'title': 'Green'
+    },
+    {
+        'theme': 'light-green',
+        'color': '#2faa60',
+        'title': 'Light Green'
+    },
+    {
+        'theme': 'light-violet',
+        'color': '#a464c4',
+        'title': 'Light Violet'
+    },
+    {
+        'theme': 'light-blue',
+        'color': '#5EADDE',
+        'title': 'Light Blue'
+    },
+    {
+        'theme': 'light-gray',
+        'color': '#222',
+        'title': 'Light Gray'
+    }
+
+]
+JET_INDEX_DASHBOARD = 'gglobal.crm.dashboard.CustomIndexDashboard'
+
+JET_APP_INDEX_DASHBOARD = 'gglobal.crm.dashboard.CustomAppIndexDashboard'
+
+
+# DJANGO_RIVERS SETTINGS
+# ------------------------------------------------------------------------------
+
+
+RIVER_HANDLER_BACKEND = {
+    'backend':'river.handlers.backends.database.DatabaseHandlerBackend'
+}
+
+
+
+# DJANGO_WEBPUSH SETTINGS
+# ------------------------------------------------------------------------------
+
+WEBPUSH_SETTINGS = {
+    "GCM_ID": "test-b36d2",
+    "GCM_KEY":"AIzaSyBAaeZDIa6cirkEzdAOupL9CDyOp3lhr"
+}
+
+# DJANGO_PROGRESSIVE_WEB_APPLICATION SETTINGS
+# ------------------------------------------------------------------------------
+
+PWA_APP_NAME = 'My Kickass App'
+PWA_APP_DESCRIPTION = "Do kickass things all day long without that pesky browser chrome"
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_START_URL = '/'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/images/my_app_icon.png',
+        'sizes': '160x160'
+    }
+]
+PWA_SERVICE_WORKER_PATH = '/home/narnik/Программы/DjangoProjects/gglobal/gglobal/static/js/serviceworker.js' #os.path.join(ROOT_DIR, 'gglobal/static/js/', 'serviceworker.js')

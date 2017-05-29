@@ -18,83 +18,20 @@
 
 
 
-                        <div style="text-align: center !important" class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 mfp-hide" id="nav-modal-form">
+                        <div style="text-align: center !important" class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 mfp-hide" id="popup-modal-form">
                         <div class="col-lg-10 col-lg-offset-1">
-                            <form class="intro-form">
+                            <form class="intro-form" id="modal-form">
                                 <h3 class="text-center">Оставьте заявку! <br/> С Вами свяжутся в течении 5 минут.</h3>
-                                    <input type="text" id="nav-modal-form-name" name="name" class="form-control" data-validation="length"  data-validation-length=" 3-15" data-validation-error-msg-container="#nav-modal-form-email-error-dialog" placeholder="Имя" required="required">
-                                    <span id="nav-modal-form-email-error-dialog"></span>
+                                    <input type="text" name="name" class="form-control name-input-field popup-form-name" minlength="2" placeholder="Имя" required="required">
+                                    <span class="error-dialog"></span>
                                 <div class="form-group">
-                                    <input type="text" id="nav-modal-form-phone" name="phone" class="form-control" placeholder="Номер телефона" required="required">
+                                    <input type="text" name="phone" class="form-control phone-input-field" placeholder="Номер телефона" required="required">
+                                    <span id="error-dialog"></span>
                                 </div>
                                 <div class="form-group text-center">
-                                    <button type="submit" class="btn btn-custom btn-sm btn-block" id="nav-modal-form-submit">Заказать звонок!</button>
+                                    <button type="submit" class="btn btn-custom btn-sm btn-block form-submit">Заказать звонок!</button>
                                 </div>
                             </form>
                         </div>
                         </div>
         <!-- END CTA -->
-        <script type="text/javascript">
-            defer(function () {
-                $('.nav-modal-form').magnificPopup({
-                    type: 'inline',
-                    preloader: false,
-                    focus: '#nav-modal-form-name',
-                    closeBtnInside: false, 
-                    removalDelay: 300,
-
-                    // When elemened is focused, some mobile browsers in some cases zoom in
-                    // It looks not nice, so we disable it:
-                    callbacks: {
-                        beforeOpen: function() {
-                            if($(window).width() < 700) {
-                                this.st.focus = false;
-                            } else {
-                                this.st.focus = '#name';
-                            }
-                        }
-                    }
-                });
-
-                $.validate({
-                    modules : 'html5',
-                    lang: 'ru',
-                    errorMessagePosition : 'top',
-                });
-                $('#nav-modal-form-phone').inputmask({"mask": "+375(99) 999-99-99"}); 
-                $("#nav-modal-form-submit").click(function(e){
-                e.preventDefault();
-                jQuery.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    async: true,
-                    url: '{% url 'users:createclient' %}',
-                    data: { 'csrfmiddlewaretoken': csrftoken,
-                    name: $('#nav-modal-form-name').val(),
-                    phone: $('#nav-modal-form-phone').val(),
-                    form: 'nav-modal-form',
-                },
-                    success: setTimeout(function(data) { 
-                        $.magnificPopup.open({ 
-                            items: { 
-                                src: '#thank-you-modal', 
-                                type: 'inline' 
-                            } 
-                        });
-                        $('#nav-modal-form-name').val(''), 
-                        $('#nav-modal-form-phone').val('') 
-                    }, 1000), 
-                    error: function(xhr, textStatus) { 
-                        $.magnificPopup.open({ 
-                            items: { 
-                                src: '#error-modal', 
-                                type: 'inline' 
-                            } 
-                        });
-                    }
-                });
-                return false;
-            });
-        });
-
-        </script>

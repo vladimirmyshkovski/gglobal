@@ -14,3 +14,6 @@ def complete_signup(request, user, email_verification, success_url,
                          signup=False,
                          redirect_url=success_url,
                          signal_kwargs=signal_kwargs)
+
+
+

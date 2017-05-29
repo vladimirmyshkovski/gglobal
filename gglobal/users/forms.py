@@ -11,7 +11,7 @@ from dal import autocomplete
 from cities_light.models import City
 from django.contrib.auth import get_user_model
 from gglobal.users.models import User
-from gglobal.crm.models import MasterCRMProfile
+from gglobal.crm.models import MasterProfile
 from gglobal.users.adapters import MasterAccountAdapter
 from allauth.account.utils import setup_user_email
 
@@ -77,6 +77,8 @@ class CustomSignupForm(SignupForm):
         self.helper.label_class = 'hidden'
         self.helper.field_class = ''
 
+
+
 '''
 class MasterSignupForm(SignupForm):#(forms.ModelForm):
     city = forms.ModelChoiceField(empty_label=None,
@@ -141,25 +143,33 @@ class MasterSignupForm(SignupForm):#(forms.ModelForm):
 
 '''
 class MasterSignupForm(SignupForm):
+    CHOICES = (
+        ('Masters','Мастер по ремонту'),
+        ('Managers', 'Менеджер по работе с клиентами'),
+        )
     city = forms.ModelChoiceField(empty_label=None, required=True,
         queryset=City.objects.all(),
     )
     first_name = forms.CharField(max_length=15, required=True)
     last_name = forms.CharField(max_length=15, required=True)
+    choices = forms.ChoiceField(choices=CHOICES, required=True)
     def __init__(self, *args, **kwargs):
         super(MasterSignupForm, self).__init__(*args, **kwargs)
         self.fields['first_name'].widget = forms.TextInput(attrs={
             'placeholder':'Имя'})
         self.fields['last_name'].widget = forms.TextInput(attrs={
             'placeholder':'Фамилия'})
+        self.fields['choices'].widget = forms.TextInput(attrs={
+            'placeholder':'Специализация'})
         self.helper = FormHelper(self)
         # Add magic stuff to redirect back.
         self.helper.layout.append(
             HTML(
-                "{% if redirect_field_value %}"
-                "<input type='hidden' name='{{ redirect_field_name }}'"
-                "value='{{ redirect_field_value }}' />"
-                "{% endif %}"
+                #"{% if redirect_field_value %}"
+                "<input type='hidden' name='next'"
+                "value='{% url 'qualification:index' %}' />"
+                #"value='{{ redirect_field_value }}' />"
+                #"{% endif %}"
 
                 )
             )
@@ -185,7 +195,7 @@ class MasterSignupForm(SignupForm):
         setup_user_email(request, user, [])
         #slug = (user.get_full_name()).replace(' ', '-') 
         #print(slug)
-        master = MasterCRMProfile(
+        master = MasterProfile(
             #slug=slug,
             user=user)
         master.save()

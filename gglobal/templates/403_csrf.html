@@ -2,8 +2,19 @@
 
 {% block title %}Forbidden (403){% endblock %}
 
-{% block content %}
-<h1>Forbidden (403)</h1>
+{% block body_class %}template-403_csrf{% endblock %}
 
-<p>CSRF verification failed. Request aborted.</p>
+{% block content %}
+        <section class="bg-custom header-title-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                      <h3 class="text-white">Forbidden (403)</h3>   
+
+                      <h3 class="text-white">CSRF verification failed. Request aborted.</h3>   
+                    </div>
+                </div>
+            </div> <!-- end container -->
+        </section>
 {% endblock content %}
+

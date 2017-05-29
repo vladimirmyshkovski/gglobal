@@ -15,8 +15,9 @@ from wagtailsurveys import models as surveys_models
 
 from django.db import models
 from cities_light.models import City, Country
-from gglobal.crm.models import MasterCRMProfile
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
+from django.shortcuts import get_object_or_404, render
 
 
 class SurveyPage(surveys_models.AbstractSurvey):
@@ -57,8 +58,78 @@ class HomePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
     promote_panels = Page.promote_panels + MetadataPageMixin.panels
 
     def __str__(self):
-        return self.body
+        return self.title
 
+
+class MastersIndexPage(six.with_metaclass(PageBase, RoutablePageMixin, MetadataPageMixin, MenuPage)):
+
+    """
+    The Index Page of all Masters
+    """
+
+    @route(r'^$')
+    def index_view(self, request):
+        # render the index view
+        pages = MasterCRMProfilePage.objects.live().all()
+        return render(request, 'users/mastercrmprofile_list.html', {
+            'page': self,
+            'pages': pages,
+        })
+
+    body = StreamField(
+        SectionsStreamBlock(), 
+        verbose_name="Home content block", blank=True
+    )
+
+    search_fields = [
+        index.SearchField('body'),
+        index.FilterField('live'),
+    ]
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
+    ]
+
+    promote_panels = Page.promote_panels + MetadataPageMixin.panels
+
+    subpage_types = ['MasterProfilePage']
+    
+    def __str__(self):
+        return self.title
+
+
+class MasterProfilePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
+
+    """
+    The Index Page of all Masters
+    """
+
+    body = StreamField(
+        SectionsStreamBlock(), 
+        verbose_name="Блоки для персональной страницы", blank=True
+    )
+
+    search_fields = [
+        index.SearchField('body'),
+        index.FilterField('live'),
+    ]
+
+    content_panels = [
+        StreamFieldPanel('body'),
+    ]
+
+    promote_panels = []
+    settings_panels = []
+
+    parent_page_types = ['MastersIndexPage']
+    subpage_types = []
+
+    class Meta:
+        verbose_name = "Персональной страницы"
+        verbose_name_plural = "Персональные страницы"
+    
+    def __str__(self):
+        return self.title
 
 
 class CityPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):

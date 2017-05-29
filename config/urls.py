@@ -10,9 +10,10 @@ from django.views import defaults as default_views
 from wagtail.contrib.wagtailsitemaps.views import sitemap
 from controlcenter.views import controlcenter
 from dashing.utils import router
-
-
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import user_passes_test
 urlpatterns = [
+    url('', include('pwa.urls')),
     #url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     #url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
@@ -20,19 +21,21 @@ urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),
 
-    url(r'^admin/controlcenter/', controlcenter.urls),
+    #url(r'^admin/controlcenter/',  user_passes_test(lambda u: u.is_superuser)(controlcenter.urls)),
     
     url(r'^dashboard/', include(router.urls)),
     # User management
     url(r'^частные-мастера/', include('gglobal.users.urls', namespace='users')),
     
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^crm/', include('crm.urls', namespace='crm')),
+
 
     # Your stuff: custom urls includes go here
 
     url(r'^cms/', include('wagtail.wagtailadmin.urls')),
-    #url(r'^вопросы-ответы/', include('gglobal.qa.urls')),
-    #url(r'^квалификационные-вопросы/', include('gglobal.qualification.urls', namespace='qualification')),
+    url(r'^вопросы-ответы/', include('gglobal.qa.urls')),
+    url(r'^квалификационные-вопросы/', include('gglobal.qualification.urls', namespace='qualification')),
     #url(r'^услуги/', include('gglobal.service.urls', namespace='service')),
 
     #url(r'^кабинет/', include('gglobal.crm.urls')),
@@ -40,6 +43,7 @@ urlpatterns = [
     url(r'^markdownx/', include('markdownx.urls')),
 
     url('^sitemap\.xml$', sitemap),
+    url(r'^webpush/', include('webpush.urls'))
 
     #url(r'^города-страны/', include('gglobal.city.urls', namespace='cities')),
 

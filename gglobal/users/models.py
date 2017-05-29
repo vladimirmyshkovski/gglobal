@@ -20,12 +20,15 @@ class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
-    name = models.CharField(_('Name of User'), blank=True, max_length=255)
+    #name = models.CharField(_('Name of User'), blank=True, max_length=255)
     phone_number = models.ManyToManyField('crm.PhoneNumber', verbose_name=_('Номера телефонов'))
     
+    '''
     country = models.ForeignKey(Country, null=True, blank=True)
     city = models.ForeignKey(City, null=True, blank=True)
     position = GeopositionField()
+    '''
+    address = models.ForeignKey('crm.Address', null=True)
 
     sites = models.ManyToManyField(Site)
     raiting = models.IntegerField(default=0)

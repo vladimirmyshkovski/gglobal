@@ -26,11 +26,6 @@ urlpatterns = [
         view=views.UserRedirectView.as_view(),
         name='redirect'
     ),
-    url(
-        regex=r'^~createclient/$',
-        view=views.СreateClientView,
-        name='createclient'
-        ),
 ] 
 
 urlpatterns += [

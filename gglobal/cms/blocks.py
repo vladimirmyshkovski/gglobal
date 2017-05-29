@@ -194,7 +194,7 @@ class HomeBlock(StructBlock):
     class Meta:
         icon = 'home'
         template = "sections/home_block.html"
-
+        label="Главный блок с формой"
 
 class SectionsStreamBlock(StreamBlock):
     home_block = HomeBlock()
@@ -206,6 +206,7 @@ class SectionsStreamBlock(StreamBlock):
     our_block = OurBlock()
     solutions_block = SolutionsBlock()
     story_block = StoryBlock()
+
 
 
 class PageBlock(StructBlock):

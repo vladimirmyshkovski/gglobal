@@ -1,5 +1,5 @@
 from django import template
-from gglobal.crm.models import MasterCRMProfile
+from gglobal.crm.models import MasterProfile
 from gglobal.users.models import User
 from cities_light.models import City, Country
 from wagtail.wagtailcore.models import Page
@@ -10,10 +10,10 @@ register = template.Library()
 def masters(context):
 	self = context.get('self')
 	try:
-		masters = MasterCRMProfile.objects.filter(city=self.city).order_by('raiting').count(3)
+		masters = MasterProfile.objects.filter(city=self.city).order_by('raiting').count(3)
 	except:
 		pass
-		masters = MasterCRMProfile.objects.order_by('raiting').count(3)
+		masters = MasterProfile.objects.order_by('raiting').count(3)
 	return {
         'masters': masters,
         'request': context['request'],
@@ -27,7 +27,7 @@ def masters_map(context):
 		print(city)
 		print(city.latitude)
 		print(city.longitude)
-		masters = MasterCRMProfile.objects.filter(
+		masters = MasterProfile.objects.filter(
 			user__position__isnull=False, 
 			user__cities__alternate_names__iexact=city.alternate_names
 			)
@@ -35,7 +35,7 @@ def masters_map(context):
 	except:
 		pass
 		city = Country.objects.get(name='Belarus')
-		masters = MasterCRMProfile.objects.filter(user__position__isnull=False)[5]
+		masters = MasterProfile.objects.filter(user__position__isnull=False)[5]
 
 	return {
 		'city': city,

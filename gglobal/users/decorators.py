@@ -1,5 +1,5 @@
 from django.conf import settings
-from gglobal.crm.models import MasterCRMProfile
+from gglobal.crm.models import MasterProfile
 from django.core.exceptions import ObjectDoesNotExist
 
 def masters_required(function=None, home_url=None, redirect_field_name=None):
@@ -18,7 +18,7 @@ def masters_required(function=None, home_url=None, redirect_field_name=None):
         def _view(request, *args, **kwargs):
             print('REQUEST USER IS : ' + str(request.user))
             try:
-                master = MasterCRMProfile.objects.get(user = request.user)
+                master = MasterProfile.objects.get(user = request.user)
             except ObjectDoesNotExist:
                 master == None
             if master:
@@ -43,3 +43,30 @@ def masters_required(function=None, home_url=None, redirect_field_name=None):
         return _dec
     else:
         return _dec(function)
+
+
+
+
+
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+
+from gglobal.users.models import User
+
+
+def master_required(function):
+    def wrapper(request, *args, **kwargs):
+        decorated_view_func = login_required(request)
+        if not decorated_view_func.user.is_authenticated():
+            return decorated_view_func(request)  # return redirect to signin
+
+        master = User.objects.filter(mastercrmprofile__isnull=False)
+        if not master:  # if not coach redirect to home page
+            return HttpResponseRedirect(reverse('home', args=(), kwargs={}))
+        else:
+            return function(request, *args, master=master, **kwargs)
+
+    wrapper.__doc__ = function.__doc__
+    wrapper.__name__ = function.__name__
+    return wrapper

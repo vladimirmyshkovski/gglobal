@@ -21,15 +21,16 @@
                         </div> <!-- end col -->
 
                         <div class="col-md-4 col-md-offset-2 col-sm-5">
-                            <form class="intro-form">
+                            <form class="intro-form" id="{{ self.handle }}">
                                 <h3 class="text-center">{{ self.formh3 }}</h3>
-                                    <input type="text" id="{{ self.handle }}-name" name="name" class="form-control" data-validation="length"  data-validation-length=" 3-15" data-validation-error-msg-container="#{{ self.handle }}-email-error-dialog" placeholder="Ваше имя" required="required">
-                                    <span id="{{ self.handle }}-email-error-dialog"></span>
+                                    <input type="text" name="name" minlength="2" class="form-control name-input-field" placeholder="Ваше имя" required="required">
+                                    <span class="error-dialog"></span>
                                 <div class="form-group">
-                                    <input type="text" id="{{ self.handle }}-phone" name="phone" class="form-control" placeholder="Ваш номер телефона" required="required">
+                                    <input type="text" name="phone" class="form-control phone-input-field" placeholder="Ваш номер телефона" required="required">
+                                    <span class="error-dialog"></span>
                                 </div>
                                 <div class="form-group text-center">
-                                    <button type="submit" class="btn btn-custom btn-sm btn-block" id="{{ self.handle }}-submit">{{ self.button }}</button>
+                                    <button type="submit" class="btn btn-custom btn-sm btn-block form-submit">{{ self.button }}</button>
                                 </div>
                                 <span class="help-block m-b-0 m-t-20 text-muted"><small>{{ self.formtext }} <a href="{{ self.formlink }}">{{ self.formlinktext }}</a></small></span>
                             </form>
@@ -38,64 +39,6 @@
                 </div>
             </div>
         </section>
-        {#% compress js inline %#}
-        <script type="text/javascript">
-                defer(function () {
-                    $('.popup-video').magnificPopup({
-                      disableOn: 700,
-                      type: 'iframe',
-                      mainClass: 'mfp-fade',
-                      removalDelay: 160,
-                      preloader: false,
-
-                      fixedContentPos: false
-                    });                
-                })
-        </script>
-        <script type="text/javascript">
-                    defer(function () {
-                        $.validate({
-                            modules : 'html5',
-                            lang: 'ru',
-                            errorMessagePosition : 'top',
-                        });
-                        $('#{{ self.handle }}-phone').inputmask({"mask": "+375(99) 999-99-99"}); 
-                        $("#{{ self.handle }}-submit").click(function(e){
-                        e.preventDefault();
-                        jQuery.ajax({
-                            type: 'POST',
-                            dataType: 'json',
-                            async: true,
-                            url: '{% url 'users:createclient' %}',
-                            data: { 'csrfmiddlewaretoken': csrftoken,
-                            name: $('#{{ self.handle }}-name').val(),
-                            phone: $('#{{ self.handle }}-phone').val(),
-                            form: '{{ self.handle }}',
-                        },
-                            success: setTimeout(function(data) { 
-                                $.magnificPopup.open({ 
-                                    items: { 
-                                        src: '#thank-you-modal', 
-                                        type: 'inline' 
-                                    } 
-                                });
-                                $('#{{ self.handle }}-name').val(''), 
-                                $('#{{ self.handle }}-phone').val('') 
-                            }, 1000), 
-                            error: function(xhr, textStatus) { 
-                                $.magnificPopup.open({ 
-                                    items: { 
-                                        src: '#error-modal', 
-                                        type: 'inline' 
-                                    } 
-                                });
-                            }
-                        });
-                        return false;
-                        });        
-                    });
-        </script>
-        {#% endcompress %#}
         <!-- END HOME -->
 
 
