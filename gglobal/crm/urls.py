@@ -1,6 +1,7 @@
 
 from django.conf.urls import include, url
 from gglobal.crm import views
+
 urlpatterns = [
     url(
         regex=r'^~createclient/$',
@@ -23,6 +24,15 @@ urlpatterns = [
     	regex=r'^proceed_assignment_single/(?P<assignment_id>\d+)/(?P<next_state_id>\d+)/$',
     	view=views.proceed_assignment_single,
     	name='proceed_assignment_single' ),
+    url(
+        regex=r'^passing_assign/(?P<assignment_id>\d+)/(?P<user_id>\d+)/$',
+        view=views.passing_assign,
+        name='passing_assign' ),
+    url(
+        regex=r'^payment-method-autocomplete/$',
+        view=views.PaymentAutocomplete.as_view(),
+        name='payment-method-autocomplete',
+    ),
 ]
 
 

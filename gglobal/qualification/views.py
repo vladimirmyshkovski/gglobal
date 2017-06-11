@@ -8,7 +8,6 @@ from gglobal.qa.mixins import LoginRequired
 from django.conf import settings
 from django.utils.translation import ugettext as _
 from crispy_forms.helper import FormHelper
-from gglobal.users.decorators import masters_required, master_required
 
 try:
     qa_messages = 'django.contrib.messages' in settings.INSTALLED_APPS and\

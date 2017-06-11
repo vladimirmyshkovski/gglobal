@@ -23,7 +23,7 @@ class AccountAdapter(DefaultAccountAdapter):
 		return getattr(settings, 'ACCOUNT_ALLOW_REGISTRATION', True)
 
 
-class MasterAccountAdapter(DefaultAccountAdapter):
+class ExecutantAccountAdapter(DefaultAccountAdapter):
 
     def save_user(self, request, user, form, commit=True):
         """

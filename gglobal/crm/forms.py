@@ -4,11 +4,18 @@ from gglobal.service.models import Service
 from django.utils.safestring import mark_safe
 from django.template.loader import render_to_string
 from gglobal.users.models import User
-from gglobal.crm.models import MasterProfile, Activity, ClientProfile,\
-                                 Assignment, Complaint
-from gglobal.users.forms import MasterSignupForm
+from gglobal.crm.models import ExecutantProfile, Activity, ClientProfile,\
+                               Assignment, Complaint, Payment, Card,\
+                               Salary
+from gglobal.users.forms import ExecutantSignupForm
 from django.forms import ModelForm, Textarea
 from markdownx.fields import MarkdownxFormField
+from dal import autocomplete
+import dal_select2_queryset_sequence
+import dal_queryset_sequence
+from dal_select2_queryset_sequence.views import Select2QuerySetSequenceView
+
+
 '''
 class ButtonWidget(forms.Widget):
     template_name = 'crm/auth_button_widget.html'
@@ -62,30 +69,35 @@ class CombinedFormBase(forms.Form):
             cleaned_data.update(form.cleaned_data)
         return cleaned_data
 
+'''
+class SalaryForm(forms.ModelForm):
+    payment_method = forms.ModelChoiceField(
+        queryset=PaymentMethod.objects.all())
+    class Meta:
+        model = Salary
+        fields = '__all__'
+        widgets = {
+            'object_id': autocomplete.ModelSelect2(url='crm:payment-method-autocomplete', forward=['payment_method'])
+        }
+'''
 
-
-
-
+class SalaryForm(autocomplete.FutureModelForm):
+    content_object = dal_queryset_sequence.fields.QuerySetSequenceModelField(
+        queryset=autocomplete.QuerySetSequence(
+            Card.objects.all(),
+        ),
+        required=False,
+        widget=dal_select2_queryset_sequence.widgets.QuerySetSequenceSelect2('crm:payment-method-autocomplete'),
+    )
+    class Meta:
+        model = Salary
+        fields = '__all__'
 
 
 class AssignmentForm(forms.ModelForm):
     class Meta:
         model = Assignment
         exclude = ['client']
-
-class LeedForm(forms.ModelForm):
-    CHOICES=[
-    ('order','Заказ'),
-    ('consultation','Консультация'), 
-    ('complaint', 'Жалоба')
-    ]
-    choices = forms.ChoiceField(label='Тип заявки', choices=CHOICES, widget=forms.RadioSelect, required=False)
-    #button = forms.CharField(widget=ButtonWidget)
-    class Meta:
-        model = Leed
-        fields = ['choices']
-        exclude = ['phone_number']
-        #concrete_fields = ['city']
 
 
 class ActivityForm(forms.ModelForm):
@@ -94,20 +106,18 @@ class ActivityForm(forms.ModelForm):
         model = Activity
         exclude = ('created_by',)
         
-        #widgets = {
-        #    'detail': Textarea(attrs={'cols': 30, 'rows': 10}),
-        #    }
         
 
 class ComplaintForm(forms.ModelForm):
-    detail = MarkdownxFormField(label='Подробности', help_text="Можно использовать специальные символы: # - Заголовок, ## - Подзаголовок, и так далее.")
+    #detail = MarkdownxFormField(label='Подробности', help_text="Можно использовать специальные символы: # - Заголовок, ## - Подзаголовок, и так далее.")
     class Meta:
         model = Complaint        
         fields = '__all__'
         
 
 class ClientForm(forms.ModelForm):
-
+    first_name = forms.CharField(max_length=255, required=True)
+    last_name = forms.CharField(max_length=255, required=True)
     class Meta:
         model = ClientProfile
-        fields = '__all__'#['first_name', 'last_name']
+        fields = '__all__'

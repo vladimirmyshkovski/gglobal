@@ -1,4 +1,3 @@
-
 from __future__ import absolute_import
 import os
 from celery import Celery
@@ -24,6 +23,7 @@ class CeleryConfig(AppConfig):
         app.config_from_object('django.conf:settings')
         installed_apps = [app_config.name for app_config in apps.get_app_configs()]
         app.autodiscover_tasks(lambda: installed_apps, force=True)
+
 
         if hasattr(settings, 'RAVEN_CONFIG'):
             # Celery signal registration
@@ -57,3 +57,4 @@ class CeleryConfig(AppConfig):
 @app.task(bind=True)
 def debug_task(self):
     print('Request: {0!r}'.format(self.request))  # pragma: no cover
+

@@ -51,3 +51,17 @@ def assignment_river_field_button(obj, proceeding):
     """% (proceeding.meta.transition,
           reverse('crm:proceed_assignment_single', kwargs={'assignment_id': obj.pk, 'next_state_id': proceeding.meta.transition.destination_state.pk })
           )
+
+
+def assignment_passing_button(obj, user_id):
+    return """
+        <input
+            type="button"
+            style="margin: 2px;"
+            value="Отказаться"
+            onclick="location.href=\'%s\'"
+            />
+
+    """% (
+        reverse('crm:passing_assign', kwargs={'assignment_id': obj.pk, 'user_id': user_id })
+        )

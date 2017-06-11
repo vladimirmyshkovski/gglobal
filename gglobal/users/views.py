@@ -2,8 +2,8 @@
 from __future__ import absolute_import, unicode_literals
 from django.core.urlresolvers import reverse
 from django.views import generic
-from gglobal.crm.models import MasterProfile
-from gglobal.users.forms import MasterSignupForm
+from gglobal.crm.models import ExecutantProfile
+from gglobal.users.forms import ExecutantSignupForm
 from allauth.account.views import SignupView
 from django.utils.decorators import method_decorator
 from allauth.exceptions import ImmediateHttpResponse
@@ -17,8 +17,8 @@ from django.views.decorators.debug import sensitive_post_parameters
 #    sensitive_post_parameters('password', 'password1', 'password2'))
 
 class UserDetailView(generic.DetailView):
-    model = MasterProfile
-    template_name = 'users/mastercrmprofile_detail.html'
+    model = ExecutantProfile
+    template_name = 'users/Executantcrmprofile_detail.html'
     # These next two lines tell the view to index lookups by user_id
     slug_field = 'slug'
     #slug_url_kwarg = 'user_id'
@@ -34,8 +34,8 @@ class UserRedirectView(generic.RedirectView):
 
 
 class UserListView(generic.ListView):
-    model = MasterProfile
-    template_name = 'users/mastercrmprofile_list.html'
+    model = ExecutantProfile
+    template_name = 'users/Executantcrmprofile_list.html'
     # These next two lines tell the view to index lookups by user_id
     slug_field = 'user_id'
     slug_url_kwarg = 'user_id'
@@ -44,11 +44,11 @@ class UserListView(generic.ListView):
         return context
 
 
-class SignupMasterView(SignupView):
+class SignupExecutantView(SignupView):
     template_name = 'users/signup.html'
-    form_class = MasterSignupForm
+    form_class = ExecutantSignupForm
     redirect_field_name = 'next'
-    view_name = 'mastersignup'
+    view_name = 'executantsignup'
     #success_url = None
 
     def form_valid(self, form):
@@ -64,11 +64,11 @@ class SignupMasterView(SignupView):
             return e.response
 
     def get_context_data(self, **kwargs):
-        ret = super(SignupMasterView, self).get_context_data(**kwargs)
+        ret = super(SignupExecutantView, self).get_context_data(**kwargs)
         ret.update(self.kwargs)
         return ret
 
 
-mastersignup = SignupMasterView.as_view()
+executantsignup = SignupExecutantView.as_view()
 
 

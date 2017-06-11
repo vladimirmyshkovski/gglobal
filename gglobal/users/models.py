@@ -20,28 +20,24 @@ class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
-    #name = models.CharField(_('Name of User'), blank=True, max_length=255)
     phone_number = models.ManyToManyField('crm.PhoneNumber', verbose_name=_('Номера телефонов'))
-    
-    '''
-    country = models.ForeignKey(Country, null=True, blank=True)
-    city = models.ForeignKey(City, null=True, blank=True)
-    position = GeopositionField()
-    '''
-    address = models.ForeignKey('crm.Address', null=True)
+    address = models.ForeignKey('crm.Address', verbose_name=_('Адресс'), null=True)
+    sites = models.ManyToManyField(Site, verbose_name=_('Сайты'))
+    raiting = models.IntegerField(default=0, verbose_name=_('Рейтинг'))
+    balance = models.IntegerField(default=0, verbose_name=_('Баланс'))
 
-    sites = models.ManyToManyField(Site)
-    raiting = models.IntegerField(default=0)
+    @cached_property
+    def full_name(self):
+        return self.get_full_name()
 
     class Meta:
         verbose_name = "Пользователль"
         verbose_name_plural = "Пользователи"
 
-    def save(self, *args, **kwargs):
-        #if not self.country or self.country is None:
-        #    self.country = Country.objects.get(pk=self.city.country_id)
-        super(User, self).save(*args, **kwargs)
+    #def save(self, *args, **kwargs):
+    #    super(User, self).save(*args, **kwargs)
 
 
     def __str__(self):
         return self.username
+

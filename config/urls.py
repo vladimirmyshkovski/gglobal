@@ -12,15 +12,16 @@ from controlcenter.views import controlcenter
 from dashing.utils import router
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib import admin
+#admin.autodiscover()
 urlpatterns = [
-    url('', include('pwa.urls')),
+    #url('', include('pwa.urls')),
     #url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     #url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+    #url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),
-
     #url(r'^admin/controlcenter/',  user_passes_test(lambda u: u.is_superuser)(controlcenter.urls)),
     
     url(r'^dashboard/', include(router.urls)),
@@ -36,15 +37,15 @@ urlpatterns = [
     url(r'^cms/', include('wagtail.wagtailadmin.urls')),
     url(r'^вопросы-ответы/', include('gglobal.qa.urls')),
     url(r'^квалификационные-вопросы/', include('gglobal.qualification.urls', namespace='qualification')),
+    url(r'^награды/', include('gglobal.badges.urls', namespace='badges')),
     #url(r'^услуги/', include('gglobal.service.urls', namespace='service')),
-
+    url(r'^telegrambot/', include('telegrambot.urls', namespace="telegrambot")),
     #url(r'^кабинет/', include('gglobal.crm.urls')),
     #url(r'^categories/', include('categories.urls', namespace='categories')),
     url(r'^markdownx/', include('markdownx.urls')),
-
+    #url(r'^invitations/', include('invitations.urls', namespace='invitations')),
     url('^sitemap\.xml$', sitemap),
-    url(r'^webpush/', include('webpush.urls'))
-
+    #url(r'^webpush/', include('webpush.urls')),
     #url(r'^города-страны/', include('gglobal.city.urls', namespace='cities')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

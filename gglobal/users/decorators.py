@@ -1,8 +1,8 @@
 from django.conf import settings
-from gglobal.crm.models import MasterProfile
+from gglobal.crm.models import ExecutantProfile
 from django.core.exceptions import ObjectDoesNotExist
 
-def masters_required(function=None, home_url=None, redirect_field_name=None):
+def executants_required(function=None, home_url=None, redirect_field_name=None):
     """Check that the user is NOT logged in.
 
     This decorator ensures that the view functions it is called on can be 
@@ -12,16 +12,15 @@ def masters_required(function=None, home_url=None, redirect_field_name=None):
     `home_url`, or the `USER_HOME_URL` setting.
     """
     if home_url is None:
-        home_url = settings.MASTER_HOME_URL
+        home_url = settings.EXECUTANT_HOME_URL
 
     def _dec(view_func):
         def _view(request, *args, **kwargs):
-            print('REQUEST USER IS : ' + str(request.user))
             try:
-                master = MasterProfile.objects.get(user = request.user)
+                executant = ExecutantProfile.objects.get(user = request.user)
             except ObjectDoesNotExist:
-                master == None
-            if master:
+                executant == None
+            if executant:
                 url = None
                 if redirect_field_name and redirect_field_name in request.REQUEST:
                     url = request.REQUEST[redirect_field_name]

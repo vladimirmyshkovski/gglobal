@@ -8,7 +8,7 @@ from . import views
 urlpatterns = [
     url(
         regex=r'^регистрация/$',
-        view=views.mastersignup,
+        view=views.executantsignup,
         name='signup'
     ),
     url(

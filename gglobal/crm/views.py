@@ -6,11 +6,16 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from cities_light.models import City, Country
-from gglobal.crm.models import PhoneNumber as Phone, Appeal, Leed, Form
+from gglobal.crm.models import PhoneNumber as Phone, Appeal, Leed, Form, User, Payment, Card
 from django.shortcuts import get_object_or_404, redirect
 from river.models import State
 from django.http.response import HttpResponse
 from django.core.urlresolvers import reverse
+from dal import autocomplete
+from annoying.functions import get_object_or_None
+from django.contrib.contenttypes.models import ContentType
+
+from queryset_sequence import QuerySetSequence
 
 # Create your views here.
 
@@ -19,9 +24,6 @@ def CreateCRMApeal(request):
     if request.method == 'POST':
         #POST goes here . is_ajax is must to capture ajax requests. Beginner's pit.
         if request.is_ajax():
-            print(request.POST.get('name'))
-            print(request.POST.get('text'))
-            print(request.POST.get('phone'))
             #Always use get on request.POST. Correct way of querying a QueryDict.
             ip = get_real_ip(request)
             reader = geolite2.reader()
@@ -31,7 +33,6 @@ def CreateCRMApeal(request):
             if create:
                 form.site = site
                 form.save()
-
             if ip:
                 CityByIP = reader.get(ip)['city']['names']['en']
                 CountryByIP = reader.get(ip)['country']['names']['en']
@@ -48,34 +49,40 @@ def CreateCRMApeal(request):
                 try:
                     city = City.objects.get(name=CityByIP)
                     country = Country.objects.get(name=CountryByIP)
-                    if not phone_create:
+                    if phone_create:
+                        leed = Leed(
+                            name = request.POST.get('name'),                   
+                            )
+                        leed.save()
+                        leed.phone_number.add(phone)
+                        leed.save()
+                    else:
                         leed = Leed.objects.get(phone_number=phone)
-                    leed = Leed(
-                        name = request.POST.get('name'),
+                    appeal = Appeal(
+                        leed=leed,
                         city = city,
                         site = site,
                         form = form,
-                        text = request.POST.get('text')                        
+                        text = request.POST.get('text')     
                         )
-                    leed.save()
-                    leed.phone_number.add(phone)
-                    leed.save()
-                    appeal = Appeal(leed=leed)
                     appeal.save()
                 except ObjectDoesNotExist:
                     pass
-            if not phone_create:
-                leed = Leed.objects.get(phone_number=phone)
-            leed = Leed(
-                name = request.POST.get('name'),
+            if phone_create:            
+                leed = Leed(
+                    name = request.POST.get('name'),
+                    )
+                leed.save()
+                leed.phone_number.add(phone)
+                leed.save()
+            else:
+                leed = Leed.objects.get(phone_number=phone) 
+            appeal = Appeal(
+                leed=leed,
                 site = site,
                 form = form,
                 text = request.POST.get('text')
                 )
-            leed.save()
-            leed.phone_number.add(phone)
-            leed.save()
-            appeal = Appeal(leed=leed)
             appeal.save()
             #Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse({'response': 200})
@@ -154,3 +161,39 @@ def proceed_assignment_single(request, assignment_id, next_state_id=None):
         return redirect(reverse('admin:crm_assignment_change', args=[assignment_id]))
     except Exception as e:
         return HttpResponse(e)
+
+
+
+def passing_assign(request, assignment_id, user_id):
+    assignment = get_object_or_404(Assignment, pk=assignment_id)
+    user = get_object_or_404(User, pk=user_id)
+    try:
+        assignment.passing_masters.add(user.masterprofile)
+        assignment.save()
+        return redirect(reverse('admin:crm_assignment_changelist'))
+    except Exception as e:
+        return HttpResponse(e)
+
+
+
+class PaymentAutocomplete(autocomplete.Select2QuerySetSequenceView):
+
+    def get_queryset(self):
+        cards = Card.objects.all()
+
+        if self.q:
+            cards = cards.filter(name__icontains=self.q)
+
+        # Aggregate querysets
+        qs = QuerySetSequence(cards)
+
+        if self.q:
+            # This would apply the filter on all the querysets
+            qs = qs.filter(name__icontains=self.q)
+
+        # This will limit each queryset so that they show an equal number
+        # of results.
+        qs = self.mixup_querysets(qs)
+
+        return qs
+

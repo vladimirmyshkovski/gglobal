@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from jet.dashboard import modules
 from jet.dashboard.dashboard import Dashboard, AppIndexDashboard
 from jet.utils import get_admin_site_name, context_to_dict
-from gglobal.cms.models import MasterProfilePage
+from gglobal.cms.models import ExecutantProfilePage
 
 class CustomIndexDashboard(Dashboard):
     columns = 3
@@ -21,7 +21,7 @@ class CustomIndexDashboard(Dashboard):
         # append a link list module for "quick links"
         
         try:
-            self_page = MasterProfilePage.objects.get(owner=context['user'])
+            self_page = ExecutantProfilePage.objects.get(owner=context['user'])
             children=[
                 [_('Return to site'), 'cms/pages/%s/edit' % self_page],
                 [_('Change page'), 'cms/pages/%s/edit' % self_page ],

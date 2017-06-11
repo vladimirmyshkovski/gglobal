@@ -61,7 +61,7 @@ class HomePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
         return self.title
 
 
-class MastersIndexPage(six.with_metaclass(PageBase, RoutablePageMixin, MetadataPageMixin, MenuPage)):
+class ExecutantIndexPage(six.with_metaclass(PageBase, RoutablePageMixin, MetadataPageMixin, MenuPage)):
 
     """
     The Index Page of all Masters
@@ -92,13 +92,13 @@ class MastersIndexPage(six.with_metaclass(PageBase, RoutablePageMixin, MetadataP
 
     promote_panels = Page.promote_panels + MetadataPageMixin.panels
 
-    subpage_types = ['MasterProfilePage']
+    subpage_types = ['ExecutantProfilePage']
     
     def __str__(self):
         return self.title
 
 
-class MasterProfilePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
+class ExecutantProfilePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 
     """
     The Index Page of all Masters
@@ -121,7 +121,7 @@ class MasterProfilePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage
     promote_panels = []
     settings_panels = []
 
-    parent_page_types = ['MastersIndexPage']
+    parent_page_types = ['ExecutantIndexPage']
     subpage_types = []
 
     class Meta:

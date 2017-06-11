@@ -17,7 +17,6 @@ from django.utils.translation import ugettext_lazy as _
 
 ROOT_DIR = environ.Path(__file__) - 3  # (gglobal/config/settings/base.py - 3 = gglobal/)
 APPS_DIR = ROOT_DIR.path('gglobal')
-
 #DATE_FORMAT = 'd E Y'
 
 # Load operating system environment variables and then prepare to use them
@@ -48,11 +47,13 @@ DJANGO_APPS = [
     'django.contrib.gis',
     'django.contrib.sitemaps',
     'django.contrib.postgres',
+    'django.contrib.humanize',
     # Useful template tags:
     # 'django.contrib.humanize',
 
     # Admin
     'django.contrib.admin',
+    #'django.contrib.admin.apps.SimpleAdminConfig',
 ]
 THIRD_PARTY_APPS = [
     'crispy_forms',  # Form layouts
@@ -135,17 +136,23 @@ THIRD_PARTY_APPS = [
     'dashing', # django-dashing https://github.com/talpor/django-dashing
     'djmoney', # django-money https://github.com/django-money/django-money
     'djmoney_rates', # django-money-rates https://github.com/evonove/django-money-rates
-    #'parsley', # django-parsley https://github.com/agiliq/Django-parsley
+    'parsley', # django-parsley https://github.com/agiliq/Django-parsley
     #'nplusone.ext.django', # nplusone https://github.com/jmcarp/nplusone
     'guardian', # django-guardian https://github.com/django-guardian/django-guardian
     'django_object_actions', # django-object-actions https://github.com/crccheck/django-object-actions
     'django_admin_row_actions', # django-admin-row-actions https://github.com/DjangoAdminHackers/django-admin-row-actions
     'inline_actions', # django-inline-actions https://github.com/escaped/django-inline-actions
     #'betterforms', # django-betterforms https://github.com/fusionbox/django-betterforms
-    'webpush', # django-webpush https://github.com/safwanrahman/django-webpush
-    'river', # django-river https://github.com/javrasya/django-river
-    'pwa', # django-progressive-web-app https://github.com/svvitale/django-progressive-web-app
-    #'cuser', # django-cuser https://github.com/Alir3z4/django-cuser#installing
+    #'webpush', # django-webpush https://github.com/safwanrahman/django-webpush
+    #'river', # django-river https://github.com/javrasya/django-river
+    #'pwa', # django-progressive-web-app https://github.com/svvitale/django-progressive-web-app
+    'cuser', # django-cuser https://github.com/Alir3z4/django-cuser#installing
+    'django_fsm',
+    'fsm_admin',
+    'invitations',
+    #'django_hosts',
+    'telegrambot',
+    'rest_framework',
 
 ]
 
@@ -156,11 +163,13 @@ LOCAL_APPS = [
     # Your stuff: custom apps go here
     'gglobal.qa.apps.QAConfig',
     'gglobal.cms.apps.CMSConfig',
-    'gglobal.crm.apps.CRMConfig',
+    #'gglobal.crm.apps.CRMConfig',
+    'gglobal.crm',
     'gglobal.service.apps.ServiceConfig',
     #'gglobal.viewflow.apps.ViewflowConfig', # django-viewflow
     'gglobal.city.apps.CityConfig',
-
+    'gglobal.badges.apps.BadgesConfig',
+    #'channels',
 ]
 
 PRE_DJANGO_APPS = [
@@ -169,13 +178,11 @@ PRE_DJANGO_APPS = [
     'dal_select2', # autocomplete light v.3
     'dal_queryset_sequence', # autocomplete light v.3
     #'threadedcomments', # django-threadedcomments https://github.com/HonzaKral/django-threadedcomments
-    #'django_comments', # django-comments https://django-contrib-comments.readthedocs.io/en/latest/quickstart.html
-    'jet.dashboard',
+    'django_comments', # django-comments https://django-contrib-comments.readthedocs.io/en/latest/quickstart.html
+    #'jet.dashboard',
     'jet', # Django-JET
 
 ]
-
-
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = PRE_DJANGO_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -183,6 +190,7 @@ INSTALLED_APPS = PRE_DJANGO_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
+    #'django_hosts.middleware.HostsRequestMiddleware',
     #'django.middleware.cache.UpdateCacheMiddleware',
     #'django.middleware.gzip.GZipMiddleware',
     #'htmlmin.middleware.HtmlMinifyMiddleware',
@@ -191,6 +199,7 @@ MIDDLEWARE = [
     'django.middleware.http.ConditionalGetMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -200,9 +209,10 @@ MIDDLEWARE = [
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
     #'wagtailthemes.middleware.ThemeMiddleware',
-    #'cuser.middleware.CuserMiddleware',
+    'cuser.middleware.CuserMiddleware',
     'turbolinks.middleware.TurbolinksMiddleware',
     #'django.middleware.cache.FetchFromCacheMiddleware',
+    #'django_hosts.middleware.HostsResponseMiddleware',
     #'htmlmin.middleware.MarkRequestMiddleware',
 ]
 
@@ -257,7 +267,8 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 TIME_ZONE = 'Europe/Minsk'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = 'ru_RU'
+LOCALE_NAME = 'ru_RU'
+LANGUAGE_CODE = 'ru-RU'
 LANGUAGES = [
     ('ru', _('Russian')),
 ]
@@ -429,11 +440,15 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 INSTALLED_APPS += ['gglobal.taskapp.celery.CeleryConfig']
 
 
-BROKER_URL = env('CELERY_BROKER_URL', default='redis://')
+BROKER_URL = env('CELERY_BROKER_URL', default='redis://localhost:6379')
 if BROKER_URL == 'django://':
     CELERY_RESULT_BACKEND = 'django://'
 else:
     CELERY_RESULT_BACKEND = BROKER_URL
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 ########## END CELERY
 # django-compressor
 # ------------------------------------------------------------------------------
@@ -722,3 +737,39 @@ PWA_APP_ICONS = [
     }
 ]
 PWA_SERVICE_WORKER_PATH = '/home/narnik/Программы/DjangoProjects/gglobal/gglobal/static/js/serviceworker.js' #os.path.join(ROOT_DIR, 'gglobal/static/js/', 'serviceworker.js')
+
+
+# DJANGO_EXTENSIONS http://django-extensions.readthedocs.io/en/latest/graph_models.html
+# ------------------------------------------------------------------------------
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
+
+from django.conf.locale.ru import formats as ru_formats
+ru_formats.DATETIME_FORMAT = "d b Y H:i:s"
+
+# DJANGO_CHANNELS https://channels.readthedocs.io/en/stable/getting-started.html
+# ------------------------------------------------------------------------------
+'''
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+        "ROUTING": "config.routing.channel_routing",
+    },
+}
+'''
+
+
+# DJANGO_HOSTS https://github.com/jazzband/django-hosts
+# ------------------------------------------------------------------------------
+#ROOT_HOSTCONF = 'config.hosts'
+#DEFAULT_HOST = 'default'
+
+# DJANGO_TELEGRAM_BOT https://github.com/jlmadurga/django-telegram-bot
+# ------------------------------------------------------------------------------
+TELEGRAM_BOT_HANDLERS_CONF = "crm.bot_handlers"
+TELEGRAM_BOT_TOKEN_EXPIRATION = "2"

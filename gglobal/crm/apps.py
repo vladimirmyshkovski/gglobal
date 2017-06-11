@@ -6,4 +6,5 @@ class CRMConfig(AppConfig):
     verbose_name = "CRM"
 
     def ready(self):
-        pass
+    	import gglobal.crm.tasks
+    	import gglobal.crm.signals
