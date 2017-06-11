@@ -18,7 +18,6 @@ from django.core.mail import send_mail
 from functools import WRAPPER_ASSIGNMENTS, update_wrapper, wraps
 from django.shortcuts import get_object_or_404, redirect
 from django.core.urlresolvers import reverse
-from webpush import send_user_notification
 from jet.admin import CompactInline
 from jet.filters import RelatedFieldAjaxListFilter
 from admin_utils.mixins import FoldableListFilterAdminMixin
