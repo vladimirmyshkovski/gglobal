@@ -151,7 +151,7 @@ THIRD_PARTY_APPS = [
     'fsm_admin',
     'invitations',
     #'django_hosts',
-    'telegrambot',
+    #'telegrambot',
     'rest_framework',
 
 ]

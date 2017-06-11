@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^квалификационные-вопросы/', include('gglobal.qualification.urls', namespace='qualification')),
     url(r'^награды/', include('gglobal.badges.urls', namespace='badges')),
     #url(r'^услуги/', include('gglobal.service.urls', namespace='service')),
-    url(r'^telegrambot/', include('telegrambot.urls', namespace="telegrambot")),
+    #url(r'^telegrambot/', include('telegrambot.urls', namespace="telegrambot")),
     #url(r'^кабинет/', include('gglobal.crm.urls')),
     #url(r'^categories/', include('categories.urls', namespace='categories')),
     url(r'^markdownx/', include('markdownx.urls')),
