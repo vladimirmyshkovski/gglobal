@@ -178,7 +178,7 @@ PRE_DJANGO_APPS = [
     'dal_select2', # autocomplete light v.3
     'dal_queryset_sequence', # autocomplete light v.3
     #'threadedcomments', # django-threadedcomments https://github.com/HonzaKral/django-threadedcomments
-    'django_comments', # django-comments https://django-contrib-comments.readthedocs.io/en/latest/quickstart.html
+    #'django_comments', # django-comments https://django-contrib-comments.readthedocs.io/en/latest/quickstart.html
     #'jet.dashboard',
     'jet', # Django-JET
 
