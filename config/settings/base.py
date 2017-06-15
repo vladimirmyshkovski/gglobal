@@ -739,26 +739,26 @@ RIVER_HANDLER_BACKEND = {
 # DJANGO_WEBPUSH SETTINGS
 # ------------------------------------------------------------------------------
 
-WEBPUSH_SETTINGS = {
-    "GCM_ID": "test-b36d2",
-    "GCM_KEY":"AIzaSyBAaeZDIa6cirkEzdAOupL9CDyOp3lhr"
-}
+#WEBPUSH_SETTINGS = {
+#    "GCM_ID": "test-b36d2",
+#    "GCM_KEY":"AIzaSyBAaeZDIa6cirkEzdAOupL9CDyOp3lhr"
+#}
 
 # DJANGO_PROGRESSIVE_WEB_APPLICATION SETTINGS
 # ------------------------------------------------------------------------------
 
-PWA_APP_NAME = 'My Kickass App'
-PWA_APP_DESCRIPTION = "Do kickass things all day long without that pesky browser chrome"
-PWA_APP_THEME_COLOR = '#0A0302'
-PWA_APP_DISPLAY = 'standalone'
-PWA_APP_START_URL = '/'
-PWA_APP_ICONS = [
-    {
-        'src': '/static/images/my_app_icon.png',
-        'sizes': '160x160'
-    }
-]
-PWA_SERVICE_WORKER_PATH = '/home/narnik/Программы/DjangoProjects/gglobal/gglobal/static/js/serviceworker.js' #os.path.join(ROOT_DIR, 'gglobal/static/js/', 'serviceworker.js')
+#PWA_APP_NAME = 'My Kickass App'
+#PWA_APP_DESCRIPTION = "Do kickass things all day long without that pesky browser chrome"
+#PWA_APP_THEME_COLOR = '#0A0302'
+#PWA_APP_DISPLAY = 'standalone'
+#PWA_APP_START_URL = '/'
+#PWA_APP_ICONS = [
+#    {
+#        'src': '/static/images/my_app_icon.png',
+#        'sizes': '160x160'
+#    }
+#]
+#PWA_SERVICE_WORKER_PATH = '/home/narnik/Программы/DjangoProjects/gglobal/gglobal/static/js/serviceworker.js' #os.path.join(ROOT_DIR, 'gglobal/static/js/', 'serviceworker.js')
 
 
 # DJANGO_EXTENSIONS http://django-extensions.readthedocs.io/en/latest/graph_models.html
