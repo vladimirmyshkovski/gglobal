@@ -5,10 +5,10 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from gglobal.crm.forms import ActivityForm, ClientForm, ComplaintForm, SalaryForm
 from django.conf.urls import url
-from django_object_actions import DjangoObjectActions
-from django_admin_row_actions import AdminRowActionsMixin
-from inline_actions.admin import InlineActionsMixin
-from inline_actions.admin import InlineActionsModelAdminMixin
+#from django_object_actions import DjangoObjectActions
+#from django_admin_row_actions import AdminRowActionsMixin
+#from inline_actions.admin import InlineActionsMixin
+#from inline_actions.admin import InlineActionsModelAdminMixin
 from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from gglobal.cms.models import ExecutantProfilePage, ExecutantIndexPage
@@ -20,17 +20,17 @@ from django.shortcuts import get_object_or_404, redirect
 from django.core.urlresolvers import reverse
 from jet.admin import CompactInline
 from jet.filters import RelatedFieldAjaxListFilter
-from admin_utils.mixins import FoldableListFilterAdminMixin
+#from admin_utils.mixins import FoldableListFilterAdminMixin
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.db.models import Avg
 from django.contrib.admin.views.main import ChangeList
-from .admin_buttons import assignment_passing_button
+from .admin_buttons import assignment_passing_button, telegram_auth_button
 from gglobal.crm.models import ClientProfile, ExecutantProfile, Invoice, \
                                 Activity, Project, Payment, \
                                 Card, Leed, Appeal, Source, \
                                 Assignment, PhoneNumber, Complaint, \
                                 Address, PriceList, Price, Salary, Bonus
-from river.services.state import StateService
+#from river.services.state import StateService
 from django.contrib.contenttypes.models import ContentType
 from .utils import username_generator
 from django.contrib.contenttypes.admin import GenericTabularInline, GenericStackedInline
@@ -39,7 +39,7 @@ from gglobal.users.models import User
 from django.db.models import Q
 from django.contrib.admin.utils import flatten_fieldsets
 from django import forms
-
+from gglobal.tmb.models import User as TelegramUser
 
 admin.site.site_header = 'Monty Python administration'
 admin.site.site_title = 'Monty Python administration'
@@ -432,10 +432,11 @@ class ClietProfileAdmin(BaseAdmin):
 @admin.register(ExecutantProfile)
 class ExecutantProfileAdmin(BaseAdmin):
     inlines = [InlinePriceListAdmin]
-
+    readonly_fields = ['auth_action']
     def get_fields(self, request, obj):
+        self.user = request.user
         if not request.user.is_superuser:
-            return ['number_passport', 'serial_passport', 'work_cities', 'work_countries']
+            return ['number_passport', 'serial_passport', 'work_cities', 'work_countries', 'auth_action']
         return super(ExecutantProfileAdmin, self).get_fields(request, obj)
 
     def get_readonly_fields(self, request, obj):
@@ -449,6 +450,13 @@ class ExecutantProfileAdmin(BaseAdmin):
             return qs
         return qs.filter(user=request.user)
 
+    def auth_action(self, obj):
+        content = ""
+        if self.executant and self.user.groups.filter(name='Masters').exists():
+            content += telegram_auth_button(obj, self.user.id)
+        return content
+    auth_action.allow_tags = True
+    auth_action.short_description = 'Авторизация'
 
 @admin.register(Invoice)
 class InvoiceAdmin(FSMTransitionMixin, BaseAdmin):

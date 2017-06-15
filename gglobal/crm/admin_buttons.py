@@ -65,3 +65,16 @@ def assignment_passing_button(obj, user_id):
     """% (
         reverse('crm:passing_assign', kwargs={'assignment_id': obj.pk, 'user_id': user_id })
         )
+
+def telegram_auth_button(obj, user_id):
+    return """
+        <input
+            type="button"
+            style="margin: 2px;"
+            value="Авторизоваться через Telegram"
+            onclick="location.href=\'%s\'"
+            />
+
+    """% (
+        reverse('crm:telegram_auth', kwargs={'user_id': user_id })
+        )

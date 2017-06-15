@@ -1,0 +1,9 @@
+[submodule "compose/docker-postgis"]
+	path = compose/docker-postgis
+	url = https://github.com/kartoza/docker-postgis.git
+[submodule "compose/md5-docker-postgis"]
+	path = compose/md5-docker-postgis
+	url = https://github.com/md5/docker-postgis
+[submodule "compose/cartoview-docker-postgis"]
+	path = compose/cartoview-docker-postgis
+	url = https://github.com/cartologic/cartoview-postgis

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags cms_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}    
+
+{{ page.body }}
+
+{#% block map %#}
+    {#% citypages_map %#}
+{#% endblock map %#}
+
+{% endblock %}

@@ -9,6 +9,7 @@ class Service(MPTTModel):
     slug = models.CharField(max_length=50, unique=True, null=True)
     name = models.CharField(max_length=50, unique=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
+    accepted = models.BooleanField(default=False)
 
     class Meta:
     	verbose_name = "Услуга"
@@ -33,6 +34,7 @@ class Trouble(MPTTModel):
     slug = models.CharField(max_length=50, unique=True, null=True)
     name = models.CharField(max_length=50, unique=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
+    accepted = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Проблема"

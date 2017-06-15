@@ -38,6 +38,9 @@ urlpatterns = [
     url(r'^вопросы-ответы/', include('gglobal.qa.urls')),
     url(r'^квалификационные-вопросы/', include('gglobal.qualification.urls', namespace='qualification')),
     url(r'^награды/', include('gglobal.badges.urls', namespace='badges')),
+
+    url(r'^bot/', include('tmb.urls', namespace='tmb')),
+    
     #url(r'^услуги/', include('gglobal.service.urls', namespace='service')),
     #url(r'^telegrambot/', include('telegrambot.urls', namespace="telegrambot")),
     #url(r'^кабинет/', include('gglobal.crm.urls')),

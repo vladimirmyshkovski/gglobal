@@ -22,7 +22,7 @@ class ButtonWidget(forms.Widget):
 
     def render(self, name, value, attrs=None):
         context = {
-            'url': '/'
+            'url': '/https://telegram.me/rpkn_assign_bot?start={}'.format(attrs),
         }
         return mark_safe(render_to_string(self.template_name, context))
 '''

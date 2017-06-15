@@ -8,15 +8,13 @@ from django.http import JsonResponse
 from cities_light.models import City, Country
 from gglobal.crm.models import PhoneNumber as Phone, Appeal, Leed, Form, User, Payment, Card
 from django.shortcuts import get_object_or_404, redirect
-from river.models import State
 from django.http.response import HttpResponse
 from django.core.urlresolvers import reverse
 from dal import autocomplete
 from annoying.functions import get_object_or_None
 from django.contrib.contenttypes.models import ContentType
-
 from queryset_sequence import QuerySetSequence
-
+from gglobal.tmb.models import User as TelegramUser, Bot
 # Create your views here.
 
 @csrf_exempt
@@ -174,6 +172,16 @@ def passing_assign(request, assignment_id, user_id):
     except Exception as e:
         return HttpResponse(e)
 
+
+def telegram_auth(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    telegramuser, created = TelegramUser.objects.get_or_create(user=user)
+    bot = Bot.objects.first()
+    try:
+        unique_code = telegramuser.unique_code
+        return redirect('https://telegram.me/{}?start={}'.format(bot.username, unique_code))
+    except Exception as e:
+        return HttpResponse(e)
 
 
 class PaymentAutocomplete(autocomplete.Select2QuerySetSequenceView):

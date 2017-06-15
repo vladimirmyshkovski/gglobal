@@ -29,6 +29,10 @@ urlpatterns = [
         view=views.passing_assign,
         name='passing_assign' ),
     url(
+        regex=r'^telegram_auth/(?P<user_id>\d+)/$',
+        view=views.telegram_auth,
+        name='telegram_auth' ),
+    url(
         regex=r'^payment-method-autocomplete/$',
         view=views.PaymentAutocomplete.as_view(),
         name='payment-method-autocomplete',

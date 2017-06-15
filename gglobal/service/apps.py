@@ -7,3 +7,4 @@ class ServiceConfig(AppConfig):
 
     def ready(self):
         pass
+        #import gglobal.service.signals

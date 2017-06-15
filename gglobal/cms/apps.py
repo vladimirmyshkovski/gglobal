@@ -6,4 +6,4 @@ class CMSConfig(AppConfig):
     verbose_name = "CMS"
 
     def ready(self):
-        pass
+        import gglobal.cms.signals

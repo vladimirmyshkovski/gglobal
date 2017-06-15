@@ -12,13 +12,15 @@ from .blocks import SectionsStreamBlock
 from wagtailmenus.models import MenuPage
 from wagtailmetadata.models import MetadataPageMixin
 from wagtailsurveys import models as surveys_models
-
 from django.db import models
 from cities_light.models import City, Country
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from django.shortcuts import get_object_or_404, render
-
+from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+from modelcluster.fields import ParentalKey
+from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailsnippets.models import register_snippet
 
 class SurveyPage(surveys_models.AbstractSurvey):
     intro = RichTextField(blank=True)
@@ -53,6 +55,7 @@ class HomePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
+        InlinePanel('master_placements', label="Masters"),
     ]
 
     promote_panels = Page.promote_panels + MetadataPageMixin.panels
@@ -161,11 +164,6 @@ class CityPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
         return self.city.alternate_names
 
 
-
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
-from wagtail.wagtailsnippets.models import register_snippet
-
-
 @register_snippet
 class CitySnippetPage(models.Model):
 
@@ -173,7 +171,9 @@ class CitySnippetPage(models.Model):
         SectionsStreamBlock(), 
         verbose_name="Блоки для создания страницы городов", blank=True
     )
+
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
+    
     panels = [
         FieldPanel('city'),
         StreamFieldPanel('body'),        
@@ -185,6 +185,62 @@ class CitySnippetPage(models.Model):
 
     def __str__(self):
         return self.city.alternate_names
+
+
+class ServicePage(Page):
+    service = models.ForeignKey(
+        'cms.Service',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    content_panels = Page.content_panels + [
+        SnippetChooserPanel('service'),
+    ]
+
+@register_snippet
+class Service(models.Model):
+    service = models.ForeignKey('service.Service')
+
+    body = StreamField(
+        SectionsStreamBlock(), 
+        verbose_name="Блоки для персональной страницы", blank=True
+    )
+
+    def __str__(self):
+        return '{}'.format(self.slug)
+
+
+class TroublePage(Page):
+    trouble = models.ForeignKey(
+        'cms.Trouble',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    content_panels = Page.content_panels + [
+        SnippetChooserPanel('trouble'),
+    ]
+
+@register_snippet
+class Trouble(models.Model):
+    trouble = models.ForeignKey('service.Trouble')
+
+    body = StreamField(
+        SectionsStreamBlock(), 
+        verbose_name="Блоки для персональной страницы", blank=True
+    )
+
+    panels = [
+        StreamFieldPanel('body'),        
+        ]
+
+    def __str__(self):
+        return '{}'.format(self.trouble.name)
 
 
 
@@ -199,11 +255,6 @@ class Master(models.Model):
 
     def __str__(self):
         return self.text
-
-
-from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
-
-from modelcluster.fields import ParentalKey
 
 
 class HomePageMasterPlacement(Orderable, models.Model):

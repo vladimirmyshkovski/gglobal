@@ -44,7 +44,7 @@ DJANGO_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.gis',
+    #'django.contrib.gis',
     'django.contrib.sitemaps',
     'django.contrib.postgres',
     'django.contrib.humanize',
@@ -74,8 +74,8 @@ THIRD_PARTY_APPS = [
 
     'ckeditor', # CKEditor
 
-    'categories', # Django-categories
-    'categories.editor', # Django-categories
+    #'categories', # Django-categories
+    #'categories.editor', # Django-categories
     'mptt',
     
     "geoposition", # Django-geoposition
@@ -108,7 +108,7 @@ THIRD_PARTY_APPS = [
     'wagtailblocks_cards',
     #'wagtailgridder',
 
-    'mapwidgets',
+    #'mapwidgets',
     # django-viewflow and django-material
     #'viewflow',
     #'material.theme.blue', 
@@ -120,10 +120,10 @@ THIRD_PARTY_APPS = [
     'notifications', # django-notifications
     
     #'djcelery', 
-    'django_celery_results',
-    'django_celery_beat',
-    'django_celery_monitor',
-    'formtools', # django formtools https://github.com/django/django-formtools/blob/master/docs/preview.rst
+    #'django_celery_results',
+    #'django_celery_beat',
+    #'django_celery_monitor',
+    #'formtools', # django formtools https://github.com/django/django-formtools/blob/master/docs/preview.rst
 
 
     #'request', # django-request
@@ -136,12 +136,12 @@ THIRD_PARTY_APPS = [
     'dashing', # django-dashing https://github.com/talpor/django-dashing
     'djmoney', # django-money https://github.com/django-money/django-money
     'djmoney_rates', # django-money-rates https://github.com/evonove/django-money-rates
-    'parsley', # django-parsley https://github.com/agiliq/Django-parsley
+    #'parsley', # django-parsley https://github.com/agiliq/Django-parsley
     #'nplusone.ext.django', # nplusone https://github.com/jmcarp/nplusone
     'guardian', # django-guardian https://github.com/django-guardian/django-guardian
-    'django_object_actions', # django-object-actions https://github.com/crccheck/django-object-actions
-    'django_admin_row_actions', # django-admin-row-actions https://github.com/DjangoAdminHackers/django-admin-row-actions
-    'inline_actions', # django-inline-actions https://github.com/escaped/django-inline-actions
+    #'django_object_actions', # django-object-actions https://github.com/crccheck/django-object-actions
+    #'django_admin_row_actions', # django-admin-row-actions https://github.com/DjangoAdminHackers/django-admin-row-actions
+    #'inline_actions', # django-inline-actions https://github.com/escaped/django-inline-actions
     #'betterforms', # django-betterforms https://github.com/fusionbox/django-betterforms
     #'webpush', # django-webpush https://github.com/safwanrahman/django-webpush
     #'river', # django-river https://github.com/javrasya/django-river
@@ -169,6 +169,7 @@ LOCAL_APPS = [
     #'gglobal.viewflow.apps.ViewflowConfig', # django-viewflow
     'gglobal.city.apps.CityConfig',
     'gglobal.badges.apps.BadgesConfig',
+    'gglobal.tmb.apps.TmbConfig',
     #'channels',
 ]
 
@@ -251,11 +252,32 @@ MANAGERS = ADMINS
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+#DATABASES = {
+#    'default': env.db('DATABASE_URL', default='postgres:///gglobal'),
+#}
+#
+#DATABASES['default']['ATOMIC_REQUESTS'] = True
+
+# DATABASE CONFIGURATION
+# ------------------------------------------------------------------------------
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+#DATABASES = {
+#    'default': env.db('DATABASE_URL', default='postgres:///cookie_cutter_demo'),
+#}
+#DATABASES['default']['ATOMIC_REQUESTS'] = True
+# specify Postgis backend 
+#DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+
+
+# DATABASE CONFIGURATION
+# ------------------------------------------------------------------------------
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres:///gglobal'),
 }
-
 DATABASES['default']['ATOMIC_REQUESTS'] = True
+
+
 
 
 # GENERAL CONFIGURATION
