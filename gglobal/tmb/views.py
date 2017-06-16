@@ -85,13 +85,11 @@ class CommandReceiveView(View):
         try:
             payload = json.loads(request.body.decode('utf-8'))
         except ValueError:
-            return HttpResponseBadRequest('Invalid request body')
-        
-        
+            return HttpResponseBadRequest('Invalid request body')        
         else:
             chat_id = payload['message']['chat']['id']
             type = payload['message']['chat']['type']
-            text = payload['message'].get('text')  # command
+            text = payload['message']['text']  # command
             message = payload['message']
 
         unique_code = extract_unique_code(text)
@@ -103,7 +101,7 @@ class CommandReceiveView(View):
             else:
                 reply = 'К сожалению, я не могу вас аутентифицировать :('    
         else:
-            reply = 'Уникальный код не верный :(' 
+            reply = 'Не грузи меня левой хуйнёй. Я быдлобот, отвечаю только на сообщения из кабинета!' 
         TelegramBot.sendMessage(chat_id, reply)
         save_message(chat_id, message)
         
