@@ -76,7 +76,6 @@ class CommandReceiveView(View):
         #bot = get_object_or_404(Bot, api_key=bot_token)
         TelegramBot = telepot.Bot('359099786:AAH3vhHAHqt1E1_V4FNzVIbczFoTKMGwWlU')
         TelegramBot.setWebhook('https://xn------dddfnxoenlfghchl4bitc.xn--90ais/bot/bot/{bot_token}/'.format(bot_token='359099786:AAH3vhHAHqt1E1_V4FNzVIbczFoTKMGwWlU'))
-        TelegramBot.sendMessage(257133027, 'text')
 
         try:
             payload = json.loads(request.body.decode('utf-8'))
