@@ -73,9 +73,9 @@ def save_message(chat_id, message):
 
 class CommandReceiveView(View):
     def post(self, request, bot_token):
-        bot = get_object_or_404(Bot, api_key=bot_token)
-        TelegramBot = telepot.Bot(bot.api_key)
-        TelegramBot.setWebhook('https://xn------dddfnxoenlfghchl4bitc.xn--90ais.com/bot/bot/{bot_token}/'.format(bot_token=bot_token))
+        #bot = get_object_or_404(Bot, api_key=bot_token)
+        TelegramBot = telepot.Bot(bot_token)
+        #TelegramBot.setWebhook('https://xn------dddfnxoenlfghchl4bitc.xn--90ais.com/bot/bot/{bot_token}/'.format(bot_token=bot_token))
 
         try:
             payload = json.loads(request.body.decode('utf-8'))
