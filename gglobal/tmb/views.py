@@ -40,7 +40,7 @@ TOKEN = '359099786:AAH3vhHAHqt1E1_V4FNzVIbczFoTKMGwWlU'
 
 '''
 TelegramBot = telepot.Bot('359099786:AAH3vhHAHqt1E1_V4FNzVIbczFoTKMGwWlU')
-#TelegramBot.setWebhook('https://xn------dddfnxoenlfghchl4bitc.xn--90ais/bot/bot/{bot_token}/'.format(bot_token='359099786:AAH3vhHAHqt1E1_V4FNzVIbczFoTKMGwWlU'))
+TelegramBot.setWebhook('https://xn------dddfnxoenlfghchl4bitc.xn--90ais/bot/bot/{bot_token}/'.format(bot_token='359099786:AAH3vhHAHqt1E1_V4FNzVIbczFoTKMGwWlU'))
 
 
 def _display_help():
@@ -77,10 +77,12 @@ def save_message(chat_id, message):
 class CommandReceiveView(View):
     def post(self, request, bot_token):
         #bot = get_object_or_404(Bot, api_key=bot_token)
+        
         try:
             payload = json.loads(request.body.decode('utf-8'))
         except ValueError:
             return HttpResponseBadRequest('Invalid request body')
+        '''
         else:
             chat_id = payload[0]['message']['chat']['id']
             type = payload[0]['message']['chat']['type']
@@ -99,6 +101,7 @@ class CommandReceiveView(View):
             reply = 'Уникальный код не верный :(' 
         TelegramBot.sendMessage(chat_id, reply)
         save_message(chat_id, message)
+        '''
         return JsonResponse({'chat_id': chat_id, 'text': 'sended', 'payload': payload}, status=200)
     
     @method_decorator(csrf_exempt)
