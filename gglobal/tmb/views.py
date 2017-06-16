@@ -76,7 +76,6 @@ def save_message(chat_id, message):
 
 class CommandReceiveView(View):
     def post(self, request, bot_token):
-        TelegramBot.sendMessage(257133027, bot_token)
         #bot = get_object_or_404(Bot, api_key=bot_token)
         
         try:
