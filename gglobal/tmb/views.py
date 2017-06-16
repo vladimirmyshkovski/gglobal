@@ -40,7 +40,7 @@ TOKEN = '359099786:AAH3vhHAHqt1E1_V4FNzVIbczFoTKMGwWlU'
 
 '''
 TelegramBot = telepot.Bot('359099786:AAH3vhHAHqt1E1_V4FNzVIbczFoTKMGwWlU')
-TelegramBot.setWebhook('https://xn------dddfnxoenlfghchl4bitc.xn--90ais/bot/bot/{bot_token}/'.format(bot_token='359099786:AAH3vhHAHqt1E1_V4FNzVIbczFoTKMGwWlU'))
+#TelegramBot.setWebhook('https://xn------dddfnxoenlfghchl4bitc.xn--90ais/bot/bot/{bot_token}/'.format(bot_token='359099786:AAH3vhHAHqt1E1_V4FNzVIbczFoTKMGwWlU'))
 
 
 def _display_help():
