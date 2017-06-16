@@ -100,7 +100,7 @@ class CommandReceiveView(View):
             reply = 'Уникальный код не верный :(' 
         TelegramBot.sendMessage(chat_id, reply)
         save_message(chat_id, message)
-        return JsonResponse({}, status=200)
+        return JsonResponse({'chat_id': chat_id}, status=200)
     
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
