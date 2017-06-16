@@ -75,7 +75,7 @@ X_FRAME_OPTIONS = 'ALLOWALL' # <---------- CHANGE THIS !!!!!!!
 # ------------------------------------------------------------------------------
 # Hosts/domain names that are valid for this site
 # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['xn------dddfnxoenlfghchl4bitc.xn--90ais', '37.143.8.19', 'hosted-by.ihc.ru'])
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['xn--90a0am.xn------dddfnxoenlfghchl4bitc.xn--90ais', 'xn------dddfnxoenlfghchl4bitc.xn--90ais', '37.143.8.19', 'hosted-by.ihc.ru'])
 # END SITE CONFIGURATION
 
 INSTALLED_APPS += ['gunicorn', ]
