@@ -75,7 +75,7 @@ class CommandReceiveView(View):
     def post(self, request, bot_token):
         #bot = get_object_or_404(Bot, api_key=bot_token)
         TelegramBot = telepot.Bot(bot_token)
-        #TelegramBot.setWebhook('https://bot.xn------dddfnxoenlfghchl4bitc.xn--90ais/bot/bot/{bot_token}/'.format(bot_token=bot_token))
+        TelegramBot.setWebhook('https://bot.xn------dddfnxoenlfghchl4bitc.xn--90ais/bot/bot/{bot_token}/'.format(bot_token=bot_token))
 
         try:
             payload = json.loads(request.body.decode('utf-8'))
@@ -100,7 +100,7 @@ class CommandReceiveView(View):
             reply = 'Уникальный код не верный :(' 
         TelegramBot.sendMessage(chat_id, reply)
         save_message(chat_id, message)
-        return JsonResponse({'chat_id': chat_id}, status=200)
+        return JsonResponse({'chat_id': chat_id, 'text': 'sended'}, status=200)
     
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
