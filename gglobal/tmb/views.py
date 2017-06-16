@@ -78,9 +78,10 @@ class CommandReceiveView(View):
     def post(self, request, bot_token):
         #bot = get_object_or_404(Bot, api_key=bot_token)
         #payload = json.loads(request.body)
+
         body_unicode = request.body.decode('utf-8')
-        #payload = json.loads(body_unicode)
-        TelegramBot.sendMessage(257133027, body_unicode)
+        payload = json.loads(json.dumps(body_unicode))
+        TelegramBot.sendMessage(257133027, payload)
         '''
         try:
             payload = json.loads(request.body.decode('utf-8'))
