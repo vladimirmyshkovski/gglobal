@@ -81,8 +81,7 @@ class CommandReceiveView(View):
 
         body_unicode = request.body.decode('utf-8')
         payload = json.loads(json.dumps(body_unicode))
-        TelegramBot.sendMessage(257133027, payload)
-        '''
+        
         try:
             payload = json.loads(request.body.decode('utf-8'))
         except ValueError:
@@ -107,7 +106,7 @@ class CommandReceiveView(View):
             reply = 'Уникальный код не верный :(' 
         TelegramBot.sendMessage(chat_id, reply)
         save_message(chat_id, message)
-        '''
+        
         return JsonResponse({'chat_id': 257133027, 'text': 'sended'}, status=200)
     
     @method_decorator(csrf_exempt)
