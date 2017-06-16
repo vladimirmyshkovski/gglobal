@@ -86,7 +86,7 @@ class CommandReceiveView(View):
             payload = json.loads(request.body.decode('utf-8'))
         except ValueError:
             return HttpResponseBadRequest('Invalid request body')
-        '''
+        
         
         else:
             chat_id = payload['message']['chat']['id']
@@ -106,6 +106,7 @@ class CommandReceiveView(View):
             reply = 'Уникальный код не верный :(' 
         TelegramBot.sendMessage(chat_id, reply)
         save_message(chat_id, message)
+        '''
         return JsonResponse({'chat_id': 257133027, 'text': 'sended'}, status=200)
     
     @method_decorator(csrf_exempt)
