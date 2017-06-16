@@ -87,7 +87,7 @@ class CommandReceiveView(View):
             text = payload[0]['message'].get('text')  # command
             message = payload[0]['message']
 
-        TelegramBot.sendMessage(chat_id, 'text')
+        TelegramBot.sendMessage(257133027, 'text')
         unique_code = extract_unique_code(text)
         if unique_code:
             username = get_username_from_storage(unique_code)
