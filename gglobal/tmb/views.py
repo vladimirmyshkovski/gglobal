@@ -78,13 +78,13 @@ class CommandReceiveView(View):
     def post(self, request, bot_token):
         TelegramBot.sendMessage(257133027, bot_token)
         #bot = get_object_or_404(Bot, api_key=bot_token)
-        '''
+        
         try:
             payload = json.loads(request.body.decode('utf-8'))
         except ValueError:
             return HttpResponseBadRequest('Invalid request body')
-        '''
-        '''
+        
+        
         else:
             chat_id = payload[0]['message']['chat']['id']
             type = payload[0]['message']['chat']['type']
@@ -103,7 +103,6 @@ class CommandReceiveView(View):
             reply = 'Уникальный код не верный :(' 
         TelegramBot.sendMessage(chat_id, reply)
         save_message(chat_id, message)
-        '''
         return JsonResponse({'chat_id': 257133027, 'text': 'sended'}, status=200)
     
     @method_decorator(csrf_exempt)
