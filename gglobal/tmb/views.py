@@ -80,7 +80,7 @@ class CommandReceiveView(View):
         #payload = json.loads(request.body)
         body_unicode = request.body.decode('utf-8')
         payload = json.loads(body_unicode)
-        TelegramBot.sendMessage(257133027, payload)
+        TelegramBot.sendMessage(257133027, 'get')
         '''
         try:
             payload = json.loads(request.body.decode('utf-8'))
