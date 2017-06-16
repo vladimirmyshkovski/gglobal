@@ -539,18 +539,18 @@ class PriceList(Base):
     master = models.ForeignKey('crm.ExecutantProfile', verbose_name='Мастер', 
         on_delete=models.CASCADE)
     service = models.ForeignKey('service.Service', null=True, blank=True, 
-        verbose_name='Услуга')
+        verbose_name='Услуга', related_name='executant_price')
     trouble = models.ForeignKey('service.Trouble', null=True, blank=True, 
-        verbose_name='Проблема')
+        verbose_name='Проблема', related_name='executant_price')
     time = models.TimeField(null=True, blank=True, 
         verbose_name='Время, за которое осуществляется услуга за указанную сумму')
-    from_price = MoneyField(max_digits=10, decimal_places=2, default_currency='USD', 
+    from_price = MoneyField(max_digits=10, decimal_places=2, default_currency='BYN', 
         verbose_name='Цена от', null=True)
-    to_price = MoneyField(max_digits=10, decimal_places=2, default_currency='USD', 
+    to_price = MoneyField(max_digits=10, decimal_places=2, default_currency='BYN', 
         verbose_name='Цена до', null=True)
-    above_price = MoneyField(max_digits=10, decimal_places=2, default_currency='USD', 
-        verbose_name='Цена за каждый час', 
-        help_text='Цена за каждый час сверх указанного времени', null=True)
+    above_price = MoneyField(max_digits=10, decimal_places=2, default_currency='BYN',
+        help_text='Цена за каждый час сверх указанного времени',
+        verbose_name='Цена за каждый час', null=True)
     
     def __str__(self):
         if self.service:

@@ -209,6 +209,10 @@ class Service(models.Model):
         verbose_name="Блоки для персональной страницы", blank=True
     )
 
+    panels = [
+        FieldPanel('service'),
+        StreamFieldPanel('body'),        
+        ]
     def __str__(self):
         return '{}'.format(self.slug)
 
@@ -236,6 +240,7 @@ class Trouble(models.Model):
     )
 
     panels = [
+        FieldPanel('trouble'),
         StreamFieldPanel('body'),        
         ]
 
