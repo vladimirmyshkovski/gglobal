@@ -393,7 +393,7 @@ class AddressAdmin(BaseAdmin):
 
 @admin.register(PriceList)
 class PriceListAdmin(BaseAdmin):
-    list_display = ['service', 'trouble', 'from_price', 'to_price', 'time']
+    list_display = ['service', 'from_price', 'to_price', 'time']
 
     def get_list_display(self, request):
         self.user = request.user

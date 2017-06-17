@@ -10,6 +10,7 @@ class Service(MPTTModel):
     name = models.CharField(max_length=50, unique=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
     accepted = models.BooleanField(default=False)
+    troubles = models.ManyToManyField('service.Trouble', related_name='service')
 
     class Meta:
     	verbose_name = "Услуга"

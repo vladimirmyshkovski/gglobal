@@ -540,7 +540,7 @@ class PriceList(Base):
         on_delete=models.CASCADE)
     service = models.ForeignKey('service.Service', null=True, blank=True, 
         verbose_name='Услуга', related_name='executant_price')
-    trouble = models.ForeignKey('service.Trouble', null=True, blank=True, 
+    trouble = models.ManyToManyField('service.Trouble', blank=True, 
         verbose_name='Проблема', related_name='executant_price')
     time = models.TimeField(null=True, blank=True, 
         verbose_name='Время, за которое осуществляется услуга за указанную сумму')
@@ -553,10 +553,8 @@ class PriceList(Base):
         verbose_name='Цена за каждый час', null=True)
     
     def __str__(self):
-        if self.service:
-            return 'Услуга: %s' % str(self.service)
-        if self.trouble:
-            return 'Проблема: %s' % str(self.service)
+        if self.pk:
+            return 'Услуга: %s' % str(self.pk)
     
     class Meta:
         verbose_name = "Прейскурант цен"
@@ -568,7 +566,7 @@ class Price(Base):
         on_delete=models.CASCADE, null=True)
     service = models.ForeignKey('service.Service', null=True, blank=True, 
         verbose_name='Услуга')
-    trouble = models.ForeignKey('service.Trouble', null=True, blank=True, 
+    trouble = models.ManyToManyField('service.Trouble', blank=True, 
         verbose_name='Проблема')
     time = models.DurationField(null=True, blank=True, 
         verbose_name='Время, за которое была проведена услуга')
