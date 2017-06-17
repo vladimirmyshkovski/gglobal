@@ -12,6 +12,7 @@ from gglobal.crm.meta_badges import VerificationUser
 from badges.signals import badge_awarded
 from gglobal.crm.tasks import delete_bonus
 from datetime import datetime, timedelta
+from gglobal.tmb.tasks import send_to_users
 
 
 @receiver(post_transition)
@@ -57,6 +58,11 @@ def create_or_update_clientprofile(sender, instance, created, **kwargs):
 def do_something_after_badge_is_awarded(sender, user, badge, **kwargs):
 	print(user)
 	user.executantprofile.save()
+
+@receiver(post_save, sender=Assignment)
+def create_assignment(sender, instance, created, **kwargs):
+	if instance.state == 'new':
+		send_to_users.delay(args=[instance.city.id])		
 
 
 

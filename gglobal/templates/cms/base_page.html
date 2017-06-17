@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags cms_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}    
+
+{{ page.body }}
+
+{#% for page_snippet_placement in page.page_snippet_placements.all %#}
+  
+  <div class="infinite-container">
+    {% for resource in resources %}
+      <div class="infinite-item">
+      {{ body_page }}
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if resources.has_next %}
+    <a class="infinite-more-link" href="?page={{ resources.next_page_number }}"></a>
+  {% endif %}
+
+  <script>
+  defer(function () {
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      offset: 'bottom-in-view',
+    });
+	});
+  </script>
+
+
+
+
+{#% endfor %#}
+
+{#% block map %#}
+    {#% citypages_map %#}
+{#% endblock map %#}
+{% endblock %}

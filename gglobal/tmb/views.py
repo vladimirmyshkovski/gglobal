@@ -40,7 +40,6 @@ TOKEN = '359099786:AAH3vhHAHqt1E1_V4FNzVIbczFoTKMGwWlU'
 
 '''
 TelegramBot = telepot.Bot('359099786:AAH3vhHAHqt1E1_V4FNzVIbczFoTKMGwWlU')
-TelegramBot.setWebhook('xn--90a0am.xn------dddfnxoenlfghchl4bitc.xn--90ais/bot/bot/{bot_token}/'.format(bot_token='359099786:AAH3vhHAHqt1E1_V4FNzVIbczFoTKMGwWlU'))
 
 
 def _display_help():
@@ -76,8 +75,7 @@ def save_message(chat_id, message):
 
 class CommandReceiveView(View):
     def post(self, request, bot_token):
-        #bot = get_object_or_404(Bot, api_key=bot_token)
-        #payload = json.loads(request.body)
+        bot = get_object_or_404(Bot, api_key=bot_token)
 
         body_unicode = request.body.decode('utf-8')
         payload = json.loads(json.dumps(body_unicode))
@@ -105,7 +103,7 @@ class CommandReceiveView(View):
         TelegramBot.sendMessage(chat_id, reply)
         save_message(chat_id, message)
         
-        return JsonResponse({'chat_id': 257133027, 'text': 'sended'}, status=200)
+        return JsonResponse({}, status=200)
     
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):

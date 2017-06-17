@@ -54,6 +54,7 @@ class State(object):
     GET_INVOICE = 'get_invoice'
     WAIT_PAID = 'wait_paid'
     WAITING_PAID = 'waiting_paid'
+    APPROVED_PAID = 'approved_paid'
     COMPLETE_PAID = 'complete_paid'
     COMPLETE_PROJECT = 'complete_project'
     PASS = 'pass'
@@ -96,6 +97,7 @@ class State(object):
         )
     SALARY_CHOICES = (
         (WAITING_PAID, _('Ожидается оплата')),
+        (APPROVED_PAID, _('Проверяется оплата')),
         (COMPLETE_PAID, _('Оплачен')),
         )
 
@@ -401,16 +403,16 @@ class Project(ConcurrentTransitionMixin, Base):
     masters = models.ManyToManyField('crm.ExecutantProfile', verbose_name=_('Мастера'), 
         blank=True, related_name="+")
 
-    start_date = models.DateTimeField(auto_now_add=True, null=True)
-    end_date = models.DateTimeField(null=True)
+    #start_date = models.DateTimeField(auto_now_add=True, null=True)
+    #end_date = models.DateTimeField(null=True)
 
     address = models.ForeignKey('crm.Address', verbose_name=_('Адрес'), 
         null=True, blank=True)
 
-    project_service = models.ManyToManyField('service.Service', 
-        verbose_name=_('Оказанные услуги'))
-    project_trouble = models.ManyToManyField('service.Trouble', 
-        verbose_name=_('Решённые проблемы'))
+    #project_service = models.ManyToManyField('service.Service', 
+        #verbose_name=_('Оказанные услуги'))
+    #project_trouble = models.ManyToManyField('service.Trouble', 
+        #verbose_name=_('Решённые проблемы'))
 
     diagnostic_service = models.ManyToManyField('service.Service', 
         verbose_name=_('Услуги, которые нужно оказать'), related_name="+")
@@ -421,10 +423,11 @@ class Project(ConcurrentTransitionMixin, Base):
         null=True, blank=True)
 
 
-    def invoice_paid(self):
-        invoice = get_object_or_None(Invoice, project=self)
-        if invoice is not None and invoice.state == 'paid':
+    def salary_paid(self):
+        salary = get_object_or_None(Salary, project=self)
+        if salary is not None and salary.state == 'complete_paid':
             return True
+        return False
 
     @transition(field='state', source=[State.PASS], target=State.APPROVED,
         custom=dict(admin=True, button_name=_('Принять')))
@@ -462,7 +465,7 @@ class Project(ConcurrentTransitionMixin, Base):
         print('get invoice')
 
     @transition(field='state', source=[State.GET_INVOICE], target=State.COMPLETE_PROJECT,
-        conditions=[invoice_paid],custom=dict(admin=True, button_name=_('Завершить заказ')))
+        conditions=[salary_paid],custom=dict(admin=True, button_name=_('Завершить заказ')))
     def complete_project(self):
         print('project was complete')
 
@@ -668,9 +671,14 @@ class Salary(ConcurrentTransitionMixin, Payment, Base):
         self.paid_amount
         super(Salary, self).save(*args, **kwargs)
 
-    @transition(field='state', source=[State.WAIT_PAID], target=State.PAID,
-        custom=dict(admin=True, button_name=_('Подтвердить оплату')))
+    @transition(field='state', source=[State.WAIT_PAID], target=State.APPROVED_PAID,
+        custom=dict(admin=True, button_name=_('Оплатил')))
     def get_paid(self):
+        print('get_paid')
+
+    @transition(field='state', source=[State.APPROVED_PAID], target=State.COMPLETE_PAID,
+        custom=dict(admin=True, button_name=_('Подтверждаю оплату')))
+    def approved_paid(self):
         print('get_paid')
 
     class Meta:

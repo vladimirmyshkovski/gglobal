@@ -21,31 +21,17 @@ from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from modelcluster.fields import ParentalKey
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailsnippets.models import register_snippet
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-class SurveyPage(surveys_models.AbstractSurvey):
-    intro = RichTextField(blank=True)
-    thank_you_text = RichTextField(blank=True)
-
-    content_panels = surveys_models.AbstractSurvey.content_panels + [
-        FieldPanel('intro', classname="full"),
-        InlinePanel('survey_form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
-    ]
-
-
-class SurveyFormField(surveys_models.AbstractFormField):
-    page = ParentalKey(SurveyPage, related_name='survey_form_fields')
-
-
-class HomePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
+class BasePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 
     """
-    The Home Page
+    The Base Page
     """
 
     body = StreamField(
         SectionsStreamBlock(), 
-        verbose_name="Home content block", blank=True
+        verbose_name="BasePage content block", blank=True
     )
 
     search_fields = [
@@ -55,13 +41,86 @@ class HomePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
-        InlinePanel('master_placements', label="Masters"),
+        InlinePanel('page_snippet_placements', label="Snippets"),
     ]
 
     promote_panels = Page.promote_panels + MetadataPageMixin.panels
+    
+    def lists_snippets_blocks(self):
+        lists_snippets_blocks = []
+        all_snippets = self.page_snippet_placements.all()
+        for i in all_snippets:
+            for i in i.snippet.body:
+                lists_snippets_blocks.append([i])
+        return lists_snippets_blocks
+
+    def get_context(self, request):
+        context = super(BasePage, self).get_context(request)
+        paginator = Paginator(self.lists_snippets_blocks(), 1)
+        page = request.GET.get('page')
+        try:
+            resources = paginator.page(page)
+        except PageNotAnInteger:
+            resources = paginator.page(1)
+        except EmptyPage:
+            resources = paginator.page(paginator.num_pages)
+        context['resources'] = resources
+        snippet_page = self.lists_snippets_blocks()
+        if page is not None:
+            pag_page = int(page) - 1
+        else:
+            pag_page = 0
+        context['body_page'] = snippet_page[pag_page][0] 
+        return context
+    
 
     def __str__(self):
         return self.title
+
+
+@register_snippet
+class PageSnippet(models.Model):
+    body = StreamField(
+        SectionsStreamBlock(), 
+        verbose_name="Блоки для персональной страницы", blank=True
+    )
+    '''
+    def get_context(self, request):
+        paginator = Paginator(self.body, 1)
+        print(paginator)
+        page = request.GET.get('page')
+        try:
+            resources = paginator.page(page)
+        except PageNotAnInteger:
+            resources = paginator.page(1)
+        except EmptyPage:
+            resources = paginator.page(paginator.num_pages)
+        print(resources)
+        context['resources'] = resources
+    '''
+    panels = [
+        StreamFieldPanel('body'),        
+        ]
+
+    def __str__(self):
+        return '{}'.format(self.pk)
+
+
+class PageSnippetPlacement(Orderable, models.Model):
+    page = ParentalKey('cms.BasePage', related_name='page_snippet_placements')
+    snippet = models.ForeignKey('cms.PageSnippet', related_name='+')
+
+    class Meta:
+        verbose_name = "Сниппет для страницы"
+        verbose_name_plural = "Сниппеты для страниц"
+
+    panels = [
+        SnippetChooserPanel('snippet'),
+    ]
+
+    def __str__(self):
+        return self.page.title
+
 
 
 class ExecutantIndexPage(six.with_metaclass(PageBase, RoutablePageMixin, MetadataPageMixin, MenuPage)):
@@ -249,31 +308,19 @@ class Trouble(models.Model):
 
 
 
-@register_snippet
-class Master(models.Model):
-    text = models.CharField(max_length=255, null=True)
 
 
-    panels = [
-        FieldPanel('text'),
-        ]
+class SurveyPage(surveys_models.AbstractSurvey):
+    intro = RichTextField(blank=True)
+    thank_you_text = RichTextField(blank=True)
 
-    def __str__(self):
-        return self.text
-
-
-class HomePageMasterPlacement(Orderable, models.Model):
-    page = ParentalKey('cms.HomePage', related_name='master_placements')
-    master = models.ForeignKey('cms.Master', related_name='+')
-
-    class Meta:
-        verbose_name = "master placement"
-        verbose_name_plural = "master placements"
-
-    panels = [
-        SnippetChooserPanel('master'),
+    content_panels = surveys_models.AbstractSurvey.content_panels + [
+        FieldPanel('intro', classname="full"),
+        InlinePanel('survey_form_fields', label="Form fields"),
+        FieldPanel('thank_you_text', classname="full"),
     ]
 
-    def __str__(self):
-        return self.page.title + " -> " + self.master.text
+
+class SurveyFormField(surveys_models.AbstractFormField):
+    page = ParentalKey(SurveyPage, related_name='survey_form_fields')
 

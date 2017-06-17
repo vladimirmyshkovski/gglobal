@@ -4,10 +4,7 @@ from mptt.admin import DraggableMPTTAdmin
 from django.db.models import Avg
 from django.core.urlresolvers import reverse
 
-# Register your models here.
-
 class ServiceMPTTModelAdmin(DraggableMPTTAdmin):
-	# specify pixel amount for this ModelAdmin only:
     mptt_level_indent = 20
     list_display = ('tree_actions', 'indented_title', 'avg_from_price', 'avg_to_price')
     list_display_links = ('indented_title',)
@@ -29,10 +26,13 @@ class ServiceMPTTModelAdmin(DraggableMPTTAdmin):
     	return super(ServiceMPTTModelAdmin, self).get_readonly_fields(obj, request) if not None else + ('avg_from_price', 'avg_to_price')
 
 class TroubleMPTTModelAdmin(DraggableMPTTAdmin):
-	# specify pixel amount for this ModelAdmin only:
     mptt_level_indent = 20
-    list_display = ('tree_actions', 'indented_title', 'services')
+    list_display = ('tree_actions', 'indented_title', 'services', 'service_price')
     list_display_links = ('indented_title',)
+
+    def service_price(self, obj):
+
+    	return ', '.join([i.name for i in obj.service.all().annotate(avg_from_price=Avg('executant_price__from_price'), avg_to_price=Avg('executant_price__to_price'))]) 
 
     def services(self, obj):
     	links = ""
