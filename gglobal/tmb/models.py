@@ -23,12 +23,16 @@ class Bot(models.Model):
 		self.username = data['username']
 		return data
 
+	@staticmethod
+	def sendMessage(chat_id, payload):
+		TelegramBot = telepot.Bot(self.api_key)
+		TelegramBot.sendMessage(chat_id, payload)
+
 	def save(self, *args, **kwargs):
 		if not self.pk:
 			self.get_me
-
-		TelegramBot = telepot.Bot(self.api_key)
-		TelegramBot.setWebhook('xn--90a0am.xn------dddfnxoenlfghchl4bitc.xn--90ais/bot/bot/{bot_token}/'.format(bot_token='359099786:AAH3vhHAHqt1E1_V4FNzVIbczFoTKMGwWlU'))
+			TelegramBot = telepot.Bot(self.api_key)
+			TelegramBot.setWebhook('xn--90a0am.xn------dddfnxoenlfghchl4bitc.xn--90ais/bot/bot/{bot_token}/'.format(bot_token=self.api_key))
 		super(Bot, self).save(*args, **kwargs)
 
 	class Meta:

@@ -80,24 +80,12 @@ class BasePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 
 @register_snippet
 class PageSnippet(models.Model):
+    name = models.CharField(max_length=255)
     body = StreamField(
         SectionsStreamBlock(), 
         verbose_name="Блоки для персональной страницы", blank=True
     )
-    '''
-    def get_context(self, request):
-        paginator = Paginator(self.body, 1)
-        print(paginator)
-        page = request.GET.get('page')
-        try:
-            resources = paginator.page(page)
-        except PageNotAnInteger:
-            resources = paginator.page(1)
-        except EmptyPage:
-            resources = paginator.page(paginator.num_pages)
-        print(resources)
-        context['resources'] = resources
-    '''
+
     panels = [
         StreamFieldPanel('body'),        
         ]
@@ -122,6 +110,39 @@ class PageSnippetPlacement(Orderable, models.Model):
         return self.page.title
 
 
+class FAQIndexPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
+    page_h3 = models.CharField(max_length=255)
+    job_h3 = models.CharField(max_length=255)
+    job_p = models.CharField(max_length=255)
+
+    @route(r'^$')
+    def index_view(self, request):
+        pages = FAQPage.objects.live()
+        return render(request, 'sections/job_block.html', {
+            'page': self,
+            'pages': pages,
+            })
+
+    panels = [
+        FieldPanel('page_h3'),
+        FieldPanel('job_h3'),
+        FieldPanel('job_p'),        
+        ]
+
+    def __str__(self):
+        return '{}'.format(self.pk)
+
+class FAQPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
+    head = models.CharField(max_length=255)
+    text = models.CharField(max_length=255)
+    panels = [
+        FieldPanel('head'),
+        FieldPanel('text')        
+        ]
+
+    def __str__(self):
+        return '{}'.format(self.head)
+
 
 class ExecutantIndexPage(six.with_metaclass(PageBase, RoutablePageMixin, MetadataPageMixin, MenuPage)):
 
@@ -131,8 +152,7 @@ class ExecutantIndexPage(six.with_metaclass(PageBase, RoutablePageMixin, Metadat
 
     @route(r'^$')
     def index_view(self, request):
-        # render the index view
-        pages = MasterCRMProfilePage.objects.live().all()
+        pages = MasterCRMProfilePage.objects.live()
         return render(request, 'users/mastercrmprofile_list.html', {
             'page': self,
             'pages': pages,
