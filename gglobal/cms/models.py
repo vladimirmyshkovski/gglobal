@@ -80,7 +80,7 @@ class BasePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 
 @register_snippet
 class PageSnippet(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, null=True)
     body = StreamField(
         SectionsStreamBlock(), 
         verbose_name="Блоки для персональной страницы", blank=True
@@ -123,11 +123,11 @@ class FAQIndexPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
             'pages': pages,
             })
 
-    panels = [
-        FieldPanel('page_h3'),
-        FieldPanel('job_h3'),
-        FieldPanel('job_p'),        
-        ]
+    #content_panels = Page.content_panels = [
+    #    FieldPanel('page_h3'),
+    #    FieldPanel('job_h3'),
+    #    FieldPanel('job_p'),        
+    #    ]
 
     def __str__(self):
         return '{}'.format(self.pk)
@@ -135,10 +135,10 @@ class FAQIndexPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 class FAQPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
     head = models.CharField(max_length=255)
     text = models.CharField(max_length=255)
-    panels = [
-        FieldPanel('head'),
-        FieldPanel('text')        
-        ]
+    #content_panels = Page.content_panels = [
+    #    FieldPanel('head'),
+    #    FieldPanel('text')        
+    #    ]
 
     def __str__(self):
         return '{}'.format(self.head)
