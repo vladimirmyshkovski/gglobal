@@ -7,6 +7,6 @@ from gglobal.tmb.models import User as TelegramUser
 def create_or_update_clientprofile(sender, instance, created, **kwargs):
 	if created:
 		TelegramUser.objects.create(user=instance)
-		TelegramUser.set_unique_code()
+		#TelegramUser.set_unique_code()
 	else:
 		TelegramUser.objects.get_or_create(user=instance)
