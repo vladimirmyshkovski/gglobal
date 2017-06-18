@@ -121,9 +121,9 @@ THIRD_PARTY_APPS = [
     'notifications', # django-notifications
     
     #'djcelery', 
-    #'django_celery_results',
-    #'django_celery_beat',
-    #'django_celery_monitor',
+    'django_celery_results',
+    'django_celery_beat',
+    'django_celery_monitor',
     #'formtools', # django formtools https://github.com/django/django-formtools/blob/master/docs/preview.rst
 
 

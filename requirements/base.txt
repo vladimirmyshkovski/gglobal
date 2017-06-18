@@ -103,3 +103,6 @@ telepot
 django-querysetsequence==0.7.2
 maxminddb-geolite2
 #django_markdown
+django_celery_results
+django_celery_beat
+django_celery_monitor
