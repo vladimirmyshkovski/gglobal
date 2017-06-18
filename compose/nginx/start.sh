@@ -4,10 +4,10 @@ sleep 5
 echo build starting nginx config
 
 
-echo replacing ___my.example.com___/$MY_DOMAIN_NAME
+echo replacing xn------dddfnxoenlfghchl4bitc.xn--90ais/$MY_DOMAIN_NAME
 
 # Put your domain name into the nginx reverse proxy config.
-sed -i "s/___my.example.com___/$MY_DOMAIN_NAME/g" /etc/nginx/nginx.conf
+sed -i "s/xn------dddfnxoenlfghchl4bitc.xn--90ais/$MY_DOMAIN_NAME/g" /etc/nginx/nginx.conf
 
 cat /etc/nginx/nginx.conf
 echo .
@@ -43,16 +43,16 @@ done
 # This is added so that when the certificate is being renewed or is already in place, nginx waits for everything to be good.
 sleep 15
 
-echo replacing ___my.example.com___/$MY_DOMAIN_NAME
+echo replacing xn------dddfnxoenlfghchl4bitc.xn--90ais/$MY_DOMAIN_NAME
 
 
 # Put your domain name into the nginx reverse proxy config.
-sed -i "s/___my.example.com___/$MY_DOMAIN_NAME/g" /etc/nginx/nginx-secure.conf
+sed -i "s/xn------dddfnxoenlfghchl4bitc.xn--90ais/$MY_DOMAIN_NAME/g" /etc/nginx/nginx-secure.conf
 
 # Add the system's nameserver (the docker network dns) so we can resolve container names in nginx
 NAMESERVER=`cat /etc/resolv.conf | grep "nameserver" | awk '{print $2}' | tr '\n' ' '`
-echo replacing ___NAMESERVER___/$NAMESERVER
-sed -i "s/___NAMESERVER___/$NAMESERVER/g" /etc/nginx/nginx-secure.conf
+echo replacing 127.0.0.11/$NAMESERVER
+sed -i "s/xn------dddfnxoenlfghchl4bitc.xn--90ais/$NAMESERVER/g" /etc/nginx/nginx-secure.conf
 
 
 #go!
