@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags cms_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}    
+
+        <!-- Header title -->
+        <section class="bg-custom header-title-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                      <h3 class="text-white">{{ faq.head }}</h3>
+                      <p class="text-white">{{ faq.text }}</p>
+                    </div>
+                </div>
+            </div> <!-- end container -->
+        </section>
+        <!-- END Header title -->
+
+{{ page.body }}
+
+
+
+{#% block map %#}
+    {#% citypages_map %#}
+{#% endblock map %#}
+
+{% endblock %}

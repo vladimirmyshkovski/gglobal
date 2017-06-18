@@ -101,6 +101,7 @@ THIRD_PARTY_APPS = [
     #'flags',
     'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.settings',
+    'wagtail.contrib.wagtailroutablepage',
     'wagtailsurveys',
 
     'wagtailfontawesome',

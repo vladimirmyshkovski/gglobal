@@ -22,6 +22,8 @@ from modelcluster.fields import ParentalKey
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailsnippets.models import register_snippet
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
 
 class BasePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 
@@ -110,35 +112,55 @@ class PageSnippetPlacement(Orderable, models.Model):
         return self.page.title
 
 
-class FAQIndexPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
+class FAQTag(TaggedItemBase):
+    content_object = ParentalKey('cms.FAQPage', related_name='tagged_items')
+
+class FAQIndexPage(six.with_metaclass(PageBase, RoutablePageMixin, MetadataPageMixin, MenuPage)):
+
     page_h3 = models.CharField(max_length=255)
     job_h3 = models.CharField(max_length=255)
     job_p = models.CharField(max_length=255)
 
-    @route(r'^$')
+    @route(r'^$', 'index')
     def index_view(self, request):
         pages = FAQPage.objects.live()
-        return render(request, 'sections/job_block.html', {
+        return render(request, 'cms/faq_index.html',{
             'page': self,
             'pages': pages,
             })
 
-    #content_panels = Page.content_panels = [
-    #    FieldPanel('page_h3'),
-    #    FieldPanel('job_h3'),
-    #    FieldPanel('job_p'),        
-    #    ]
+    @route(r'^вопрос/(\d+)/$', name='detail')
+    def detail_view(self, request, page_id):
+        page = FAQPage.objects.get(pk=page_id)
+        return render(request, 'cms/faq_detail.html',{
+            'page': self,
+            'faq': page,
+            })
+
+
+    content_panels = [
+        FieldPanel('title'),
+        FieldPanel('page_h3'),
+        FieldPanel('job_h3'),
+        FieldPanel('job_p'),        
+        ]
 
     def __str__(self):
         return '{}'.format(self.pk)
 
 class FAQPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
+
     head = models.CharField(max_length=255)
     text = models.CharField(max_length=255)
-    #content_panels = Page.content_panels = [
-    #    FieldPanel('head'),
-    #    FieldPanel('text')        
-    #    ]
+    tags = ClusterTaggableManager(through=FAQTag, blank=True)
+    content_panels = [
+        FieldPanel('title'),
+        FieldPanel('head'),
+        FieldPanel('text'),        
+        ]
+    promote_panels = Page.promote_panels + [
+        FieldPanel('tags'),
+    ]
 
     def __str__(self):
         return '{}'.format(self.head)
