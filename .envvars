@@ -1,6 +1,6 @@
 # PostgreSQL
-#POSTGRES_PASSWORD=mysecretpass
-#POSTGRES_USER=postgresuser
+POSTGRES_PASSWORD=gglobal
+POSTGRES_USER=gglobal
 
 # General settings
 # DJANGO_READ_DOT_ENV_FILE=True
@@ -46,3 +46,4 @@ RDS_PASSWORD="iddqd3133122"
 RDS_HOSTNAME="localhost"
 RDS_PORT="5432"
 
+VIRTUAL_HOST="xn------dddfnxoenlfghchl4bitc.xn--90ais"

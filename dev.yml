@@ -24,8 +24,8 @@ services:
       - mailhog
     environment:
       - POSTGRES_USER=gglobal
-    # - POSTGRES_PASSWORD=docker
-    # - POSTGRES_DB=gis
+      - POSTGRES_PASSWORD=gglobal
+      - POSTGRES_DB=gis
       - USE_DOCKER=yes
     volumes:
       - .:/app

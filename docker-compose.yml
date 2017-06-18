@@ -10,7 +10,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - postgres_backup:/backups
-    env_file: .env
+    env_file: .envvars
 
   django:
     build:
@@ -20,7 +20,7 @@ services:
       - postgres
       - redis
     command: /gunicorn.sh
-    env_file: .env
+    env_file: .envvars
 
   nginx:
     build: ./compose/nginx
@@ -29,7 +29,7 @@ services:
 
       - certbot
     environment:
-      - MY_DOMAIN_NAME=ремонт-пк-и-ноутбуков.бел
+      - MY_DOMAIN_NAME=xn------dddfnxoenlfghchl4bitc.xn--90ais
 
     ports:
       - "0.0.0.0:80:80"
@@ -41,7 +41,7 @@ services:
 
   certbot:
     image: quay.io/letsencrypt/letsencrypt
-    command: bash -c "sleep 6 && certbot certonly -n --standalone -d ремонт-пк-и-ноутбуков.бел --test --agree-tos --email narnikgamarnikus@gmail.com --server https://acme-v01.api.letsencrypt.org/directory --rsa-key-size 4096 --verbose --keep-until-expiring --preferred-challenges http-01"
+    command: bash -c "sleep 6 && certbot certonly -n --standalone -d xn------dddfnxoenlfghchl4bitc.xn--90ais -d xn--90a0am.xn------dddfnxoenlfghchl4bitc.xn--90ais --test --agree-tos --email narnikgamarnikus@gmail.com --server https://acme-v01.api.letsencrypt.org/directory --rsa-key-size 4096 --verbose --keep-until-expiring --preferred-challenges http-01"
     entrypoint: ""
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
@@ -60,7 +60,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/django/Dockerfile
-    env_file: .env
+    env_file: .envvars
     depends_on:
      - postgres
      - redis
@@ -70,7 +70,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/django/Dockerfile
-    env_file: .env
+    env_file: .envvars
     depends_on:
       - postgres
       - redis
