@@ -2,12 +2,9 @@
 
 {% load wagtailcore_tags cms_tags %}
 
-{% block body_class %}template-homepage{% endblock %}
+{% block body_class %}template-basepage{% endblock %}
 
 {% block content %}    
-
-{{ page.body }}
-
 {#% for page_snippet_placement in page.page_snippet_placements.all %#}
   
   <div class="infinite-container">
@@ -26,7 +23,8 @@
   defer(function () {
     var infinite = new Waypoint.Infinite({
       element: $('.infinite-container')[0],
-    });
+      offset: function(){return this.context.innerHeight()-(this.adapter.outerHeight()*0.85)},
+	    });
 	});
   </script>
 

@@ -10,6 +10,12 @@
                 <div class="row">
                     <div class="col-sm-12 text-center">
                       <h3 class="text-white">{{ page.page_h3 }}</h3>
+                      <h5 class="text-white">Категории:</h5>
+                      <ul class="list-unstyled">
+                      {% for tag in tags %}
+                        <li style="display: inline"> <a href="{% routablepageurl page 'index' %}?тэг={{ tag }}" class="text-white">{{ tag }}</a> </li>
+                      {% endfor %}
+                       </ul>
                     </div>
                 </div>
             </div> <!-- end container -->
@@ -48,9 +54,9 @@
                 </div>
                 <div class="row">
                 {% endif %}
-                </div>
                 <!-- end row -->
                 {% endfor %}
+                </div>
             </div> <!-- end container -->
         </section>
         <!-- END JOBS -->

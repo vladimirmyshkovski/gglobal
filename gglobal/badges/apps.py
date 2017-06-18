@@ -6,4 +6,4 @@ class BadgesConfig(AppConfig):
     verbose_name = "Badges"
 
     def ready(self):
-        import gglobal.badges.signals
+        pass#import gglobal.badges.signals

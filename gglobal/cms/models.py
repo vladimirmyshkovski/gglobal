@@ -25,24 +25,17 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
+
 class BasePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 
     """
     The Base Page
     """
-
-    body = StreamField(
-        SectionsStreamBlock(), 
-        verbose_name="BasePage content block", blank=True
-    )
-
     search_fields = [
-        index.SearchField('body'),
         index.FilterField('live'),
     ]
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel('body'),
         InlinePanel('page_snippet_placements', label="Snippets"),
     ]
 
@@ -121,12 +114,40 @@ class FAQIndexPage(six.with_metaclass(PageBase, RoutablePageMixin, MetadataPageM
     job_h3 = models.CharField(max_length=255)
     job_p = models.CharField(max_length=255)
 
+    '''
+    def serve(self, request):
+        # Get blogs
+
+        # Filter by tag
+        tag = request.GET.get('tag')
+        if tag:
+            pages = FAQPage.objects.filter(tags__name=tag)
+
+        return render(request, self.template, {
+            'page': self,
+            'pages': pages,
+        })
+    '''
+
+
     @route(r'^$', 'index')
     def index_view(self, request):
-        pages = FAQPage.objects.live()
+        #tags = FAQTag.objects.all()
+        tags = []
+        for i in FAQPage.objects.live():
+            for k in i.tags.all():
+                tags.append(k)
+        print(tags)
+        tags = set(tags)
+        tag = request.GET.get('тэг')
+        if tag:
+            pages = FAQPage.objects.filter(tags__name=tag)
+        else:
+            pages = FAQPage.objects.live()
         return render(request, 'cms/faq_index.html',{
             'page': self,
             'pages': pages,
+            'tags': tags,
             })
 
     @route(r'^вопрос/(\d+)/$', name='detail')
@@ -137,6 +158,15 @@ class FAQIndexPage(six.with_metaclass(PageBase, RoutablePageMixin, MetadataPageM
             'faq': page,
             })
 
+    '''
+    @route(r'^тэг/(\d+)/$', name='tag')
+    def tag_view(self, request, tag):
+        page = FAQPage.objects.filter(tags__in=[tag])
+        return render(request, 'cms/faq_detail.html',{
+            'page': self,
+            'faq': page,
+            })
+    '''
 
     content_panels = [
         FieldPanel('title'),
@@ -153,11 +183,13 @@ class FAQPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
     head = models.CharField(max_length=255)
     text = models.CharField(max_length=255)
     tags = ClusterTaggableManager(through=FAQTag, blank=True)
+
     content_panels = [
         FieldPanel('title'),
         FieldPanel('head'),
         FieldPanel('text'),        
         ]
+
     promote_panels = Page.promote_panels + [
         FieldPanel('tags'),
     ]
@@ -171,7 +203,6 @@ class ExecutantIndexPage(six.with_metaclass(PageBase, RoutablePageMixin, Metadat
     """
     The Index Page of all Masters
     """
-
     @route(r'^$')
     def index_view(self, request):
         pages = MasterCRMProfilePage.objects.live()

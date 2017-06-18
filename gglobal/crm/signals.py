@@ -36,7 +36,6 @@ def post_on_post_transition(sender, instance, target=None, **kwargs):
 			)
 		delete_bonus.apply_async(args=[bonus.id], eta=tomorrow)
 
-	if target == 'complete_project':
 		salary = Salary.objects.create(
 			project=instance,
 			executant=instance.owner
@@ -57,7 +56,7 @@ def create_or_update_clientprofile(sender, instance, created, **kwargs):
 @receiver(badge_awarded, sender=VerificationUser)
 def do_something_after_badge_is_awarded(sender, user, badge, **kwargs):
 	print(user)
-	user.executantprofile.save()
+	#user.executantprofile.save()
 
 @receiver(post_save, sender=Assignment)
 def create_assignment(sender, instance, created, **kwargs):

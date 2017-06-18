@@ -197,6 +197,7 @@ class Assignment(ConcurrentTransitionMixin, Base):
         master = get_object_or_None(ExecutantProfile, user=user)
         if master:
             self.owner = master
+            master.is_busy = True
    
     @transition(field='state', source=[State.APPROVED], target=State.READY,
         custom=dict(admin=True, button_name=_('Приступить к работе')))
