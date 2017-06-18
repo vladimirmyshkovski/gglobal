@@ -41,7 +41,7 @@ REDIS_ENDPOINT_ADDRESS="localhost"
 REDIS_PORT="6379"
 
 RDS_DB_NAME="gglobaldatabase"
-RDS_USERNAME="gglobal"
+RDS_USERNAME="gglobaldatabase"
 RDS_PASSWORD="parolnikomyneskazhy"
 RDS_HOSTNAME="localhost"
 RDS_PORT="5432"
