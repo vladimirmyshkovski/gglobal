@@ -25,7 +25,6 @@ services:
     environment:
       - POSTGRES_USER=gglobal
       - POSTGRES_PASSWORD=gglobal
-      - POSTGRES_DB=gis
       - USE_DOCKER=yes
     volumes:
       - .:/app
