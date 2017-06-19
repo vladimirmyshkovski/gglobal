@@ -186,6 +186,7 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 #        'CONN_MAX_AGE': 600,
 #    }
 #}
+DATABASES['default'] = env.db('DATABASE_URL')
 
 
 # CACHING

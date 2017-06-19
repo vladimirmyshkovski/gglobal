@@ -273,22 +273,13 @@ MANAGERS = ADMINS
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-#DATABASES = {
-#    'default': env.db('DATABASE_URL', default='postgres:///gglobal'),
-#}
-#DATABASES['default']['ATOMIC_REQUESTS'] = True
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('RDS_DB_NAME'),
-        'USER': env('RDS_USERNAME'),
-        'PASSWORD': env('RDS_PASSWORD'),
-        'HOST': env('RDS_HOSTNAME'),
-        'PORT': env('RDS_PORT'),
-        'CONN_MAX_AGE': 600,
-    }
+    'default': env.db('DATABASE_URL', default='postgres:///gglobal'),
 }
+DATABASES['default']['ATOMIC_REQUESTS'] = True
+#DATABASES['default'] = env.db('DATABASE_URL')
+
+
 
 
 # GENERAL CONFIGURATION

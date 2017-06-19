@@ -518,3 +518,5 @@ class PhoneNumberAdmin(BaseAdmin):
 admin.site.register(Bonus)
 admin.site.register(Card)
 #admin.site.register(PaymentType)
+from django.contrib.auth.decorators import login_required
+admin.site.logout = login_required(admin.site.logout)
