@@ -37,9 +37,9 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # raven sentry client
 # See https://docs.sentry.io/clients/python/integrations/django/
-#INSTALLED_APPS += ['raven.contrib.django.raven_compat', ]
-#RAVEN_MIDDLEWARE = ['raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware']
-#MIDDLEWARE = RAVEN_MIDDLEWARE + MIDDLEWARE
+INSTALLED_APPS += ['raven.contrib.django.raven_compat', ]
+RAVEN_MIDDLEWARE = ['raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware']
+MIDDLEWARE = RAVEN_MIDDLEWARE + MIDDLEWARE
 # opbeat integration
 # See https://opbeat.com/languages/django/
 INSTALLED_APPS += ['opbeat.contrib.django', ]
@@ -226,16 +226,15 @@ SESSION_CACHE_ALIAS = "default"
 
 
 # Sentry Configuration
-#SENTRY_DSN = env('DJANGO_SENTRY_DSN')
-#SENTRY_CLIENT = env('DJANGO_SENTRY_CLIENT', default='raven.contrib.django.raven_compat.DjangoClient')
-'''
+SENTRY_DSN = env('DJANGO_SENTRY_DSN')
+SENTRY_CLIENT = env('DJANGO_SENTRY_CLIENT', default='raven.contrib.django.raven_compat.DjangoClient')
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
-    #'root': {
-    #    'level': 'WARNING',
-    #    'handlers': ['sentry', ],
-    #},
+    'root': {
+        'level': 'WARNING',
+        'handlers': ['sentry', ],
+    },
     'formatters': {
         'verbose': {
             'format': '%(levelname)s %(asctime)s %(module)s '
@@ -243,10 +242,10 @@ LOGGING = {
         },
     },
     'handlers': {
-        #'sentry': {
-        #    'level': 'ERROR',
-        #    'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-        #},
+        'sentry': {
+            'level': 'ERROR',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+        },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
@@ -259,29 +258,33 @@ LOGGING = {
             'handlers': ['console', ],
             'propagate': False,
         },
-        #'raven': {
-        #    'level': 'DEBUG',
-        #    'handlers': ['console', ],
-        #    'propagate': False,
-        #},
-        #'sentry.errors': {
-        #    'level': 'DEBUG',
-        #    'handlers': ['console', ],
-        #    'propagate': False,
-        #},
+        'raven': {
+            'level': 'DEBUG',
+            'handlers': ['console', ],
+            'propagate': False,
+        },
+        'sentry.errors': {
+            'level': 'DEBUG',
+            'handlers': ['console', ],
+            'propagate': False,
+        },
         'django.security.DisallowedHost': {
             'level': 'ERROR',
             'handlers': ['console', 'sentry', ],
             'propagate': False,
         },
+        'nplusone': {
+            'level': 'WARN',
+            'handlers': ['console'],
+            'propagate': False,
+        },
     },
 }
-'''
-#SENTRY_CELERY_LOGLEVEL = env.int('DJANGO_SENTRY_LOG_LEVEL', logging.INFO)
-#RAVEN_CONFIG = {
-#    'CELERY_LOGLEVEL': env.int('DJANGO_SENTRY_LOG_LEVEL', logging.INFO),
-#    'DSN': SENTRY_DSN
-#}
+SENTRY_CELERY_LOGLEVEL = env.int('DJANGO_SENTRY_LOG_LEVEL', logging.INFO)
+RAVEN_CONFIG = {
+    'CELERY_LOGLEVEL': env.int('DJANGO_SENTRY_LOG_LEVEL', logging.INFO),
+    'DSN': SENTRY_DSN
+}
 
 # Custom Admin URL, use {% url 'admin:index' %}
 ADMIN_URL = env('DJANGO_ADMIN_URL')
@@ -314,4 +317,12 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Europe/Minsk'
 #djcelery.setup_loader()
+
+
+
+# NPLUSONE SETTINGS
+# ------------------------------------------------------------------------------
+
+NPLUSONE_LOGGER = logging.getLogger('nplusone')
+NPLUSONE_LOG_LEVEL = logging.WARN
 
