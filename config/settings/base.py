@@ -273,10 +273,10 @@ MANAGERS = ADMINS
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres:///gglobal'),
-}
-DATABASES['default']['ATOMIC_REQUESTS'] = True
+#DATABASES = {
+#    'default': env.db('DATABASE_URL', default='postgres:///gglobal'),
+#}
+#DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 
 
