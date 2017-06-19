@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Production Configurations
 
@@ -11,13 +12,18 @@ Production Configurations
 - Use opbeat for error reporting
 
 """
+from __future__ import absolute_import, unicode_literals
 
 from boto.s3.connection import OrdinaryCallingFormat
+from django.utils import six
 
 import logging
-
+import os
 
 from .base import *  # noqa
+
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
 
 # SECRET CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -59,77 +65,94 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
 SECURE_BROWSER_XSS_FILTER = True
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
-SECURE_SSL_REDIRECT = env.bool('DJANGO_SECURE_SSL_REDIRECT', default=True)
+CSRF_USE_SESSIONS = True
 CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_HTTPONLY = True
-X_FRAME_OPTIONS = 'DENY'
+USE_X_FORWARDED_HOST = True
+#SECURE_SSL_REDIRECT = env.bool('DJANGO_SECURE_SSL_REDIRECT', default=True)
+X_FRAME_OPTIONS = 'ALLOWALL' # <---------- CHANGE THIS !!!!!!!
 
 # SITE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Hosts/domain names that are valid for this site
 # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['враги-народа.рф', ])
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['xn--90a0am.xn------dddfnxoenlfghchl4bitc.xn--90ais', 'xn------dddfnxoenlfghchl4bitc.xn--90ais', '37.143.8.19', 'hosted-by.ihc.ru'])
 # END SITE CONFIGURATION
 
 INSTALLED_APPS += ['gunicorn', ]
 
 
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+MEDIA_URL = '/media/'
+
+'''
 # STORAGE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Uploaded Media Files
 # ------------------------
 # See: http://django-storages.readthedocs.io/en/latest/index.html
-#INSTALLED_APPS += ['storages', ]
-#
-#AWS_ACCESS_KEY_ID = env('DJANGO_AWS_ACCESS_KEY_ID')
-#AWS_SECRET_ACCESS_KEY = env('DJANGO_AWS_SECRET_ACCESS_KEY')
-#AWS_STORAGE_BUCKET_NAME = env('DJANGO_AWS_STORAGE_BUCKET_NAME')
-#AWS_AUTO_CREATE_BUCKET = True
-#AWS_QUERYSTRING_AUTH = False
-#AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
-#
+INSTALLED_APPS += ['storages', ]
+
+AWS_ACCESS_KEY_ID = env('DJANGO_AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('DJANGO_AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env('DJANGO_AWS_STORAGE_BUCKET_NAME')
+AWS_AUTO_CREATE_BUCKET = True
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
+
 # AWS cache settings, don't change unless you know what you're doing:
-#AWS_EXPIRY = 60 * 60 * 24 * 7
-#
+AWS_EXPIRY = 60 * 60 * 24 * 7
+
 # TODO See: https://github.com/jschneier/django-storages/issues/47
 # Revert the following and use str after the above-mentioned bug is fixed in
 # either django-storage-redux or boto
-#control = 'max-age=%d, s-maxage=%d, must-revalidate' % (AWS_EXPIRY, AWS_EXPIRY)
-#AWS_HEADERS = {
-#    'Cache-Control': bytes(control, encoding='latin-1')
-#}
+AWS_HEADERS = {
+    'Cache-Control': six.b('max-age=%d, s-maxage=%d, must-revalidate' % (
+        AWS_EXPIRY, AWS_EXPIRY))
+}
 
 # URL that handles the media served from MEDIA_ROOT, used for managing
 # stored files.
 
 #  See:http://stackoverflow.com/questions/10390244/
-#from storages.backends.s3boto import S3BotoStorage
-#StaticRootS3BotoStorage = lambda: S3BotoStorage(location='static')
-#MediaRootS3BotoStorage = lambda: S3BotoStorage(location='media')
-#DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
-#
-#MEDIA_URL = 'https://s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
-#
+from storages.backends.s3boto import S3BotoStorage
+StaticRootS3BotoStorage = lambda: S3BotoStorage(location='static')
+MediaRootS3BotoStorage = lambda: S3BotoStorage(location='media')
+DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
+
+MEDIA_URL = 'https://s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
+
 # Static Assets
 # ------------------------
-#
-#STATIC_URL = 'https://s3.amazonaws.com/%s/static/' % AWS_STORAGE_BUCKET_NAME
-#STATICFILES_STORAGE = 'config.settings.production.StaticRootS3BotoStorage'
+
+STATIC_URL = 'https://s3.amazonaws.com/%s/static/' % AWS_STORAGE_BUCKET_NAME
+STATICFILES_STORAGE = 'config.settings.production.StaticRootS3BotoStorage'
 # See: https://github.com/antonagestam/collectfast
 # For Django 1.7+, 'collectfast' should come before
 # 'django.contrib.staticfiles'
 AWS_PRELOAD_METADATA = True
+'''
+
 INSTALLED_APPS = ['collectfast', ] + INSTALLED_APPS
 # COMPRESSOR
 # ------------------------------------------------------------------------------
-COMPRESS_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+COMPRESSOR_STORAGE = 'compressor.storage.CompressorFileStorage'
 COMPRESS_URL = STATIC_URL
 COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
+COMPRESS_OFFLINE = env.bool('COMPRESS_OFFLINE', default=True)
+#COMPRESS_JS_FILTERS = ['compressor.filters.closure.ClosureCompilerFilter']
+#COMPRESS_CLOSURE_COMPILER_BINARY = '/usr/share/java/closure-compiler.jar'
+#COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.SlimItFilter']
+#COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']
+#COMPRESS_CSS_FILTERS = ['compressor.filters.cleancss.CleanCSSFilter']
+#COMPRESS_PARSER = 'compressor.parser.LxmlParser'
 # EMAIL
 # ------------------------------------------------------------------------------
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
-                         default='public-enemies <noreply@враги-народа.рф>')
-EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[public-enemies]')
+                         default='gglobal <noreply@xn------dddfnxoenlfghchl4bitc.xn--90ais>')
+EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[gglobal]')
 SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 
 # Anymail with Mailgun
@@ -151,27 +174,55 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
-
-# Use the Heroku-style specification
-# Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
+# Uses Amazon RDS for database hosting, which doesn't follow the Heroku-style spec
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': env('RDS_DB_NAME'),
+#        'USER': env('RDS_USERNAME'),
+#        'PASSWORD': env('RDS_PASSWORD'),
+#        'HOST': env('RDS_HOSTNAME'),
+#        'PORT': env('RDS_PORT'),
+#        'CONN_MAX_AGE': 600,
+#    }
+#}
 DATABASES['default'] = env.db('DATABASE_URL')
+
 
 # CACHING
 # ------------------------------------------------------------------------------
+REDIS_LOCATION = 'redis://{}:{}/0'.format(
+    env('REDIS_ENDPOINT_ADDRESS'),
+    env('REDIS_PORT')
+)
 
-REDIS_LOCATION = '{0}/{1}'.format(env('REDIS_URL', default='redis://127.0.0.1:6379'), 0)
 # Heroku URL does not pass the DB number, so we parse it in
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': REDIS_LOCATION,
         'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            #'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            "CLIENT_CLASS": "django_redis.client.HerdClient",
+            "PICKLE_VERSION": -1,
+            #"COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
+            "COMPRESSOR": "django_redis.compressors.lzma.LzmaCompressor",
+            "PARSER_CLASS": "redis.connection.HiredisParser",
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100},
+            "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
+            "SOCKET_TIMEOUT": 5,  # in seconds
             'IGNORE_EXCEPTIONS': True,  # mimics memcache behavior.
                                         # http://niwinz.github.io/django-redis/latest/#_memcached_exceptions_behavior
         }
     }
 }
+
+SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+#DJANGO_REDIS_LOG_IGNORED_EXCEPTIONS = True
+
 
 
 # Sentry Configuration
@@ -222,6 +273,11 @@ LOGGING = {
             'handlers': ['console', 'sentry', ],
             'propagate': False,
         },
+        'nplusone': {
+            'level': 'WARN',
+            'handlers': ['console'],
+            'propagate': False,
+        },
     },
 }
 SENTRY_CELERY_LOGLEVEL = env.int('DJANGO_SENTRY_LOG_LEVEL', logging.INFO)
@@ -235,3 +291,38 @@ ADMIN_URL = env('DJANGO_ADMIN_URL')
 
 # Your production stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+
+
+
+
+# CELERY SETTINGS
+# ------------------------------------------------------------------------------
+#CELERY_QUEUES = (
+#   Queue('high', Exchange('high'), routing_key='high'),
+#    Queue('normal', Exchange('normal'), routing_key='normal'),
+#    Queue('low', Exchange('low'), routing_key='low'),
+#)
+#import djcelery
+
+CELERY_DEFAULT_QUEUE = 'normal'
+CELERY_DEFAULT_EXCHANGE = 'normal'
+CELERY_DEFAULT_ROUTING_KEY = 'normal'
+
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+CELERY_SEND_TASK_ERROR_EMAILS = True
+BROKER_URL = REDIS_LOCATION
+CELERY_RESULT_BACKEND = REDIS_LOCATION
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Minsk'
+#djcelery.setup_loader()
+
+
+
+# NPLUSONE SETTINGS
+# ------------------------------------------------------------------------------
+
+NPLUSONE_LOGGER = logging.getLogger('nplusone')
+NPLUSONE_LOG_LEVEL = logging.WARN
+
