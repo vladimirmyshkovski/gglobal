@@ -175,17 +175,17 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Uses Amazon RDS for database hosting, which doesn't follow the Heroku-style spec
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('RDS_DB_NAME'),
-        'USER': env('RDS_USERNAME'),
-        'PASSWORD': env('RDS_PASSWORD'),
-        'HOST': env('RDS_HOSTNAME'),
-        'PORT': env('RDS_PORT'),
-        'CONN_MAX_AGE': 600,
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': env('RDS_DB_NAME'),
+#        'USER': env('RDS_USERNAME'),
+#        'PASSWORD': env('RDS_PASSWORD'),
+#        'HOST': env('RDS_HOSTNAME'),
+#        'PORT': env('RDS_PORT'),
+#        'CONN_MAX_AGE': 600,
+#    }
+#}
 
 
 # CACHING

@@ -278,7 +278,17 @@ MANAGERS = ADMINS
 #}
 #DATABASES['default']['ATOMIC_REQUESTS'] = True
 
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('RDS_DB_NAME'),
+        'USER': env('RDS_USERNAME'),
+        'PASSWORD': env('RDS_PASSWORD'),
+        'HOST': env('RDS_HOSTNAME'),
+        'PORT': env('RDS_PORT'),
+        'CONN_MAX_AGE': 600,
+    }
+}
 
 
 # GENERAL CONFIGURATION
