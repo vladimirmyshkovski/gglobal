@@ -182,7 +182,7 @@ DATABASES = {
         'USER': env('RDS_USERNAME'),
         'PASSWORD': env('RDS_PASSWORD'),
         'HOST': env('RDS_HOSTNAME'),
-        'PORT': env('RDS_PORT'),
+        'PORT': '',
         #'CONN_MAX_AGE': 600,
     }
 }
