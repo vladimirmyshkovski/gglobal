@@ -182,8 +182,8 @@ DATABASES = {
         'USER': env('RDS_USERNAME'),
         'PASSWORD': env('RDS_PASSWORD'),
         'HOST': env('RDS_HOSTNAME'),
-        'PORT': '',
-        #'CONN_MAX_AGE': 600,
+        'PORT': env('RDS_PORT'),
+        'CONN_MAX_AGE': 600,
     }
 }
 #DATABASES['default'] = env.db('DATABASE_URL')
@@ -317,12 +317,4 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Europe/Minsk'
 #djcelery.setup_loader()
-
-
-
-# NPLUSONE SETTINGS
-# ------------------------------------------------------------------------------
-
-NPLUSONE_LOGGER = logging.getLogger('nplusone')
-NPLUSONE_LOG_LEVEL = logging.WARN
 
