@@ -341,9 +341,15 @@ class Service(models.Model):
         verbose_name="Блоки для персональной страницы", blank=True
     )
 
+    class Meta:
+        verbose_name = "Сниппет для страницы услуги"
+        verbose_name_plural = "Сниппеты для страниц услуг"
+
+
     panels = [
         StreamFieldPanel('body'),        
         ]
+
     def __str__(self):
         return '{}'.format(self.slug)
 
@@ -361,36 +367,43 @@ class ServicePageSnippetPlacement(Orderable, models.Model):
 
 
 class TroublePage(Page):
-    trouble = models.ForeignKey(
-        'cms.Trouble',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+    trouble = models.ForeignKey('service.Trouble', on_delete=models.SET_NULL, null=True, blank=True)
 
     content_panels = Page.content_panels + [
-        SnippetChooserPanel('trouble'),
+        FieldPanel('trouble'),
+        InlinePanel('trouble_page_snippet_placements', label="Snippets"),
+
     ]
 
 @register_snippet
 class Trouble(models.Model):
-    trouble = models.ForeignKey('service.Trouble')
-
+    name = models.CharField(max_length=255, null=True)
     body = StreamField(
         SectionsStreamBlock(), 
         verbose_name="Блоки для персональной страницы", blank=True
     )
 
+    class Meta:
+        verbose_name = "Сниппет для страницы проблемы"
+        verbose_name_plural = "Сниппеты для страниц проблем"
+
     panels = [
-        FieldPanel('trouble'),
         StreamFieldPanel('body'),        
         ]
 
     def __str__(self):
-        return '{}'.format(self.trouble.name)
+        return '{}'.format(self.name)
 
+class TroublePageSnippetPlacement(Orderable, models.Model):
+    page = ParentalKey('cms.TroublePage', related_name='trouble_page_snippet_placements')
+    snippet = models.ForeignKey('cms.Trouble', related_name='+')
 
+    panels = [
+        SnippetChooserPanel('snippet'),
+    ]
+
+    def __str__(self):
+        return self.page.title
 
 
 
