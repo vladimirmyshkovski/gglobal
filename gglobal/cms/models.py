@@ -325,33 +325,39 @@ class CityPageSnippetPlacement(Orderable, models.Model):
 
 
 class ServicePage(Page):
-    service = models.ForeignKey(
-        'cms.Service',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+    service = models.ForeignKey('service.Service', on_delete=models.SET_NULL, null=True, blank=True)
 
     content_panels = Page.content_panels + [
         SnippetChooserPanel('service'),
+        InlinePanel('service_page_snippet_placements', label="Snippets"),
     ]
 
 @register_snippet
 class Service(models.Model):
-    service = models.ForeignKey('service.Service')
 
+    name = models.CharField(max_length=255, null=True)
     body = StreamField(
         SectionsStreamBlock(), 
         verbose_name="Блоки для персональной страницы", blank=True
     )
 
     panels = [
-        FieldPanel('service'),
         StreamFieldPanel('body'),        
         ]
     def __str__(self):
         return '{}'.format(self.slug)
+
+
+class ServicePageSnippetPlacement(Orderable, models.Model):
+    page = ParentalKey('cms.ServicePage', related_name='service_page_snippet_placements')
+    snippet = models.ForeignKey('cms.Service', related_name='+')
+
+    panels = [
+        SnippetChooserPanel('snippet'),
+    ]
+
+    def __str__(self):
+        return self.page.title
 
 
 class TroublePage(Page):
