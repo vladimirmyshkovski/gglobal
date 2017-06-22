@@ -75,7 +75,7 @@ class BasePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 
 @register_snippet
 class PageSnippet(models.Model):
-    name = models.CharField(max_length=255, null=True)
+    name = models.CharField(max_length=255, null=True, verbose_name='Название сниппета')
     body = StreamField(
         SectionsStreamBlock(), 
         verbose_name="Блоки для персональной страницы", blank=True
@@ -292,7 +292,7 @@ class CityPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 @register_snippet
 class CitySnippetPage(models.Model):
 
-    name = models.CharField(max_length=255, null=True)
+    name = models.CharField(max_length=255, null=True, verbose_name='Название сниппета')
     body = StreamField(
         SectionsStreamBlock(), 
         verbose_name="Блоки для создания страницы городов", blank=True
@@ -335,7 +335,7 @@ class ServicePage(Page):
 @register_snippet
 class Service(models.Model):
 
-    name = models.CharField(max_length=255, null=True)
+    name = models.CharField(max_length=255, null=True, verbose_name='Название сниппета')
     body = StreamField(
         SectionsStreamBlock(), 
         verbose_name="Блоки для персональной страницы", blank=True
@@ -377,7 +377,7 @@ class TroublePage(Page):
 
 @register_snippet
 class Trouble(models.Model):
-    name = models.CharField(max_length=255, null=True)
+    name = models.CharField(max_length=255, null=True, verbose_name='Название сниппета')
     body = StreamField(
         SectionsStreamBlock(), 
         verbose_name="Блоки для персональной страницы", blank=True
