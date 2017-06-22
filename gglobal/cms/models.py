@@ -82,11 +82,12 @@ class PageSnippet(models.Model):
     )
 
     panels = [
+        FieldPanel('name'),
         StreamFieldPanel('body'),        
         ]
 
     def __str__(self):
-        return '{}'.format(self.pk)
+        return '{}'.format(self.name)
 
 
 class PageSnippetPlacement(Orderable, models.Model):
@@ -269,25 +270,15 @@ class ExecutantProfilePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuP
 
 class CityPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 
-    """
-    The City Page
-    """
-
-    body = StreamField(
-        SectionsStreamBlock(), 
-        verbose_name="Home content block", blank=True
-    )
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, blank=True)
     search_fields = [
-        index.SearchField('body'),
         index.FilterField('live'),
     ]
 
     content_panels = Page.content_panels + [
     	FieldPanel('country'),
         FieldPanel('city'),
-        StreamFieldPanel('body'),
     ]
 
     promote_panels = Page.promote_panels + MetadataPageMixin.panels
@@ -299,15 +290,14 @@ class CityPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 @register_snippet
 class CitySnippetPage(models.Model):
 
+    name = models.CharField(max_length=255, null=True)
     body = StreamField(
         SectionsStreamBlock(), 
         verbose_name="Блоки для создания страницы городов", blank=True
     )
 
-    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
-    
     panels = [
-        FieldPanel('city'),
+        FieldPanel('name'),
         StreamFieldPanel('body'),        
         ]
 
@@ -317,6 +307,22 @@ class CitySnippetPage(models.Model):
 
     def __str__(self):
         return self.city.alternate_names
+
+
+class CityPageSnippetPlacement(Orderable, models.Model):
+    page = ParentalKey('cms.CityPage', related_name='page_snippet_placements')
+    snippet = models.ForeignKey('cms.CitySnippetPage', related_name='+')
+
+    class Meta:
+        verbose_name = "Сниппет для страницы города"
+        verbose_name_plural = "Сниппеты для страниц городов"
+
+    panels = [
+        SnippetChooserPanel('snippet'),
+    ]
+
+    def __str__(self):
+        return self.page.title
 
 
 class ServicePage(Page):
