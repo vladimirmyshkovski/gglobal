@@ -36,7 +36,7 @@ class BasePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
     ]
 
     content_panels = Page.content_panels + [
-        InlinePanel('page_snippet_placements', label="Snippets"),
+        InlinePanel('base_page_snippet_placements', label="Snippets"),
     ]
 
     promote_panels = Page.promote_panels + MetadataPageMixin.panels
@@ -81,6 +81,10 @@ class PageSnippet(models.Model):
         verbose_name="Блоки для персональной страницы", blank=True
     )
 
+    class Meta:
+        verbose_name = "Сниппет для базовой страницы"
+        verbose_name_plural = "Сниппеты для базовых страниц"
+
     panels = [
         FieldPanel('name'),
         StreamFieldPanel('body'),        
@@ -91,12 +95,8 @@ class PageSnippet(models.Model):
 
 
 class PageSnippetPlacement(Orderable, models.Model):
-    page = ParentalKey('cms.BasePage', related_name='page_snippet_placements')
+    page = ParentalKey('cms.BasePage', related_name='base_page_snippet_placements')
     snippet = models.ForeignKey('cms.PageSnippet', related_name='+')
-
-    class Meta:
-        verbose_name = "Сниппет для страницы"
-        verbose_name_plural = "Сниппеты для страниц"
 
     panels = [
         SnippetChooserPanel('snippet'),
@@ -279,6 +279,8 @@ class CityPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
     content_panels = Page.content_panels + [
     	FieldPanel('country'),
         FieldPanel('city'),
+        InlinePanel('city_page_snippet_placements', label="Snippets"),
+
     ]
 
     promote_panels = Page.promote_panels + MetadataPageMixin.panels
@@ -306,16 +308,12 @@ class CitySnippetPage(models.Model):
         verbose_name_plural = "Сниппеты страниц городов"
 
     def __str__(self):
-        return self.city.alternate_names
+        return self.name
 
 
 class CityPageSnippetPlacement(Orderable, models.Model):
-    page = ParentalKey('cms.CityPage', related_name='page_snippet_placements')
+    page = ParentalKey('cms.CityPage', related_name='city_page_snippet_placements')
     snippet = models.ForeignKey('cms.CitySnippetPage', related_name='+')
-
-    class Meta:
-        verbose_name = "Сниппет для страницы города"
-        verbose_name_plural = "Сниппеты для страниц городов"
 
     panels = [
         SnippetChooserPanel('snippet'),
@@ -325,9 +323,10 @@ class CityPageSnippetPlacement(Orderable, models.Model):
         return self.page.title
 
 
+
 class ServicePage(Page):
     service = models.ForeignKey(
-        'cms.Service',
+        'service.Service',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -335,13 +334,11 @@ class ServicePage(Page):
     )
 
     content_panels = Page.content_panels + [
-        SnippetChooserPanel('service'),
+        SnippetChooserPanel('service_page_snippet_placements'),
     ]
 
 @register_snippet
 class Service(models.Model):
-    service = models.ForeignKey('service.Service')
-
     body = StreamField(
         SectionsStreamBlock(), 
         verbose_name="Блоки для персональной страницы", blank=True
@@ -353,6 +350,18 @@ class Service(models.Model):
         ]
     def __str__(self):
         return '{}'.format(self.slug)
+
+
+class PageSnippetPlacement(Orderable, models.Model):
+    page = ParentalKey('cms.ServicePage', related_name='service_page_snippet_placements')
+    snippet = models.ForeignKey('cms.Service', related_name='+')
+
+    panels = [
+        SnippetChooserPanel('snippet'),
+    ]
+
+    def __str__(self):
+        return self.page.title
 
 
 class TroublePage(Page):

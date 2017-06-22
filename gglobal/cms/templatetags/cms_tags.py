@@ -1,5 +1,5 @@
 from django import template
-from gglobal.cms.models import CityPage, CitySnippetPage
+from gglobal.cms.models import CityPage
 
 register = template.Library()
 
