@@ -24,7 +24,7 @@ class Bot(models.Model):
 		return data
 
 	@staticmethod
-	def sendMessage(chat_id, payload):
+	def sendMessage(self, chat_id, payload):
 		TelegramBot = telepot.Bot(self.api_key)
 		TelegramBot.sendMessage(chat_id, payload)
 
