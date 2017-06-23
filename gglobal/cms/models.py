@@ -43,7 +43,7 @@ class BasePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
     
     def lists_snippets_blocks(self):
         lists_snippets_blocks = []
-        all_snippets = self.page_snippet_placements.all()
+        all_snippets = self.base_page_snippet_placements.all()
         for i in all_snippets:
             for i in i.snippet.body:
                 lists_snippets_blocks.append([i])

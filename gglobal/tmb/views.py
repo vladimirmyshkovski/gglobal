@@ -78,7 +78,8 @@ class CommandReceiveView(View):
         bot = get_object_or_404(Bot, api_key=bot_token)
         body_unicode = request.body.decode('utf-8')
         payload = json.loads(json.dumps(body_unicode))
-        
+        bot.sendMessage(257133027, 'hello')
+
         try:
             payload = json.loads(request.body.decode('utf-8'))
         except ValueError:
