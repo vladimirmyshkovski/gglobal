@@ -32,7 +32,7 @@ class Bot(models.Model):
 		if not self.pk:
 			self.get_me
 			TelegramBot = telepot.Bot(self.api_key)
-			TelegramBot.setWebhook('xn--90a0am.xn------dddfnxoenlfghchl4bitc.xn--90ais/bot/bot/{bot_token}/'.format(bot_token=self.api_key))
+			TelegramBot.setWebhook('xn------dddfnxoenlfghchl4bitc.xn--90ais/bot/bot/{bot_token}/'.format(bot_token=self.api_key))
 		super(Bot, self).save(*args, **kwargs)
 
 	class Meta:
