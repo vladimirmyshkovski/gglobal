@@ -76,7 +76,6 @@ def save_message(chat_id, message):
 class CommandReceiveView(View):
     def post(self, request, bot_token):
         bot = get_object_or_404(Bot, api_key=bot_token)
-        bot.sendMessage(bot, 257133027, 'hello')
         body_unicode = request.body.decode('utf-8')
         payload = json.loads(json.dumps(body_unicode))
 
