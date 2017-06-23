@@ -1,6 +1,6 @@
 {% load menu_tags base_tags wagtailcore_tags %}
 {% block main_navigation %}
-{% get_site_root as site_root %}
+{#% get_site_root as site_root %#}
 <!-- Navbar -->
 
         <div class="navbar navbar-custom sticky" role="navigation" id="sticky-nav">
@@ -18,8 +18,8 @@
                     </button>
 
                     <!-- LOGO -->
-                    <a class="navbar-brand logo" href="{% pageurl site_root %}">
-                        {{ site_root.title }}
+                    <a class="navbar-brand logo" href="{#% pageurl site_root %#}">
+                        {#{ site_root.title }#}
                     </a>
 
                 </div>
