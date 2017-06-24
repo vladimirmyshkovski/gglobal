@@ -3,10 +3,10 @@
 {% load wagtailcore_tags users_tags %}
 
 {% block meta %}
-    {% if resource.has_next %}
+    {% if resources.has_next %}
     <link rel="next" href="?page={{ resources.next_page_number }}">
     {% endif %}
-    {% if resource.has_previous %}
+    {% if resources.has_previous %}
     <link rel="prev" href="?page={{ resources.previous_page_number }}">
     {% endif %}
 {% endblock meta %}
