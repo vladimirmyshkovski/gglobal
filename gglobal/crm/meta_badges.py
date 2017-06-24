@@ -28,5 +28,5 @@ class VerificationUser(MetaBadge):
 
     def check_serial_passport(self, instance):
         return instance.user.executantprofile.serial_passport
-                
+
 register_badge(VerificationUser)

@@ -41,3 +41,4 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+from gglobal.users import meta_badges

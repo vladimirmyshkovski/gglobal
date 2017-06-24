@@ -9,6 +9,7 @@ from cuser.middleware import CuserMiddleware
 from django.db.models.signals import pre_save, post_save
 from gglobal.users.models import User
 from gglobal.crm.meta_badges import VerificationUser
+from gglobal.users.meta_badges import AuthorizationUser
 from badges.signals import badge_awarded
 from gglobal.crm.tasks import delete_bonus
 from datetime import datetime, timedelta
@@ -55,7 +56,20 @@ def create_or_update_clientprofile(sender, instance, created, **kwargs):
 
 @receiver(badge_awarded, sender=VerificationUser)
 def do_something_after_badge_is_awarded(sender, user, badge, **kwargs):
-	print(user)
+	#print(user)
+	print(123)
+	print(123)
+	print(123)
+	print(123)
+	#user.executantprofile.save()
+
+@receiver(badge_awarded, sender=AuthorizationUser)
+def do_something_after_badge_is_awarded(sender, user, badge, **kwargs):
+	#print(user)
+	print(123)
+	print(123)
+	print(123)
+	print(123)
 	#user.executantprofile.save()
 
 @receiver(post_save, sender=Assignment)
