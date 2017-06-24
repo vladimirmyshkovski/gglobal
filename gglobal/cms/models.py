@@ -296,7 +296,7 @@ class CityPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
         return lists_snippets_blocks
 
     def get_context(self, request):
-        context = super(BasePage, self).get_context(request)
+        context = super(CityPage, self).get_context(request)
         paginator = Paginator(self.lists_snippets_blocks(), 1)
         page = request.GET.get('page')
         try:
