@@ -2,15 +2,6 @@
 
 {% load wagtailcore_tags cms_tags %}
 
-{% block meta %}
-    {% if resources.has_next %}
-    <link rel="next" href="?page={{ resources.next_page_number }}">
-    {% endif %}
-    {% if resources.has_previous %}
-    <link rel="prev" href="?page={{ resources.previous_page_number }}">
-    {% endif %}
-{% endblock meta %}
-
 {% block body_class %}template-basepage{% endblock %}
 
 {% block content %}    
