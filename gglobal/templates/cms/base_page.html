@@ -2,6 +2,8 @@
 
 {% load wagtailcore_tags cms_tags %}
 
+{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock canonical_url %}
+
 {% block body_class %}template-basepage{% endblock %}
 
 {% block content %}    
