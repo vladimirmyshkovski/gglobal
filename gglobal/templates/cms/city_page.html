@@ -6,7 +6,26 @@
 
 {% block content %}    
 
-{{ page.body }}
+  <div class="infinite-container">
+    {% for resource in resources %}
+      <div class="infinite-item">
+      {{ body_page }}
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if resources.has_next %}
+    <a class="infinite-more-link" href="?page={{ resources.next_page_number }}"></a>
+  {% endif %}
+
+  <script>
+  defer(function () {
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      offset: function(){return this.context.innerHeight()-(this.adapter.outerHeight()*0.85)},
+	    });
+	});
+  </script>
 
 {% block map %}
     {#% masters_map %#}

@@ -5,7 +5,6 @@
 {% block body_class %}template-basepage{% endblock %}
 
 {% block content %}    
-{#% for page_snippet_placement in page.page_snippet_placements.all %#}
   
   <div class="infinite-container">
     {% for resource in resources %}
@@ -31,7 +30,6 @@
 
 
 
-{#% endfor %#}
 
 {#% block map %#}
     {#% citypages_map %#}
