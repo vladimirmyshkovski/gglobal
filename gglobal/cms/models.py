@@ -272,6 +272,9 @@ class CityPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
 
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, blank=True)
+
+    template = 'cms/city_page.html'
+
     search_fields = [
         index.FilterField('live'),
     ]
