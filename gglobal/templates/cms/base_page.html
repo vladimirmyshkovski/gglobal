@@ -7,7 +7,7 @@
 {% block body_class %}template-basepage{% endblock %}
 
 {% block content %}    
-  
+  {{ request.build_absolute_uri }}
   <div class="infinite-container">
     {% for resource in resources %}
       <div class="infinite-item">
