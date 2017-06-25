@@ -198,7 +198,7 @@ MIDDLEWARE = [
     #'htmlmin.middleware.HtmlMinifyMiddleware',
     #'nplusone.ext.django.NPlusOneMiddleware',
     #'middleware.preload.ResourceHintsMiddleware',
-    #'django.middleware.http.ConditionalGetMiddleware',
+    'django.middleware.http.ConditionalGetMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
