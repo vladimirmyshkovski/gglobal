@@ -1,4 +1,4 @@
 #!/bin/bash
 
-bash ./clear.sh
-bash ./restart.sh
+bash .clear.sh
+bash .restart.sh
