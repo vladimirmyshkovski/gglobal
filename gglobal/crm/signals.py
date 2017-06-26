@@ -10,7 +10,7 @@ from django.db.models.signals import pre_save, post_save
 from gglobal.users.models import User
 from gglobal.crm.meta_badges import VerificationUser
 from gglobal.users.meta_badges import AuthorizationUser
-from badges.signals import badge_awarded
+from gglobal.badges.signals import badge_awarded
 from gglobal.crm.tasks import delete_bonus
 from datetime import datetime, timedelta
 from gglobal.tmb.tasks import send_to_users
