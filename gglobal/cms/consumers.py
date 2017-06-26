@@ -16,6 +16,7 @@ def phone_numbers_recive(message):
         executants = ExecutantProfile.objects.filter(work_citites__in=[site.root_page.city])
         if not executants.exists():
             pass
+    '''
     ''' 
     for user in cache.keys("user_*"):
         user_numbers = cache.get(user)
@@ -23,7 +24,10 @@ def phone_numbers_recive(message):
             Group("phonenumbers").send({
                 "text": user_number,
             })
-
+    '''
+    Group("phonenumbers").send({
+            "text": "hello",
+        })
 
 def phone_numbers_disconnect(message):
     Group("phonenumbers").discard(message.reply_channel)
