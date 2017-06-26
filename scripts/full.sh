@@ -1,4 +1,4 @@
 #!/bin/bash
 
-bash . clear.sh
-bash . restart.sh
+sh clear
+sh restart
