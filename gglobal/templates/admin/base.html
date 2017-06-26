@@ -405,7 +405,7 @@ socket = new WebSocket(ws_scheme + '://' + window.location.host + "/onlinestatus
 socket.onopen = function() {
     socket.send("connect");
 }
-socker.onclose = function() {
+socket.onclose = function() {
     socket.send("disconnect");   
 }
 // Call onopen directly if socket is already open
