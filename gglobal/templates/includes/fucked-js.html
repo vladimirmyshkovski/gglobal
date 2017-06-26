@@ -24,8 +24,6 @@
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/analytics.js' %}"></script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/project.js' %}"></script>
     {% endcompress %}
-    <!--script src="https://unpkg.com/vue"></script-->
-    <!--script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/vue/vue-websocket.js' %}"></script-->
     <script>function defer(e){window.Inputmask?e():setTimeout(function(){defer(e)},50)}</script>
     {% if user.is_authenticated %}
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>
