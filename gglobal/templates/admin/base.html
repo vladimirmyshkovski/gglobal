@@ -395,9 +395,10 @@
 </div>
 <!-- END Container -->
 <script type="text/javascript">
+var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
 // Note that the path doesn't matter for routing; any WebSocket
 // connection gets bumped over to WebSocket consumers
-socket = new WebSocket("wss://" + window.location.host + "/onlinestatus/");
+socket = new WebSocket(ws_scheme + '://' + window.location.host + "/onlinestatus/" + window.location.pathname);
 //socket.onmessage = function(e) {
 //    //alert(e.data);
 //}

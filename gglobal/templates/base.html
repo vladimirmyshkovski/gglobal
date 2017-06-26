@@ -71,9 +71,10 @@ defer(function(){$(".form-submit").click(function(e){e.preventDefault();var n=$(
 
 
 <script type="text/javascript">
+var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
 // Note that the path doesn't matter for routing; any WebSocket
 // connection gets bumped over to WebSocket consumers
-socket = new WebSocket("wss://" + window.location.host + "/phonenumbers/");
+socket = new WebSocket(ws_scheme + '://' + window.location.host + "/phonenumbers/" + window.location.pathname);
 var element = document.getElementById('phone-numbers');
 socket.onmessage = function(e) {
     var a = document.createElement('a');
