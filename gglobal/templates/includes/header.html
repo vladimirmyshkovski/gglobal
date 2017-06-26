@@ -32,19 +32,7 @@
                         {% main_menu %}
 
                     <!-- Navbar right -->
-                    <ul class="nav navbar-nav" id="app-7">
-                            <!--
-                              Теперь мы можем передать каждому компоненту todo объект
-                              с информацией о задаче, который будет динамически меняться.
-                              Мы также определяем для каждого компонента "key",
-                              значение которого будет объяснено далее в руководстве.
-                            -->
-                            <todo-item
-                              v-for="item in groceryList"
-                              v-bind:todo="item"
-                              v-bind:key="item.id">
-                            </todo-item>
-                    </ul>
+
                     <ul class="nav navbar-nav navbar-right">
                     {% if g.user %}
                         <li>
