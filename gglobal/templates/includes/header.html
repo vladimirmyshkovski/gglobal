@@ -32,6 +32,19 @@
                         {% main_menu %}
 
                     <!-- Navbar right -->
+                    <ul class="nav navbar-nav" id="app-7">
+                            <!--
+                              Теперь мы можем передать каждому компоненту todo объект
+                              с информацией о задаче, который будет динамически меняться.
+                              Мы также определяем для каждого компонента "key",
+                              значение которого будет объяснено далее в руководстве.
+                            -->
+                            <todo-item
+                              v-for="item in groceryList"
+                              v-bind:todo="item"
+                              v-bind:key="item.id">
+                            </todo-item>
+                    </ul>
                     <ul class="nav navbar-nav navbar-right">
                     {% if g.user %}
                         <li>
@@ -41,15 +54,13 @@
                             <a href="#" class="btn btn-white-fill navbar-btn">Выйти</a>
                         </li>
                     {% else %}
-                        <li>
-                            <a href="tel:{{ phone }}">{{ phone }}</a>
-                        </li>
                         <!--li>
                             <a href="{#% url 'qa_index' %#}" class="fa fa-question"></a>
                         </li>
                         <li>
                             <a href="#search" class="fa fa-search"></a>
                         </li-->
+                        <li id="phone-numbers"></li>
                         <li>
                             <a href="#popup-modal-form" class="btn btn-white-fill navbar-btn popup-form">Заказать звонок</a>
                         </li>

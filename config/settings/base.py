@@ -171,7 +171,7 @@ LOCAL_APPS = [
     'gglobal.city.apps.CityConfig',
     'gglobal.badges.apps.BadgesConfig',
     'gglobal.tmb.apps.TmbConfig',
-    #'channels',
+    'channels',
 ]
 
 PRE_DJANGO_APPS = [
@@ -193,7 +193,7 @@ INSTALLED_APPS = PRE_DJANGO_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
     #'django_hosts.middleware.HostsRequestMiddleware',
-    'django.middleware.cache.UpdateCacheMiddleware',
+    #'django.middleware.cache.UpdateCacheMiddleware',
     #'django.middleware.gzip.GZipMiddleware',
     #'htmlmin.middleware.HtmlMinifyMiddleware',
     #'nplusone.ext.django.NPlusOneMiddleware',
@@ -213,7 +213,7 @@ MIDDLEWARE = [
     #'wagtailthemes.middleware.ThemeMiddleware',
     'cuser.middleware.CuserMiddleware',
     'turbolinks.middleware.TurbolinksMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
+    #'django.middleware.cache.FetchFromCacheMiddleware',
     #'django_hosts.middleware.HostsResponseMiddleware',
     #'htmlmin.middleware.MarkRequestMiddleware',
 ]
@@ -774,7 +774,7 @@ ru_formats.DATETIME_FORMAT = "d b Y H:i:s"
 
 # DJANGO_CHANNELS https://channels.readthedocs.io/en/stable/getting-started.html
 # ------------------------------------------------------------------------------
-'''
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "asgi_redis.RedisChannelLayer",
@@ -784,7 +784,7 @@ CHANNEL_LAYERS = {
         "ROUTING": "config.routing.channel_routing",
     },
 }
-'''
+
 
 
 # DJANGO_HOSTS https://github.com/jazzband/django-hosts

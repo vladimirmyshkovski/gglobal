@@ -24,11 +24,14 @@
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/analytics.js' %}"></script>
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/project.js' %}"></script>
     {% endcompress %}
+    <script src="https://unpkg.com/vue"></script>
+    <script type="text/javascript" data-turbolinks-eval="false" defer src="{% static 'js/vue/vue-websocket.js' %}"></script>
     <script>function defer(e){window.Inputmask?e():setTimeout(function(){defer(e)},50)}</script>
     {% if user.is_authenticated %}
     <script type="text/javascript" data-turbolinks-eval="false" defer src="{% url 'admin:jsi18n' %}"></script>
     {% endif %}
     <script>defer(function(){csrftoken=Cookies.get("csrftoken")});</script>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
         <!--[if lt IE 9]>
           <script src="{% static 'js/html5shiv-printshiv.js' %}"></script>

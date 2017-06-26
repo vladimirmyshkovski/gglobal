@@ -37,7 +37,7 @@ EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
 
 # CACHING
 # ------------------------------------------------------------------------------
-
+'''
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
@@ -74,7 +74,7 @@ CACHES = {
     }
 }
 
-'''
+
 # django-debug-toolbar
 # ------------------------------------------------------------------------------
 MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]

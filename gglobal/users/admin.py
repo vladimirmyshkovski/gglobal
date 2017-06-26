@@ -40,7 +40,7 @@ class MyUserAdmin(AuthUserAdmin):
     fieldsets = (
             ('Профиль пользователя', {'fields': (
                 'sites', 'raiting', 
-                'first_name', 'last_name'
+                'first_name', 'last_name', 'phone_number'
                 )}
             ),
     ) + AuthUserAdmin.fieldsets

@@ -14,6 +14,8 @@ from badges.signals import badge_awarded
 from gglobal.crm.tasks import delete_bonus
 from datetime import datetime, timedelta
 from gglobal.tmb.tasks import send_to_users
+from django.contrib.auth.signals import user_logged_out
+from django.core.cache import cache
 
 
 @receiver(post_transition)
@@ -110,3 +112,12 @@ def create_or_update_executantprofile(sender, instance, created, **kwargs):
 		User.objects.create(executantprofile=instance)
 	instance.user.save()
 '''
+
+
+@receiver(user_logged_out)
+def logout_notifier(sender, request, user, **kwargs):
+    cache.delete_pattern("user_{}".format(user.id))
+
+#user_logged_out.connect(logout_notifier)
+
+

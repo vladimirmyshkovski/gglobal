@@ -108,7 +108,7 @@ class InlinePhoneNumberAdmin(CompactInline):
     def get_fields(self, request, obj):
         if not request.user.is_superuser:
             return ['phone_number']
-        return super(InlineInvoiceAdmin, self).get_fields(request, obj)
+        return super(InlinePhoneNumberAdmin, self).get_fields(request, obj)
 
 class InlineInvoiceAdmin(CompactInline):
     show_change_link = True
@@ -507,7 +507,7 @@ class PhoneNumberAdmin(BaseAdmin):
     def get_fields(self, request, obj):
         if not request.user.is_superuser:
             return ['phone_number']
-        return super(PhoneNumber, self).get_fields(request, obj)
+        return super(PhoneNumberAdmin, self).get_fields(request, obj)
 
 
 #@admin.register(Payment)
