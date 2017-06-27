@@ -197,7 +197,7 @@ class HomeBlock(StructBlock):
         label="Главный блок с формой"
 
 
-class HomeBlock(StructBlock):
+class HomeWithoutFormBlock(StructBlock):
     h1 = blocks.CharBlock(required=False)
     h4 = blocks.TextBlock(required=False)
     link_text = blocks.CharBlock(required=False)
@@ -210,7 +210,7 @@ class HomeBlock(StructBlock):
 
 class SectionsStreamBlock(StreamBlock):
     home_block = HomeBlock()
-    home_without_form = HomeBlock()
+    home_without_form = HomeWithoutFormBlock()
     features_block = FeaturesBlock()
     features_alt_block = FeaturesAltBlock()
     price_block = PriceBlock()
