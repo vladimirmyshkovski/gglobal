@@ -17,6 +17,7 @@ def phone_numbers_recive(message):
             pass
     '''
     for user in cache.keys("user_*"):
+        print(user)
         user_numbers = cache.get(user)
         for user_number in user_numbers:
             Group("phonenumbers").send({
