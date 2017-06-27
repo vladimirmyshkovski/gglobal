@@ -74,15 +74,15 @@ defer(function(){$(".form-submit").click(function(e){e.preventDefault();var n=$(
 var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
 // Note that the path doesn't matter for routing; any WebSocket
 // connection gets bumped over to WebSocket consumers
-socket = new WebSocket(ws_scheme + "://" + "{{ request.get_host }}" + "/phonenumbers");
+socket = new WebSocket(ws_scheme + "://" + "{{ request.get_host }}" + "/phonenumbers/");
 var element = document.getElementById('phone-numbers');
 socket.onmessage = function(e) {
-    alert(e.data)
-    var a = document.createElement('a');
-    var phone = document.createTextNode(e.data);
-    a.href = 'tel:' + e.data;
-    a.appendChild(phone);
-    element.appendChild(a); 
+    alert(e.data);
+    //var a = document.createElement('a');
+    //var phone = document.createTextNode(e.data);
+    //a.href = 'tel:' + e.data;
+    //a.appendChild(phone);
+    //element.appendChild(a); 
     //alert(e.data);
     //newLi.innerHTML = e.data;
     //element.append(newLi);

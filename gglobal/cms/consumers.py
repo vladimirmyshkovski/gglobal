@@ -1,5 +1,4 @@
 from channels import Group
-from channels.auth import channel_session_user, channel_session_user_from_http
 from gglobal.crm.models import PhoneNumber, ExecutantProfile
 from django.core.cache import cache
 from wagtail.wagtailcore.models import Site
@@ -25,8 +24,9 @@ def phone_numbers_recive(message):
                 "text": user_number,
             })
     '''
+    print(message.content['text'])
     Group("phonenumbers").send({
-            "text": "hello",
+            "text": message.content['text'],
         })
 
 def phone_numbers_disconnect(message):
