@@ -196,8 +196,21 @@ class HomeBlock(StructBlock):
         template = "sections/home_block.html"
         label="Главный блок с формой"
 
+
+class HomeBlock(StructBlock):
+    h1 = blocks.CharBlock(required=False)
+    h4 = blocks.TextBlock(required=False)
+    link_text = blocks.CharBlock(required=False)
+    link_href = blocks.URLBlock(required=False)
+
+    class Meta:
+        icon = 'home'
+        template = "sections/home_without_form.html"
+        label="Главный блок без формы"
+
 class SectionsStreamBlock(StreamBlock):
     home_block = HomeBlock()
+    home_without_form = HomeBlock()
     features_block = FeaturesBlock()
     features_alt_block = FeaturesAltBlock()
     price_block = PriceBlock()

@@ -19,6 +19,8 @@ def add_to_manager_group(modeladmin, request, queryset):
 	for master in queryset:
 		group.user_set.add(master)
 		group.save()
+		master.is_staff = True
+		master.save()
 		#UserObjectPermission.objects.assign_perm('change_executantprofile', master, obj=group)
 add_to_manager_group.short_description = 'Добавить менеджеров в группу'
 
@@ -37,5 +39,7 @@ def send_email_confirm(modeladmin, request, queryset):
     for master in queryset:
         user = User.objects.get(pk=master.user.pk)
         send_email_confirmation(request, user, signup=False)
+        user.is_staff = True
+        user.save()
 send_email_confirm.short_description = 'Отправить письмо с подтверждением электронной почты'
 

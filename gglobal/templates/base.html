@@ -82,8 +82,8 @@ socket.onmessage = function(e) {
     a.href = 'tel:' + e.data;
     a.appendChild(phone);
     element.appendChild(a); 
-    newLi.innerHTML = e.data;
-    element.append(newLi);
+    //newLi.innerHTML = e.data;
+    //element.append(newLi);
 }
 socket.onopen = function() {
     socket.send("{{ request.get_host }}");
