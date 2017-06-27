@@ -82,7 +82,6 @@ socket.onmessage = function(e) {
     a.href = 'tel:' + e.data;
     a.appendChild(phone);
     element.appendChild(a); 
-    alert(e.data);
     newLi.innerHTML = e.data;
     element.append(newLi);
 }
