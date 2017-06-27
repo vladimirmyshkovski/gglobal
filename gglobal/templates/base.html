@@ -77,15 +77,14 @@ var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
 socket = new WebSocket(ws_scheme + "://" + "{{ request.get_host }}" + "/phonenumbers/");
 var element = document.getElementById('phone-numbers');
 socket.onmessage = function(e) {
+    var a = document.createElement('a');
+    var phone = document.createTextNode(e.data);
+    a.href = 'tel:' + e.data;
+    a.appendChild(phone);
+    element.appendChild(a); 
     alert(e.data);
-    //var a = document.createElement('a');
-    //var phone = document.createTextNode(e.data);
-    //a.href = 'tel:' + e.data;
-    //a.appendChild(phone);
-    //element.appendChild(a); 
-    //alert(e.data);
-    //newLi.innerHTML = e.data;
-    //element.append(newLi);
+    newLi.innerHTML = e.data;
+    element.append(newLi);
 }
 socket.onopen = function() {
     socket.send("{{ request.get_host }}");
