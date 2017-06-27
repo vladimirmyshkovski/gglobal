@@ -16,18 +16,12 @@ def phone_numbers_recive(message):
         if not executants.exists():
             pass
     '''
-    ''' 
     for user in cache.keys("user_*"):
         user_numbers = cache.get(user)
         for user_number in user_numbers:
             Group("phonenumbers").send({
                 "text": user_number,
             })
-    '''
-    print(message.content['text'])
-    Group("phonenumbers").send({
-            "text": message.content['text'],
-        })
 
 def phone_numbers_disconnect(message):
     Group("phonenumbers").discard(message.reply_channel)
