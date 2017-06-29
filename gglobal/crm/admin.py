@@ -433,18 +433,17 @@ class ClietProfileAdmin(BaseAdmin):
 class ExecutantProfileAdmin(BaseAdmin):
     inlines = [InlinePriceListAdmin]
     #readonly_fields = ['auth_action']
-    '''
     def get_fields(self, request, obj):
         self.user = request.user
         if not request.user.is_superuser:
             return ['number_passport', 'serial_passport', 'work_cities', 'work_countries']#, 'auth_action']
         return super(ExecutantProfileAdmin, self).get_fields(request, obj)
-    
+
     def get_readonly_fields(self, request, obj):
         if not request.user.is_superuser:
             return ('user', )
         return super(ExecutantProfileAdmin, self).get_readonly_fields(request, obj)
-    '''
+
     def get_queryset(self, request):
         qs = super(ExecutantProfileAdmin, self).get_queryset(request)
         if request.user.is_superuser:
