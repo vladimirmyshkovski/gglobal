@@ -218,17 +218,17 @@ class AppealAdmin(FSMTransitionMixin, BaseAdmin):
     
 @admin.register(Assignment)
 class AssignmentAdmin(FSMTransitionMixin, BaseAdmin):
-    list_display = ['pk', 'type', 'state', 'time_seconds', 'address', 'passing_action']
+    list_display = ['pk', 'type', 'state', 'date', 'address', 'passing_action']
     list_filter = ('date', 'type', 'state')
     preserve_filters = True
     inlines = [InlineActivityAdmin]
     readonly_fields = ('state', )
 
-    def time_seconds(self, obj):
-        if obj.date:
-            return obj.date.strftime("%d %b %Y %H:%M:%S")
-    time_seconds.short_description = 'Дата и время заявки'
-    time_seconds.empty_value_display =  'Время не было указано'
+    #def time_seconds(self, obj):
+    #    if obj.date:
+    #        return obj.date.strftime("%d %b %Y %H:%M:%S")
+    #time_seconds.short_description = 'Дата и время заявки'
+    #time_seconds.empty_value_display =  'Время не было указано'
     
     def get_queryset(self, request):
         qs = super(AssignmentAdmin, self).get_queryset(request)
