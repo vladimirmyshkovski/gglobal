@@ -23,11 +23,12 @@ def CreateCRMApeal(request):
         #POST goes here . is_ajax is must to capture ajax requests. Beginner's pit.
         if request.is_ajax():
             #Always use get on request.POST. Correct way of querying a QueryDict.
-            ip = get_real_ip(request)
-            reader = geolite2.reader()
+            #ip = get_real_ip(request)
+            #reader = geolite2.reader()
             site = get_current_site(request)
             form, create = Form.objects.get_or_create(name=request.POST.get('form'))
             phone, phone_create = Phone.objects.get_or_create(phone_number=request.POST.get('phone'))
+            '''
             if create:
                 form.site = site
                 form.save()
@@ -81,6 +82,20 @@ def CreateCRMApeal(request):
                 form = form,
                 text = request.POST.get('text')
                 )
+            '''
+            if phone_create:
+                leed = Leed(name = request.POST.get('name'))
+                leed.save()
+                leed.phone_number.add(phone)
+                leed.save()
+            else:
+                leed = Leed.objects.get(phone_number=phone) 
+            appeal = Appeal(
+                leed = leed,
+                site = site,
+                form = form,
+                text = request.POST.get('text')
+            )
             appeal.save()
             #Returning same data back to browser.It is not possible with Normal submit
             return JsonResponse({'response': 200})

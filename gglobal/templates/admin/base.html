@@ -392,6 +392,9 @@
             </div>
         </li>
     {% endif %}
+    {#% if user.is_authenticated %#}
+        {#% include 'chat/chat.html' %#}
+    {#% endif %#}
 </div>
 <!-- END Container -->
 <script type="text/javascript">

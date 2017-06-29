@@ -20,7 +20,7 @@ Issues with the above approach:
 */
 $('.form-group').removeClass('row');
 
-$(document).ready(function(){
+defer(function () {
 	$('.phone-input-field').inputmask({"mask": "+375(99)999-99-99", "clearIncomplete": true}); 
 });
                 defer(function () {

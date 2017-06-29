@@ -504,6 +504,7 @@ class Card(Base):
     ('AlphaBank', _('AlphaBank')),
     ('SberBank', _('SberBank')),
     )
+
     card_choices = models.CharField(choices=CARD_CHOICES, max_length=255, null=True)
     bank_choices = models.CharField(choices=BANK_CHOICES, max_length=255, null=True)
     #payment_method = GenericRelation('crm.Payment', null=True)
