@@ -55,7 +55,6 @@ class User(models.Model):
 	@property
 	def set_unique_code(self):
 		self.unique_code = self.generate_unique_code
-		self.save()
 
 	@property
 	def check_unique_code(self, code):
