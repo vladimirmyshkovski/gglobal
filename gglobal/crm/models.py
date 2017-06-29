@@ -65,7 +65,7 @@ class State(object):
     APPEAL_CHOICES = (
         (NEW, _('Новая')),
         (APPROVED, _('Принял')),
-        (HANDED, _('Создана')),
+        (HANDED, _('Передана в работу')),
         )
     ASSIGNMENT_CHOICES = (
         (NEW, _('Новая')),
@@ -143,7 +143,7 @@ class Appeal(ConcurrentTransitionMixin, Base):
             self.owner = master
 
     @transition(field=state, source=State.APPROVED, target=State.HANDED, conditions=[can_hand],
-        custom=dict(button_name=_('Создать заявку')))
+        custom=dict(button_name=_('Передать мастерам')))
     def handing(self):
         print('handed')
 
