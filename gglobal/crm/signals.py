@@ -28,7 +28,7 @@ def post_on_post_transition(sender, instance, target=None, **kwargs):
 			address=instance.address,
 			state=State.APPROVED,
 			)
-	
+
 	if target == 'complete_project':
 		tomorrow = datetime.utcnow() + timedelta(days=1)
 		bonus = Bonus.objects.create(
@@ -56,23 +56,6 @@ def create_or_update_clientprofile(sender, instance, created, **kwargs):
 		instance.service.add(*[i.pk for i in instance.appeal.service.all()])
 		instance.trouble.add(*[i.pk for i in instance.appeal.trouble.all()])
 
-@receiver(badge_awarded, sender=VerificationUser)
-def do_something_after_badge_is_awarded(sender, user, badge, **kwargs):
-	#print(user)
-	print(123)
-	print(123)
-	print(123)
-	print(123)
-	#user.executantprofile.save()
-
-@receiver(badge_awarded, sender=AuthorizationUser)
-def do_something_after_badge_is_awarded(sender, user, badge, **kwargs):
-	#print(user)
-	print(123)
-	print(123)
-	print(123)
-	print(123)
-	#user.executantprofile.save()
 
 @receiver(post_save, sender=Assignment)
 def create_assignment(sender, instance, created, **kwargs):

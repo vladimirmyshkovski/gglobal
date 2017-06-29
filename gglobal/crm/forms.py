@@ -116,8 +116,9 @@ class ComplaintForm(forms.ModelForm):
         
 
 class ClientForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=255, required=True)
-    last_name = forms.CharField(max_length=255, required=True)
+    first_name = forms.CharField(max_length=255, required=True, label='Имя')
+    last_name = forms.CharField(max_length=255, required=True, label='Фамилия')
+
     class Meta:
         model = ClientProfile
         fields = '__all__'

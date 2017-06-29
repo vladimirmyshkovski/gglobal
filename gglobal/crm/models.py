@@ -143,7 +143,7 @@ class Appeal(ConcurrentTransitionMixin, Base):
             self.owner = master
 
     @transition(field=state, source=State.APPROVED, target=State.HANDED, conditions=[can_hand],
-        custom=dict(button_name=_('Передать в работу')))
+        custom=dict(button_name=_('Создать заявку')))
     def handing(self):
         print('handed')
 
@@ -197,7 +197,6 @@ class Assignment(ConcurrentTransitionMixin, Base):
         master = get_object_or_None(ExecutantProfile, user=user)
         if master:
             self.owner = master
-            master.is_busy = True
    
     @transition(field='state', source=[State.APPROVED], target=State.READY,
         custom=dict(admin=True, button_name=_('Приступить к работе')))
