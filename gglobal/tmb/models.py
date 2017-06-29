@@ -62,9 +62,9 @@ class User(models.Model):
 			return True
 		return False
 
-	def save(self, *args, **kwargs):
-		if not self.pk:
-			self.set_unique_code
+	#def save(self, *args, **kwargs):
+	#	if not self.pk:
+	#		self.set_unique_code
 
 
 	def __str__(self):
