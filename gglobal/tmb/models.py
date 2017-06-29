@@ -33,7 +33,7 @@ class Bot(models.Model):
 			self.get_me
 			TelegramBot = telepot.Bot(self.api_key)
 			TelegramBot.setWebhook('xn------dddfnxoenlfghchl4bitc.xn--90ais/bot/bot/{bot_token}/'.format(bot_token=self.api_key))
-		super(Bot, self).save(*args, **kwargs)
+		return super(Bot, self).save(*args, **kwargs)
 
 	class Meta:
 		verbose_name = _('Bot')
@@ -62,9 +62,10 @@ class User(models.Model):
 			return True
 		return False
 
-	#def save(self, *args, **kwargs):
-	#	if not self.pk:
-	#		self.set_unique_code
+	def save(self, *args, **kwargs):
+		if not self.pk or not self.unique_code:
+			self.set_unique_code
+		return super(User, self).save(*args, **kwargs)
 
 
 	def __str__(self):
