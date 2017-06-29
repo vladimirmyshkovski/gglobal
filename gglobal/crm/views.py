@@ -89,7 +89,12 @@ def CreateCRMApeal(request):
                 leed.phone_number.add(phone)
                 leed.save()
             else:
-                leed = Leed.objects.get(phone_number=phone) 
+                leed = get_object_or_None(Leed, phone_number=phone)
+                if not leed:
+                    leed = Leed(name = request.POST.get('name')) 
+                    leed.save()
+                    leed.phone_number.add(phone)
+                    leed.save()
             appeal = Appeal(
                 leed = leed,
                 site = site,
