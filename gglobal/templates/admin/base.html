@@ -68,8 +68,8 @@
                         <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
                     {% endif %}
                 {% endif %}
-                {% if user.executantprofile is not None %}
-                <a href='{% url 'admin:crm_executantprofile_change' user.id %}'>Изменить профиль</a>                
+                {% if user.executantprofile.id %}
+                <a href='{% url 'admin:crm_executantprofile_change' user.executantprofile.id %}'>Изменить профиль</a>                
                 {% endif %}
                 {% if user.has_usable_password %}
                 <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
