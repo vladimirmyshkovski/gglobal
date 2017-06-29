@@ -63,7 +63,7 @@ class User(models.Model):
 		return False
 
 	def save(self, *args, **kwargs):
-		if not self.pk or not self.unique_code:
+		if not self.pk:
 			self.set_unique_code
 
 
