@@ -65,7 +65,7 @@ class State(object):
     APPEAL_CHOICES = (
         (NEW, _('Новая')),
         (APPROVED, _('Принял')),
-        (HANDED, _('Передал')),
+        (HANDED, _('Создана')),
         )
     ASSIGNMENT_CHOICES = (
         (NEW, _('Новая')),
