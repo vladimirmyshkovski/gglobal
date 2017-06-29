@@ -63,6 +63,11 @@ class User(models.Model):
 			return True
 		return False
 
+	def save(self, *args, **kwargs):
+		if not self.pk or not self.unique_code:
+			self.set_unique_code
+
+
 	def __str__(self):
 		return '%s' % str(self.user.username)
 
