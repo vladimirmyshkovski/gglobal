@@ -57,10 +57,10 @@ def create_or_update_clientprofile(sender, instance, created, **kwargs):
 		instance.trouble.add(*[i.pk for i in instance.appeal.trouble.all()])
 
 
-@receiver(post_save, sender=Assignment)
-def create_assignment(sender, instance, created, **kwargs):
-	if instance.state == 'new':
-		send_to_users.delay(args=[instance.appeal.city.id])		
+#@receiver(post_save, sender=Assignment)
+#def create_assignment(sender, instance, created, **kwargs):
+#	if instance.state == 'new':
+#		send_to_users.delay(args=[instance.appeal.city.id])		
 
 
 
