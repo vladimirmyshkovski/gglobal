@@ -60,7 +60,7 @@ def create_or_update_clientprofile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Assignment)
 def create_assignment(sender, instance, created, **kwargs):
 	if instance.state == 'new':
-		send_to_users.delay(args=[instance.city.id])		
+		send_to_users.delay(args=[instance.appeal.city.id])		
 
 
 
