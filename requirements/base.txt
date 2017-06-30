@@ -69,6 +69,7 @@ django-cachalot==1.4.1
 #django-celery-monitor==1.0.1
 #django-celery-results==1.0.1
 django-cities-light==3.3.0
+django-cities
 django-cuser==2017.3.16
 django-dashing==0.3.3
 django-fsm==2.5.0
