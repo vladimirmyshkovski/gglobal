@@ -69,7 +69,7 @@ THIRD_PARTY_APPS = [
     'annoying', # AutoOneToOneField
     'turbolinks', # Turbolinks
 
-    #'cities', # Django-cities
+    'cities', # Django-cities
     'cities_light', # Django-cities-light
 
     'ckeditor', # CKEditor
@@ -267,7 +267,7 @@ MANAGERS = ADMINS
 #}
 #DATABASES['default']['ATOMIC_REQUESTS'] = True
 # specify Postgis backend 
-#DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+
 
 
 # DATABASE CONFIGURATION
@@ -277,6 +277,7 @@ DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres:///gglobal'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 #DATABASES['default'] = env.db('DATABASE_URL')
 
 
@@ -494,18 +495,18 @@ WAGTAIL_USAGE_COUNT_ENABLED = True
 GOOGLE_MAP_API_KEY = 'AIzaSyBO-_WYrcSrU79tLuKPiINGkCJ1e__RWWw'
 # django-cities
 # ------------------------------------------------------------------------------
-CITIES_FILES = {
-    # ...
-    'city': {
-       'filename': "BY.zip",
-       'urls':      ['http://download.geonames.org/export/dump/'+'{filename}']
-    },
-    # ...
-}
+#CITIES_FILES = {
+#    # ...
+#    'city': {
+#       'filename': "cities15000.zip",
+#       'urls':      ['http://download.geonames.org/export/dump/'+'{filename}']
+#    },
+#    # ...
+#}
 
-CITIES_POSTAL_CODES = ['BY']
+#CITIES_POSTAL_CODES = ['BY']
 
-CITIES_LOCALES = ['ru', 'LANGUAGES']
+#CITIES_LOCALES = ['ru', 'LANGUAGES']
 
 # django-cities-light
 # ------------------------------------------------------------------------------
