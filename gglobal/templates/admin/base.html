@@ -73,7 +73,7 @@
                     <a href='{% url 'admin:crm_executantprofile_change' user.executantprofile.pk %}'>Изменить профиль</a>                
                 {% endif %}
                 {% if not user.user.is_authorized %}
-                    <a href='{% url 'crm:telegram_auth' user.pk %}'>Авторизоваться через Telegram</a>                
+                    <a href='{% url 'crm:telegram_auth' user.pk %}'>Авторизоваться через <br />Telegram</a>                
                 {% endif %}
 
                 {% if user.has_usable_password %}

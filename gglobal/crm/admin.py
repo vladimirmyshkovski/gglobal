@@ -432,17 +432,16 @@ class ClietProfileAdmin(BaseAdmin):
 @admin.register(ExecutantProfile)
 class ExecutantProfileAdmin(BaseAdmin):
     inlines = [InlinePriceListAdmin]
-    readonly_fields = ['auth_action']
 
     def get_fields(self, request, obj):
         self.user = request.user
         if not request.user.is_superuser:
-            return ['number_passport', 'serial_passport', 'work_cities', 'work_countries', 'auth_action']
+            return ['number_passport', 'serial_passport', 'work_cities', 'work_countries']
         return super(ExecutantProfileAdmin, self).get_fields(request, obj)
 
     def get_readonly_fields(self, request, obj):
         if not request.user.is_superuser:
-            return ('user', 'auth_action')
+            return ('user', )
         return super(ExecutantProfileAdmin, self).get_readonly_fields(request, obj)
 
     def get_queryset(self, request):
@@ -450,7 +449,8 @@ class ExecutantProfileAdmin(BaseAdmin):
         if request.user.is_superuser:
             return qs
         return qs.filter(user=request.user)
-
+    
+    '''
     def auth_action(self, obj):
         content = ""
         if self.user.executantprofile and self.user.groups.filter(name='Masters').exists():
@@ -458,7 +458,7 @@ class ExecutantProfileAdmin(BaseAdmin):
         return content 
     auth_action.allow_tags = True
     auth_action.short_description = 'Авторизация'
-    
+    '''
 
 @admin.register(Invoice)
 class InvoiceAdmin(FSMTransitionMixin, BaseAdmin):
