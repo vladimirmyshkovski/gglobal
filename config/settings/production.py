@@ -177,7 +177,8 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # Uses Amazon RDS for database hosting, which doesn't follow the Heroku-style spec
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': env('RDS_DB_NAME'),
         'USER': env('RDS_USERNAME'),
         'PASSWORD': env('RDS_PASSWORD'),
