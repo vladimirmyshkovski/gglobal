@@ -13,15 +13,17 @@ def send_to_users(city_id):
 	TelegramBot = telepot.Bot(bot.api_key)
 	for user in users:
 		telegramuser = TelegramUser.objects.get(user=user.user)
-		chat_id = Chat.objects.get(user=telegramuser)
-		reply = 'Новая заявка, пройдите в кабинет!'
-		TelegramBot.sendMessage(chat_id, reply)
+		if telegramuser.is_authorized:
+			chat_id = Chat.objects.get(user=telegramuser)
+			reply = 'Новая заявка, пройдите в кабинет!'
+			TelegramBot.sendMessage(chat_id, reply)
 
 @shared_task
 def send_to_user(user):
 	bot = Bot.objects.first()
 	TelegramBot = telepot.Bot(bot.api_key)
 	telegramuser = TelegramUser.objects.get(user=user)
-	chat_id = Chat.objects.get(user=telegramuser)
-	reply = 'Новая заявка, пройдите в кабинет!'
-	TelegramBot.sendMessage(chat_id, reply)
+	if telegramuser.is_authorized:
+		chat_id = Chat.objects.get(user=telegramuser)
+		reply = 'Новая заявка, пройдите в кабинет!'
+		TelegramBot.sendMessage(chat_id, reply)

@@ -46,6 +46,7 @@ class Bot(models.Model):
 class User(models.Model):
 	user = AutoOneToOneField(settings.AUTH_USER_MODEL, null=True, verbose_name=_('user'))
 	unique_code = models.CharField(max_length=255, verbose_name=_('unique code'))
+	is_authorized = models.BooleanField(default=False, verbose_name=_('Авторизован'))
 
 	@property
 	def generate_unique_code(self, size=36, chars=string.ascii_uppercase + string.digits + string.ascii_lowercase):
