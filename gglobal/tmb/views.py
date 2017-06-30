@@ -58,6 +58,7 @@ def get_username_from_storage(unique_code):
     telegramuser = get_object_or_None(TelegramUser, unique_code=unique_code)
     if telegramuser:
         telegramuser.is_authorized = True
+        telegramuser.save()
     return telegramuser if in_storage(unique_code) else None
 
 def save_chat_id(chat_id, username, type):
