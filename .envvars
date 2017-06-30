@@ -19,4 +19,3 @@ RDS_USERNAME="gglobal"
 RDS_PASSWORD="iddqd3133122"
 RDS_HOSTNAME="localhost"
 RDS_PORT="5432"
-
