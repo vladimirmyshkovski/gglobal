@@ -191,12 +191,12 @@ DATABASES = {
 
 # CACHING
 # ------------------------------------------------------------------------------
-#REDIS_LOCATION = 'redis://{}:{}/0'.format(
-#    env('REDIS_ENDPOINT_ADDRESS'),
-#    env('REDIS_PORT')
-#)
+REDIS_LOCATION = 'redis://{}:{}/0'.format(
+    env('REDIS_ENDPOINT_ADDRESS'),
+    env('REDIS_PORT')
+)
 
-REDIS_LOCATION = '/tmp/redis.sock'
+#REDIS_LOCATION = '/tmp/redis.sock'
 
 # Heroku URL does not pass the DB number, so we parse it in
 CACHES = {
