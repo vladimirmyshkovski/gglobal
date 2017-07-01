@@ -317,7 +317,7 @@ class CityPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
     promote_panels = Page.promote_panels + MetadataPageMixin.panels
 
     def __str__(self):
-        return self.city.alternate_names
+        return str(self.pk)
 
 
 @register_snippet
