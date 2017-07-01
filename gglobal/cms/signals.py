@@ -19,11 +19,9 @@ def create_service_page(sender, instance, created, **kwargs):
 				spsp = ServicePageSnippetPlacement.objects.filter(snippet=service_snippet, page=service_page)
 				if not spsp:
 					spsp = ServicePageSnippetPlacement(snippet=service_snippet, page=service_page)
-					#spsp.save()
-				#service_page.service_page_snippet_placements.add(service_snippet)
 				city.add_child(instance=service_page)
 				basepage.add_child(instance=service_page)
-				#service_page.save()
+
 
 	elif not created and instance.accepted:
 		print(citypages)
@@ -33,11 +31,10 @@ def create_service_page(sender, instance, created, **kwargs):
 			spsp = ServicePageSnippetPlacement.objects.filter(snippet=service_snippet, page=service_page)
 			if not spsp:
 				spsp = ServicePageSnippetPlacement(snippet=service_snippet, page=service_page)
-				#spsp.save()
-			#service_page.service_page_snippet_placements.add(service_snippet)
-			city.add_child(instance=service_page)
-			basepage.add_child(instance=service_page)
-			#service_page.save()
+			if not service_page in city.add_child():
+				city.add_child(instance=service_page)
+			if not service_page in basepage.add_child():
+				basepage.add_child(instance=service_page)
 
 
 	
