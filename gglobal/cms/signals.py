@@ -11,22 +11,19 @@ import unidecode
 @receiver(post_save, sender=Service)
 def create_service_page(sender, instance, created, **kwargs):
 	citypages = CityPage.objects.all()
-	basepage = BasePage.objects.first()
+	basepage = BasePage.objects.get(title='Главная')
 	service_snippet = ServiceSnippet.objects.first()
 	service_page_for_base_page = ServicePage(
 		service=instance, 
-		title='{} в по всей Беларуси {}'.format(instance.name), 
-		slug='{}-в-городе-{}'.format(str(instance.name).replace(' ', '-'))
+		title='{} в по всей Беларуси'.format(str(instance.name).replace(' ', '-')), 
+		slug='{}-в-по-всей-Беларуси'.format(str(instance.name).replace(' ', '-'))
 		)
-	spsp = ServicePageSnippetPlacement.objects.filter(snippet=service_snippet, page=service_page)
-	if not spsp:
-		spsp = ServicePageSnippetPlacement(snippet=service_snippet, page=service_page)
 	if created and instance.accepted:
 			for city in citypages:
 				service_page = ServicePage(
 					service=instance, 
-					title='{} в городе {}'.format(instance.name, city.alternate_names), 
-					slug='{}-в-городе-{}'.format(str(instance.name).replace(' ', '-'), city.alternate_names)
+					title='{} в городе {}'.format(instance.name, 'Гродно'), 
+					slug='{}-в-городе-{}'.format(str(instance.name).replace(' ', '-'), 'Гродно')
 				)			
 				city.add_child(instance=service_page)
 				basepage.add_child(instance=service_page_for_base_page)
@@ -36,8 +33,8 @@ def create_service_page(sender, instance, created, **kwargs):
 			service_snippet = ServiceSnippet.objects.first()
 			service_page = ServicePage(
 				service=instance, 
-				title='{} в городе {}'.format(instance.name, city.alternate_names), 
-				slug='{}-в-городе-{}'.format(str(instance.name).replace(' ', '-'), city.alternate_names)
+				title='{} в городе {}'.format(instance.name, 'Гродно'), 
+				slug='{}-в-городе-{}'.format(str(instance.name).replace(' ', '-'), 'Гродно')
 			)
 			if not service_page in city.get_children():
 				city.add_child(instance=service_page)
