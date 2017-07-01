@@ -16,14 +16,14 @@ def create_service_page(sender, instance, created, **kwargs):
 	service_page_for_base_page = ServicePage(
 		service=instance, 
 		title='{} в по всей Беларуси'.format(instance.name), 
-		slug='{}-в-по-всей-Беларуси'.format(str(instance.name).replace(' ', '-'))
+		slug='{}-в-по-всей-Беларуси'.format(str(instance.name).replace(' ', '-').lower())
 		)
 	if created and instance.accepted:
 			for city in citypages:
 				service_page = ServicePage(
 					service=instance, 
 					title='{} в городе {}'.format(instance.name, city.city.alternate_names), 
-					slug='{}-в-городе-{}'.format(str(instance.name).replace(' ', '-'), str(city.city.alternate_names).replace(' ', '-'))
+					slug='{}'.format(str(instance.name).replace(' ', '-').lower())
 				)			
 				city.add_child(instance=service_page)
 				#basepage.add_child(instance=service_page_for_base_page)
@@ -34,7 +34,7 @@ def create_service_page(sender, instance, created, **kwargs):
 			service_page = ServicePage(
 				service=instance, 
 				title='{} в городе {}'.format(instance.name, city.city.alternate_names), 
-				slug='{}-в-городе-{}'.format(str(instance.name).replace(' ', '-'), str(city.city.alternate_names).replace(' ', '-'))
+				slug='{}'.format(str(instance.name).replace(' ', '-').lower())
 			)
 			if not service_page in city.get_children():
 				city.add_child(instance=service_page)
