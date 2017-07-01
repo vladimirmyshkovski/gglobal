@@ -6,7 +6,7 @@ from django.utils.text import slugify
 
 
 class Service(MPTTModel):
-    slug = models.CharField(max_length=50, unique=True, null=True)
+    slug = models.CharField(max_length=50, unique=True, null=True, blank=True)
     name = models.CharField(max_length=50, unique=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
     accepted = models.BooleanField(default=False)
@@ -20,12 +20,12 @@ class Service(MPTTModel):
     class MPTTMeta:
         #level_attr = 'name'
         order_insertion_by = ['name']
-    '''
+    
     def save(self, *args, **kwargs):
-        #if not self.id or not self.slug:
-        #    self.slug = slugify(self.name)
+        if not self.id or not self.slug:
+            self.slug = slugify(self.name)
         super(Service, self).save(*args, **kwargs)
-    '''
+    
     def __str__(self):
     	return '%s' % self.name
 
@@ -44,12 +44,12 @@ class Trouble(MPTTModel):
     class MPTTMeta:
         #level_attr = 'name'
         order_insertion_by = ['name']
-    '''
+    
     def save(self, *args, **kwargs):
-        #if not self.id or not self.slug:
-        #    self.slug = slugify(self.name)
+        if not self.id or not self.slug:
+            self.slug = slugify(self.name)
         super(Trouble, self).save(*args, **kwargs)
-    '''
+    
     def __str__(self):
         return '%s' % self.name
 
