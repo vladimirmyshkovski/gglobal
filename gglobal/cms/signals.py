@@ -26,7 +26,7 @@ def create_service_page(sender, instance, created, **kwargs):
 					slug='{}'.format(str(instance.name).replace(' ', '-').lower())
 				)			
 				city.add_child(instance=service_page)
-				spsp = ServicePageSnippetPlacement.objects.create(page=city, snippet=service_snippet)
+				spsp = ServicePageSnippetPlacement.objects.create(page=service_page, snippet=service_snippet)
 
 	elif not created and instance.accepted:
 		for city in citypages:
@@ -38,7 +38,7 @@ def create_service_page(sender, instance, created, **kwargs):
 			)
 			if not service_page in city.get_children():
 				city.add_child(instance=service_page)
-				spsp = ServicePageSnippetPlacement.objects.create(page=city, snippet=service_snippet)
+				spsp = ServicePageSnippetPlacement.objects.create(page=service_page, snippet=service_snippet)
 
 
 
