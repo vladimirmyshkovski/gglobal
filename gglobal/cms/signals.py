@@ -18,16 +18,14 @@ def create_service_page(sender, instance, created, **kwargs):
 				service_page = ServicePage(service=instance, title=service_snippet.name, slug=instance.slug)
 				spsp = ServicePageSnippetPlacement.objects.filter(snippet=service_snippet, page=service_page)
 				if not spsp:
-					spsp = ServicePageSnippetPlacement(snippet=service_snippet, page=service_page)
+					spsp = ServicePageSnippetPlacement.objects.create(snippet=service_snippet, page=service_page)
 				city.add_child(
-					instance=service_page, 
 					title='{} в городе {}'.format(instance.name, city.city.alternate_name), 
-					slug='{} в городе {}'.format(instance.name, city.city.alternate_name)
+					slug='{}-в-городе-{}'.format(str(instance.name).replace(' ', '-'), city.city.alternate_name)
 					)
-				basepage.add_child(
-					instance=service_page, 
+				basepage.add_child( 
 					title='{} по всей Беларуси'.format(instance.name), 
-					slug='{} по всей Беларуси'.format(instance.name)
+					slug='{}-по-всей-Беларуси'.format(str(instance.name).replace(' ', '-'))
 					)
 
 
@@ -37,7 +35,7 @@ def create_service_page(sender, instance, created, **kwargs):
 			service_page = ServicePage(service=instance, title=service_snippet.name, slug=instance.slug)
 			spsp = ServicePageSnippetPlacement.objects.filter(snippet=service_snippet, page=service_page)
 			if not spsp:
-				spsp = ServicePageSnippetPlacement(snippet=service_snippet, page=service_page)
+				spsp = ServicePageSnippetPlacement.objects.create(snippet=service_snippet, page=service_page)
 			if not service_page in city.get_children():
 				city.add_child(
 					title='{} в городе {}'.format(instance.name, 'Гродно'), 
