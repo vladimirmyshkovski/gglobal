@@ -11,7 +11,7 @@ import unidecode
 @receiver(post_save, sender=Service)
 def create_service_page(sender, instance, created, **kwargs):
 	citypages = CityPage.objects.all()
-	basepage = BasePage.objects.get(title='Главная')
+	#basepage = BasePage.objects.get(title='Главная')
 	service_snippet = ServiceSnippet.objects.first()
 	service_page_for_base_page = ServicePage(
 		service=instance, 
@@ -26,7 +26,7 @@ def create_service_page(sender, instance, created, **kwargs):
 					slug='{}-в-городе-{}'.format(str(instance.name).replace(' ', '-'), 'Гродно')
 				)			
 				city.add_child(instance=service_page)
-				basepage.add_child(instance=service_page_for_base_page)
+				#basepage.add_child(instance=service_page_for_base_page)
 
 	elif not created and instance.accepted:
 		for city in citypages:
@@ -38,8 +38,8 @@ def create_service_page(sender, instance, created, **kwargs):
 			)
 			if not service_page in city.get_children():
 				city.add_child(instance=service_page)
-			if not service_page in basepage.get_children():
-				basepage.add_child(instance=service_page_for_base_page)
+			#if not service_page in basepage.get_children():
+				#basepage.add_child(instance=service_page_for_base_page)
 
 
 	
