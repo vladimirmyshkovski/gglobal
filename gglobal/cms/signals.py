@@ -5,7 +5,7 @@ from gglobal.cms.models import ServicePage, TroublePage, Service as ServiceSnipp
 								CityPage, BasePage, ServicePageSnippetPlacement
 from django.dispatch import receiver
 from django.db.models.signals import pre_save, post_save
-'''
+
 @receiver(post_save, sender=Service)
 def create_service_page(sender, instance, created, **kwargs):
 	citypages = CityPage.objects.all()
@@ -38,7 +38,7 @@ def create_service_page(sender, instance, created, **kwargs):
 			city.add_child(instance=service_page)
 			basepage.add_child(instance=service_page)
 			#service_page.save()
-'''
+
 
 	
 '''
