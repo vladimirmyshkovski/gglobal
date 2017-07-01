@@ -20,7 +20,7 @@ def create_service_page(sender, instance, created, **kwargs):
 				if not spsp:
 					spsp = ServicePageSnippetPlacement(snippet=service_snippet, page=service_page)
 				city.add_child(
-					title='{} в городе {}'.format(instance.name, city.city.alternate_name), 
+					title='{} в городе {}'.format(instance.name, city.city.alternate_names), 
 					slug='{}-в-городе-{}'.format(str(instance.name).replace(' ', '-'), city.city.alternate_name)
 					)
 				basepage.add_child( 
