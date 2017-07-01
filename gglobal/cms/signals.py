@@ -6,6 +6,8 @@ from gglobal.cms.models import ServicePage, TroublePage, Service as ServiceSnipp
 from django.dispatch import receiver
 from django.db.models.signals import pre_save, post_save
 
+import unidecode
+
 @receiver(post_save, sender=Service)
 def create_service_page(sender, instance, created, **kwargs):
 	citypages = CityPage.objects.all()
@@ -36,21 +38,15 @@ def create_service_page(sender, instance, created, **kwargs):
 			spsp = ServicePageSnippetPlacement.objects.filter(snippet=service_snippet, page=service_page)
 			if not spsp:
 				spsp = ServicePageSnippetPlacement(snippet=service_snippet, page=service_page)
-				print('spsp')
 			if not service_page in city.get_children():
-				print('asd')
 				city.add_child(
-					instance=service_page, 
-					title='{} в городе {}'.format(instance.name, city.city.alternate_name), 
-					slug='{} в городе {}'.format(instance.name, city.city.alternate_name)
+					title='{} в городе {}'.format(instance.name, 'Гродно'), 
+					slug='{}-в-город-{}'.format(str(instance.name).replace(' ', '-'), 'Гродно'),
 					)
-				print(city.title)
 			if not service_page in basepage.get_children():
-				print('asd')
 				basepage.add_child(
-					instance=service_page, 
-					title='{} по всей Беларуси'.format(instance.name), 
-					slug='{} по всей Беларуси'.format(instance.name)
+					title='{} по всей Беларуси'.format(instance.slug),
+					slug='{}-по-всей-Беларуси'.format(str(instance.name).replace(' ', '-')), 
 					)
 
 
