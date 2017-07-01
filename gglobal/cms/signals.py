@@ -10,6 +10,7 @@ from django.db.models.signals import pre_save, post_save
 def create_service_page(sender, instance, created, **kwargs):
 	citypages = CityPage.objects.all()
 	basepage = BasePage.objects.first()
+	'''
 	print(citypages)
 	if created and instance.accepted:
 			for city in citypages:
@@ -37,7 +38,7 @@ def create_service_page(sender, instance, created, **kwargs):
 			city.add_child(instance=service_page)
 			basepage.add_child(instance=service_page)
 			#service_page.save()
-
+	'''
 
 	
 '''
