@@ -22,8 +22,8 @@ def create_service_page(sender, instance, created, **kwargs):
 			for city in citypages:
 				service_page = ServicePage(
 					service=instance, 
-					title='{} в городе {}'.format(instance.name, 'Гродно'), 
-					slug='{}-в-городе-{}'.format(str(instance.name).replace(' ', '-'), 'Гродно')
+					title='{} в городе {}'.format(instance.name, city.city.alternate_names), 
+					slug='{}-в-городе-{}'.format(str(instance.name).replace(' ', '-'), city.city.alternate_names)
 				)			
 				city.add_child(instance=service_page)
 				#basepage.add_child(instance=service_page_for_base_page)
@@ -33,8 +33,8 @@ def create_service_page(sender, instance, created, **kwargs):
 			service_snippet = ServiceSnippet.objects.first()
 			service_page = ServicePage(
 				service=instance, 
-				title='{} в городе {}'.format(instance.name, 'Гродно'), 
-				slug='{}-в-городе-{}'.format(str(instance.name).replace(' ', '-'), 'Гродно')
+				title='{} в городе {}'.format(instance.name, city.city.alternate_names), 
+				slug='{}-в-городе-{}'.format(str(instance.name).replace(' ', '-'), city.city.alternate_names)
 			)
 			if not service_page in city.get_children():
 				city.add_child(instance=service_page)
