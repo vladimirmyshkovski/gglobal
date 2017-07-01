@@ -378,11 +378,12 @@ class Service(models.Model):
 
 
     panels = [
+        FieldPanel('name'),
         StreamFieldPanel('body'),        
-        ]
+    ]
 
     def __str__(self):
-        return '{}'.format(self.slug)
+        return '{}'.format(self.name)
 
 
 class ServicePageSnippetPlacement(Orderable, models.Model):
