@@ -27,8 +27,8 @@
     {% endif %}
 
     {% if self.city %}
-    <meta name=”geo.position” content="{{ {0:.7f}'.format(float(city.latitude));{0:.7f}'.format(float(city.longitude)) }}">
-    <meta name=”ICBM” content="{{ {0:.7f}'.format(float(city.latitude));{0:.7f}'.format(float(city.longitude)) }}">
+    <meta name=”geo.position” content="{{ city.latitude | stringformat:'0:.7f' }};{{ city.longitude | stringformat:'0:.7f' }}">
+    <meta name=”ICBM” content="{{ city.latitude | stringformat:'0:.7f' }};{{ city.longitude | stringformat:'0:.7f' }}">
     {% endif %}
 
     
