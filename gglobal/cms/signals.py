@@ -2,7 +2,7 @@
 from __future__ import absolute_import
 from gglobal.service.models import Service, Trouble
 from gglobal.cms.models import ServicePage, TroublePage, Service as ServiceSnippet, Trouble as TroubleSnippet, \
-								CityPage, BasePage, ServicePageSnippetPlacement
+								CityPage, BasePage, ServicePageSnippetPlacement, ServiceSnippet as SS
 from django.dispatch import receiver
 from django.db.models.signals import pre_save, post_save
 
@@ -38,7 +38,23 @@ def create_service_page(sender, instance, created, **kwargs):
 			)
 			if not service_page in city.get_children():
 				city.add_child(instance=service_page)
+			else:
+				service_page = ServicePage.objects.get(service=instance)
+				service_page.title = '{} в городе {}'.format(instance.name, city.city.alternate_names)
+				service_page.slug = '{}'.format(str(instance.name).replace(' ', '-').lower())
+				service_page.save()
 				spsp = ServicePageSnippetPlacement.objects.create(page=service_page, snippet=service_snippet)
+
+
+@receiver(post_save, sender=SS)
+def create_service_snippet(sender, instance, created, **kwargs):
+	service_page = ServicePage.objects.filter(service=instance)
+	if created and instance.accepted:
+		for sp in service_page:
+			sp.snippet = instance
+			sp.save()
+
+
 
 
 

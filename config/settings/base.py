@@ -17,6 +17,8 @@ from django.utils.translation import ugettext_lazy as _
 
 ROOT_DIR = environ.Path(__file__) - 3  # (gglobal/config/settings/base.py - 3 = gglobal/)
 APPS_DIR = ROOT_DIR.path('gglobal')
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+
 #DATE_FORMAT = 'd E Y'
 
 # Load operating system environment variables and then prepare to use them
