@@ -65,6 +65,8 @@ class BasePage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
             pag_page = int(page) - 1
         else:
             pag_page = 0
+        if snippet_page:
+            context['body_page'] = snippet_page[pag_page][0]
         context['body_page'] = snippet_page[pag_page][0] 
         return context
     
@@ -311,7 +313,9 @@ class CityPage(six.with_metaclass(PageBase, MetadataPageMixin, MenuPage)):
             pag_page = int(page) - 1
         else:
             pag_page = 0
-        context['body_page'] = snippet_page[pag_page][0] 
+        context['body_page'] = snippet_page[pag_page][0]
+        if snippet_page:
+            context['body_page'] = snippet_page[pag_page][0]
         return context
 
     promote_panels = Page.promote_panels + MetadataPageMixin.panels
@@ -390,7 +394,8 @@ class ServicePage(Page):
             pag_page = int(page) - 1
         else:
             pag_page = 0
-        context['body_page'] = snippet_page[pag_page][0]
+        if snippet_page:
+            context['body_page'] = snippet_page[pag_page][0]
         return context
 
     class Meta:

@@ -48,7 +48,7 @@ def create_service_page(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=SS)
 def create_service_snippet(sender, instance, created, **kwargs):
-	service_page = ServicePage.objects.filter(service=instance)
+	service_page = ServicePage.objects.filter(snippet=instance)
 	if created and instance.accepted:
 		for sp in service_page:
 			sp.snippet = instance
