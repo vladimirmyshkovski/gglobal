@@ -6,8 +6,8 @@ from django.utils.text import slugify
 
 
 class Service(MPTTModel):
-    slug = models.CharField(max_length=50, unique=True, null=True, blank=True)
-    name = models.CharField(max_length=50, unique=True)
+    slug = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField(max_length=50)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
     accepted = models.BooleanField(default=False)
     troubles = models.ManyToManyField('service.Trouble', related_name='service', blank=True)
@@ -32,8 +32,8 @@ class Service(MPTTModel):
 
 
 class Trouble(MPTTModel):
-    slug = models.CharField(max_length=50, unique=True, null=True, blank=True)
-    name = models.CharField(max_length=50, unique=True)
+    slug = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField(max_length=50)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
     accepted = models.BooleanField(default=False)
 
