@@ -444,7 +444,6 @@ class ServiceSnippet(models.Model):
         FieldPanel('service'),
         StreamFieldPanel('body'),
         FieldPanel('accepted'),
-        
     ]
 
     def __str__(self):
