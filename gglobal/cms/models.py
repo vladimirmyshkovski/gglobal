@@ -390,7 +390,7 @@ class ServicePage(Page):
             pag_page = int(page) - 1
         else:
             pag_page = 0
-        context['body_page'] = snippet_page[pag_page][0] 
+        context['body_page'] = snippet_page[pag_page][0]
         return context
 
     class Meta:

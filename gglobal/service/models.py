@@ -6,11 +6,15 @@ from django.utils.text import slugify
 
 
 class Service(MPTTModel):
-    slug = models.CharField(max_length=50, null=True, blank=True)
-    name = models.CharField(max_length=50)
-    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
-    accepted = models.BooleanField(default=False)
-    troubles = models.ManyToManyField('service.Trouble', related_name='service', blank=True)
+    slug = models.CharField(max_length=50, null=True, blank=True, verbose_name='Ссылка')
+    name = models.CharField(max_length=50, verbose_name='Название')
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, 
+        verbose_name='Родитель')
+    cta = models.CharField(max_length=255, null=True, blank=True, verbose_name='УТП')
+    description = models.CharField(max_length=1100, null=True, blank=True, verbose_name='Описание')
+    accepted = models.BooleanField(default=False, verbose_name='Показывать на сайте?')
+    troubles = models.ManyToManyField('service.Trouble', related_name='service', blank=True, 
+        verbose_name='Проблемы, которые решает эта услуга')
 
     class Meta:
     	verbose_name = "Услуга"
