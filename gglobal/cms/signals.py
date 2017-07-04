@@ -1,4 +1,3 @@
-
 from __future__ import absolute_import
 from gglobal.service.models import Service, Trouble
 from gglobal.cms.models import ServicePage, TroublePage, Service as ServiceSnippet, Trouble as TroubleSnippet, \
@@ -7,7 +6,7 @@ from django.dispatch import receiver
 from django.db.models.signals import pre_save, post_save
 
 import unidecode
-
+'''
 @receiver(post_save, sender=Service)
 def create_service_page(sender, instance, created, **kwargs):
 	citypages = CityPage.objects.all()
@@ -59,7 +58,7 @@ def create_service_snippet(sender, instance, created, **kwargs):
 
 
 	
-'''
+
 @receiver(post_save, sender=Trouble)
 def create_trouble_page(sender, instance, created, **kwargs):	
 	citypages = CityPage.objects.all()

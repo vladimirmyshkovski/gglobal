@@ -29,12 +29,13 @@ urlpatterns = [
     url(r'^частные-мастера/', include('gglobal.users.urls', namespace='users')),
     
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^crm/', include('crm.urls', namespace='crm')),
+    #url(r'^crm/', include('crm.urls', namespace='crm')),
 
 
     # Your stuff: custom urls includes go here
 
-    url(r'^cms/', include('wagtail.wagtailadmin.urls')),
+    #url(r'^cms/', include('wagtail.wagtailadmin.urls')),
+
     url(r'^вопросы-ответы/', include('gglobal.qa.urls')),
     url(r'^квалификационные-вопросы/', include('gglobal.qualification.urls', namespace='qualification')),
     url(r'^награды/', include('gglobal.badges.urls', namespace='badges')),
@@ -47,7 +48,7 @@ urlpatterns = [
     #url(r'^categories/', include('categories.urls', namespace='categories')),
     url(r'^markdownx/', include('markdownx.urls')),
     #url(r'^invitations/', include('invitations.urls', namespace='invitations')),
-    url('^sitemap\.xml$', sitemap),
+    #url('^sitemap\.xml$', sitemap),
     #url(r'^webpush/', include('webpush.urls')),
     #url(r'^города-страны/', include('gglobal.city.urls', namespace='cities')),
 
@@ -70,6 +71,6 @@ if settings.DEBUG:
             url(r'^__debug__/', include(debug_toolbar.urls)),
         ]
     
-urlpatterns += [
-    url(r'', include('wagtail.wagtailcore.urls')),
-]
+#urlpatterns += [
+#    url(r'', include('wagtail.wagtailcore.urls')),
+#]

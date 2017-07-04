@@ -153,7 +153,7 @@ THIRD_PARTY_APPS = [
     'django_fsm',
     'fsm_admin',
     'invitations',
-    #'django_hosts',
+    'django_hosts',
     #'telegrambot',
     'rest_framework',
 
@@ -792,8 +792,8 @@ CHANNEL_LAYERS = {
 
 # DJANGO_HOSTS https://github.com/jazzband/django-hosts
 # ------------------------------------------------------------------------------
-#ROOT_HOSTCONF = 'config.hosts'
-#DEFAULT_HOST = 'default'
+ROOT_HOSTCONF = 'config.hosts'
+DEFAULT_HOST = 'default'
 
 # DJANGO_TELEGRAM_BOT https://github.com/jlmadurga/django-telegram-bot
 # ------------------------------------------------------------------------------
