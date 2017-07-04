@@ -40,13 +40,13 @@ class CityDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(CityDetailView, self).get_context_data(*args, **kwargs)
-        context['masters'] = MasterCRMProfile.objects.filter(
-        	user__mastercrmprofile__isnull=False, 
-        	user__cities__alternate_names__iexact=self.kwargs['alternate_names']
-        	).order_by('-user__raiting').all()
+        #context['masters'] = MasterCRMProfile.objects.filter(
+        #	user__mastercrmprofile__isnull=False, 
+        #	user__cities__alternate_names__iexact=self.kwargs['alternate_names']
+        #	).order_by('-user__raiting').all()
 
         #context['page'] = CitySnippetPage.objects.get(city__alternate_names__iexact=self.kwargs['alternate_names'])
-        context['page'] = CityPage.objects.get(city__alternate_names__iexact=self.kwargs['alternate_names'])
+        #context['page'] = CityPage.objects.get(city__alternate_names__iexact=self.kwargs['alternate_names'])
         return context
 
 

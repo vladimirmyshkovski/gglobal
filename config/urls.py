@@ -16,7 +16,7 @@ from django.contrib import admin
 #admin.autodiscover()
 urlpatterns = [
     #url('', include('pwa.urls')),
-    #url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     #url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     #url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^частные-мастера/', include('gglobal.users.urls', namespace='users')),
     
     url(r'^accounts/', include('allauth.urls')),
-    #url(r'^crm/', include('crm.urls', namespace='crm')),
+    url(r'^crm/', include('crm.urls', namespace='crm')),
 
 
     # Your stuff: custom urls includes go here
