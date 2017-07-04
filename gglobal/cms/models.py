@@ -366,6 +366,33 @@ class ServicePage(Page):
         InlinePanel('service_page_snippet_placements', label="Snippets"),
     ]
 
+    def lists_snippets_blocks(self):
+        lists_snippets_blocks = []
+        all_snippets = self.service_page_snippet_placements.all()
+        for i in all_snippets:
+            for i in i.snippet.body:
+                lists_snippets_blocks.append([i])
+        return lists_snippets_blocks
+
+    def get_context(self, request):
+        context = super(ServicePage, self).get_context(request)
+        paginator = Paginator(self.lists_snippets_blocks(), 1)
+        page = request.GET.get('page')
+        try:
+            resources = paginator.page(page)
+        except PageNotAnInteger:
+            resources = paginator.page(1)
+        except EmptyPage:
+            resources = paginator.page(paginator.num_pages)
+        context['resources'] = resources
+        snippet_page = self.lists_snippets_blocks()
+        if page is not None:
+            pag_page = int(page) - 1
+        else:
+            pag_page = 0
+        context['body_page'] = snippet_page[pag_page][0] 
+        return context
+
     class Meta:
         verbose_name = "Страница услуги"
         verbose_name_plural = "Страницы услуг"
