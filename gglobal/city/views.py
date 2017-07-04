@@ -64,10 +64,10 @@ class CityServiceDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(CityServiceDetailView, self).get_context_data(*args, **kwargs)
         context['city'] = get_object_or_404(City, alternate_names__iexact=self.kwargs['alternate_names'])
-        context['masters'] = MasterCRMProfile.objects.filter(
-        	user__mastercrmprofile__isnull=False, 
-        	user__cities__alternate_names__iexact=self.kwargs['alternate_names']
-        	).order_by('-user__raiting').all()
+        #context['masters'] = MasterCRMProfile.objects.filter(
+        #	user__mastercrmprofile__isnull=False, 
+        #	user__cities__alternate_names__iexact=self.kwargs['alternate_names']
+        #	).order_by('-user__raiting').all()
         return context
 
 
