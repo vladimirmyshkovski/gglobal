@@ -22,7 +22,7 @@ def create_service_page(sender, instance, created, **kwargs):
 			for city in citypages:
 				service_page = ServicePage(
 					service=instance, 
-					title='{} в городе {}'.format(instance.name, city.city.alternate_names), 
+					title='{}'.format(instance.name), 
 					slug='{}'.format(str(instance.name).replace(' ', '-').lower())
 				)			
 				city.add_child(instance=service_page)
@@ -33,14 +33,14 @@ def create_service_page(sender, instance, created, **kwargs):
 			service_snippet = ServiceSnippet.objects.first()
 			service_page = ServicePage(
 				service=instance, 
-				title='{} в городе {}'.format(instance.name, city.city.alternate_names), 
+				title='{}'.format(instance.name), 
 				slug='{}'.format(str(instance.name).replace(' ', '-').lower())
 			)
 			if not service_page in city.get_children():
 				city.add_child(instance=service_page)
 			else:
 				service_page = ServicePage.objects.get(service=instance)
-				service_page.title = '{} в городе {}'.format(instance.name, city.city.alternate_names)
+				service_page.title = '{}'.format(instance.name)
 				service_page.slug = '{}'.format(str(instance.name).replace(' ', '-').lower())
 				service_page.save()
 				spsp = ServicePageSnippetPlacement.objects.create(page=service_page, snippet=service_snippet)
