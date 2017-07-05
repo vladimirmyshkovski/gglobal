@@ -5,53 +5,9 @@
 <div class="container">
   <h2>Города</h2>
 
-  <div class="list-group">
-      <div class="infinite-container">
-    {% for city in city_list %}
-          <div class="infinite-item">
-    {{ city.alternate_names }}
-    всего мастеров: {{ city.masters_count }}
-
-      <a href="" class="list-group-item">
-      <div class="testimonial-user-info user-info text-left">
-        <div class="testimonial-user-thumb user-thumb">
-            <img src="/media/{{ city.mastercrmprofile.avatar }}" alt="Частный мастер по ремонту компьютеров {{ city.mastercrmprofile.user.username }}">
-        </div>
-        <div class="testimonial-user-txt user-text">
-            <label class="testimonial-user-name user-name">{{ city.mastercrmprofile.user.username }}</label>
-            <p class="testimonial-user-position user-position text-muted">Местоположение: {{ city.mastercrmprofile.real_location }}</p>
-            <p class="testimonial-user-position user-position text-muted">Рейтинг: {{ city.mastercrmprofile.raiting }}</p>
-        </div>
-      </div>
-      </a>
-      </div>
-    {% endfor %}
-      <div class="loading" style="display: none;">
-    Loading...
-      </div>
-
-
-    </div>
-  </div>
 </div>
 
-  <script>
-      defer(function () {
 
-
-    var infinite = new Waypoint.Infinite({
-      element: $('.infinite-container')[0],
-      offset: function(){return this.context.innerHeight()-(this.adapter.outerHeight()*0.85)},
-      onBeforePageLoad: function () {
-        $('.loading').show();
-      },
-      onAfterPageLoad: function ($items) {
-        $('.loading').hide();
-      }
-    });
-  });
-
-  </script>
 
 
 {% block map %}
