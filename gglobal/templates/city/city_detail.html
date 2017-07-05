@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static i18n users_tags %}
+{% load static i18n users_tags mptt_tags %}
 {% block title %}Города{% endblock %}
 {% block content %}
 
@@ -13,6 +13,20 @@
           <h1 class="text-white">Частные мастера по ремонту компьютеров и ноутбуков в городе {{ object.alternate_names }}</h1>
           <h4 class="text-light">Выбирайте проверенных</h4>
           <a href="" class="btn btn-white-bordered">Заказать!</a>
+
+<ul>
+    {% recursetree services %}
+        <li>
+            {{ node.name }}
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    <a href="{% url 'cities:city-service' object children">{{ children }}</a>
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>
+
         </div>
       </div>
     </div>

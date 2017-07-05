@@ -35,13 +35,13 @@ class CityDetailView(DetailView):
 
     def get_object(self):
         #city = get_object_or_404(City, alternate_names__iexact=self.kwargs['alternate_names'])
-        print(self.kwargs['alternate_names'])
         city = City.objects.get(alternate_names__iexact=self.kwargs['alternate_names'])
         return city
 
     def get_context_data(self, *args, **kwargs):
         context = super(CityDetailView, self).get_context_data(*args, **kwargs)
-        content['services'] = Service.objects.all()
+        context['services'] = Service.objects.all()
+        print(context['services'])
         #context['masters'] = MasterCRMProfile.objects.filter(
         #	user__mastercrmprofile__isnull=False, 
         #	user__cities__alternate_names__iexact=self.kwargs['alternate_names']
