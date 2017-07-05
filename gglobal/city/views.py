@@ -60,7 +60,7 @@ class CityServiceDetailView(DetailView):
 
     def get_object(self):
     	city = get_object_or_404(City, alternate_names__iexact=self.kwargs['alternate_names'])
-    	service = get_object_or_404(Service, slug__iexact=self.kwargs['service_name'])
+    	service = get_object_or_404(Service, slug__iexact=self.kwargs['slug'])
     	return service
 
     def get_context_data(self, *args, **kwargs):

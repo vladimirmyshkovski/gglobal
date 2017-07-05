@@ -29,7 +29,7 @@ urlpatterns = [
     #    name='city-project'
     #),
     url(
-        regex=r'^(?P<alternate_names>[\w.@+-]+)/(?P<service_name>[\w.@+-]+)/$',
+        regex=r'^(?P<alternate_names>[\w.@+-]+)/(?P<slug>[\w.@+-]+)/$',
         view=views.CityServiceDetailView.as_view(),
         name='city-service'
     ),
