@@ -8,11 +8,11 @@ from . import views
 
 urlpatterns = [
     
-    #url(
-    #    regex=r'^$',
-    #    view=views.CityListView.as_view(),
-    #    name='cities'
-    #),
+    url(
+        regex=r'^$',
+        view=views.CityListView.as_view(),
+        name='cities'
+    ),
     url(
         regex=r'^(?P<alternate_names>[\w.@+-]+)/$',
         view=views.CityDetailView.as_view(),
