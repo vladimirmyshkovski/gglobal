@@ -194,8 +194,8 @@ INSTALLED_APPS = PRE_DJANGO_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
-    #'django_hosts.middleware.HostsRequestMiddleware',
-    #'django.middleware.cache.UpdateCacheMiddleware',
+    'django_hosts.middleware.HostsRequestMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     #'django.middleware.gzip.GZipMiddleware',
     #'htmlmin.middleware.HtmlMinifyMiddleware',
     #'nplusone.ext.django.NPlusOneMiddleware',
@@ -215,8 +215,8 @@ MIDDLEWARE = [
     #'wagtailthemes.middleware.ThemeMiddleware',
     'cuser.middleware.CuserMiddleware',
     'turbolinks.middleware.TurbolinksMiddleware',
-    #'django.middleware.cache.FetchFromCacheMiddleware',
-    #'django_hosts.middleware.HostsResponseMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware',
     #'htmlmin.middleware.MarkRequestMiddleware',
 ]
 
