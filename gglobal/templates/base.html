@@ -1,4 +1,4 @@
-{% load base_tags static users_tags breadcrumbs_tags wagtailuserbar %}
+{% load base_tags static users_tags breadcrumbs_tags wagtailuserbar hosts %}
 
 {% block head %}
     {% include "includes/head.html" %}
@@ -67,7 +67,9 @@ else window.addEventListener('load', cb);</script>
 <!--noscript id="deferred-styles">
 </noscript-->
 
-
+<script type="text/javascript">
+defer(function(){$(".form-submit").click(function(e){e.preventDefault();var n=$(this).parents("form:first");if(0==$(n)[0].checkValidity())n[0].hasOwnProperty(["name"])&&0==$(n)[0].name.checkValidity()&&($(n)[0].name.nextElementSibling.innerHTML=$(n)[0].name.validationMessage),n[0].hasOwnProperty(["phone"])&&0==$(n)[0].phone.checkValidity()&&($(n)[0].phone.nextElementSibling.innerHTML=$(n)[0].phone.validationMessage),n[0].hasOwnProperty(["text"])&&0==$(n)[0].text.checkValidity()&&($(n)[0].text.nextElementSibling.innerHTML=$(n)[0].text.validationMessage);else{if(n[0].hasOwnProperty(["name"]))var t=n[0].name.value;if(n[0].hasOwnProperty(["phone"]))var a=n[0].phone.value;if(n[0].hasOwnProperty(["text"]))var i=n[0].text.value;var r=n[0].id;jQuery.ajax({type:"POST",dataType:"json",async:!0,url:"{% url 'crm:createclient' host 'default' %}",data:{csrfmiddlewaretoken:csrftoken,name:t,phone:a,text:i,form:r},success:setTimeout(function(e){$.magnificPopup.open({items:{src:"#thank-you-modal",type:"inline"}}),$(".name-input-field").val(""),$(".phone-input-field").val("")},1e3),error:function(e,n){$.magnificPopup.open({items:{src:"#error-modal",type:"inline"}})}})}return!1})});
+</script>
 
 
 <script type="text/javascript">
