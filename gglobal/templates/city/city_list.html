@@ -1,56 +1,12 @@
 {% extends "base.html" %}
-{% load static i18n cms_tags  %}
+{% load static i18n city_map  %}
 {% block title %}Города{% endblock %}
 {% block content %}
-<div class="container">
-  <h2>Города</h2>
 
-  <div class="list-group">
-      <div class="infinite-container">
-    {% for city in city_list %}
-          <div class="infinite-item">
-    {{ city.alternate_names }}
-    всего мастеров: {{ city.masters_count }}
-
-      <a href="{% url 'cities:city' city.alternate_names %}" class="list-group-item">
-      <div class="testimonial-user-info user-info text-left">
-        <div class="testimonial-user-thumb user-thumb">
-            <img src="/media/{{ city.mastercrmprofile.avatar }}" alt="Частный мастер по ремонту компьютеров {{ city.mastercrmprofile.user.username }}">
-        </div>
-        <div class="testimonial-user-txt user-text">
-            <label class="testimonial-user-name user-name">{{ city.mastercrmprofile.user.username }}</label>
-            <p class="testimonial-user-position user-position text-muted">Местоположение: {{ city.mastercrmprofile.real_location }}</p>
-            <p class="testimonial-user-position user-position text-muted">Рейтинг: {{ city.mastercrmprofile.raiting }}</p>
-        </div>
-      </div>
-      </a>
-      </div>
-    {% endfor %}
-      <div class="loading" style="display: none;"></div>
-
-        {% if page_obj.has_next %}
-    <a class="infinite-more-link" href="{% url 'cities:cities' %}?page={{ page_obj.next_page_number }}"></a>
-        {% endif %}
-
-    </div>
-  </div>
-</div>
-
-  <script>
-      defer(function () {
-
-
-    var infinite = new Waypoint.Infinite({
-      element: $('.infinite-container')[0],
-      offset: function(){return this.context.innerHeight()-(this.adapter.outerHeight()*0.85)},
-    });
-  });
-
-  </script>
-
+Ла ла ла 
 
 {% block map %}
-    {#% citypages_map %#}
+    {% city_map %}
 {% endblock map %}
 
 {% endblock content %}
