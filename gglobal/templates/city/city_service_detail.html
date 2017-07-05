@@ -16,7 +16,7 @@
                 {% recursetree services %}
                     <li>
                         {% if node.slug %}
-                        <a href="{% url 'cities:city-service' object.alternate_names node.slug %}">{{ node.name }}</a>
+                        <a href="{% url 'cities:city-service' city.alternate_names node.slug %}">{{ node.name }}</a>
                         {% endif %}
                         {% if not node.is_leaf_node %}
                             <ul class="children">
