@@ -8,11 +8,38 @@
       <div class="col-sm-12 com-lg-12 text-center">
         <div class="home-wrapper home-wrapper-alt">
           <h1 class="text-white">{{ object.name }} в городе {{ city.alternate_names }}</h1>
-          <h4 class="text-light">Выбирайте проверенных</h4>
+          <h4 class="text-light">{{ object.cta }}</h4>
           <a href="" class="btn btn-white-bordered">Приступить</a>
         </div>
       </div>
     </div>
   </div>
 </section>
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="text-center">
+          <div class="title-box-icon">
+            <i class="{{ self.icon }}"></i>
+            <h3 class="title">{{ self.h3 }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5">
+        <div class="feat-description" style="text-align: center">
+          <h4 class="text-muted">{{ self.h4 }}</h4>
+          <p class="text-muted">{{ object.description }}</p>
+          <a href="{{ self.btnlink }}" class="btn btn-custom">{{ self.btntext }}</a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-sm-offset-1">
+        <img src="{{ theimage.url }}" alt="{{ theimage.alt }}" class="img-responsive">
+      </div>
+    </div>
+  </div>
+</section>
+
 {% endblock content %}
