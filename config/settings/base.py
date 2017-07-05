@@ -153,7 +153,7 @@ THIRD_PARTY_APPS = [
     'django_fsm',
     'fsm_admin',
     'invitations',
-    'django_hosts',
+    #'django_hosts',
     #'telegrambot',
     'rest_framework',
 
@@ -194,7 +194,7 @@ INSTALLED_APPS = PRE_DJANGO_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
-    'django_hosts.middleware.HostsRequestMiddleware',
+    #'django_hosts.middleware.HostsRequestMiddleware',
     #'django.middleware.cache.UpdateCacheMiddleware',
     #'django.middleware.gzip.GZipMiddleware',
     #'htmlmin.middleware.HtmlMinifyMiddleware',
@@ -216,8 +216,8 @@ MIDDLEWARE = [
     'cuser.middleware.CuserMiddleware',
     'turbolinks.middleware.TurbolinksMiddleware',
     #'django.middleware.cache.FetchFromCacheMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'django_hosts.middleware.HostsResponseMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #'django_hosts.middleware.HostsResponseMiddleware',
     #'htmlmin.middleware.MarkRequestMiddleware',
 ]
 

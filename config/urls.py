@@ -13,8 +13,7 @@ from dashing.utils import router
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import admin
-
-
+#admin.autodiscover()
 urlpatterns = [
     #url('', include('pwa.urls')),
     #url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
@@ -51,7 +50,7 @@ urlpatterns = [
     #url(r'^invitations/', include('invitations.urls', namespace='invitations')),
     #url('^sitemap\.xml$', sitemap),
     #url(r'^webpush/', include('webpush.urls')),
-    url(r'^', include('gglobal.city.urls', namespace='cities')),
+    #url(r'^', include('gglobal.city.urls', namespace='cities')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

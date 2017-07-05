@@ -18,7 +18,7 @@ class CityListView(ListView):
     template_name = 'city/city_list.html'
     slug_field = 'alternate_names'
     slug_url_kwarg = 'alternate_names'
-    paginate_by = 5
+    paginate_by = 1
 
     def get_queryset(self):
     	queryset = City.objects.all()
@@ -35,11 +35,13 @@ class CityDetailView(DetailView):
 
     def get_object(self):
         #city = get_object_or_404(City, alternate_names__iexact=self.kwargs['alternate_names'])
+        print(self.kwargs['alternate_names'])
         city = City.objects.get(alternate_names__iexact=self.kwargs['alternate_names'])
         return city
 
     def get_context_data(self, *args, **kwargs):
         context = super(CityDetailView, self).get_context_data(*args, **kwargs)
+        print(self.kwargs['alternate_names'])
         #context['masters'] = MasterCRMProfile.objects.filter(
         #	user__mastercrmprofile__isnull=False, 
         #	user__cities__alternate_names__iexact=self.kwargs['alternate_names']
