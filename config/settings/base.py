@@ -794,7 +794,7 @@ CHANNEL_LAYERS = {
 # DJANGO_HOSTS https://github.com/jazzband/django-hosts
 # ------------------------------------------------------------------------------
 ROOT_HOSTCONF = 'config.hosts'
-DEFAULT_HOST = 'default'
+DEFAULT_HOST = 'cities'
 
 # DJANGO_TELEGRAM_BOT https://github.com/jlmadurga/django-telegram-bot
 # ------------------------------------------------------------------------------
