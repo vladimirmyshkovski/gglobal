@@ -50,7 +50,7 @@ urlpatterns = [
     #url(r'^invitations/', include('invitations.urls', namespace='invitations')),
     #url('^sitemap\.xml$', sitemap),
     #url(r'^webpush/', include('webpush.urls')),
-    url(r'^города-страны/', include('gglobal.city.urls', namespace='cities')),
+    #url(r'^города-страны/', include('gglobal.city.urls', namespace='cities')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
