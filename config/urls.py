@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^частные-мастера/', include('gglobal.users.urls', namespace='users')),
     
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^crm/', include('crm.urls', namespace='crm')),
+    url(r'^crm/', include('gglobal.crm.urls', namespace='crm')),
 
 
     # Your stuff: custom urls includes go here
