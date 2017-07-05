@@ -1,1 +1,19 @@
 {% extends "base.html" %}
+
+{% block content %}
+
+<section class="bg-custom home" id="home">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <div class="home-wrapper home-wrapper-alt">
+          <h1 class="text-white">Частные мастера по ремонту компьютеров и ноутбуков в городе {{ object.alternate_names }}</h1>
+          <h4 class="text-light">Выбирайте проверенных</h4>
+          <a href="" class="btn btn-white-bordered">Приступить</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
