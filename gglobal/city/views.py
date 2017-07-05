@@ -41,7 +41,7 @@ class CityDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(CityDetailView, self).get_context_data(*args, **kwargs)
         context['services'] = Service.objects.all()
-        context['meta_title'] = 'Ремонт компьютерной техники ' + str(self.get_object().alternate_names )
+        context['meta_title'] = 'Ремонт компьютерной техники в городе ' + str(self.get_object().alternate_names )
         context['meta_description'] = context['meta_title']
         #context['masters'] = MasterCRMProfile.objects.filter(
         #	user__mastercrmprofile__isnull=False, 
