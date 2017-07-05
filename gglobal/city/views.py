@@ -2,11 +2,11 @@ from django.shortcuts import render, get_object_or_404
 from cities_light.models import City, Country
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 from django.contrib.sites.models import Site
-from gglobal.crm.models import MasterCRMProfile, Project
-from gglobal.users.models import User
+#from gglobal.crm.models import MasterCRMProfile, Project
+#from gglobal.users.models import User
 from django.db.models import Count
 from gglobal.service.models import Service
-from gglobal.cms.models import CitySnippetPage, CityPage
+#from gglobal.cms.models import CitySnippetPage, CityPage
 from dal import autocomplete
 from urllib import parse
 
