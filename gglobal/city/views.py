@@ -18,7 +18,7 @@ class CityListView(ListView):
     template_name = 'city/city_list.html'
     slug_field = 'alternate_names'
     slug_url_kwarg = 'alternate_names'
-    paginate_by = 1
+    paginate_by = 5
 
     def get_queryset(self):
     	queryset = City.objects.all()
