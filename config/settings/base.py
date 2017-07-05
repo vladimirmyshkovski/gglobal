@@ -800,3 +800,6 @@ DEFAULT_HOST = 'default'
 # ------------------------------------------------------------------------------
 TELEGRAM_BOT_HANDLERS_CONF = "crm.bot_handlers"
 TELEGRAM_BOT_TOKEN_EXPIRATION = "2"
+
+
+APPEND_SLASH = False
