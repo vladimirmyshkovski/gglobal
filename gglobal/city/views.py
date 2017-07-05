@@ -41,6 +41,8 @@ class CityDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(CityDetailView, self).get_context_data(*args, **kwargs)
         context['services'] = Service.objects.all()
+        context['meta_title'] = 'Частные мастера по ремонту компьютеров и ноутбуков в городе ' + str(self.get_object().alternate_names )
+        context['meta_description'] = context['meta_title']
         #context['masters'] = MasterCRMProfile.objects.filter(
         #	user__mastercrmprofile__isnull=False, 
         #	user__cities__alternate_names__iexact=self.kwargs['alternate_names']
@@ -67,6 +69,8 @@ class CityServiceDetailView(DetailView):
         context['city'] = get_object_or_404(City, alternate_names__iexact=self.kwargs['alternate_names'])
         service = get_object_or_404(Service, slug__iexact=self.kwargs['slug'])
         context['services'] = service.get_descendants
+        context['meta_title'] = str(self.get_object().name) + ' ' + str(context['city'].alternate_names)
+        context['meta_description'] = context['meta_title'] + ' ' + str(self.get_object().cta) 
         #context['masters'] = MasterCRMProfile.objects.filter(
         #	user__mastercrmprofile__isnull=False, 
         #	user__cities__alternate_names__iexact=self.kwargs['alternate_names']

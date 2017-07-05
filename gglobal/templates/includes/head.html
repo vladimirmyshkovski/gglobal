@@ -15,8 +15,9 @@
     {% block meta %}{% endblock meta %}
     <link rel="Shortcut Icon" href="{% static 'image/favicon.png' %}">
     <meta name="yandex-verification" content="086d5306efe34ab0" />
-    <meta name="google-site-verification" content="oMWgonLOcqrDL0gN-u2f4odkQPLyEubqgbpMDfrM4_w" />
-
+    <meta name="google-site-verification" content="oMWgonLOcqrDL0gN-u2f4odkQPLyEubqgbpMDfrM4_w" />{% if meta_title %}
+    <meta name="title" content="{{ meta_title }}">{% endif %}{% if meta_description %}
+    <meta name="description" content="{{ meta_description }}">{% endif %}
     {% if resources %}
         {% if resources.has_next %}
     <link rel="next" href="?page={{ resources.next_page_number }}">
