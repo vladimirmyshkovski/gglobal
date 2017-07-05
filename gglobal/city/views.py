@@ -59,9 +59,12 @@ class CityServiceDetailView(DetailView):
     slug_url_kwarg = 'alternate_names'
 
     def get_object(self):
-    	city = get_object_or_404(City, alternate_names__iexact=self.kwargs['alternate_names'])
-    	service = get_object_or_404(Service, slug__iexact=self.kwargs['slug'])
-    	return service
+        print(self)
+        city = get_object_or_404(City, alternate_names__iexact=self.kwargs['alternate_names'])
+        print(city)
+        service = get_object_or_404(Service, slug__iexact=self.kwargs['slug'])
+        print(service)
+        return service
 
     def get_context_data(self, *args, **kwargs):
         context = super(CityServiceDetailView, self).get_context_data(*args, **kwargs)

@@ -18,6 +18,11 @@ urlpatterns = [
         view=views.CityDetailView.as_view(),
         name='city'
     ),
+    url(
+        regex=r'^(?P<alternate_names>[\w.@+-]+)/(?P<slug>[\w.@+-]+)/$',
+        view=views.CityServiceDetailView.as_view(),
+        name='city-service'
+    ),
     #url(
     #    regex=r'^(?P<alternate_names>[\w.@+-]+)/заказы/$',
     #    view=views.CityProjectsListView.as_view(),
@@ -28,14 +33,6 @@ urlpatterns = [
     #    view=views.CityProjectDetailView.as_view(),
     #    name='city-project'
     #),
-    url(
-        regex=r'^(?P<alternate_names>[\w.@+-]+)/(?P<slug>[\w.@+-]+)/$',
-        view=views.CityServiceDetailView.as_view(),
-        name='city-service'
-    ),
-    
-
-
 ]
 
 
