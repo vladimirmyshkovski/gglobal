@@ -14,7 +14,7 @@ urlpatterns = [
     #    name='cities'
     #),
     url(
-        regex=r'^(?P<alternate_names>[\w.@+-]+)/$',
+        regex=r'^(?P<alternate_names>)/$',
         view=views.CityDetailView.as_view(),
         name='city'
     ),
