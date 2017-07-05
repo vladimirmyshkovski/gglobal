@@ -14,21 +14,21 @@
           <h4 class="text-light">Выбирайте проверенных</h4>
           <a href="" class="btn btn-white-bordered">Заказать!</a>
 
-<ul>
-    {% recursetree services %}
-        <li>
-            {% if node.slug %}
-            <a href="{% url 'cities:city-service' object.alternate_names node.slug %}">{{ node.name }}</a>
-            {% endif %}
-                </ul>
-            {% if not node.is_leaf_node %}
-                <ul class="children">
-                    <a href="">{{ children }}</a>
-                </ul>
-            {% endif %}
-        </li>
-    {% endrecursetree %}
-</ul>
+            <ul>
+                {% recursetree services %}
+                    <li>
+                        {% if node.slug %}
+                        <a href="{% url 'cities:city-service' object.alternate_names node.slug %}">{{ node.name }}</a>
+                        {% endif %}
+                            </ul>
+                        {% if not node.is_leaf_node %}
+                            <ul class="children">
+                                <a href="">{{ children }}</a>
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endrecursetree %}
+            </ul>
 
         </div>
       </div>

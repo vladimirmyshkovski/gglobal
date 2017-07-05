@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static i18n %}
+{% load static i18n mptt_tags %}
 {% block title %}Города{% endblock %}
 {% block content %}
 <section class="bg-custom home">
@@ -10,6 +10,21 @@
           <h1 class="text-white">{{ object.name }} в городе {{ city.alternate_names }}</h1>
           <h4 class="text-light">{{ object.cta }}</h4>
           <a href="#altBlock" class="btn btn-white-bordered">Подробнее</a>
+
+
+            <ul class="root">
+                {% recursetree services %}
+                    <li>
+                        {{ node.name }}
+                        {% if not node.is_leaf_node %}
+                            <ul class="children">
+                                {{ children }}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endrecursetree %}
+            </ul>
+
         </div>
       </div>
     </div>
