@@ -13,11 +13,14 @@ class Service(MPTTModel):
     cta = models.CharField(max_length=255, null=True, blank=True, verbose_name='УТП')
     #description = models.CharField(max_length=1100, null=True, blank=True, verbose_name='Описание')
     description = GenericRelation('base.Description', verbose_name='Описание')
+    image = GenericRelation('base.Image')
     accepted = models.BooleanField(default=False, verbose_name='Показывать на сайте?')
     troubles = models.ManyToManyField('service.Trouble', related_name='service', blank=True, 
         verbose_name='Проблемы, которые решает эта услуга')
     icon = models.CharField(max_length=50, null=True, blank=True, verbose_name='Иконка')
-    image = GenericRelation('base.Image')
+    device = models.ForeignKey('service.Device', verbose_name='Устройство')
+    spare_part = models.ForeignKey('service.SparePart', verbose_name='Запчасти')
+
 
     class Meta:
     	verbose_name = "Услуга"
@@ -65,6 +68,7 @@ class Device(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True, verbose_name='Название')
     description = GenericRelation('base.Description', verbose_name='Описание')
     image = GenericRelation('base.Image', verbose_name='Картинка')
+    brand = models.ForeignKey('service.Brand', verbose_name='Бренд')
 
     class Meta:
         verbose_name = "Устройство"
@@ -78,6 +82,7 @@ class SparePart(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True, verbose_name='Название')
     description = GenericRelation('base.Description', verbose_name='Описание')
     image = GenericRelation('base.Image', verbose_name='Картинка')
+    brand = models.ForeignKey('service.Brand', verbose_name='Бренд')
     
     class Meta:
         verbose_name = "Запчасть"
