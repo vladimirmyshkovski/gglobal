@@ -107,3 +107,4 @@ maxminddb-geolite2
 django_celery_results
 django_celery_beat
 django_celery_monitor
+django-image-cropping

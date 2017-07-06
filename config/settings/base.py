@@ -156,6 +156,8 @@ THIRD_PARTY_APPS = [
     #'django_hosts',
     #'telegrambot',
     'rest_framework',
+    'easy_thumbnails',
+    'image_cropping',
 
 ]
 
@@ -173,6 +175,7 @@ LOCAL_APPS = [
     'gglobal.city.apps.CityConfig',
     'gglobal.badges.apps.BadgesConfig',
     'gglobal.tmb.apps.TmbConfig',
+    'gglobal.base.apps.BaseConfig',
     'channels',
 ]
 
@@ -803,3 +806,9 @@ TELEGRAM_BOT_TOKEN_EXPIRATION = "2"
 
 
 #APPEND_SLASH = False
+
+
+from easy_thumbnails.conf import Settings as thumbnail_settings
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + thumbnail_settings.THUMBNAIL_PROCESSORS

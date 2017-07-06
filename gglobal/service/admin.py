@@ -1,14 +1,14 @@
 from django.contrib import admin
-from gglobal.service.models import Service, Trouble
+from gglobal.service.models import Service, Trouble, Device, Brand, SparePart
 from mptt.admin import DraggableMPTTAdmin
 from django.db.models import Avg
 from django.core.urlresolvers import reverse
-from .forms import ServiceForm
+from gglobal.base.admin import InlineDescriptionAdmin, InlineImageAdmin
+
 class ServiceMPTTModelAdmin(DraggableMPTTAdmin):
     mptt_level_indent = 20
     list_display = ('tree_actions', 'indented_title', 'avg_from_price', 'avg_to_price')
     list_display_links = ('indented_title',)
-    form = ServiceForm
 
     def get_queryset(self, request):
     	return super(ServiceMPTTModelAdmin, self).get_queryset(request).annotate(avg_from_price=Avg('executant_price__from_price'), avg_to_price=Avg('executant_price__to_price'))
@@ -47,3 +47,23 @@ class TroubleMPTTModelAdmin(DraggableMPTTAdmin):
 admin.site.register(Service, ServiceMPTTModelAdmin)
 admin.site.register(Trouble, TroubleMPTTModelAdmin)
 
+@admin.register(Device)
+class DeviceAdmin(admin.ModelAdmin):
+    inlines = [
+    InlineDescriptionAdmin,
+    InlineImageAdmin
+    ]
+
+@admin.register(SparePart)
+class SparePartAdmin(admin.ModelAdmin):
+    inlines = [
+    InlineDescriptionAdmin,
+    InlineImageAdmin
+    ]
+
+@admin.register(Brand)
+class BrandAdmin(admin.ModelAdmin):
+    inlines = [
+    InlineDescriptionAdmin,
+    InlineImageAdmin
+    ]
