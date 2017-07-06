@@ -73,8 +73,8 @@ class ServiceCityDetailView(DetailView):
         context['city'] = get_object_or_404(City, alternate_names__iexact=self.kwargs['alternate_names'])
         service = get_object_or_404(Service, slug__iexact=self.kwargs['slug'])
         context['services'] = service.get_descendants
-        context['meta_title'] = service.name + ' в городе ' + context['city'].alternate_names
-        context['meta_description'] = context['meta_title'] + ' ' + service.cta
+        context['meta_title'] = str(service.name) + ' в городе ' + str(context['city'].alternate_names)
+        context['meta_description'] = context['meta_title'] + ' ' + str(service.cta)
         context['description'] = service.description.first()
         context['image'] = service.images.first()
         return context

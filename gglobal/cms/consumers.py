@@ -9,6 +9,7 @@ def phone_numbers_connect(message):
 
 
 def phone_numbers_recive(message):
+    print(cache.keys("user_*"))
     '''
     site = Site.objects.get(hostname='http://{}/'.format(message.content['text']))
     if hasattr(site.root_page, 'city'):

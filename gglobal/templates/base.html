@@ -89,10 +89,7 @@ socket.onmessage = function(e) {
 }
 socket.onopen = function() {
     socket.send("{{ request.get_host }}");
-    alert('ПАТРАЧЕНА');
-
 }
-
 // Call onopen directly if socket is already open
 if (socket.readyState == WebSocket.OPEN) socket.onopen();
 </script>
