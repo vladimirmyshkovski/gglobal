@@ -53,19 +53,16 @@
     <div class="row">
     {% for node in services %}
       {% if not node.is_root_node %}
+      {% if not node.is_leaf_node %}
       <div class="{% if services.count > 2 %}col-sm-4{% elif services.count == 2 %}col-sm-6{% else %}col-sm-6 col-sm-offset-3{% endif %}">
         <div class="features-box">
           <a href="{% if node.slug %}{% url 'cities:city-service' city.alternate_names node.slug %}{% else %}#{% endif %}">
           <i class="{{ node.icon }}"></i>
           <h4>{{ node.name }}</h4></a>
           {% for service in node.get_descendants %}
-            {#% if not service.is_child_node %#}
-            {% if not service.is_leaf_node %}
             <li>
               <a href="{% if service.slug %}{% url 'cities:city-service' city.alternate_names service.slug %}{% endif %}">{{ service.name }}</a>
             </li>
-            {% endif %}
-            {#% endif %#}
           {% endfor %}
         </div>
       </div>
@@ -73,7 +70,8 @@
       </div>
       <div class="row">
       {% endif %}
-      {% endif %}          
+      {% endif %}
+      {% endif %}    
     {% endfor %}
     </div>
   </div>
