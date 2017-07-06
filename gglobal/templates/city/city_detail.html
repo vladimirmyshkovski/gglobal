@@ -27,6 +27,7 @@
     </div>
     <div class="row">
     {% for node in services %}
+    {% if not.node_is_root_node %}
     {% if not node.is_child_node %}
       <div class="{% if services.count > 2 %}col-sm-4{% elif services.count == 2 %}col-sm-6{% else %}col-sm-6 col-sm-offset-3{% endif %}">
         <div class="features-box">
@@ -43,6 +44,7 @@
       {% if forloop.counter|divisibleby:3 %}
       </div>
       <div class="row">
+      {% endif %}
       {% endif %}
       {% endif %}
     {% endfor %}
