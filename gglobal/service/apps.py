@@ -3,7 +3,7 @@ from django.apps import AppConfig
 
 class ServiceConfig(AppConfig):
     name = 'gglobal.service'
-    verbose_name = "Service"
+    verbose_name = "Услуги"
 
     def ready(self):
         pass

@@ -30,7 +30,7 @@
     });
 
     marker['infowindow'] = new google.maps.InfoWindow({
-      content: '<div id="content" style="text-align: center"><h1>{{ city.alternate_names }}</h1><br/><h2></h2><br/><h3><a href="{% url 'cities:city' city.alternate_names %}">{{ city.alternate_names }}</a></h3></div>'
+      content: '<div id="content" style="text-align: center"><h1>{{ city.alternate_names }}</h1><br/><h2></h2><br/><h3><a href="{% url 'services:service_city_detail' city.alternate_names %}">{{ city.alternate_names }}</a></h3></div>'
     });
 
     google.maps.event.addListener(marker, 'click', function() {

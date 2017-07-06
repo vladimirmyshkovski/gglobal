@@ -4,10 +4,11 @@ from __future__ import absolute_import, unicode_literals
 from django.conf.urls import url
 
 from . import views
-
+from django.views.generic
 
 urlpatterns = [
-    
+    url(r'^$', generic.TemplateView.as_view(template_name='service/index.html'), name='index'),
+
     url(
         regex=r'^$',
         view=views.CityListView.as_view(),

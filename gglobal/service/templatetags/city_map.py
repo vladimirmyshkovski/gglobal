@@ -3,7 +3,7 @@ from cities_light.models import City
 
 register = template.Library()
 
-@register.inclusion_tag('city/templatetags/city_map.html', takes_context=True)
+@register.inclusion_tag('service/templatetags/city_map.html', takes_context=True)
 def city_map(context):
 	cities = City.objects.all()
 	return {
