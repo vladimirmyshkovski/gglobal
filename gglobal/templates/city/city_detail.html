@@ -17,7 +17,7 @@
 {% if services %}
 {% for node in services %}
 {% if node.is_root_node %}
-{% if node %}
+{% if node.get_descendants.count > 1 %}
 <section class="section bg-light" id="{{ self.handle}}-features">
   <div class="container">
     <div class="row">
