@@ -43,6 +43,7 @@ class CityDetailView(DetailView):
         context['services'] = Service.objects.all()
         context['meta_title'] = 'Ремонт компьютерной техники в городе ' + str(self.get_object().alternate_names )
         context['meta_description'] = context['meta_title']
+
         #context['masters'] = MasterCRMProfile.objects.filter(
         #	user__mastercrmprofile__isnull=False, 
         #	user__cities__alternate_names__iexact=self.kwargs['alternate_names']
@@ -70,7 +71,9 @@ class CityServiceDetailView(DetailView):
         service = get_object_or_404(Service, slug__iexact=self.kwargs['slug'])
         context['services'] = service.get_descendants
         context['meta_title'] = str(self.get_object().name) + ' в городе ' + str(context['city'].alternate_names)
-        context['meta_description'] = context['meta_title'] + ' ' + str(self.get_object().cta) 
+        context['meta_description'] = context['meta_title'] + ' ' + str(self.get_object().cta)
+        context['description'] = service.description.first()
+        context['image'] = service.image.first()
         #context['masters'] = MasterCRMProfile.objects.filter(
         #	user__mastercrmprofile__isnull=False, 
         #	user__cities__alternate_names__iexact=self.kwargs['alternate_names']

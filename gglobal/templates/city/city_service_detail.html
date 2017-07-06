@@ -10,24 +10,6 @@
           <h1 class="text-white">{{ object.name }} в городе {{ city.alternate_names }}</h1>
           <h4 class="text-light">{{ object.cta }}</h4>
           <a href="#altBlock" class="btn btn-white-bordered">Подробнее</a>
-
-
-            <ul>
-                {% recursetree services %}
-                    <li>
-                        {% if node.slug %}
-                        <a href="{% url 'cities:city-service' city.alternate_names node.slug %}">{{ node.name }}</a>
-                        {% endif %}
-                        {% if not node.is_leaf_node %}
-                            <ul class="children">
-                                <a href="">{{ children }}</a>
-                            </ul>
-                        {% endif %}
-                    </li>
-                {% endrecursetree %}
-            </ul>
-
-
         </div>
       </div>
     </div>
@@ -39,8 +21,8 @@
       <div class="col-sm-12">
         <div class="text-center">
           <div class="title-box-icon">
-            <i class="{{ self.icon }}"></i>
-            <h3 class="title">{{ self.h3 }}</h3>
+            <i class="{{ object.icon }}"></i>
+            <h3 class="title">{{ object.cta }}</h3>
           </div>
         </div>
       </div>
@@ -48,15 +30,42 @@
     <div class="row">
       <div class="col-sm-5">
         <div class="feat-description" style="text-align: center">
-          <h4 class="text-muted">{{ self.h4 }}</h4>
-          <p class="text-muted">{{ object.description }}</p>
-          <a href="{{ self.btnlink }}" class="btn btn-custom">{{ self.btntext }}</a>
+          <h4 class="text-muted">{{ object.cta }}</h4>
+          <p class="text-muted">{{ description.description }}</p>
+          <a href="#" class="btn btn-custom">Заказать</a>
         </div>
       </div>
       <div class="col-sm-6 col-sm-offset-1">
-        <img src="{{ theimage.url }}" alt="{{ theimage.alt }}" class="img-responsive">
+        <img src="/media/{{ image.image }}" alt="{{ image.alt }}" class="img-responsive">
       </div>
     </div>
   </div>
 </section>
+<section class="section bg-light" id="{{ self.handle}}-features">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <h3 class="title">Услуги</h3>
+        <p class="text-muted sub-title">Услуги</p>
+      </div>
+    </div>
+    <div class="row">
+    {% recursetree services %}
+      <div class="col-sm-6 col-sm-offset-3">
+        <div class="features-box">
+          <a href="{% if node.slug %}{% url 'cities:city-service' city.alternate_names node.slug %}{% else %}#{% endif %}">
+          <i class="{{ node.icon }}"></i></a>
+          <h4>{{ node.name }}</h4>
+          {% for service in node.get_descendants %}
+            <li>
+              <a href="{{ service.slug }}">{{ service.name }}</a>
+            </li>
+          {% endfor %}
+        </div>
+      </div>                            
+    {% endrecursetree %}
+    </div>
+  </div>
+</section>
 {% endblock content %}
+
