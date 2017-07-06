@@ -26,6 +26,11 @@ class ServiceMPTTModelAdmin(DraggableMPTTAdmin):
     def get_readonly_fields(self, obj, request):
     	return super(ServiceMPTTModelAdmin, self).get_readonly_fields(obj, request) if not None else + ('avg_from_price', 'avg_to_price')
 
+    inlines = [
+        InlineDescriptionAdmin,
+        InlineImageAdmin
+    ]
+
 class TroubleMPTTModelAdmin(DraggableMPTTAdmin):
     mptt_level_indent = 20
     list_display = ('tree_actions', 'indented_title', 'services', 'service_price')
@@ -50,20 +55,20 @@ admin.site.register(Trouble, TroubleMPTTModelAdmin)
 @admin.register(Device)
 class DeviceAdmin(admin.ModelAdmin):
     inlines = [
-    InlineDescriptionAdmin,
-    InlineImageAdmin
+        InlineDescriptionAdmin,
+        InlineImageAdmin
     ]
 
 @admin.register(SparePart)
 class SparePartAdmin(admin.ModelAdmin):
     inlines = [
-    InlineDescriptionAdmin,
-    InlineImageAdmin
+        InlineDescriptionAdmin,
+        InlineImageAdmin
     ]
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
     inlines = [
-    InlineDescriptionAdmin,
-    InlineImageAdmin
+        InlineDescriptionAdmin,
+        InlineImageAdmin
     ]
