@@ -33,11 +33,13 @@
           <a href="{% if node.slug %}{% url 'cities:city-service' city.alternate_names node.slug %}{% else %}#{% endif %}">
           <i class="{{ node.icon }}"></i>
           <h4>{{ node.name }}</h4></a>
+          {% if not node.is_child_node %}
           {% for service in node.get_descendants %}
             <li>
               <a href="{% if service.slug %}{% url 'cities:city-service' city.alternate_names service.slug %}{% endif %}">{{ service.name }}</a>
             </li>
           {% endfor %}
+          {% endif %}
         </div>
       </div>
       {% if forloop.counter|divisibleby:3 %}
