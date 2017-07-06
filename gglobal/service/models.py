@@ -31,7 +31,7 @@ class Service(MPTTModel):
         order_insertion_by = ['name']
     
     def save(self, *args, **kwargs):
-        if not self.id or not self.slug:
+        if not self.id:
             self.slug = slugify(self.name)
         super(Service, self).save(*args, **kwargs)
     
