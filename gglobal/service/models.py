@@ -11,9 +11,8 @@ class Service(MPTTModel):
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, 
         verbose_name='Родитель')
     cta = models.CharField(max_length=255, null=True, blank=True, verbose_name='УТП')
-    #description = models.CharField(max_length=1100, null=True, blank=True, verbose_name='Описание')
-    description = GenericRelation('base.Description', verbose_name='Описание')
-    image = GenericRelation('base.Image')
+    description = GenericRelation('base.Description', verbose_name='Описание', null=True, blank=True)
+    image = GenericRelation('base.Image', null=True, blank=True)
     accepted = models.BooleanField(default=False, verbose_name='Показывать на сайте?')
     troubles = models.ManyToManyField('service.Trouble', related_name='service', blank=True, 
         verbose_name='Проблемы, которые решает эта услуга')
