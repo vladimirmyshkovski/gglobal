@@ -9,47 +9,39 @@
           <h1 class="text-white">{{ meta_title }}</h1>
           <h4 class="text-light">{{ meta_description }}</h4>
           <a href="" class="btn btn-white-bordered">Заказать!</a>
-            <ul>
-                {% recursetree services %}
-                    <li>
-                        {% if node.slug %}
-                        <a href="{% url 'cities:city-service' object.alternate_names node.slug %}">{{ node.name }}</a>
-                        {% endif %}
-                        {% if not node.is_leaf_node %}
-                            <ul class="children">
-                                <a href="">{{ children }}</a>
-                            </ul>
-                        {% endif %}
-                    </li>
-                {% endrecursetree %}
-            </ul>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!--div class="container">
-  <h2 style="text-align: center">Частные мастера</h2>
-
-  <div class="list-group">
-    {#% for master in masters %#}
-      <a href="{#% url 'users:detail' master.user.id master.slug %#}" class="list-group-item">
-      <div class="testimonial-user-info user-info text-left">
-        <div class="testimonial-user-thumb user-thumb">
-            <img src="/media/{{ master.avatar }}" alt="Частный мастер по ремонту компьютеров {{ master.user.username }}">
-        </div>
-        <div class="testimonial-user-txt user-text">
-            <label class="testimonial-user-name user-name">{{ master.user.username }}</label>
-            <p class="testimonial-user-position user-position text-muted">Местоположение: {{ master.real_location }}</p>
-            <p class="testimonial-user-position user-position text-muted">Рейтинг: {{ master.raiting }}</p>
+<section class="section bg-light" id="{{ self.handle}}-features">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <h3 class="title">Услуги</h3>
+        <p class="text-muted sub-title">Услуги</p>
+      </div>
+    </div>
+    <div class="row">
+    {% for node in services %}
+      <div class="{% if services.count > 2 %}col-sm-4{% elif services.count == 2 %}col-sm-6{% else %}col-sm-6 col-sm-offset-3{% endif %}">
+        <div class="features-box">
+          <a href="{% if node.slug %}{% url 'cities:city-service' city.alternate_names node.slug %}{% else %}#{% endif %}">
+          <i class="{{ node.icon }}"></i>
+          <h4>{{ node.name }}</h4></a>
+          {% for service in node.get_descendants %}
+            <li>
+              <a href="{{ service.slug }}">{{ service.name }}</a>
+            </li>
+          {% endfor %}
         </div>
       </div>
-      </a>
-    {#% endfor %#}
-  </div-->
-</div>
-{% block map %}
-    {#% masters_map %#}
-{% endblock map %}
-
+      {% if forloop.counter|divisibleby:3 %}
+      </div>
+      <div class="row">
+      {% endif %}                            
+    {% endfor %}
+    </div>
+  </div>
+</section>
 {% endblock content %}
