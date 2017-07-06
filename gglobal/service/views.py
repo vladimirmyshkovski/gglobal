@@ -48,7 +48,7 @@ class ServiceCityDetailView(DetailView):
     #slug_url_kwarg = 'alternate_names'
 
     def get_object(self):
-        service = Service.objects.filter(slug__iexact=self.kwargs['slug'], city__alternate_names__iexact=self.kwargs['alternate_names'])
+        service = Service.objects.filter(slug__iexact=self.kwargs['slug'], cities__alternate_names__in=[self.kwargs['alternate_names']])
         return service
 
     def get_context_data(self, *args, **kwargs):
@@ -59,7 +59,7 @@ class ServiceCityDetailView(DetailView):
         context['meta_title'] = service.name + ' в городе ' + context['city'].alternate_names
         context['meta_description'] = context['meta_title'] + ' ' + service.cta
         context['description'] = service.description.first()
-        context['image'] = service.image.first()
+        context['image'] = service.images.first()
         return context
 
 

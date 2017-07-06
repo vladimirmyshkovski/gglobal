@@ -18,7 +18,6 @@ class ServiceSitemap(Sitemap):
     	return obj.modified
 
     def location(self, obj):
-    	print(obj.cities.all(), obj.name)
     	pass
 
 
