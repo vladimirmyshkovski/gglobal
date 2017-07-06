@@ -16,7 +16,7 @@
 </section>
 {% if services %}
 {% for node in services %}
-{% if node.is_root_node %}
+{% if node.is_root_node and if node %}
 <section class="section bg-light" id="{{ self.handle}}-features">
   <div class="container">
     <div class="row">
@@ -40,10 +40,10 @@
           {% endfor %}
         </div>
       </div>
+      {% endif %}
       {% if forloop.counter|divisibleby:3 %}
       </div>
       <div class="row">
-      {% endif %}
       {% endif %}
     {% endfor %}
     </div>
