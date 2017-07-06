@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static i18n users_tags mptt_tags %}
+{% load static i18n users_tags mptt_tags cropping %}
 {% block content %}
 <section class="bg-custom home" id="home">
   <div class="container">
@@ -17,7 +17,7 @@
 {% if services %}
 {% for node in services %}
 {% if node.is_root_node and node.get_descendants.count > 1 %}
-<section class="section bg-light" id="{{ self.handle}}-features">
+<section class="section bg-light" id="{{ self.handle }}-features">
   <div class="container">
     <div class="row">
       <div class="col-sm-12 text-center">
@@ -29,12 +29,12 @@
     {% for service in node.get_children %}
       <div class="{% if services.count > 2 %}col-sm-4{% elif services.count == 2 %}col-sm-6{% else %}col-sm-6 col-sm-offset-3{% endif %}">
         <div class="features-box">
-          <a href="{% if service.slug %}{% url 'cities:city-service' city.alternate_names service.slug %}{% else %}#{% endif %}">
+          <a style="color: #96A8B7" href="{% if service.slug %}{% url 'cities:city-service' city.alternate_names service.slug %}{% else %}#{% endif %}">
           <i class="{{ service.icon }}"></i>
           <h4>{{ service.name }}</h4></a>
           {% for serv in service.get_children %}
-            <li>
-              <a href="{% if serv.slug %}{% url 'cities:city-service' city.alternate_names serv.slug %}{% endif %}">{{ serv.name }}</a>
+            <li style="list-style-type: none">
+              <a style="color: #96A8B7" href="{% if serv.slug %}{% url 'cities:city-service' city.alternate_names serv.slug %}{% endif %}">{{ serv.name }}</a>
             </li>
           {% endfor %}
         </div>

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static i18n mptt_tags %}
+{% load static i18n mptt_tags cropping %}
 {% block title %}Города{% endblock %}
 {% block content %}
 <section class="bg-custom home">
@@ -36,13 +36,13 @@
         </div>
       </div>
       <div class="col-sm-6 col-sm-offset-1">
-        <img src="/media/{{ image.image }}" alt="{{ image.alt }}" class="img-responsive">
+        <img src="{% cropped_thumbnail image "cropping" scale=0.5 %}" alt="{{ image.alt }}" class="img-responsive">
       </div>
     </div>
   </div>
 </section>
 {% if services %}
-<section class="section bg-light" id="{{ self.handle}}-features">
+<section class="section bg-light" id="{{ self.handle }}-features">
   <div class="container">
     <div class="row">
       <div class="col-sm-12 text-center">
