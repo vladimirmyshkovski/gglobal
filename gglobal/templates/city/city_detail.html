@@ -15,17 +15,19 @@
   </div>
 </section>
 {% if services %}
+{% for node in services %}
+{% if node.is_root_node %}
 <section class="section bg-light" id="{{ self.handle}}-features">
   <div class="container">
     <div class="row">
       <div class="col-sm-12 text-center">
-        <h3 class="title">Услуги</h3>
-        <p class="text-muted sub-title">Услуги</p>
+        <h3 class="title">{{ node.name }}</h3>
+        <p class="text-muted sub-title">{{ node.cta }}</p>
       </div>
     </div>
     <div class="row">
     {% for node in services %}
-      {% if node.is_root_node %}
+    {% if not node.is_child_node %}
       <div class="{% if services.count > 2 %}col-sm-4{% elif services.count == 2 %}col-sm-6{% else %}col-sm-6 col-sm-offset-3{% endif %}">
         <div class="features-box">
           <a href="{% if node.slug %}{% url 'cities:city-service' city.alternate_names node.slug %}{% else %}#{% endif %}">
@@ -47,5 +49,7 @@
     </div>
   </div>
 </section>
+{% endif %}
+{% endfor %}
 {% endif %}
 {% endblock content %}
