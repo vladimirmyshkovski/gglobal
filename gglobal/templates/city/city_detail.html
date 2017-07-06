@@ -29,7 +29,7 @@
     {% for service in node.get_children %}
       <div class="{% if services.count > 2 %}col-sm-4{% elif services.count == 2 %}col-sm-6{% else %}col-sm-6 col-sm-offset-3{% endif %}">
         <div class="features-box">
-          <a style="color: #96A8B7" href="{% if service.slug %}{% url 'cities:city-service' city.alternate_names service.slug %}{% else %}#{% endif %}">
+          <a style="color: #496174" href="{% if service.slug %}{% url 'cities:city-service' city.alternate_names service.slug %}{% else %}#{% endif %}">
           <i class="{{ service.icon }}"></i>
           <h4>{{ service.name }}</h4></a>
           {% for serv in service.get_children %}
