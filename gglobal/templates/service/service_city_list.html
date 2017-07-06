@@ -26,7 +26,7 @@
     <div class="row">
     {% for node in services %}
     {% if node.is_root_node %}
-      <div class="{% if services.count > 2 %}col-sm-4{% elif services.count == 2 %}col-sm-6{% else %}col-sm-6 col-sm-offset-3{% endif %}">
+      <div class="{% if services > 2 %}col-sm-4{% elif services == 2 %}col-sm-6{% else %}col-sm-6 col-sm-offset-3{% endif %}">
         <div class="features-box">
           <a style="color: #496174" href="{% if node.slug %}{% url 'services:service_city_detail' city.alternate_names node.slug %}{% else %}#{% endif %}">
           <i class="{{ node.icon }}"></i>
