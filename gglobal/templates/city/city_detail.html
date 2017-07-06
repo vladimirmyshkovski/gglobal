@@ -16,7 +16,8 @@
 </section>
 {% if services %}
 {% for node in services %}
-{% if node.is_root_node and if node %}
+{% if node.is_root_node %}
+{% if node %}
 <section class="section bg-light" id="{{ self.handle}}-features">
   <div class="container">
     <div class="row">
@@ -49,6 +50,7 @@
     </div>
   </div>
 </section>
+{% endif %}
 {% endif %}
 {% endfor %}
 {% endif %}
