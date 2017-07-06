@@ -54,8 +54,8 @@ urlpatterns = [
     #url(r'^invitations/', include('invitations.urls', namespace='invitations')),
     #url('^sitemap\.xml$', sitemap),
     #url(r'^webpush/', include('webpush.urls')),
-    #url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
-    #    name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'),
     url(r'^', include('gglobal.service.urls', namespace='services')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

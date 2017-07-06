@@ -3,6 +3,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from django.utils.text import slugify
 from django.contrib.contenttypes.fields import GenericRelation
 from gglobal.crm.models import Base
+from django.core.urlresolvers import reverse
 # Create your models here.
 
 
@@ -26,18 +27,23 @@ class Service(Base, MPTTModel):
     	verbose_name = "Услуга"
     	verbose_name_plural = "Услуги"
 
-
     class MPTTMeta:
         #level_attr = 'name'
         order_insertion_by = ['name']
-    
+
+    def get_absolute_url(self):
+        pass
+
+    def get_sitemap_urls(self):
+        return [reverse('services:service_city_detail', args=[i.alternate_names, self.slug]) for i in self.cities.all()]
+
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = slugify(self.name)
         super(Service, self).save(*args, **kwargs)
     
     def __str__(self):
-    	return '%s' % self.name
+    	return self.name
 
 
 

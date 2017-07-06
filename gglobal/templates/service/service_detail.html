@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static i18n mptt_tags cropping %}
+{% block title %}Города{% endblock %}
+{% block content %}
+<section class="bg-custom home">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 com-lg-12 text-center">
+        <div class="home-wrapper">
+          <h1 class="text-white">{{ object.name }} в городе {{ city.alternate_names }}</h1>
+          <h4 class="text-light">{{ object.cta }}</h4>
+          <h4 class="text-light">ГОРОД ИЗ GET: {{ city }}</h4>
+          <a href="#altBlock" class="btn btn-white-bordered">Подробнее</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% for city in cities %}
+  <a href="?в-городе-{{ city.alternate_names }}">{{ city.alternate_names }}</a>
+{% endfor %}
+{% endblock content %}
+

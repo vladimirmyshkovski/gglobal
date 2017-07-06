@@ -24,6 +24,23 @@ class CityListView(ListView):
         #queryset = City.objects.filter(user__mastercrmprofile__isnull=False).annotate(masters_count=Count('user__mastercrmprofile')).distinct().order_by('-population').all()
 '''
 
+class ServiceDetailView(DetailView):
+    model = Service
+
+    def get_object(self):
+        service = get_object_or_404(Service, slug=self.kwargs['slug'])
+        return service
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ServiceDetailView, self).get_context_data(*args, **kwargs)
+        context['cities'] = self.get_object().cities.all()
+        city = self.request.GET.get('в-городе-')
+        if city:
+            context['city'] = City.objects.get(alternate_names=city)
+            print(city)
+        return context
+
+
 class ServiceCityListView(ListView):
     model = City
     template_name = 'service/service_city_list.html'
