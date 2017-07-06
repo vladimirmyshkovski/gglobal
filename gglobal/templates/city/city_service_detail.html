@@ -58,7 +58,7 @@
           <h4>{{ node.name }}</h4></a>
           {% for service in node.get_descendants %}
             <li>
-              <a href="{% url 'cities:city-service' city.alternate_names service.slug %}">{{ service.name }}</a>
+              <a href="{% if service.slug %}{% url 'cities:city-service' city.alternate_names service.slug %}{% else %}">{{ service.name }}</a>
             </li>
           {% endfor %}
         </div>
