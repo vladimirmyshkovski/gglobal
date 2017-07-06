@@ -5,8 +5,8 @@ from image_cropping import ImageRatioField
 from taggit.managers import TaggableManager
 
 class Image(models.Model):
-	image = models.ImageField()
-	alt = models.CharField(max_length=255, null=True)
+	image = models.ImageField(null=True, blank=True)
+	alt = models.CharField(max_length=255, null=True, blank=True)
 	content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
 	object_id = models.PositiveIntegerField()
 	content_object = GenericForeignKey('content_type', 'object_id')
