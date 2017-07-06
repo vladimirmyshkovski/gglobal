@@ -52,6 +52,7 @@
     </div>
     <div class="row">
     {% for node in services %}
+      {#% if not node.is_root_node %#}
       <div class="{% if services.count > 2 %}col-sm-4{% elif services.count == 2 %}col-sm-6{% else %}col-sm-6 col-sm-offset-3{% endif %}">
         <div class="features-box">
           <a href="{% if node.slug %}{% url 'cities:city-service' city.alternate_names node.slug %}{% else %}#{% endif %}">
@@ -67,7 +68,8 @@
       {% if forloop.counter|divisibleby:3 %}
       </div>
       <div class="row">
-      {% endif %}                            
+      {% endif %}
+      {#% endif %#}          
     {% endfor %}
     </div>
   </div>
