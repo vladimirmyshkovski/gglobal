@@ -18,8 +18,8 @@ class Service(MPTTModel):
     troubles = models.ManyToManyField('service.Trouble', related_name='service', blank=True, 
         verbose_name='Проблемы, которые решает эта услуга')
     icon = models.CharField(max_length=50, null=True, blank=True, verbose_name='Иконка')
-    device = models.ForeignKey('service.Device', verbose_name='Устройство')
-    spare_part = models.ForeignKey('service.SparePart', verbose_name='Запчасти')
+    device = models.ForeignKey('service.Device', verbose_name='Устройство', null=True, blank=True)
+    spare_part = models.ForeignKey('service.SparePart', verbose_name='Запчасти', null=True, blank=True)
 
 
     class Meta:
@@ -68,7 +68,7 @@ class Device(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True, verbose_name='Название')
     description = GenericRelation('base.Description', verbose_name='Описание')
     image = GenericRelation('base.Image', verbose_name='Картинка')
-    brand = models.ForeignKey('service.Brand', verbose_name='Бренд')
+    brand = models.ForeignKey('service.Brand', verbose_name='Бренд', null=True, blank=True)
 
     class Meta:
         verbose_name = "Устройство"
@@ -82,7 +82,7 @@ class SparePart(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True, verbose_name='Название')
     description = GenericRelation('base.Description', verbose_name='Описание')
     image = GenericRelation('base.Image', verbose_name='Картинка')
-    brand = models.ForeignKey('service.Brand', verbose_name='Бренд')
+    brand = models.ForeignKey('service.Brand', verbose_name='Бренд', null=True, blank=True)
     
     class Meta:
         verbose_name = "Запчасть"
