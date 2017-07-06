@@ -59,13 +59,13 @@
           <i class="{{ node.icon }}"></i>
           <h4>{{ node.name }}</h4></a>
           {% for service in node.get_descendants %}
-            {% if not service.is_child_node %}
+            {#% if not service.is_child_node %#}
             {% if not service.is_leaf_node %}
             <li>
               <a href="{% if service.slug %}{% url 'cities:city-service' city.alternate_names service.slug %}{% endif %}">{{ service.name }}</a>
             </li>
             {% endif %}
-            {% endif %}
+            {#% endif %#}
           {% endfor %}
         </div>
       </div>
