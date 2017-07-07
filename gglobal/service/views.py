@@ -51,7 +51,7 @@ class ServiceCityListView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ServiceCityListView, self).get_context_data(*args, **kwargs)
-        context['services'] = Service.objects.all()
+        context['services'] = Service.objects.root_nodes
         context['meta_title'] = 'Ремонт компьютерной техники в городе ' + str(self.kwargs['alternate_names'])
         context['meta_description'] = context['meta_title']
         context['city'] = City.objects.get(alternate_names=self.kwargs['alternate_names'])

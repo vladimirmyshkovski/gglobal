@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 # Create your models here.
 
 
-class Service(Base, MPTTModel):
+class Service(MPTTModel, Base):
     slug = models.CharField(max_length=50, null=True, blank=True, verbose_name='Ссылка')
     name = models.CharField(max_length=50, verbose_name='Название')
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, 
