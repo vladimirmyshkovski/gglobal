@@ -10,7 +10,7 @@ class Image(models.Model):
 	content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
 	object_id = models.PositiveIntegerField()
 	content_object = GenericForeignKey('content_type', 'object_id')
-	cropping = ImageRatioField('image', '600x400')
+	cropping = ImageRatioField('image', '800x600')
 	#tags = TaggableManager()
 
 	class Meta:
