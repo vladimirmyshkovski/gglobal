@@ -84,8 +84,8 @@
     <div class="row text-center">
       <div class="col-sm-12">
         <ul class="list-inline client-list">
-          <li>{% for image in brand.images.first %}<a href="{% cropped_thumbnail image "cropping" scale=1 %}" title="{{ image.alt }}">{% endfor %}
-              <img src="" alt="">
+          <li><a href="" title="">
+              <img src="{% cropped_thumbnail brand.image.first "cropping" scale=1 %}" alt="{{ brand.image.first.alt }}">
               </a>
           </li>
         </ul>

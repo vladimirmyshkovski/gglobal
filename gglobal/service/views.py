@@ -78,6 +78,7 @@ class ServiceCityDetailView(DetailView):
         context['description'] = service.description.first()
         context['image'] = service.images.first()
         context['brands'] = Brand.objects.filter(device__in=[i for i in service.devices.all()])
+        #print(context['brands'].image.first())
         return context
 
 
