@@ -51,7 +51,7 @@ class ServiceCityListView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ServiceCityListView, self).get_context_data(*args, **kwargs)
-        context['services'] = Service.objects.all()
+        context['services'] = Service.objects.root_nodes
         context['meta_title'] = 'Ремонт компьютерной техники в городе ' + str(self.kwargs['alternate_names'])
         context['meta_description'] = context['meta_title']
         context['city'] = City.objects.get(alternate_names=self.kwargs['alternate_names'])
@@ -72,7 +72,7 @@ class ServiceCityDetailView(DetailView):
         context = super(ServiceCityDetailView, self).get_context_data(*args, **kwargs)
         context['city'] = get_object_or_404(City, alternate_names__iexact=self.kwargs['alternate_names'])
         service = get_object_or_404(Service, slug__iexact=self.kwargs['slug'])
-        context['services'] = service.get_descendants
+        context['services'] = service.get_descendants        
         context['meta_title'] = str(service.name) + ' в городе ' + str(context['city'].alternate_names)
         context['meta_description'] = context['meta_title'] + ' ' + str(service.cta)
         context['description'] = service.description.first()

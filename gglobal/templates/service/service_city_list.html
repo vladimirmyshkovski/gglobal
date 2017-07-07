@@ -15,7 +15,7 @@
   </div>
 </section>
 {% if services %}
-<section class="section bg-light container-fluid" id="{{ self.handle }}-features">
+<section class="section bg-light" id="{{ self.handle }}-features">
   <div class="container">
     <div class="row">
       <div class="col-sm-12 text-center">
@@ -25,7 +25,7 @@
     </div>
     <div class="row">
     {% for node in services %}
-    {% if node.is_root_node %}
+    {#% if node.is_root_node %#}
       <div class="{% if services.count > 2 %}col-sm-4{% elif services.count == 2 %}col-sm-6{% else %}col-sm-6 col-sm-offset-3{% endif %}">
         <div class="features-box">
           <a style="color: #496174" href="{% if node.slug %}{% url 'services:service_city_detail' city.alternate_names node.slug %}{% else %}#{% endif %}">
@@ -38,7 +38,11 @@
           {% endfor %}
         </div>
       </div>
-    {% endif %}
+      {% if forloop.counter|divisibleby:3 %}
+      </div>
+      <div class="row">
+      {% endif %}
+    {#% endif %#}
     {% endfor %}
     </div>
   </div>
