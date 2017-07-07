@@ -6,6 +6,12 @@ from django.core.urlresolvers import reverse
 from gglobal.base.admin import InlineDescriptionAdmin, InlineImageAdmin
 
 class ServiceMPTTModelAdmin(DraggableMPTTAdmin):
+    class Media:
+        js = ("/static/js/admin/instantsearch.js",)
+
+    search_fields = ['name', 'slug']
+
+
     mptt_level_indent = 20
     list_display = ('tree_actions', 'indented_title', 'avg_from_price', 'avg_to_price')
     list_display_links = ('indented_title',)
