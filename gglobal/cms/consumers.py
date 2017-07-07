@@ -9,7 +9,6 @@ def phone_numbers_connect(message):
 
 
 def phone_numbers_recive(message):
-    print(cache.keys("user_*"))
     '''
     site = Site.objects.get(hostname='http://{}/'.format(message.content['text']))
     if hasattr(site.root_page, 'city'):
@@ -23,6 +22,7 @@ def phone_numbers_recive(message):
             Group("phonenumbers").send({
                 "text": user_number,
             })
+
 
 def phone_numbers_disconnect(message):
     Group("phonenumbers").discard(message.reply_channel)

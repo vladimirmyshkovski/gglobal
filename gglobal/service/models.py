@@ -39,7 +39,7 @@ class Service(Base, MPTTModel):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.name, allow_unicode=True)
         super(Service, self).save(*args, **kwargs)
     
     def __str__(self):
