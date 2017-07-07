@@ -3,7 +3,7 @@ from cities_light.models import City, Country
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 from django.contrib.sites.models import Site
 from django.db.models import Count
-from .models import Service
+from .models import Service, Brand
 from dal import autocomplete
 from urllib import parse
 
@@ -77,6 +77,7 @@ class ServiceCityDetailView(DetailView):
         context['meta_description'] = context['meta_title'] + ' ' + str(service.cta)
         context['description'] = service.description.first()
         context['image'] = service.images.first()
+        context['brands'] = Brand.objects.filter(device__in=[i for i in service.devices.all()])
         return context
 
 

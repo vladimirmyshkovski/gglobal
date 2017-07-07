@@ -72,6 +72,46 @@
     </div>
   </div>
 </section>
+<section class="section bg-light" id="clients">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <h3 class="title"></h3>
+        <p class="text-muted sub-title"></p>
+      </div>
+    </div>
+    {% for brand in brands %}
+    <div class="row text-center">
+      <div class="col-sm-12">
+        <ul class="list-inline client-list">
+          <li>{% for image in brand.images.first %}<a href="{% cropped_thumbnail image "cropping" scale=1 %}" title="{{ image.alt }}">{% endfor %}
+              <img src="" alt="">
+              </a>
+          </li>
+        </ul>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="testimonial-description text-left">
+                <p class="text-muted">
+                  “ ”
+                </p>
+              </div>
+              <div class="testimonial-user-info user-info text-left">
+                <div class="testimonial-user-thumb user-thumb">
+                  <img src="" alt="">
+                </div>
+                <div class="testimonial-user-txt user-text">
+                  <label class="testimonial-user-name user-name"></label>
+                    <p class="testimonial-user-position user-position text-muted"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
 {% endif %}
 {% endblock content %}
 
