@@ -84,7 +84,7 @@
       <div class="col-sm-12">
         <ul class="list-inline client-list">
           {% for brand in brands %}
-          <li><a href="{% if request.GET.город %}" title="">
+          <li><a href="" title="">
               <img src="{% cropped_thumbnail brand.image.first "cropping" scale=1 %}" alt="{{ brand.image.first.alt }}">
               </a>
           </li>
