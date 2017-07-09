@@ -48,10 +48,11 @@ class Service(MPTTModel, Base):
 
 
 class Trouble(Base, MPTTModel):
-    slug = models.CharField(max_length=50, null=True, blank=True)
+    slug = models.CharField(max_length=50, null=True, blank=True, verbose_name='Ссылка')
     name = models.CharField(max_length=50)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
     accepted = models.BooleanField(default=False)
+    devices = models.ManyToManyField('service.Device', verbose_name='Устройства', blank=True)
 
     class Meta:
         verbose_name = "Проблема"
@@ -71,6 +72,7 @@ class Trouble(Base, MPTTModel):
 
 
 class Device(models.Model):
+    slug = models.CharField(max_length=50, null=True, blank=True, verbose_name='Ссылка')
     name = models.CharField(max_length=50, null=True, blank=True, verbose_name='Название')
     description = GenericRelation('base.Description', verbose_name='Описание')
     image = GenericRelation('base.Image', verbose_name='Картинка')
@@ -85,6 +87,7 @@ class Device(models.Model):
 
 
 class SparePart(models.Model):
+    slug = models.CharField(max_length=50, null=True, blank=True, verbose_name='Ссылка')
     name = models.CharField(max_length=50, null=True, blank=True, verbose_name='Название')
     description = GenericRelation('base.Description', verbose_name='Описание')
     image = GenericRelation('base.Image', verbose_name='Картинка')
@@ -99,6 +102,7 @@ class SparePart(models.Model):
 
 
 class Brand(models.Model):
+    slug = models.CharField(max_length=50, null=True, blank=True, verbose_name='Ссылка')
     name = models.CharField(max_length=50, null=True, blank=True, verbose_name='Название')
     description = GenericRelation('base.Description', verbose_name='Описание')
     image = GenericRelation('base.Image', verbose_name='Картинка')

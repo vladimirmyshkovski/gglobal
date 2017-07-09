@@ -6,6 +6,7 @@ from django.db.models import Count
 from .models import Service, Brand
 from dal import autocomplete
 from urllib import parse
+from django.db.models import Q
 
 # Create your views here.
 
@@ -34,10 +35,6 @@ class ServiceDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(ServiceDetailView, self).get_context_data(*args, **kwargs)
         context['cities'] = self.get_object().cities.all()
-        city = self.request.GET.get('в-городе-')
-        if city:
-            context['city'] = City.objects.get(alternate_names=city)
-            print(city)
         return context
 
 
@@ -77,8 +74,10 @@ class ServiceCityDetailView(DetailView):
         context['meta_description'] = context['meta_title'] + ' ' + str(service.cta)
         context['description'] = service.description.first()
         context['image'] = service.images.first()
-        context['brands'] = Brand.objects.filter(device__in=[i for i in service.devices.all()])
-        #print(context['brands'].image.first())
+        context['brands'] = Brand.objects.filter(
+            Q(device__in=[z for i in context['services'] for z in i.devices.all()]) | Q(sparepart__in=[z for i in context['services'] for z in i.spare_parts.all()])
+            )
+        city = self.request.GET.get('город')
         return context
 
 
