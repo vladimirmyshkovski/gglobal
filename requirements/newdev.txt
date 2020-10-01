@@ -129,7 +129,7 @@ docutils==0.13.1
 dodgy==0.1.9
 dogslow==0.9.7
 easy-thumbnails==2.2
-ecdsa==0.13
+ecdsa==0.16.0
 factory-boy==2.8.1
 Faker==0.7.3
 feedparser==5.2.1
