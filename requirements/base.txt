@@ -83,7 +83,7 @@ django-mptt==0.8.7
 django-model-utils==2.6.1
 django-notifications-hq==1.2
 django-turbolinks==0.5.1
-docker==2.3.0
+docker==4.4.0
 docker-compose==1.13.0
 django-ckeditor==5.2.2
 django-avatar==3.1.0
