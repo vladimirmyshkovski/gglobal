@@ -247,7 +247,7 @@ shadowsocks==3.0.0
 simplegeneric==0.8.1
 six==1.10.0
 snowballstemmer==1.2.1
-Sphinx==1.5.5
+Sphinx==3.5.4
 sqlparse==0.2.3
 swapper==1.0.0
 telepot==12.0
