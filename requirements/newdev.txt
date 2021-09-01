@@ -120,7 +120,7 @@ django-turbolinks==0.5.1
 django-watchman==0.13.1
 django-xforwardedfor-middleware==1.0
 djangorestframework==3.3.2
-docker==2.3.0
+docker==5.0.1
 docker-compose==1.13.0
 docker-pycreds==0.2.1
 dockerpty==0.4.1
