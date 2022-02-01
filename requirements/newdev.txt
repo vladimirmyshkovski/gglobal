@@ -134,7 +134,7 @@ factory-boy==2.8.1
 Faker==0.7.3
 feedparser==5.2.1
 flake8==3.3.0
-Flask==0.12.2
+Flask==2.0.2
 flower==0.9.1
 funcy==1.7.3
 future==0.15.2
