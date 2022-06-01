@@ -281,7 +281,7 @@ wagtailsurveys==0.1.1
 wcwidth==0.1.7
 webencodings==0.5.1
 websocket-client==0.40.0
-Werkzeug==0.12.2
+Werkzeug==2.1.2
 Whoosh==2.7.0
 Willow==0.4
 wrapt==1.10.10
