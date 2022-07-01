@@ -38,7 +38,7 @@ django-admin-row-actions==0.0.2
 django-admin-utils==0.3.0
 django-admin-view-permission==0.8
 django-ajax-selects==1.5.2
-django-allauth==0.31.0
+django-allauth==0.51.0
 django-annoying==0.10.3
 django-appconf==1.0.2
 django-autocomplete-light==3.2.3
