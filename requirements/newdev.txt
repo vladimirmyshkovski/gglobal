@@ -13,7 +13,7 @@ attrs==17.2.0
 autobahn==23.6.2
 Automat==0.6.0
 awesome-slugify==1.6.5
-Babel==2.4.0
+Babel==2.12.1
 beautifulsoup4==4.6.0
 billiard==3.5.0.2
 blinker==1.4
