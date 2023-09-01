@@ -135,7 +135,7 @@ Faker==0.7.3
 feedparser==5.2.1
 flake8==3.3.0
 Flask==2.3.3
-flower==0.9.1
+flower==2.0.1
 funcy==1.7.3
 future==0.15.2
 geocoder==1.22.4
