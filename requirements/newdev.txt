@@ -47,7 +47,7 @@ django-avatar==3.1.0
 django-betterforms==1.1.4
 django-braces==1.11.0
 django-cachalot==1.4.1
-django-cacheops==3.2
+django-cacheops==7.0.2
 django-categories==1.5.3
 django-celery==3.2.1
 django-celery-beat==1.0.1
