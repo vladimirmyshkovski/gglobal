@@ -56,7 +56,7 @@ django-compressor==2.1.1
 django-geoposition
 django-admin-view-permission==0.8
 wagtail==5.2.3
-hiredis==0.2.0
+hiredis==2.3.2
 django-autocomplete-light==3.2.3
 django-jet==1.0.6
 django-inline-actions==1.0.0
