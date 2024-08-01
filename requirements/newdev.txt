@@ -150,7 +150,7 @@ http-ece==0.5.0
 humanize==0.5.1
 hyperframe==5.1.0
 icalendar==3.11.4
-idna==2.5
+idna==3.7
 imagesize==0.7.1
 incremental==17.5.0
 ipdb==0.10.2
