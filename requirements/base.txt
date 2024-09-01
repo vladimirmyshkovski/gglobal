@@ -76,7 +76,7 @@ django-fsm==2.5.0
 django-fsm-admin==1.2.4
 django-guardian==1.4.8
 django-hitcount==1.2.2
-django-markdownx==2.0.17
+django-markdownx==4.0.7
 django-money==0.10.2
 django-money-rates==0.3.1
 django-mptt==0.8.7
