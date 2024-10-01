@@ -215,7 +215,7 @@ pylint-common==0.2.5
 pylint-django==0.7.2
 pylint-flask==0.5
 pylint-plugin-utils==0.2.6
-pymongo==3.4.0
+pymongo==4.10.0
 pyOpenSSL==17.0.0
 pyparsing==2.2.0
 pytest==3.0.7
