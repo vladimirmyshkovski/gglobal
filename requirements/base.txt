@@ -2,10 +2,10 @@
 # like Pillow and psycopg2
 # See http://bitly.com/wheel-building-fails-CPython-35
 # Verified bug on Python 3.5.1
-wheel==0.29.0
+wheel==0.45.1
 
 # Bleeding edge Django
-django==1.10.7 # pyup: >=1.10,<1.11
+django==1.10.8 # pyup: >=1.10,<1.11
 
 # Configuration
 django-environ==0.4.1
@@ -20,14 +20,14 @@ django-crispy-forms==1.6.1
 django-model-utils==2.6.1
 
 # Images
-Pillow==4.0.0
+Pillow==11.0.0
 
 # Password storage
 argon2-cffi==16.3.0
 
 # For user registration, either via email or social
 # Well-built with regular release cycles!
-django-allauth==0.31.0
+django-allauth==65.3.0
 
 
 # Python-PostgreSQL Database Adapter
@@ -44,7 +44,7 @@ django-redis==4.7.0
 redis>=2.10.5
 
 
-celery==4.0.2
+celery==5.4.0
 
 
 
@@ -55,8 +55,8 @@ django-compressor==2.1.1
 # Your custom requirements go here
 django-geoposition
 django-admin-view-permission==0.8
-wagtail==1.10.1
-hiredis==0.2.0
+wagtail==6.3.1
+hiredis==3.0.0
 django-autocomplete-light==3.2.3
 django-jet==1.0.6
 django-inline-actions==1.0.0
@@ -76,14 +76,14 @@ django-fsm==2.5.0
 django-fsm-admin==1.2.4
 django-guardian==1.4.8
 django-hitcount==1.2.2
-django-markdownx==2.0.17
+django-markdownx==4.0.7
 django-money==0.10.2
 django-money-rates==0.3.1
 django-mptt==0.8.7
 django-model-utils==2.6.1
 django-notifications-hq==1.2
 django-turbolinks==0.5.1
-docker==2.3.0
+docker==7.1.0
 docker-compose==1.13.0
 django-ckeditor==5.2.2
 django-avatar==3.1.0
